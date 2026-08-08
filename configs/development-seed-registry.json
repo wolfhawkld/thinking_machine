@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "purpose": "exclude every inspected development/calibration seed from confirmation",
+  "seeds": [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 2000],
+  "records": [
+    {
+      "seed": 1000,
+      "status": "retired-operational-calibration",
+      "uses": [
+        "provider-canary",
+        "one-world-development-gate",
+        "attempt-B-interface-calibration"
+      ]
+    },
+    {
+      "seeds": [1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008],
+      "status": "development-pilot",
+      "uses": ["comparator-selection-and-difficulty-calibration"]
+    },
+    {
+      "seed": 2000,
+      "status": "reserved-operational-calibration",
+      "uses": ["next-one-world-development-gate"]
+    }
+  ]
+}

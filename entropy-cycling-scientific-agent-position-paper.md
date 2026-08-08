@@ -1,5 +1,11 @@
 # Entropy-Cycling Scientific Agents: A Structured Argument
 
+> **Document status:** Concept memo, not an empirical paper. Its broad framing
+> is being operationalized and tested through
+> [`experiment-spec.md`](experiment-spec.md); any evidence claim or external
+> submission should follow [`paper-outline.md`](paper-outline.md) and the
+> resulting frozen experiment rather than treating this memo as validated.
+
 ## 1. Core Thesis
 
 Human scientific creativity may depend not only on deterministic reasoning, accumulated knowledge, or explicit symbolic manipulation, but also on a dynamic cycle between high-entropy exploration and low-entropy verification.

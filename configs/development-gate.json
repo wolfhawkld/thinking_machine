@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "development-only",
+  "experiment": "adaptive-entropy-scheduling",
+  "worlds": [
+    {"seed": 2000, "depth": 3}
+  ],
+  "episode": {
+    "rounds": 5,
+    "candidates_per_round": 4,
+    "max_output_tokens": 256,
+    "archive_size": 4,
+    "max_counterexamples_per_round": 2
+  },
+  "arms": {
+    "L": {"kind": "fixed", "temperature": 0.2},
+    "M": {"kind": "fixed", "temperature": 0.7},
+    "H": {"kind": "fixed", "temperature": 1.2},
+    "A": {"kind": "sequence", "temperatures": [1.2, 0.95, 0.7, 0.45, 0.2]},
+    "C": {"kind": "sequence", "temperatures": [1.2, 0.2, 1.2, 0.2, 0.2]},
+    "MTX": {"kind": "multi", "temperatures": [0.2, 0.7, 0.7, 1.2]},
+    "E": {
+      "kind": "adaptive",
+      "initial_temperature": 1.0,
+      "minimum_temperature": 0.2,
+      "maximum_temperature": 1.2,
+      "improvement_step": -0.2,
+      "stagnation_step": 0.3
+    }
+  },
+  "model": {
+    "provider": "deepseek-openai-compatible",
+    "name": "deepseek-v4-flash",
+    "snapshot": null,
+    "structured_output": true
+  }
+}

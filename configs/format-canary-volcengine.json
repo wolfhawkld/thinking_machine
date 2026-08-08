@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "development-only",
+  "experiment": "live-format-contract-canary",
+  "worlds": [
+    {"seed": 1000, "depth": 3}
+  ],
+  "episode": {
+    "rounds": 2,
+    "candidates_per_round": 4,
+    "max_output_tokens": 256,
+    "archive_size": 4,
+    "max_counterexamples_per_round": 2
+  },
+  "arms": {
+    "MTX": {"kind": "multi", "temperatures": [0.2, 0.7, 0.7, 1.2]}
+  },
+  "model": {
+    "provider": "volcengine-agent-plan-openai-compatible",
+    "name": "deepseek-v4-flash",
+    "snapshot": null,
+    "structured_output": true
+  }
+}

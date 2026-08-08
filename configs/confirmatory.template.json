@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "template-not-frozen",
+  "instructions": "Create confirmatory.json only after the development run, then record its hash in the preregistration snapshot. Do not reuse development seeds.",
+  "primary_comparator": null,
+  "development_config_hash": null,
+  "development_results_hash": null,
+  "worlds": [],
+  "episode": {
+    "rounds": 5,
+    "candidates_per_round": 4,
+    "max_output_tokens": 256,
+    "archive_size": 4,
+    "max_counterexamples_per_round": 2
+  },
+  "arms_config_source": "configs/pilot.json",
+  "primary_endpoint": "final_selected_test_accuracy",
+  "secondary_endpoint": "world_solved",
+  "target_world_count": 40,
+  "minimum_important_effect": {
+    "absolute_accuracy": 0.05,
+    "solved_world_percentage_points": 10
+  },
+  "model": {
+    "provider": null,
+    "name": null,
+    "snapshot": null,
+    "structured_output": true
+  }
+}
