@@ -36,7 +36,10 @@ from .pilot_analysis import (
 from .runner import CANDIDATE_FORMATS
 
 
-STAGED_ANALYSIS_SCHEMA_VERSION = 1
+STAGED_ANALYSIS_SCHEMA_VERSION = 2
+TERMINAL_FAILURE_AMENDMENT_ID = (
+    "post-s3-terminal-selection-failure-20260809"
+)
 CALLS_PER_RUN = 20
 RUNS_PER_WORLD = len(PILOT_ARMS)
 CALLS_PER_WORLD = CALLS_PER_RUN * RUNS_PER_WORLD
@@ -188,6 +191,113 @@ def _candidate_issues(
     elif fingerprint is not None:
         issues.append("a system fingerprint unexpectedly appeared")
     return issues, input_tokens + output_tokens
+
+
+def _strict_terminal_selection_failure(
+    run: Mapping[str, Any],
+    candidates: Sequence[Mapping[str, Any]],
+    budget: Mapping[str, Any],
+    final_test: Mapping[str, Any],
+) -> bool:
+    """Recognize only a fully audited episode that produced no valid archive item.
+
+    This predicate was added after the immutable S3 snapshot exposed the first
+    all-invalid episode.  It does not turn the missing private-test evaluation
+    into an observed accuracy.  It permits a separately labelled zero-score
+    sensitivity analysis while the frozen primary classification remains
+    indeterminate because the terminal endpoint was not predeclared.
+    """
+
+    if len(candidates) != CALLS_PER_RUN:
+        return False
+    if any(
+        type(candidate.get("syntax_valid")) is not bool
+        or type(candidate.get("runtime_valid")) is not bool
+        for candidate in candidates
+    ):
+        return False
+    if any(
+        candidate["syntax_valid"] and candidate["runtime_valid"]
+        for candidate in candidates
+    ):
+        return False
+    if any(
+        isinstance(candidate.get("probe_score"), bool)
+        or not isinstance(candidate.get("probe_score"), (int, float))
+        or not math.isclose(
+            float(candidate["probe_score"]), 0.0, rel_tol=0.0, abs_tol=0.0
+        )
+        for candidate in candidates
+    ):
+        return False
+
+    probe = run.get("probe")
+    if not isinstance(probe, Mapping):
+        return False
+    round_best = probe.get("round_best_scores")
+    if round_best != [0.0] * 5 or any(
+        probe.get(key) is not None
+        for key in (
+            "final_selected_score",
+            "final_selected_accuracy",
+            "selected_candidate_canonical_hash",
+            "selected_candidate_behavior_hash",
+        )
+    ):
+        return False
+
+    failure_counts = run.get("failure_counts")
+    if not isinstance(failure_counts, Mapping):
+        return False
+    syntax_failures = sum(not candidate["syntax_valid"] for candidate in candidates)
+    runtime_failures = sum(
+        candidate["syntax_valid"] and not candidate["runtime_valid"]
+        for candidate in candidates
+    )
+    invalid_candidates = sum(
+        not (candidate["syntax_valid"] and candidate["runtime_valid"])
+        for candidate in candidates
+    )
+    records_with_errors = sum(bool(candidate.get("failure_codes")) for candidate in candidates)
+    if any(
+        failure_counts.get(key) != value
+        for key, value in {
+            "total_candidates": CALLS_PER_RUN,
+            "syntax_failures": syntax_failures,
+            "runtime_failures": runtime_failures,
+            "invalid_candidates": invalid_candidates,
+            "records_with_errors": records_with_errors,
+        }.items()
+    ):
+        return False
+    by_code = failure_counts.get("by_code")
+    if not isinstance(by_code, Mapping):
+        return False
+    recomputed_codes: dict[str, int] = {}
+    for candidate in candidates:
+        codes = candidate.get("failure_codes")
+        if isinstance(codes, (str, bytes)) or not isinstance(codes, Sequence):
+            return False
+        for code in codes:
+            if not isinstance(code, str):
+                return False
+            recomputed_codes[code] = recomputed_codes.get(code, 0) + 1
+    if any(value != recomputed_codes.get(str(code), 0) for code, value in by_code.items()):
+        return False
+    if any(code not in by_code for code in recomputed_codes):
+        return False
+
+    planned = budget.get("final_test_points_planned")
+    if type(planned) is not int or planned < 1:
+        return False
+    if budget.get("final_test_points_evaluated") != 0:
+        return False
+    return (
+        final_test.get("evaluated") is False
+        and final_test.get("score") is None
+        and final_test.get("accuracy") is None
+        and final_test.get("world_solved") is False
+    )
 
 
 def _boundary_signal(
@@ -393,6 +503,8 @@ def analyze_staged_snapshot(
     accuracy_by_world: dict[int, dict[str, float]] = {
         index: {} for index in range(world_count)
     }
+    terminal_selection_failures: list[dict[str, Any]] = []
+    terminal_selection_failure_counts = {arm: 0 for arm in PILOT_ARMS}
     seen_pairs: set[tuple[int, str]] = set()
     all_candidates: list[Mapping[str, Any]] = []
     fingerprints: set[str] = set()
@@ -426,8 +538,6 @@ def analyze_staged_snapshot(
             or budget.get("retry_count") != 0
             or budget.get("actual_usage_available") is not True
             or budget.get("final_test_points_planned") in {None, 0}
-            or budget.get("final_test_points_evaluated")
-            != budget.get("final_test_points_planned")
         ):
             engineering_issues.append(f"run {run_index} accounting is incomplete")
 
@@ -468,14 +578,46 @@ def analyze_staged_snapshot(
         final_test = _mapping(
             run.get("final_test"), f"snapshot.runs[{run_index}].final_test"
         )
-        if final_test.get("evaluated") is not True:
-            engineering_issues.append(f"run {run_index} has no released stage test")
-        accuracy = _number(
-            final_test.get("accuracy"),
-            f"snapshot.runs[{run_index}].final_test.accuracy",
-            minimum=0.0,
-            maximum=1.0,
+        terminal_failure = _strict_terminal_selection_failure(
+            run,
+            candidates,
+            budget,
+            final_test,
         )
+        if terminal_failure:
+            # This is an analysis score for sensitivity/partial identification,
+            # not a claim that private-test points were evaluated.
+            accuracy = 0.0
+            terminal_selection_failure_counts[str(arm)] += 1
+            terminal_selection_failures.append(
+                {
+                    "run_index": run_index,
+                    "world_index": world_index,
+                    "arm_id": str(arm),
+                    "analysis_score": 0.0,
+                    "observed_test_accuracy": None,
+                    "reason": "all_candidates_invalid_no_final_selection",
+                }
+            )
+        else:
+            if final_test.get("evaluated") is not True:
+                engineering_issues.append(
+                    f"run {run_index} has no released stage test and does not "
+                    "match the strict terminal-selection-failure shape"
+                )
+            if (
+                budget.get("final_test_points_evaluated")
+                != budget.get("final_test_points_planned")
+            ):
+                engineering_issues.append(
+                    f"run {run_index} final-test accounting is incomplete"
+                )
+            accuracy = _number(
+                final_test.get("accuracy"),
+                f"snapshot.runs[{run_index}].final_test.accuracy",
+                minimum=0.0,
+                maximum=1.0,
+            )
         test_scores[str(arm)].append(accuracy)
         accuracy_by_world[world_index][str(arm)] = accuracy
 
@@ -631,6 +773,40 @@ def analyze_staged_snapshot(
         if math.isclose(mean_accuracy[arm], strongest_value, abs_tol=1e-12)
     ]
     adaptive_delta = mean_accuracy["E"] - strongest_value
+    terminal_endpoint_gap = bool(terminal_selection_failures)
+    observed_accuracy_sums = {
+        arm: accuracy_sums[arm]
+        for arm in PILOT_ARMS
+    }
+    mean_accuracy_bounds = {
+        arm: {
+            "lower": observed_accuracy_sums[arm] / world_count,
+            "upper": (
+                observed_accuracy_sums[arm]
+                + terminal_selection_failure_counts[arm]
+            )
+            / world_count,
+        }
+        for arm in PILOT_ARMS
+    }
+    strongest_lower = max(
+        mean_accuracy_bounds[arm]["lower"] for arm in PILOT_COMPARATORS
+    )
+    strongest_upper = max(
+        mean_accuracy_bounds[arm]["upper"] for arm in PILOT_COMPARATORS
+    )
+    adaptive_delta_bounds = {
+        "lower": mean_accuracy_bounds["E"]["lower"] - strongest_upper,
+        "upper": mean_accuracy_bounds["E"]["upper"] - strongest_lower,
+    }
+    if adaptive_delta_bounds["lower"] + 1e-12 >= PRELIMINARY_POSITIVE_MARGIN:
+        partial_identification_classification = "preliminary_positive"
+    elif adaptive_delta_bounds["upper"] <= 0.0:
+        partial_identification_classification = (
+            "current_operationalization_negative"
+        )
+    else:
+        partial_identification_classification = "indeterminate"
 
     mean_tokens = {
         arm: token_totals[arm] / len(by_arm_candidates[arm])
@@ -688,7 +864,13 @@ def analyze_staged_snapshot(
     )
 
     if final_eligible:
-        if not engineering_passed:
+        if terminal_endpoint_gap:
+            classification = "indeterminate"
+            reasons = [
+                "the frozen endpoint did not define an all-invalid episode "
+                "with no final candidate"
+            ]
+        elif not engineering_passed:
             classification = "indeterminate"
             reasons = ["staged execution/accounting gate failed"]
         elif not schema_passed:
@@ -706,8 +888,16 @@ def analyze_staged_snapshot(
         else:
             classification = "indeterminate"
             reasons = ["E improved by more than zero but less than +0.05"]
-        scope = "preliminary-development-only"
-        core_status = "decided_for_current_operationalization"
+        scope = (
+            "post-snapshot-specification-gap"
+            if terminal_endpoint_gap
+            else "preliminary-development-only"
+        )
+        core_status = (
+            "not_decided_due_endpoint_specification_gap"
+            if terminal_endpoint_gap
+            else "decided_for_current_operationalization"
+        )
         completion = "complete"
     else:
         classification = "interim_descriptive_only"
@@ -722,6 +912,22 @@ def analyze_staged_snapshot(
         reasons.append(
             "actual-token matching is not claimable; report resource sensitivity"
         )
+    if terminal_endpoint_gap:
+        partial_identification_reason = {
+            "preliminary_positive": (
+                "post-snapshot partial identification clears the preliminary-positive "
+                "margin but is not the frozen primary classification"
+            ),
+            "current_operationalization_negative": (
+                "post-snapshot partial identification is directionally negative but "
+                "is not the frozen primary classification"
+            ),
+            "indeterminate": (
+                "post-snapshot partial identification does not determine the result "
+                "and is not the frozen primary classification"
+            ),
+        }[partial_identification_classification]
+        reasons.append(partial_identification_reason)
 
     recoverability = _recoverability(
         world_count=world_count,
@@ -749,7 +955,7 @@ def analyze_staged_snapshot(
         "classification_scope": scope,
         "classification_reasons": reasons,
         "boundary_signal": None if final_eligible else signal,
-        "final_classification_eligible": final_eligible,
+        "final_classification_eligible": final_eligible and not terminal_endpoint_gap,
         "pilot_completion_status": completion,
         "core_hypothesis_status": core_status,
         "optional_stopping_present": True,
@@ -763,6 +969,7 @@ def analyze_staged_snapshot(
             "cumulative_logical_calls": expected_calls,
             "inference_scope": scope,
             "provisional_comparator_not_frozen": not final_eligible,
+            "frozen_eight_world_boundary_reached": final_eligible,
         },
         "thresholds": {
             "overall_schema_adherence": OVERALL_SCHEMA_THRESHOLD,
@@ -796,6 +1003,9 @@ def analyze_staged_snapshot(
         },
         "performance": {
             "mean_hidden_test_accuracy_by_arm": mean_accuracy,
+            "contains_post_snapshot_terminal_zero_analysis_scores": (
+                terminal_endpoint_gap
+            ),
             "strongest_nonadaptive_comparators": strongest,
             "strongest_nonadaptive_mean": strongest_value,
             "E_minus_strongest_nonadaptive": adaptive_delta,
@@ -803,6 +1013,48 @@ def analyze_staged_snapshot(
             "E_minus_each_frozen_comparator": {
                 arm: mean_accuracy["E"] - mean_accuracy[arm]
                 for arm in PILOT_COMPARATORS
+            },
+        },
+        "analysis_specification": {
+            "frozen_terminal_endpoint_complete": not terminal_endpoint_gap,
+            "amendment_id": (
+                TERMINAL_FAILURE_AMENDMENT_ID if terminal_endpoint_gap else None
+            ),
+            "rule_timing": (
+                "post_snapshot_before_first_successful_s3_analysis"
+                if terminal_endpoint_gap
+                else "not_applied"
+            ),
+            "original_snapshot_unchanged": True,
+            "zero_is_observed_private_test_accuracy": False,
+        },
+        "selection_failures": {
+            "terminal_run_count": len(terminal_selection_failures),
+            "per_arm_run_count": terminal_selection_failure_counts,
+            "runs": terminal_selection_failures,
+            "terminal_zero_analysis_score": 0.0,
+        },
+        "post_hoc_partial_identification": {
+            "classification": partial_identification_classification,
+            "classification_is_frozen_primary_result": False,
+            "terminal_score_bounds": [0.0, 1.0],
+            "mean_accuracy_bounds_by_arm": mean_accuracy_bounds,
+            "strongest_nonadaptive_mean_bounds": {
+                "lower": strongest_lower,
+                "upper": strongest_upper,
+            },
+            "E_minus_strongest_nonadaptive_bounds": adaptive_delta_bounds,
+            "terminal_zero_sensitivity": {
+                "classification": (
+                    "preliminary_positive"
+                    if adaptive_delta + 1e-12 >= PRELIMINARY_POSITIVE_MARGIN
+                    else "current_operationalization_negative"
+                    if adaptive_delta <= 0.0
+                    else "indeterminate"
+                ),
+                "mean_analysis_score_by_arm": mean_accuracy,
+                "strongest_nonadaptive_comparators": strongest,
+                "E_minus_strongest_nonadaptive": adaptive_delta,
             },
         },
         "nonoverlapping_batch_diagnostics": batch_metrics,
@@ -833,6 +1085,9 @@ def analyze_staged_snapshot(
             "mode": source.get("mode"),
             "provider_profile": provider_profile,
             "result_sha256": source_result_sha256,
+            "analysis_implementation_sha256": hashlib.sha256(
+                Path(__file__).read_bytes()
+            ).hexdigest(),
         },
         "caveat": (
             "Worlds are execution-independent but depth-stratified, cumulative "

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-08-09T11:44:11Z",
+  "campaign": "volcengine-deepseek-v4-development-pilot-staged-v2-campaign-20260809",
+  "status": "completed-development-study",
+  "primary_result": {
+    "classification": "indeterminate",
+    "reason": "post-snapshot terminal-endpoint specification gap",
+    "snapshot": {
+      "path": "artifacts/volcengine-deepseek-v4-development-pilot-staged-v2-s3-8world-snapshot-20260809.json",
+      "sha256": "1f4ff6a951d895a08139a8d6dff367b2ae002ed0363a1c3c7e4c90f628aea0f2"
+    },
+    "analysis": {
+      "path": "artifacts/volcengine-deepseek-v4-development-pilot-staged-v2-s3-8world-analysis-schema2-r2-20260809.json",
+      "sha256": "9827002fb9b8bb84dd27c275adddb12b939490b47ad5f6103af790e563a7b060",
+      "implementation_sha256": "c68a6da5d0aadaeaf9e7cca301572f93f815248d492b71f8e1fc558578aa0222"
+    }
+  },
+  "post_hoc_oracle_diagnostic": {
+    "scope": "development-diagnostic-only",
+    "artifact": {
+      "path": "artifacts/volcengine-deepseek-v4-development-pilot-staged-v2-s3-oracle-diagnostic-r2-20260809.json",
+      "sha256": "a8f1d06763714c17e2decca591c755458af9633d4e8f0bf61b443a3b70c8905f"
+    },
+    "implementation_sha256": "96094b546959365122ee1b4f82f50690c968b06a31bac185695e2a2459637559",
+    "spec_sha256": "e4d6e291d7065b18ac3d983847c98d2f73fa0ef2fcc074a4354fa8ce11007bb1",
+    "selected_E_correct": 146,
+    "selected_C_correct": 147,
+    "oracle_E_correct": 161,
+    "oracle_C_correct": 167,
+    "common_denominator": 512,
+    "selector_only_explanation_supported": false
+  },
+  "notes": [
+    "Artifact payloads are intentionally ignored by Git; this tracked registry binds their exact local bytes.",
+    "The Oracle diagnostic is post-outcome and cannot change the frozen primary classification.",
+    "Any future controller or interface revision starts a new development campaign on untouched worlds."
+  ]
+}

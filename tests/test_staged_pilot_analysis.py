@@ -77,6 +77,36 @@ def _stage_snapshot(world_count: int) -> dict:
     return source
 
 
+def _make_terminal_selection_failure(run: dict) -> None:
+    for candidate in run["candidates"]:
+        candidate["syntax_valid"] = False
+        candidate["runtime_valid"] = False
+        candidate["probe_score"] = 0.0
+        candidate["failure_codes"] = ["parse_or_grammar"]
+    run["probe"] = {
+        "round_best_scores": [0.0] * 5,
+        "final_selected_score": None,
+        "final_selected_accuracy": None,
+        "selected_candidate_canonical_hash": None,
+        "selected_candidate_behavior_hash": None,
+    }
+    run["failure_counts"] = {
+        "total_candidates": 20,
+        "syntax_failures": 20,
+        "runtime_failures": 0,
+        "invalid_candidates": 20,
+        "records_with_errors": 20,
+        "by_code": {"parse_or_grammar": 20},
+    }
+    run["budget"]["final_test_points_evaluated"] = 0
+    run["final_test"] = {
+        "evaluated": False,
+        "score": None,
+        "accuracy": None,
+        "world_solved": False,
+    }
+
+
 class StagedPilotAnalysisTests(unittest.TestCase):
     def test_two_world_snapshot_is_promising_but_never_final_positive(self) -> None:
         result = analyze_staged_snapshot(_stage_snapshot(2))
@@ -201,6 +231,80 @@ class StagedPilotAnalysisTests(unittest.TestCase):
             result["resource_sensitivity"]["primary_estimand"],
             "first-complete-episode-under-frozen-recovery-policy",
         )
+
+    def test_all_invalid_terminal_run_is_disclosed_not_silently_imputed(self) -> None:
+        source = _stage_snapshot(8)
+        run = next(
+            item
+            for item in source["runs"]
+            if item["world"]["index"] == 5 and item["arm_id"] == "MTX"
+        )
+        _make_terminal_selection_failure(run)
+
+        result = analyze_staged_snapshot(source)
+
+        self.assertEqual(result["classification"], "indeterminate")
+        self.assertFalse(result["final_classification_eligible"])
+        self.assertTrue(result["engineering"]["passed"])
+        self.assertEqual(result["selection_failures"]["terminal_run_count"], 1)
+        self.assertEqual(
+            result["selection_failures"]["per_arm_run_count"]["MTX"], 1
+        )
+        self.assertFalse(
+            result["analysis_specification"]["frozen_terminal_endpoint_complete"]
+        )
+        self.assertFalse(
+            result["post_hoc_partial_identification"][
+                "classification_is_frozen_primary_result"
+            ]
+        )
+
+    def test_terminal_gap_reason_tracks_partial_identification_result(self) -> None:
+        cases = (
+            ("preliminary_positive", 0.80, 0.10, "clears the preliminary-positive"),
+            (
+                "current_operationalization_negative",
+                0.10,
+                0.30,
+                "directionally negative",
+            ),
+            ("indeterminate", 0.11, 0.10, "does not determine the result"),
+        )
+        for expected, adaptive, fixed_cycle, expected_text in cases:
+            with self.subTest(expected=expected):
+                source = _stage_snapshot(8)
+                terminal_run = next(
+                    item
+                    for item in source["runs"]
+                    if item["world"]["index"] == 5 and item["arm_id"] == "MTX"
+                )
+                _make_terminal_selection_failure(terminal_run)
+                for run in source["runs"]:
+                    if run is terminal_run:
+                        continue
+                    run["final_test"]["accuracy"] = {
+                        "E": adaptive,
+                        "C": fixed_cycle,
+                    }.get(run["arm_id"], 0.0)
+
+                result = analyze_staged_snapshot(source)
+
+                self.assertEqual(
+                    result["post_hoc_partial_identification"]["classification"],
+                    expected,
+                )
+                self.assertIn(expected_text, result["classification_reasons"][-1])
+
+        malformed = copy.deepcopy(source)
+        malformed_run = next(
+            item
+            for item in malformed["runs"]
+            if item["world"]["index"] == 5 and item["arm_id"] == "MTX"
+        )
+        malformed_run["candidates"][0]["syntax_valid"] = True
+        malformed_run["candidates"][0]["runtime_valid"] = True
+        with self.assertRaises(StagedPilotAnalysisError):
+            analyze_staged_snapshot(malformed)
 
 
 if __name__ == "__main__":
