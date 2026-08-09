@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 import unittest
+from unittest import mock
 
 from src.prompts import build_round_prompt
 from src.runner import (
@@ -20,7 +22,11 @@ from src.runner import (
     run_smoke_episode,
 )
 from src.verifier import Verifier
-from src.policies import AdaptiveTemperaturePolicy as CanonicalAdaptivePolicy
+from src.dsl import to_sexpr
+from src.policies import (
+    AdaptiveTemperaturePolicy as CanonicalAdaptivePolicy,
+    ValidityNoveltyAdaptiveTemperaturePolicy,
+)
 
 
 @dataclass(frozen=True)
@@ -148,6 +154,19 @@ class InternalTypeErrorVerifier:
     def verify_probe(self, candidate, points=None, **kwargs):
         self.calls += 1
         raise TypeError("verifier implementation failed")
+
+
+class ScoredExpressionVerifier:
+    def __init__(self, scores: dict[str, float]) -> None:
+        self.scores = scores
+
+    def verify_probe(self, candidate, points=None, **kwargs):
+        del points, kwargs
+        return VerificationResult(score=self.scores[to_sexpr(candidate)], valid=True)
+
+    def verify_test(self, candidate, points=None, **kwargs):
+        del candidate, points, kwargs
+        return VerificationResult(score=0.987654321, valid=True)
 
 
 class RunnerTests(unittest.TestCase):
@@ -351,6 +370,94 @@ class RunnerTests(unittest.TestCase):
         self.assertTrue(all(not record.syntax_valid for record in result.rounds[0]))
         self.assertFalse(policy.history[0]["improved"])
         self.assertEqual(len(result.archive), 1)
+
+    def test_e2_all_invalid_round_decreases_temperature(self) -> None:
+        generator = SmokeTestGenerator(script=["not-an-expression"] * 4 + [TARGET] * 4)
+        policy = ValidityNoveltyAdaptiveTemperaturePolicy()
+
+        result = run_episode(
+            _world(),
+            generator,
+            policy=policy,
+            rounds=2,
+            candidates_per_round=4,
+        )
+
+        self.assertEqual(result.temperatures, [1.0, 0.8])
+        self.assertEqual(policy.history[0]["valid_candidate_count"], 0)
+        self.assertEqual(policy.history[0]["new_behavior_count"], 0)
+        self.assertEqual(policy.history[0]["decision_reason"], "low_validity")
+
+    def test_e2_behavioral_novelty_is_deduplicated_and_quality_gated(self) -> None:
+        first_round = (
+            "(var x1)",
+            "(add (var x1) (const 0))",
+            "(var x2)",
+            "(var x3)",
+        )
+        second_round = (
+            "(sub (var x1) (const 0))",
+            "(neg (var x2))",
+            "(neg (var x3))",
+            "(add (var x2) (const 0))",
+        )
+        scores = {
+            "(var x1)": 0.5,
+            "(add (const 0) (var x1))": 0.5,
+            "(var x2)": 0.25,
+            "(var x3)": 0.0,
+            "(sub (var x1) (const 0))": 0.5,
+            "(neg (var x2))": 5.0 / 12.0,
+            "(neg (var x3))": 1.0 / 3.0,
+            "(add (const 0) (var x2))": 0.25,
+        }
+        generator = SmokeTestGenerator(script=first_round + second_round)
+        policy = ValidityNoveltyAdaptiveTemperaturePolicy()
+
+        result = run_episode(
+            _world(),
+            generator,
+            verifier=ScoredExpressionVerifier(scores),
+            policy=policy,
+            rounds=2,
+            candidates_per_round=4,
+        )
+
+        self.assertEqual(result.temperatures, [1.0, 0.8])
+        first, second = policy.history
+        self.assertEqual(first["new_behavior_count"], 3)
+        self.assertEqual(first["useful_new_behavior_count"], 2)
+        self.assertEqual(first["decision_reason"], "probe_improved")
+        self.assertEqual(second["new_behavior_count"], 2)
+        self.assertEqual(second["useful_new_behavior_count"], 1)
+        self.assertEqual(second["decision_reason"], "useful_novelty")
+        self.assertEqual(
+            set(generator.calls[4]["state"]),
+            {"round", "best_probe_score", "improved"},
+        )
+        encoded_history = json.dumps(result.policy_history, sort_keys=True)
+        for forbidden in (
+            "candidate_expression",
+            '"candidate":',
+            "behavior_hash",
+            "canonical_hash",
+            "counterexample",
+            "prediction",
+            "test",
+        ):
+            self.assertNotIn(forbidden, encoded_history)
+
+    def test_e2_fails_closed_when_valid_behavior_hash_is_unavailable(self) -> None:
+        policy = ValidityNoveltyAdaptiveTemperaturePolicy()
+        with mock.patch("src.runner._behavior_hash", return_value=""):
+            with self.assertRaisesRegex(ValueError, "behavior hash"):
+                run_episode(
+                    _world(),
+                    SmokeTestGenerator(),
+                    policy=policy,
+                    rounds=1,
+                    candidates_per_round=4,
+                )
 
     def test_reused_stateful_policy_is_reset_for_each_episode(self) -> None:
         policy = CanonicalAdaptivePolicy()

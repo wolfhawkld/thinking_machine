@@ -23,10 +23,13 @@ from types import MappingProxyType
 from typing import Any
 
 from .policies import (
+    ADAPTIVE_CONTROLLER_E2,
+    ADAPTIVE_CONTROLLER_V1,
     ADAPTIVE_DECREASE,
     ADAPTIVE_INCREASE,
     ADAPTIVE_INITIAL,
     ARM_IDS,
+    E2_DECISION_PRECEDENCE,
     HIGH_TEMPERATURE,
     LOW_TEMPERATURE,
     SCHEDULES,
@@ -188,6 +191,7 @@ def _validate_arm(
         "C": "sequence",
         "MTX": "multi",
         "E": "adaptive",
+        "E2": "adaptive",
     }
     if kind != expected_kinds[arm_id]:
         raise ConfigError(f"arms.{arm_id}.kind must be {expected_kinds[arm_id]!r}")
@@ -247,6 +251,75 @@ def _validate_arm(
         raise ConfigError(f"arms.{arm_id}.stagnation_step must be positive")
     if not low <= initial <= high:
         raise ConfigError(f"arms.{arm_id} temperatures must satisfy minimum <= initial <= maximum")
+    default_controller_version = (
+        ADAPTIVE_CONTROLLER_E2 if arm_id == "E2" else ADAPTIVE_CONTROLLER_V1
+    )
+    controller_version = spec.get(
+        "controller_version",
+        default_controller_version,
+    )
+    if arm_id == "E2" and controller_version != ADAPTIVE_CONTROLLER_E2:
+        raise ConfigError(
+            f"arms.E2.controller_version must be {ADAPTIVE_CONTROLLER_E2!r}"
+        )
+    if controller_version not in {ADAPTIVE_CONTROLLER_V1, ADAPTIVE_CONTROLLER_E2}:
+        raise ConfigError(
+            f"arms.{arm_id}.controller_version must be "
+            f"{ADAPTIVE_CONTROLLER_V1!r} or {ADAPTIVE_CONTROLLER_E2!r}"
+        )
+    e2_fields = (
+        "minimum_valid_candidates",
+        "minimum_useful_new_behaviors",
+        "useful_novelty_score_tolerance",
+        "decision_precedence",
+    )
+    if controller_version == ADAPTIVE_CONTROLLER_V1:
+        unexpected = [field for field in e2_fields if field in spec]
+        if unexpected:
+            raise ConfigError(
+                f"arms.{arm_id} E2 fields require "
+                f"controller_version={ADAPTIVE_CONTROLLER_E2!r}: {unexpected}"
+            )
+        return
+    minimum_valid = _integer(
+        _required(spec, "minimum_valid_candidates", f"arms.{arm_id}"),
+        f"arms.{arm_id}.minimum_valid_candidates",
+        minimum=1,
+    )
+    if minimum_valid > candidates_per_round:
+        raise ConfigError(
+            f"arms.{arm_id}.minimum_valid_candidates cannot exceed "
+            "episode.candidates_per_round"
+        )
+    minimum_useful = _integer(
+        _required(spec, "minimum_useful_new_behaviors", f"arms.{arm_id}"),
+        f"arms.{arm_id}.minimum_useful_new_behaviors",
+        minimum=1,
+    )
+    if minimum_useful > candidates_per_round:
+        raise ConfigError(
+            f"arms.{arm_id}.minimum_useful_new_behaviors cannot exceed "
+            "episode.candidates_per_round"
+        )
+    tolerance = _number(
+        _required(spec, "useful_novelty_score_tolerance", f"arms.{arm_id}"),
+        f"arms.{arm_id}.useful_novelty_score_tolerance",
+    )
+    if tolerance > 1.0:
+        raise ConfigError(
+            f"arms.{arm_id}.useful_novelty_score_tolerance must be <= 1"
+        )
+    if "decision_precedence" in spec:
+        precedence = spec["decision_precedence"]
+        if (
+            isinstance(precedence, (str, bytes))
+            or not isinstance(precedence, Sequence)
+            or tuple(precedence) != E2_DECISION_PRECEDENCE
+        ):
+            raise ConfigError(
+                f"arms.{arm_id}.decision_precedence must exactly match "
+                f"{list(E2_DECISION_PRECEDENCE)!r}"
+            )
 
 
 def _validate_confirmatory_freeze(config: Mapping[str, Any]) -> None:
@@ -445,13 +518,30 @@ def _policy_from_config(arm_id: str, spec: Mapping[str, Any]) -> Any:
     if kind == "multi":
         return build_policy(arm_id, temperatures=tuple(spec["temperatures"]))
     if kind == "adaptive":
+        controller_version = spec.get(
+            "controller_version",
+            ADAPTIVE_CONTROLLER_E2 if arm_id == "E2" else ADAPTIVE_CONTROLLER_V1,
+        )
+        e2_kwargs: dict[str, Any] = {}
+        if controller_version == ADAPTIVE_CONTROLLER_E2:
+            e2_kwargs = {
+                "minimum_valid_candidates": int(spec["minimum_valid_candidates"]),
+                "minimum_useful_new_behaviors": int(
+                    spec["minimum_useful_new_behaviors"]
+                ),
+                "useful_novelty_score_tolerance": float(
+                    spec["useful_novelty_score_tolerance"]
+                ),
+            }
         return build_policy(
             arm_id,
+            controller_version=controller_version,
             initial=float(spec["initial_temperature"]),
             low=float(spec["minimum_temperature"]),
             high=float(spec["maximum_temperature"]),
             decrease=abs(float(spec["improvement_step"])),
             increase=float(spec["stagnation_step"]),
+            **e2_kwargs,
         )
     return build_policy(arm_id)
 
@@ -460,10 +550,17 @@ def _arm_execution_order(
     configured_arms: Mapping[str, Any],
     world_index: int,
 ) -> tuple[str, ...]:
-    """Return the frozen cyclic Latin-square row for one world."""
+    """Return a cyclic row while preserving the frozen legacy E position."""
 
     present = set(configured_arms)
-    ordered = tuple(arm_id for arm_id in ARM_EXECUTION_BASE_ORDER if arm_id in present)
+    base_order = list(ARM_EXECUTION_BASE_ORDER)
+    if "E2" in present:
+        e_index = base_order.index("E")
+        if "E" in present:
+            base_order.insert(e_index + 1, "E2")
+        else:
+            base_order[e_index] = "E2"
+    ordered = tuple(arm_id for arm_id in base_order if arm_id in present)
     if len(ordered) != len(configured_arms):
         raise ConfigError("configured arms cannot be mapped to frozen execution order")
     if not ordered:
@@ -632,6 +729,46 @@ def _candidate_expression(candidate: Any) -> str:
         return str(candidate)
 
 
+_E2_CONTROLLER_TRACE_FIELDS = (
+    "controller_version",
+    "round_index",
+    "round_best",
+    "best_score",
+    "pre_round_best_score",
+    "improved",
+    "planned_candidate_count",
+    "valid_candidate_count",
+    "new_behavior_count",
+    "useful_new_behavior_count",
+    "decision",
+    "decision_reason",
+    "previous_temperature",
+    "next_temperature",
+)
+
+
+def _sanitized_controller_trace(result: EpisodeResult) -> list[dict[str, Any]]:
+    """Whitelist the scalar E2 trace without serializing arbitrary policy state."""
+
+    trace: list[dict[str, Any]] = []
+    for raw in result.policy_history:
+        if raw.get("controller_version") != ADAPTIVE_CONTROLLER_E2:
+            continue
+        missing = [field for field in _E2_CONTROLLER_TRACE_FIELDS if field not in raw]
+        if missing:
+            raise ValueError(f"E2 controller trace is missing required fields: {missing}")
+        record: dict[str, Any] = {}
+        for field in _E2_CONTROLLER_TRACE_FIELDS:
+            value = raw[field]
+            if type(value) not in {str, int, float, bool}:
+                raise TypeError(f"E2 controller trace field {field} must be scalar")
+            if isinstance(value, float) and not math.isfinite(value):
+                raise ValueError(f"E2 controller trace field {field} must be finite")
+            record[field] = value
+        trace.append(record)
+    return trace
+
+
 def _run_summary(
     *,
     context: GeneratorContext,
@@ -658,7 +795,7 @@ def _run_summary(
     candidates_per_round = int(context.episode["candidates_per_round"])
     planned_calls = rounds * candidates_per_round
     usage_budget = _usage_budget(result)
-    return {
+    summary = {
         "run_id": run_id,
         "arm_id": arm_id,
         "arm_hash": arm_hash,
@@ -751,6 +888,12 @@ def _run_summary(
         ],
         "failure_counts": _failure_counts(result),
     }
+    controller_trace = _sanitized_controller_trace(result)
+    if controller_trace:
+        # E1 and all historical configs retain their byte-for-byte summary
+        # shape.  Only an explicitly configured E2 run receives this field.
+        summary["controller_trace"] = controller_trace
+    return summary
 
 
 def _token_fairness(runs: Sequence[Mapping[str, Any]]) -> dict[str, Any]:

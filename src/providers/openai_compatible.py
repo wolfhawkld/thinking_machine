@@ -13,6 +13,7 @@ never placed in request JSON or returned provider envelopes.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import socket
@@ -52,6 +53,17 @@ _PROTECTED_REQUEST_FIELDS = frozenset(
 # valid tuple-like AST by downstream compatibility parsers.
 _INVALID_CANDIDATE_SENTINEL = "__INVALID_JSON_CANDIDATE_SCHEMA__"
 
+_RETRYABLE_NETWORK_CATEGORIES = frozenset(
+    {
+        "timeout",
+        "dns",
+        "tls",
+        "connection_refused",
+        "connection_reset",
+        "network_io",
+    }
+)
+
 
 class OpenAICompatibleError(RuntimeError):
     """Base class for safe, normalized provider-adapter failures."""
@@ -61,11 +73,12 @@ class TransportError(OpenAICompatibleError):
     """Safe transport failure with a closed recovery classification.
 
     ``delivery_ambiguous`` is deliberately conservative.  A true value means
-    the caller cannot prove that the provider did not receive the request; it
-    may permit abandoning and restarting an entire predeclared transaction,
-    but never retrying the individual logical slot.  A false value identifies
-    a local transport/configuration contract failure and is campaign-fatal.
-    Raw exception text is never retained.
+    the caller cannot prove that the provider did not receive the request; a
+    false value identifies a local transport/configuration contract failure.
+    The legacy ``recovery_scope`` and the identical-request physical-attempt
+    classification are intentionally separate so an external, versioned
+    transaction protocol can choose its recovery unit. Raw exception text is
+    never retained.
     """
 
     __slots__ = ("category", "delivery_ambiguous")
@@ -103,6 +116,18 @@ class TransportError(OpenAICompatibleError):
     def recovery_scope(self) -> str:
         return "restart_whole_shard" if self.delivery_ambiguous else "campaign_fatal"
 
+    @property
+    def retryable_physical_attempt(self) -> bool:
+        """Whether a caller may retry the identical prepared request.
+
+        This is classification only; the provider adapter never performs the
+        retry itself.  In particular, arbitrary exceptions raised by an
+        injected transport and local request/transport contract failures are
+        excluded from this closed network-failure set.
+        """
+
+        return self.category in _RETRYABLE_NETWORK_CATEGORIES
+
 
 class HTTPStatusError(OpenAICompatibleError):
     """The provider returned a non-successful HTTP status."""
@@ -110,6 +135,12 @@ class HTTPStatusError(OpenAICompatibleError):
     def __init__(self, status_code: int) -> None:
         self.status_code = status_code
         super().__init__(f"chat completions request failed with HTTP status {status_code}")
+
+    @property
+    def retryable_physical_attempt(self) -> bool:
+        """Classify only HTTP 429 and 5xx for identical-request retry."""
+
+        return self.status_code == 429 or 500 <= self.status_code <= 599
 
 
 class ResponsePayloadError(OpenAICompatibleError):
@@ -126,6 +157,83 @@ class HTTPResponse:
 
     status: int
     body: bytes
+
+
+class PreparedRequest:
+    """Opaque, immutable Chat Completions request body prepared for one generator.
+
+    A prepared request exists so an external transaction coordinator can send
+    byte-for-byte identical request bodies across physical attempts.  It is an
+    in-memory capability, not a durable artifact: ordinary representations
+    reveal only a digest and size, copying/pickling are rejected, and it stores
+    neither the endpoint nor an Authorization header.
+    """
+
+    __slots__ = ("__body", "__body_sha256", "__owner_token", "__size_bytes")
+
+    def __new__(cls, *args: Any, **kwargs: Any) -> PreparedRequest:
+        del args, kwargs
+        raise TypeError(
+            "PreparedRequest objects are created by "
+            "OpenAICompatibleGenerator.prepare_request()"
+        )
+
+    @classmethod
+    def _from_body(cls, body: bytes, owner_token: object) -> PreparedRequest:
+        if not isinstance(body, bytes):
+            raise TypeError("prepared request body must be bytes")
+        value = object.__new__(cls)
+        object.__setattr__(value, "_PreparedRequest__body", body)
+        object.__setattr__(
+            value,
+            "_PreparedRequest__body_sha256",
+            hashlib.sha256(body).hexdigest(),
+        )
+        object.__setattr__(value, "_PreparedRequest__owner_token", owner_token)
+        object.__setattr__(value, "_PreparedRequest__size_bytes", len(body))
+        return value
+
+    @property
+    def body_sha256(self) -> str:
+        return self.__body_sha256
+
+    @property
+    def size_bytes(self) -> int:
+        return self.__size_bytes
+
+    def _body_for(self, owner_token: object) -> bytes:
+        if owner_token is not self.__owner_token:
+            raise ValueError("prepared request belongs to a different generator")
+        return self.__body
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        del name, value
+        raise AttributeError("PreparedRequest is immutable")
+
+    def __repr__(self) -> str:
+        return (
+            f"{type(self).__name__}(body_sha256={self.__body_sha256!r}, "
+            f"size_bytes={self.__size_bytes})"
+        )
+
+    __str__ = __repr__
+
+    def __copy__(self) -> Any:
+        raise TypeError("PreparedRequest cannot be copied or serialized")
+
+    def __deepcopy__(self, memo: Any) -> Any:
+        del memo
+        raise TypeError("PreparedRequest cannot be copied or serialized")
+
+    def __getstate__(self) -> Any:
+        raise TypeError("PreparedRequest cannot be copied or serialized")
+
+    def __reduce__(self) -> Any:
+        raise TypeError("PreparedRequest cannot be copied or serialized")
+
+    def __reduce_ex__(self, protocol: int) -> Any:
+        del protocol
+        raise TypeError("PreparedRequest cannot be copied or serialized")
 
 
 @runtime_checkable
@@ -465,12 +573,13 @@ class OpenAICompatibleGenerator:
     __slots__ = (
         "_api_key",
         "_clock",
+        "_endpoint",
         "_extra_body",
         "_model",
+        "_owner_token",
+        "_seed_supported",
+        "_timeout",
         "_transport",
-        "endpoint",
-        "seed_supported",
-        "timeout",
     )
 
     def __init__(
@@ -486,16 +595,16 @@ class OpenAICompatibleGenerator:
         transport: HTTPTransport | Callable[..., HTTPResponse] | None = None,
         clock: Callable[[], float] = time.perf_counter,
     ) -> None:
-        self.endpoint = normalize_chat_completions_url(base_url)
+        self._endpoint = normalize_chat_completions_url(base_url)
         self._api_key = _Secret(_non_empty_string(api_key, "api_key"))
         self._model = _non_empty_string(model, "model")
         if type(seed_supported) is not bool:
             raise TypeError("seed_supported must be a boolean")
-        self.seed_supported = seed_supported
+        self._seed_supported = seed_supported
         if isinstance(timeout, bool) or not isinstance(timeout, (int, float)):
             raise TypeError("timeout must be a positive finite number")
-        self.timeout = float(timeout)
-        if not math.isfinite(self.timeout) or self.timeout <= 0:
+        self._timeout = float(timeout)
+        if not math.isfinite(self._timeout) or self._timeout <= 0:
             raise ValueError("timeout must be a positive finite number")
         self._extra_body = _static_body(extra_body, request_overrides)
         self._transport = transport if transport is not None else UrllibHTTPTransport()
@@ -506,10 +615,64 @@ class OpenAICompatibleGenerator:
         if not callable(clock):
             raise TypeError("clock must be callable")
         self._clock = clock
+        self._owner_token = object()
 
     @property
     def model(self) -> str:
         return self._model
+
+    @property
+    def endpoint(self) -> str:
+        return self._endpoint
+
+    @property
+    def seed_supported(self) -> bool:
+        return self._seed_supported
+
+    @property
+    def timeout(self) -> float:
+        return self._timeout
+
+    @property
+    def transport_profile(self) -> str:
+        """Closed operational profile without exposing an injected transport."""
+
+        return (
+            "stdlib-urllib-one-shot-v1"
+            if type(self._transport) is UrllibHTTPTransport
+            else "injected-test-transport"
+        )
+
+    def _persistence_forbidden_values(self) -> tuple[str, str]:
+        """Return live-only values trusted persistence code must never write."""
+
+        return (self._api_key.reveal_for_authorization(), self.endpoint)
+
+    def sanitized_request_contract(self) -> dict[str, Any]:
+        """Return a secret-free binding for a versioned external coordinator.
+
+        Endpoint and static request extensions are represented only by hashes;
+        the API key is neither returned nor incorporated.  This is not a retry
+        policy and does not expose the prepared request body.
+        """
+
+        static_body = json.dumps(
+            dict(self._extra_body),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+        return {
+            "adapter": "openai-compatible-chat-completions-v1",
+            "endpoint_sha256": hashlib.sha256(self.endpoint.encode("utf-8")).hexdigest(),
+            "request_model": self._model,
+            "seed_supported": self.seed_supported,
+            "timeout_seconds": self.timeout,
+            "static_request_extensions_sha256": hashlib.sha256(static_body).hexdigest(),
+            "response_format": "json_object",
+            "transport_profile": self.transport_profile,
+        }
 
     def __repr__(self) -> str:
         return (
@@ -544,7 +707,7 @@ class OpenAICompatibleGenerator:
             )
         return response
 
-    def generate(
+    def prepare_request(
         self,
         prompt: str,
         *,
@@ -554,8 +717,8 @@ class OpenAICompatibleGenerator:
         candidate_index: int = 0,
         seed: int | None = None,
         state: Mapping[str, Any] | None = None,
-    ) -> GenerationResponse:
-        """Issue exactly one request and return a validated usage envelope."""
+    ) -> PreparedRequest:
+        """Validate and prepare one request without performing network I/O."""
 
         del round_index, candidate_index, state
         if not isinstance(prompt, str) or not prompt:
@@ -586,6 +749,19 @@ class OpenAICompatibleGenerator:
             allow_nan=False,
             separators=(",", ":"),
         ).encode("utf-8")
+        return PreparedRequest._from_body(body, self._owner_token)
+
+    def send_prepared(self, prepared: PreparedRequest) -> GenerationResponse:
+        """Send one prepared request exactly once and validate its response.
+
+        This method deliberately contains no retry loop.  A transaction
+        coordinator may call it again with the same :class:`PreparedRequest`
+        after applying an external, preregistered recovery policy.
+        """
+
+        if type(prepared) is not PreparedRequest:
+            raise TypeError("prepared must be a PreparedRequest")
+        body = prepared._body_for(self._owner_token)
         headers = MappingProxyType(
             {
                 "Authorization": (
@@ -649,6 +825,30 @@ class OpenAICompatibleGenerator:
             candidate_format=candidate_format,
             provider_fingerprint=provider_fingerprint,
         )
+
+    def generate(
+        self,
+        prompt: str,
+        *,
+        temperature: float,
+        max_output_tokens: int = DEFAULT_MAX_OUTPUT_TOKENS,
+        round_index: int = 0,
+        candidate_index: int = 0,
+        seed: int | None = None,
+        state: Mapping[str, Any] | None = None,
+    ) -> GenerationResponse:
+        """Prepare, issue exactly one request, and validate its response."""
+
+        prepared = self.prepare_request(
+            prompt,
+            temperature=temperature,
+            max_output_tokens=max_output_tokens,
+            round_index=round_index,
+            candidate_index=candidate_index,
+            seed=seed,
+            state=state,
+        )
+        return self.send_prepared(prepared)
 
 
 class OpenAICompatibleGeneratorFactory:
@@ -767,6 +967,7 @@ __all__ = [
     "OpenAICompatibleGenerator",
     "OpenAICompatibleGeneratorFactory",
     "OpenAICompatibleProvider",
+    "PreparedRequest",
     "ResponsePayloadError",
     "TransportError",
     "UrllibHTTPTransport",

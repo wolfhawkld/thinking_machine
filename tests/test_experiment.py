@@ -76,6 +76,27 @@ def small_config() -> dict:
     }
 
 
+def e2_config() -> dict:
+    config = small_config()
+    config["arms"] = {"E2": dict(config["arms"]["E"])}
+    config["arms"]["E2"].update(
+        {
+            "controller_version": "validity-novelty-v2",
+            "minimum_valid_candidates": 2,
+            "minimum_useful_new_behaviors": 1,
+            "useful_novelty_score_tolerance": 1.0 / 12.0,
+            "decision_precedence": [
+                "low_validity_decrease",
+                "probe_improved_decrease",
+                "probe_ceiling_hold",
+                "useful_novelty_hold",
+                "stale_search_increase",
+            ],
+        }
+    )
+    return config
+
+
 def secret_world() -> SecretWorld:
     return SecretWorld(
         seed=41,
@@ -263,6 +284,42 @@ class ExperimentConfigValidationTests(unittest.TestCase):
         self.assertEqual(validated["worlds"][0]["seed"], 41)
         json.dumps(validated, allow_nan=False)
 
+    def test_e2_config_is_explicit_and_thresholds_are_validated(self) -> None:
+        validated = validate_config(e2_config())
+        self.assertEqual(
+            validated["arms"]["E2"]["controller_version"],
+            "validity-novelty-v2",
+        )
+
+        invalid_configs = []
+        unknown = e2_config()
+        unknown["arms"]["E2"]["controller_version"] = "unknown-controller"
+        invalid_configs.append(unknown)
+        missing = e2_config()
+        del missing["arms"]["E2"]["minimum_valid_candidates"]
+        invalid_configs.append(missing)
+        too_many_valid = e2_config()
+        too_many_valid["arms"]["E2"]["minimum_valid_candidates"] = 3
+        invalid_configs.append(too_many_valid)
+        too_many_useful = e2_config()
+        too_many_useful["arms"]["E2"]["minimum_useful_new_behaviors"] = 3
+        invalid_configs.append(too_many_useful)
+        bad_tolerance = e2_config()
+        bad_tolerance["arms"]["E2"]["useful_novelty_score_tolerance"] = 1.01
+        invalid_configs.append(bad_tolerance)
+        bad_precedence = e2_config()
+        bad_precedence["arms"]["E2"]["decision_precedence"].reverse()
+        invalid_configs.append(bad_precedence)
+        ignored_e2_field = small_config()
+        ignored_e2_field["arms"]["E"]["minimum_valid_candidates"] = 2
+        invalid_configs.append(ignored_e2_field)
+
+        for config in invalid_configs:
+            adaptive_arm = config["arms"].get("E2", config["arms"].get("E"))
+            with self.subTest(arm=adaptive_arm):
+                with self.assertRaises(ConfigError):
+                    validate_config(config)
+
     def test_frozen_confirmatory_config_rejects_protocol_drift(self) -> None:
         frozen = frozen_confirmatory_config()
         self.assertEqual(validate_config(frozen)["status"], "confirmatory-frozen")
@@ -300,6 +357,64 @@ class ExperimentConfigValidationTests(unittest.TestCase):
 
 
 class ExperimentOrchestrationTests(unittest.TestCase):
+    def test_e2_persists_only_a_sanitized_scalar_controller_trace(self) -> None:
+        factory = RecordingFactory()
+        with mock.patch("src.experiment.generate_world", return_value=secret_world()):
+            summary = run_experiment(e2_config(), factory)
+
+        run = summary["runs"][0]
+        self.assertEqual(run["arm_id"], "E2")
+        trace = run["controller_trace"]
+        self.assertEqual(len(trace), 2)
+        self.assertEqual(
+            [record["decision_reason"] for record in trace],
+            ["probe_improved", "probe_ceiling"],
+        )
+        self.assertEqual(run["temperature_trajectory"], [1.0, 0.8])
+        expected_fields = {
+            "controller_version",
+            "round_index",
+            "round_best",
+            "best_score",
+            "pre_round_best_score",
+            "improved",
+            "planned_candidate_count",
+            "valid_candidate_count",
+            "new_behavior_count",
+            "useful_new_behavior_count",
+            "decision",
+            "decision_reason",
+            "previous_temperature",
+            "next_temperature",
+        }
+        for record in trace:
+            self.assertEqual(set(record), expected_fields)
+            self.assertTrue(
+                all(type(value) in {str, int, float, bool} for value in record.values())
+            )
+        encoded = json.dumps(trace, sort_keys=True)
+        for forbidden in (
+            HIDDEN_LAW,
+            str(PRIVATE_TEST_LABEL),
+            "candidate_expression",
+            '"candidate":',
+            "behavior_hash",
+            "canonical_hash",
+            "counterexample",
+            "prediction",
+            "test",
+        ):
+            self.assertNotIn(forbidden, encoded)
+
+        e1_factory = RecordingFactory()
+        with mock.patch("src.experiment.generate_world", return_value=secret_world()):
+            e1_summary = run_experiment(
+                {**small_config(), "arms": {"E": small_config()["arms"]["E"]}},
+                e1_factory,
+            )
+        self.assertNotIn("controller_trace", e1_summary["runs"][0])
+        self.assertNotEqual(summary["config_hash"], e1_summary["config_hash"])
+
     def test_metered_envelope_closes_usage_and_token_fairness_gate(self) -> None:
         with mock.patch("src.experiment.generate_world", return_value=secret_world()):
             summary = run_experiment(small_config(), MeteredFactory())
@@ -506,6 +621,14 @@ class ExperimentOrchestrationTests(unittest.TestCase):
         orders = [_arm_execution_order(arms, index) for index in range(7)]
         for position in range(7):
             self.assertEqual({order[position] for order in orders}, set(arms))
+
+        e2_only = {"L": {}, "MTX": {}, "E2": {}}
+        self.assertEqual(
+            _arm_execution_order(e2_only, 0),
+            ("L", "MTX", "E2"),
+        )
+        e1_and_e2 = {"E": {}, "E2": {}}
+        self.assertEqual(_arm_execution_order(e1_and_e2, 0), ("E", "E2"))
 
     def test_evidence_defaults_false_and_requires_complete_model_identity(self) -> None:
         config = small_config()

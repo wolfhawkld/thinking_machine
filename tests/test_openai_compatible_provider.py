@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import copy
+import hashlib
 import json
+import pickle
 import socket
 import unittest
 import urllib.error
@@ -12,6 +15,7 @@ from src.providers.openai_compatible import (
     HTTPStatusError,
     OpenAICompatibleGenerator,
     OpenAICompatibleGeneratorFactory,
+    PreparedRequest,
     ResponsePayloadError,
     TransportError,
     UrllibHTTPTransport,
@@ -133,6 +137,120 @@ class EndpointTests(unittest.TestCase):
 
 
 class RequestAndFactoryTests(unittest.TestCase):
+    def test_prepared_request_reuses_the_exact_body_bytes_without_network_on_prepare(
+        self,
+    ) -> None:
+        transport = RecordingTransport(successful_response())
+        generator = OpenAICompatibleGenerator(
+            base_url="https://provider.example/v1",
+            api_key=SECRET,
+            model="provider-model",
+            seed_supported=True,
+            transport=transport,
+            clock=SequenceClock(1.0, 1.1, 2.0, 2.2),
+        )
+
+        prepared = generator.prepare_request(
+            "infer this prepared rule",
+            temperature=0.7,
+            max_output_tokens=31,
+            seed=1729,
+            round_index=2,
+            candidate_index=3,
+            state={"best_probe_score": 0.5},
+        )
+
+        self.assertIsInstance(prepared, PreparedRequest)
+        self.assertEqual(transport.calls, [])
+        first = generator.send_prepared(prepared)
+        second = generator.send_prepared(prepared)
+
+        self.assertEqual(len(transport.calls), 2)
+        first_body = transport.calls[0]["body"]
+        second_body = transport.calls[1]["body"]
+        self.assertIs(first_body, second_body)
+        self.assertEqual(first_body, second_body)
+        self.assertEqual(
+            prepared.body_sha256,
+            hashlib.sha256(first_body).hexdigest(),  # type: ignore[arg-type]
+        )
+        self.assertEqual(prepared.size_bytes, len(first_body))  # type: ignore[arg-type]
+        self.assertEqual(first.expression, EXPRESSION)
+        self.assertEqual(second.expression, EXPRESSION)
+        self.assertEqual(first.provider_request_count, 1)
+        self.assertEqual(second.provider_request_count, 1)
+
+    def test_prepared_request_is_opaque_immutable_and_not_serializable(self) -> None:
+        raw_prompt = "raw prompt must never appear in prepared representations"
+        generator = OpenAICompatibleGenerator(
+            base_url="https://provider.example/private-route",
+            api_key=SECRET,
+            model="provider-model",
+            transport=RecordingTransport(successful_response()),
+        )
+        prepared = generator.prepare_request(raw_prompt, temperature=0.2)
+
+        views = (
+            repr(prepared),
+            str(prepared),
+            json.dumps({"prepared": prepared}, default=repr),
+        )
+        for view in views:
+            self.assertNotIn(raw_prompt, view)
+            self.assertNotIn(SECRET, view)
+            self.assertNotIn("provider.example", view)
+        self.assertFalse(hasattr(prepared, "__dict__"))
+        with self.assertRaisesRegex(TypeError, "cannot be copied or serialized"):
+            pickle.dumps(prepared)
+        with self.assertRaisesRegex(TypeError, "cannot be copied or serialized"):
+            copy.copy(prepared)
+        with self.assertRaisesRegex(TypeError, "cannot be copied or serialized"):
+            copy.deepcopy(prepared)
+        with self.assertRaisesRegex(AttributeError, "immutable"):
+            prepared.body_sha256 = "0" * 64  # type: ignore[misc]
+        with self.assertRaisesRegex(TypeError, "created by"):
+            PreparedRequest()
+
+    def test_prepared_request_is_bound_to_the_generator_that_created_it(self) -> None:
+        first_transport = RecordingTransport(successful_response())
+        second_transport = RecordingTransport(successful_response())
+        first = OpenAICompatibleGenerator(
+            base_url="https://provider.example",
+            api_key=SECRET,
+            model="provider-model",
+            transport=first_transport,
+        )
+        second = OpenAICompatibleGenerator(
+            base_url="https://provider.example",
+            api_key=SECRET,
+            model="provider-model",
+            transport=second_transport,
+        )
+        prepared = first.prepare_request("prompt", temperature=0.2)
+
+        with self.assertRaisesRegex(ValueError, "different generator"):
+            second.send_prepared(prepared)
+
+        self.assertEqual(first_transport.calls, [])
+        self.assertEqual(second_transport.calls, [])
+
+    def test_generator_route_fields_are_read_only_after_construction(self) -> None:
+        generator = OpenAICompatibleGenerator(
+            base_url="https://provider.example/v1",
+            api_key=SECRET,
+            model="provider-model",
+            seed_supported=False,
+            timeout=60.0,
+        )
+        for field, value in (
+            ("endpoint", "https://other.example/chat/completions"),
+            ("timeout", 1.0),
+            ("seed_supported", True),
+        ):
+            with self.subTest(field=field):
+                with self.assertRaises(AttributeError):
+                    setattr(generator, field, value)
+
     def test_generator_default_uses_the_amended_256_token_cap(self) -> None:
         transport = RecordingTransport(successful_response())
         generator = OpenAICompatibleGenerator(
@@ -248,6 +366,26 @@ class RequestAndFactoryTests(unittest.TestCase):
         self.assertNotIn(SECRET, repr(factory))
         self.assertNotIn(SECRET, repr(generator))
 
+        contract = generator.sanitized_request_contract()
+        encoded_contract = json.dumps(contract, sort_keys=True)
+        self.assertNotIn(SECRET, encoded_contract)
+        self.assertNotIn("https://provider.example", encoded_contract)
+        self.assertEqual(contract["request_model"], "provider-model")
+        self.assertEqual(contract["timeout_seconds"], 60.0)
+        self.assertEqual(len(contract["endpoint_sha256"]), 64)
+        self.assertEqual(
+            contract["transport_profile"], "stdlib-urllib-one-shot-v1"
+        )
+
+        live_contract = OpenAICompatibleGenerator(
+            base_url="https://provider.example",
+            api_key=SECRET,
+            model="provider-model",
+        ).sanitized_request_contract()
+        self.assertEqual(
+            live_contract["transport_profile"], "stdlib-urllib-one-shot-v1"
+        )
+
     def test_static_fields_are_detached_and_protected_fields_are_rejected(self) -> None:
         thinking = {"type": "disabled"}
         transport = RecordingTransport(successful_response())
@@ -323,6 +461,55 @@ class FailureTests(unittest.TestCase):
         self.assertEqual(raised.exception.status_code, 429)
         self.assertEqual(len(transport.calls), 1)
         self.assertNotIn(SECRET, str(raised.exception))
+
+    def test_retryable_physical_attempt_classification_is_closed(self) -> None:
+        retryable_transport = {
+            "timeout",
+            "dns",
+            "tls",
+            "connection_refused",
+            "connection_reset",
+            "network_io",
+        }
+        for category in TransportError._CATEGORIES:
+            with self.subTest(category=category):
+                error = TransportError(
+                    category=category,
+                    delivery_ambiguous=category not in {
+                        "local_request_configuration",
+                        "local_transport_contract",
+                    },
+                )
+                self.assertIs(
+                    error.retryable_physical_attempt,
+                    category in retryable_transport,
+                )
+
+        for status in (400, 408, 429, 499, 500, 503, 599):
+            with self.subTest(status=status):
+                self.assertIs(
+                    HTTPStatusError(status).retryable_physical_attempt,
+                    status == 429 or 500 <= status <= 599,
+                )
+
+    def test_send_prepared_keeps_2xx_content_and_outer_contract_semantics(self) -> None:
+        malformed_content = json.loads(successful_response().body)
+        malformed_content["choices"][0]["message"]["content"] = "not json"
+        content_generator, content_transport = self.generator(
+            HTTPResponse(200, json.dumps(malformed_content).encode("utf-8"))
+        )
+        prepared = content_generator.prepare_request("prompt", temperature=0.7)
+
+        response = content_generator.send_prepared(prepared)
+
+        self.assertEqual(response.candidate_format, "invalid_json")
+        self.assertEqual(len(content_transport.calls), 1)
+
+        envelope_generator, envelope_transport = self.generator(HTTPResponse(200, b"{}"))
+        prepared = envelope_generator.prepare_request("prompt", temperature=0.7)
+        with self.assertRaisesRegex(ResponsePayloadError, "choices"):
+            envelope_generator.send_prepared(prepared)
+        self.assertEqual(len(envelope_transport.calls), 1)
 
     def test_transport_exception_is_normalized_without_secret_and_never_retried(self) -> None:
         generator, transport = self.generator(RuntimeError(f"failed with {SECRET}"))

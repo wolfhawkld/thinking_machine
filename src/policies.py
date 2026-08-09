@@ -9,6 +9,7 @@ the four slots needed by the multi-temperature exchange (MTX) arm.
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+import math
 from typing import Any, Optional
 
 
@@ -18,8 +19,20 @@ HIGH_TEMPERATURE = 1.2
 ADAPTIVE_INITIAL = 1.0
 ADAPTIVE_DECREASE = 0.2
 ADAPTIVE_INCREASE = 0.3
+ADAPTIVE_CONTROLLER_V1 = "probe-improvement-v1"
+ADAPTIVE_CONTROLLER_E2 = "validity-novelty-v2"
+E2_MINIMUM_VALID_CANDIDATES = 3
+E2_MINIMUM_USEFUL_NEW_BEHAVIORS = 1
+E2_USEFUL_NOVELTY_SCORE_TOLERANCE = 1.0 / 12.0
+E2_DECISION_PRECEDENCE = (
+    "low_validity_decrease",
+    "probe_improved_decrease",
+    "probe_ceiling_hold",
+    "useful_novelty_hold",
+    "stale_search_increase",
+)
 
-ARM_IDS = ("L", "M", "H", "A", "C", "MTX", "E")
+ARM_IDS = ("L", "M", "H", "A", "C", "MTX", "E", "E2")
 SCHEDULES = {
     "L": (LOW_TEMPERATURE,),
     "M": (MID_TEMPERATURE,),
@@ -47,6 +60,30 @@ def _validate_temperature(value: float, *, low: float = 0.0, high: Optional[floa
     if high is not None and value > high:
         raise ValueError(f"temperature must be <= {high}")
     return value
+
+
+def _nonnegative_integer(value: Any, name: str) -> int:
+    if type(value) is not int:
+        raise TypeError(f"{name} must be an integer")
+    if value < 0:
+        raise ValueError(f"{name} cannot be negative")
+    return value
+
+
+def _positive_integer(value: Any, name: str) -> int:
+    result = _nonnegative_integer(value, name)
+    if result == 0:
+        raise ValueError(f"{name} must be positive")
+    return result
+
+
+def _probe_score(value: Any, name: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise TypeError(f"{name} must be a number")
+    result = float(value)
+    if not math.isfinite(result) or not 0.0 <= result <= 1.0:
+        raise ValueError(f"{name} must lie within [0, 1]")
+    return result
 
 
 class TemperaturePolicy:
@@ -178,6 +215,8 @@ class AdaptiveTemperaturePolicy(TemperaturePolicy):
     public/probe scores supplied by the runner.
     """
 
+    controller_version = ADAPTIVE_CONTROLLER_V1
+
     def __init__(self, initial: float = ADAPTIVE_INITIAL, low: float = LOW_TEMPERATURE, high: float = HIGH_TEMPERATURE, decrease: float = ADAPTIVE_DECREASE, increase: float = ADAPTIVE_INCREASE) -> None:
         super().__init__()
         self.low = _validate_temperature(low)
@@ -220,16 +259,163 @@ class AdaptiveTemperaturePolicy(TemperaturePolicy):
         self.current = self.initial
 
 
+class ValidityNoveltyAdaptiveTemperaturePolicy(AdaptiveTemperaturePolicy):
+    """E2 controller using only scalar validity and behavioral-novelty signals.
+
+    Candidate parsing, behavior hashing, and probe verification remain runner
+    responsibilities.  This controller deliberately accepts no candidate,
+    behavior hash, task/world identity, counterexample, prediction, or test
+    value.  Its explicit keyword-only signature makes that boundary auditable.
+    """
+
+    controller_version = ADAPTIVE_CONTROLLER_E2
+    requires_validity_novelty_observation = True
+
+    def __init__(
+        self,
+        initial: float = ADAPTIVE_INITIAL,
+        low: float = LOW_TEMPERATURE,
+        high: float = HIGH_TEMPERATURE,
+        decrease: float = ADAPTIVE_DECREASE,
+        increase: float = ADAPTIVE_INCREASE,
+        minimum_valid_candidates: int = E2_MINIMUM_VALID_CANDIDATES,
+        minimum_useful_new_behaviors: int = E2_MINIMUM_USEFUL_NEW_BEHAVIORS,
+        useful_novelty_score_tolerance: float = E2_USEFUL_NOVELTY_SCORE_TOLERANCE,
+        arm_id: str = "E2",
+    ) -> None:
+        super().__init__(
+            initial=initial,
+            low=low,
+            high=high,
+            decrease=decrease,
+            increase=increase,
+        )
+        self.minimum_valid_candidates = _positive_integer(
+            minimum_valid_candidates,
+            "minimum_valid_candidates",
+        )
+        self.minimum_useful_new_behaviors = _positive_integer(
+            minimum_useful_new_behaviors,
+            "minimum_useful_new_behaviors",
+        )
+        self.useful_novelty_score_tolerance = _probe_score(
+            useful_novelty_score_tolerance,
+            "useful_novelty_score_tolerance",
+        )
+        self.arm_id = arm_id
+
+    def update(
+        self,
+        *,
+        round_index: int,
+        round_best: float,
+        best_score: float,
+        pre_round_best_score: float,
+        improved: bool,
+        planned_candidate_count: int,
+        valid_candidate_count: int,
+        new_behavior_count: int,
+        useful_new_behavior_count: int,
+    ) -> dict[str, Any]:
+        round_value = _nonnegative_integer(round_index, "round_index")
+        planned = _positive_integer(planned_candidate_count, "planned_candidate_count")
+        valid = _nonnegative_integer(valid_candidate_count, "valid_candidate_count")
+        new = _nonnegative_integer(new_behavior_count, "new_behavior_count")
+        useful = _nonnegative_integer(
+            useful_new_behavior_count,
+            "useful_new_behavior_count",
+        )
+        if valid > planned:
+            raise ValueError("valid_candidate_count cannot exceed planned_candidate_count")
+        if new > valid:
+            raise ValueError("new_behavior_count cannot exceed valid_candidate_count")
+        if useful > new:
+            raise ValueError("useful_new_behavior_count cannot exceed new_behavior_count")
+        if self.minimum_valid_candidates > planned:
+            raise ValueError(
+                "minimum_valid_candidates cannot exceed planned_candidate_count"
+            )
+        if self.minimum_useful_new_behaviors > planned:
+            raise ValueError(
+                "minimum_useful_new_behaviors cannot exceed planned_candidate_count"
+            )
+        round_best_value = _probe_score(round_best, "round_best")
+        best_value = _probe_score(best_score, "best_score")
+        pre_best_value = _probe_score(
+            pre_round_best_score,
+            "pre_round_best_score",
+        )
+        if best_value < pre_best_value:
+            raise ValueError("best_score cannot regress below pre_round_best_score")
+        if type(improved) is not bool:
+            raise TypeError("improved must be a boolean")
+        if valid == 0 and round_best_value != 0.0:
+            raise ValueError("an all-invalid round must have round_best=0")
+        expected_improved = valid > 0 and round_best_value > pre_best_value
+        if improved is not expected_improved:
+            raise ValueError(
+                "improved must equal whether a valid round_best exceeds "
+                "pre_round_best_score"
+            )
+        expected_best = (
+            max(pre_best_value, round_best_value) if valid > 0 else pre_best_value
+        )
+        if best_value != expected_best:
+            raise ValueError(
+                "best_score must equal the post-round maximum probe score"
+            )
+
+        previous = self.current
+        if valid < self.minimum_valid_candidates:
+            decision = "decrease"
+            reason = "low_validity"
+            self.current = max(self.low, self.current - self.decrease)
+        elif improved:
+            decision = "decrease"
+            reason = "probe_improved"
+            self.current = max(self.low, self.current - self.decrease)
+        elif best_value >= 1.0:
+            decision = "hold"
+            reason = "probe_ceiling"
+        elif useful >= self.minimum_useful_new_behaviors:
+            decision = "hold"
+            reason = "useful_novelty"
+        else:
+            decision = "increase"
+            reason = "stale_search"
+            self.current = min(self.high, self.current + self.increase)
+
+        record = {
+            "controller_version": self.controller_version,
+            "round_index": round_value,
+            "round_best": round_best_value,
+            "best_score": best_value,
+            "pre_round_best_score": pre_best_value,
+            "improved": improved,
+            "planned_candidate_count": planned,
+            "valid_candidate_count": valid,
+            "new_behavior_count": new,
+            "useful_new_behavior_count": useful,
+            "decision": decision,
+            "decision_reason": reason,
+            "previous_temperature": previous,
+            "next_temperature": self.current,
+        }
+        self.history.append(record)
+        return record
+
+
 # Names used by different experiment scripts.
 FixedPolicy = FixedTemperaturePolicy
 SchedulePolicy = ScheduledTemperaturePolicy
 CyclePolicy = FixedCyclePolicy
 AdaptivePolicy = AdaptiveTemperaturePolicy
+E2AdaptivePolicy = ValidityNoveltyAdaptiveTemperaturePolicy
 MTXPolicy = MultiTemperatureExchangePolicy
 
 
 def build_policy(arm: str, **kwargs: Any) -> TemperaturePolicy:
-    """Construct one of the seven preregistered arms by ID."""
+    """Construct a legacy preregistered arm or the versioned E2 controller."""
 
     key = str(arm).upper()
     if key == "L":
@@ -244,8 +430,24 @@ def build_policy(arm: str, **kwargs: Any) -> TemperaturePolicy:
         return FixedCyclePolicy(kwargs.pop("schedule", SCHEDULES["C"]))
     if key == "MTX":
         return MultiTemperatureExchangePolicy(kwargs.pop("temperatures", SCHEDULES["MTX"]))
-    if key == "E":
-        return AdaptiveTemperaturePolicy(**kwargs)
+    if key in {"E", "E2"}:
+        default_version = (
+            ADAPTIVE_CONTROLLER_E2 if key == "E2" else ADAPTIVE_CONTROLLER_V1
+        )
+        controller_version = kwargs.pop("controller_version", default_version)
+        if key == "E2" and controller_version != ADAPTIVE_CONTROLLER_E2:
+            raise ValueError(
+                f"arm E2 requires controller_version={ADAPTIVE_CONTROLLER_E2!r}"
+            )
+        if controller_version == ADAPTIVE_CONTROLLER_V1:
+            return AdaptiveTemperaturePolicy(**kwargs)
+        if controller_version == ADAPTIVE_CONTROLLER_E2:
+            return ValidityNoveltyAdaptiveTemperaturePolicy(arm_id=key, **kwargs)
+        raise ValueError(
+            "unknown adaptive controller_version: "
+            f"{controller_version!r}; expected {ADAPTIVE_CONTROLLER_V1!r} "
+            f"or {ADAPTIVE_CONTROLLER_E2!r}"
+        )
     raise ValueError(f"unknown policy arm: {arm!r}; expected one of {ARM_IDS}")
 
 
@@ -294,12 +496,15 @@ POLICY_SPECS = {
     "C": {"name": "Fixed-Cycle", "temperatures": SCHEDULES["C"]},
     "MTX": {"name": "Multi-Temperature Exchange", "temperatures": SCHEDULES["MTX"]},
     "E": {"name": "Adaptive", "temperatures": (ADAPTIVE_INITIAL,), "bounds": (LOW_TEMPERATURE, HIGH_TEMPERATURE)},
+    "E2": {"name": "Validity-Novelty Adaptive", "temperatures": (ADAPTIVE_INITIAL,), "bounds": (LOW_TEMPERATURE, HIGH_TEMPERATURE)},
 }
 POLICIES = POLICY_SPECS
 
 
 __all__ = [
     "ADAPTIVE_DECREASE",
+    "ADAPTIVE_CONTROLLER_E2",
+    "ADAPTIVE_CONTROLLER_V1",
     "ADAPTIVE_INCREASE",
     "ADAPTIVE_INITIAL",
     "AdaptivePolicy",
@@ -307,6 +512,11 @@ __all__ = [
     "ARM_IDS",
     "AnnealingPolicy",
     "CyclePolicy",
+    "E2AdaptivePolicy",
+    "E2_DECISION_PRECEDENCE",
+    "E2_MINIMUM_USEFUL_NEW_BEHAVIORS",
+    "E2_MINIMUM_VALID_CANDIDATES",
+    "E2_USEFUL_NOVELTY_SCORE_TOLERANCE",
     "FixedCyclePolicy",
     "FixedPolicy",
     "FixedTemperaturePolicy",
@@ -321,6 +531,7 @@ __all__ = [
     "SchedulePolicy",
     "ScheduledTemperaturePolicy",
     "TemperaturePolicy",
+    "ValidityNoveltyAdaptiveTemperaturePolicy",
     "build_policy",
     "make_policy",
     "policy_for_arm",

@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "status": "template-pre-execution-freeze-required",
+  "experiment": "adaptive-entropy-scheduling-v3-independent-development",
+  "protocol_version": 3,
+  "specification": "v3-development-spec.md",
+  "instructions": "After route-specific canaries, fill every pre_execution_required field, freeze the execution order and provider contracts, hash the instantiated config and source manifest, and only then run seed 2000 gates. Do not bind this template to a currently available endpoint by default.",
+  "independence": {
+    "continues_staged_v2_s3": false,
+    "may_modify_staged_v2_s3": false,
+    "may_pool_v2_outcomes": false,
+    "evidence_scope": "development-only"
+  },
+  "pre_execution_required": [
+    "model_strata[0].provider",
+    "model_strata[0].name",
+    "model_strata[0].snapshot",
+    "model_strata[0].route_contract.sanitized_request_contract.endpoint_sha256",
+    "model_strata[0].route_contract.sanitized_request_contract.request_model",
+    "model_strata[0].route_contract.sanitized_request_contract.seed_supported",
+    "model_strata[0].route_contract.sanitized_request_contract.transport_profile",
+    "model_strata[0].route_contract.sanitized_request_contract.static_request_extensions_sha256",
+    "model_strata[0].route_contract.accepted_response_contract.provider_models",
+    "model_strata[0].route_contract.accepted_response_contract.seed_supported",
+    "model_strata[0].route_contract.accepted_response_contract.require_zero_reasoning_tokens",
+    "model_strata[0].route_contract.accepted_response_contract.prompt_cache_mode",
+    "model_strata[0].route_contract.accepted_response_contract.provider_fingerprint_mode",
+    "model_strata[0].route_contract.accepted_response_contract.provider_fingerprint_sha256",
+    "model_strata[0].route_contract.route_binding_sha256",
+    "model_strata[0].canary_evidence.status",
+    "model_strata[0].canary_evidence.artifact_sha256",
+    "model_strata[0].canary_evidence.route_binding_sha256",
+    "model_strata[0].canary_evidence.contract_satisfied",
+    "model_strata[1].provider",
+    "model_strata[1].name",
+    "model_strata[1].snapshot",
+    "model_strata[1].route_contract.sanitized_request_contract.endpoint_sha256",
+    "model_strata[1].route_contract.sanitized_request_contract.request_model",
+    "model_strata[1].route_contract.sanitized_request_contract.seed_supported",
+    "model_strata[1].route_contract.sanitized_request_contract.transport_profile",
+    "model_strata[1].route_contract.sanitized_request_contract.static_request_extensions_sha256",
+    "model_strata[1].route_contract.accepted_response_contract.provider_models",
+    "model_strata[1].route_contract.accepted_response_contract.seed_supported",
+    "model_strata[1].route_contract.accepted_response_contract.require_zero_reasoning_tokens",
+    "model_strata[1].route_contract.accepted_response_contract.prompt_cache_mode",
+    "model_strata[1].route_contract.accepted_response_contract.provider_fingerprint_mode",
+    "model_strata[1].route_contract.accepted_response_contract.provider_fingerprint_sha256",
+    "model_strata[1].route_contract.route_binding_sha256",
+    "model_strata[1].canary_evidence.status",
+    "model_strata[1].canary_evidence.artifact_sha256",
+    "model_strata[1].canary_evidence.route_binding_sha256",
+    "model_strata[1].canary_evidence.contract_satisfied",
+    "execution.execution_plan_sha256",
+    "execution.source_manifest_sha256"
+  ],
+  "model_strata": [
+    {
+      "stratum_id": "official-deepseek-v4",
+      "expected_model_family": "DeepSeek v4",
+      "route_requirement": "official-route-canary-before-freeze",
+      "provider": null,
+      "name": null,
+      "snapshot": null,
+      "structured_output": true,
+      "pre_execution_freeze_required": true,
+      "route_contract": {
+        "schema_version": 1,
+        "sanitized_request_contract": {
+          "adapter": "openai-compatible-chat-completions-v1",
+          "endpoint_sha256": null,
+          "request_model": null,
+          "seed_supported": null,
+          "timeout_seconds": 120.0,
+          "transport_profile": null,
+          "static_request_extensions_sha256": null,
+          "response_format": "json_object"
+        },
+        "accepted_response_contract": {
+          "provider_models": null,
+          "finish_reasons": ["stop"],
+          "max_output_tokens": 256,
+          "seed_supported": null,
+          "require_zero_reasoning_tokens": null,
+          "prompt_cache_mode": null,
+          "provider_fingerprint_mode": null,
+          "provider_fingerprint_sha256": null
+        },
+        "route_binding_sha256": null
+      },
+      "canary_evidence": {
+        "status": null,
+        "artifact_sha256": null,
+        "route_binding_sha256": null,
+        "contract_satisfied": null
+      }
+    },
+    {
+      "stratum_id": "official-glm-5.2",
+      "expected_model_family": "GLM-5.2",
+      "route_requirement": "official-route-canary-before-freeze",
+      "provider": null,
+      "name": null,
+      "snapshot": null,
+      "structured_output": true,
+      "pre_execution_freeze_required": true,
+      "route_contract": {
+        "schema_version": 1,
+        "sanitized_request_contract": {
+          "adapter": "openai-compatible-chat-completions-v1",
+          "endpoint_sha256": null,
+          "request_model": null,
+          "seed_supported": null,
+          "timeout_seconds": 120.0,
+          "transport_profile": null,
+          "static_request_extensions_sha256": null,
+          "response_format": "json_object"
+        },
+        "accepted_response_contract": {
+          "provider_models": null,
+          "finish_reasons": ["stop"],
+          "max_output_tokens": 256,
+          "seed_supported": null,
+          "require_zero_reasoning_tokens": null,
+          "prompt_cache_mode": null,
+          "provider_fingerprint_mode": null,
+          "provider_fingerprint_sha256": null
+        },
+        "route_binding_sha256": null
+      },
+      "canary_evidence": {
+        "status": null,
+        "artifact_sha256": null,
+        "route_binding_sha256": null,
+        "contract_satisfied": null
+      }
+    }
+  ],
+  "gate_world": {
+    "seed": 2000,
+    "depth": 3,
+    "development_outcome_eligible": false
+  },
+  "worlds": [
+    {"seed": 2001, "depth": 3},
+    {"seed": 2002, "depth": 4},
+    {"seed": 2003, "depth": 5},
+    {"seed": 2004, "depth": 3},
+    {"seed": 2005, "depth": 4},
+    {"seed": 2006, "depth": 5},
+    {"seed": 2007, "depth": 3},
+    {"seed": 2008, "depth": 4},
+    {"seed": 2009, "depth": 5},
+    {"seed": 2010, "depth": 3},
+    {"seed": 2011, "depth": 4},
+    {"seed": 2012, "depth": 5}
+  ],
+  "episode": {
+    "rounds": 5,
+    "candidates_per_round": 4,
+    "max_output_tokens": 256,
+    "archive_size": 4,
+    "max_counterexamples_per_round": 2
+  },
+  "arms": {
+    "L": {
+      "kind": "fixed",
+      "temperature": 0.2
+    },
+    "H": {
+      "kind": "fixed",
+      "temperature": 1.2
+    },
+    "C": {
+      "kind": "sequence",
+      "temperatures": [1.2, 0.2, 1.2, 0.2, 0.2]
+    },
+    "E2": {
+      "kind": "adaptive",
+      "controller_version": "validity-novelty-v2",
+      "initial_temperature": 1.0,
+      "minimum_temperature": 0.2,
+      "maximum_temperature": 1.2,
+      "improvement_step": -0.2,
+      "stagnation_step": 0.3,
+      "minimum_valid_candidates": 3,
+      "minimum_useful_new_behaviors": 1,
+      "useful_novelty_score_tolerance": 0.08333333333333333,
+      "decision_precedence": [
+        "low_validity_decrease",
+        "probe_improved_decrease",
+        "probe_ceiling_hold",
+        "useful_novelty_hold",
+        "stale_search_increase"
+      ]
+    }
+  },
+  "primary_reference_arm": "C",
+  "compatibility_screen": {
+    "seed_is_independent_evidence": false,
+    "applied_separately_to_each_model": true,
+    "both_models_must_pass": true,
+    "search_valid_definition": "syntax_valid_and_runtime_valid",
+    "minimum_overall_search_valid_rate": 0.95,
+    "minimum_per_arm_search_valid_rate": 0.9,
+    "manipulation": {
+      "canonical_unique_yield_per_planned_call": "H_strictly_greater_than_L",
+      "behavioral_unique_yield_per_planned_call": "H_strictly_greater_than_L"
+    },
+    "failure_status": "compatibility_screen_failed_no_main_grid"
+  },
+  "development_diagnostics": {
+    "search_valid_definition": "syntax_valid_and_runtime_valid",
+    "minimum_overall_search_valid_rate": 0.95,
+    "minimum_per_arm_search_valid_rate": 0.9,
+    "low_validity_status": "construct_validity_warning",
+    "manipulation": {
+      "canonical_unique_yield_per_planned_call": "H_strictly_greater_than_L",
+      "behavioral_unique_yield_per_planned_call": "H_strictly_greater_than_L"
+    },
+    "manipulation_failure_status": "manipulation_indeterminate",
+    "performance_classification_still_reported": true
+  },
+  "terminal_endpoint": {
+    "all_invalid_definition": "zero_search_valid_candidates_after_20_planned_calls",
+    "observed_private_test_accuracy": "null",
+    "primary_endpoint_failure": true,
+    "primary_analysis_score": 0.0,
+    "world_solved": false,
+    "terminal_zero_sensitivity_score": 0.0,
+    "zero_is_observed_accuracy": false,
+    "content_regeneration_allowed": false
+  },
+  "execution": {
+    "main_logical_calls": 1920,
+    "gate_logical_calls": 160,
+    "sampling_base_seed": 1729,
+    "private_test_release_rule": "after_all_1920_main_grid_calls_and_required_seals_are_durably_committed",
+    "outcome_bearing_interim_looks": false,
+    "execution_order_frozen_before_gate": true,
+    "execution_plan_sha256": null,
+    "source_manifest_sha256": null,
+    "transaction_unit": "model-world-arm-episode-20-logical-calls",
+    "request_timeout_seconds": 120.0,
+    "max_physical_attempts_per_logical_slot": 3,
+    "prepare_request_body_once_per_logical_slot": true,
+    "request_identity_field": "request_body_sha256",
+    "retryable_transport_categories": [
+      "timeout",
+      "dns",
+      "tls",
+      "connection_refused",
+      "connection_reset",
+      "network_io"
+    ],
+    "retryable_http_statuses": ["429", "500-599"],
+    "accepted_attempt_semantics": "first_durably_recorded_http_success",
+    "http_success_definition": "status_200_299",
+    "first_durably_recorded_http_success_terminates_attempt_sequence": true,
+    "provider_contract_failure_after_http_success": "fatal_no_retry",
+    "durable_start_without_outcome": "unresolved_engineering_indeterminate_no_automatic_retry",
+    "content_retry_supported": false,
+    "content_retry_count_required": 0,
+    "checkpoint_replay_starts_physical_request": false,
+    "exhausted_logical_slot_result": "engineering_indeterminate"
+  },
+  "primary_endpoint": "final_selected_test_accuracy_with_predeclared_terminal_failure_score",
+  "secondary_endpoints": [
+    "world_solved",
+    "unique_canonical_yield_per_planned_call",
+    "unique_behavioral_yield_per_planned_call",
+    "search_valid_rate",
+    "all_invalid_episode_rate"
+  ],
+  "classification": {
+    "model_contrast": "mean_primary_score_E2_minus_mean_primary_score_C",
+    "two_route_weighting": "equal_stratum_weight",
+    "minimum_important_effect": 0.05,
+    "two_route_development_promising": "both_model_contrasts_strictly_positive_and_equal_stratum_mean_at_least_0.05",
+    "two_route_nonpositive_development_signal": "both_model_contrasts_less_than_or_equal_to_zero",
+    "mixed_or_small_development_signal": "all_other_complete_grid_results",
+    "engineering_indeterminate": "incomplete_invalidly_committed_unreplayable_or_unevaluable_main_grid",
+    "scope": "development-only"
+  },
+  "statistical_analysis": {
+    "primary_unit": "world",
+    "joint_cluster_count": 12,
+    "shared_worlds_across_routes": true,
+    "episode_score_representation": "integer_correct_out_of_64",
+    "floating_threshold_tolerance": 0.0,
+    "partial_campaign_classification": "none",
+    "unexpected_no_selection": "engineering_indeterminate",
+    "selected_candidate_test_runtime_failure_primary_correct": 0,
+    "bootstrap": {
+      "kind": "depth_stratified_world_cluster_percentile",
+      "replicates": 100000,
+      "rng_seed": 20260809,
+      "confidence_level": 0.95,
+      "resample_worlds_per_depth": 4,
+      "preserve_both_routes_and_all_arms": true
+    },
+    "sign_flip": {
+      "kind": "exact_two_sided_paired_world",
+      "patterns": 4096,
+      "exploratory": true,
+      "multiple_testing_adjustment": "none"
+    },
+    "depth_specific_inference": "descriptive_only"
+  },
+  "resource_sensitivity": {
+    "primary_estimand": "logical-call-matched-intention-to-treat-within-model",
+    "realized_token_relative_range_threshold_within_model": 0.02,
+    "actual_token_matching_claim_forbidden_above_threshold": true,
+    "pareto_comparison": "E2_versus_C_within_each_model",
+    "pool_tokens_across_model_tokenizers": false
+  }
+}

@@ -40,7 +40,7 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertIn(1000, registry["seeds"])
         self.assertIn(2000, registry["seeds"])
 
-    def test_next_one_world_gate_seed_is_reserved_before_results(self) -> None:
+    def test_gate_seed_is_reserved_for_operational_calibration(self) -> None:
         gate = self.load_json("configs/development-gate.json")
         registry = self.load_json("configs/development-seed-registry.json")
 
@@ -49,11 +49,83 @@ class ExperimentConfigTests(unittest.TestCase):
             record for record in registry["records"] if record.get("seed") == 2000
         )
         self.assertEqual(reserved["status"], "reserved-operational-calibration")
-        self.assertEqual(reserved["uses"], ["next-one-world-development-gate"])
+        self.assertEqual(
+            reserved["uses"],
+            [
+                "volcengine-gate-c",
+                "v3-two-model-validity-and-manipulation-gate",
+            ],
+        )
         retired = next(
             record for record in registry["records"] if record.get("seed") == 1000
         )
         self.assertIn("attempt-B-interface-calibration", retired["uses"])
+
+    def test_v3_development_template_is_frozen_except_model_bindings(self) -> None:
+        config = self.load_json("configs/v3-development.template.json")
+        registry = self.load_json("configs/development-seed-registry.json")
+
+        self.assertEqual(config["protocol_version"], 3)
+        self.assertFalse(config["independence"]["continues_staged_v2_s3"])
+        self.assertEqual(
+            [model["expected_model_family"] for model in config["model_strata"]],
+            ["DeepSeek v4", "GLM-5.2"],
+        )
+        for model in config["model_strata"]:
+            self.assertIsNone(model["provider"])
+            self.assertIsNone(model["name"])
+            self.assertIsNone(model["snapshot"])
+            self.assertTrue(model["pre_execution_freeze_required"])
+
+        worlds = config["worlds"]
+        seeds = [world["seed"] for world in worlds]
+        self.assertEqual(seeds, list(range(2001, 2013)))
+        self.assertTrue(set(seeds).issubset(registry["seeds"]))
+        self.assertEqual(
+            {depth: sum(world["depth"] == depth for world in worlds) for depth in (3, 4, 5)},
+            {3: 4, 4: 4, 5: 4},
+        )
+        self.assertEqual(config["gate_world"]["seed"], 2000)
+        self.assertEqual(set(config["arms"]), {"L", "H", "C", "E2"})
+        self.assertEqual(config["primary_reference_arm"], "C")
+        self.assertEqual(config["execution"]["main_logical_calls"], 1920)
+        self.assertEqual(config["execution"]["gate_logical_calls"], 160)
+
+        e2 = config["arms"]["E2"]
+        self.assertEqual(e2["controller_version"], "validity-novelty-v2")
+        self.assertEqual(e2["minimum_valid_candidates"], 3)
+        self.assertEqual(e2["minimum_useful_new_behaviors"], 1)
+        self.assertAlmostEqual(e2["useful_novelty_score_tolerance"], 1 / 12)
+        self.assertEqual(
+            config["compatibility_screen"]["minimum_overall_search_valid_rate"],
+            0.95,
+        )
+        self.assertEqual(
+            config["compatibility_screen"]["minimum_per_arm_search_valid_rate"],
+            0.90,
+        )
+        self.assertTrue(
+            config["development_diagnostics"][
+                "performance_classification_still_reported"
+            ]
+        )
+
+        terminal = config["terminal_endpoint"]
+        self.assertTrue(terminal["primary_endpoint_failure"])
+        self.assertEqual(terminal["primary_analysis_score"], 0.0)
+        self.assertFalse(terminal["zero_is_observed_accuracy"])
+        execution = config["execution"]
+        self.assertEqual(
+            execution["accepted_attempt_semantics"],
+            "first_durably_recorded_http_success",
+        )
+        self.assertFalse(execution["content_retry_supported"])
+        self.assertEqual(execution["content_retry_count_required"], 0)
+        self.assertEqual(config["statistical_analysis"]["primary_unit"], "world")
+        self.assertEqual(
+            config["statistical_analysis"]["bootstrap"]["replicates"],
+            100000,
+        )
 
     def test_confirmatory_config_is_an_unfrozen_empty_template(self) -> None:
         config = self.load_json("configs/confirmatory.template.json")

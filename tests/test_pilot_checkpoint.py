@@ -118,6 +118,18 @@ class PilotCheckpointTests(unittest.TestCase):
                     expected_kind="staged-pilot-shard-checkpoint",
                 )
 
+    def test_unhashed_top_level_fields_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            publish_shard_checkpoint(root, _payload())
+            path = checkpoint_path(root, 0)
+            value = json.loads(path.read_text(encoding="utf-8"))
+            value["raw_prompt"] = "unhashed-secret"
+            path.write_text(json.dumps(value), encoding="utf-8")
+            os.chmod(path, 0o600)
+            with self.assertRaisesRegex(PilotCheckpointError, "keys drifted"):
+                load_shard_checkpoint(root, 0)
+
     def test_failed_publication_leaves_neither_commit_nor_temporary_file(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "state.json"

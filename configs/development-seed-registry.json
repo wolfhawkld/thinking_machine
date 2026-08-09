@@ -1,7 +1,30 @@
 {
   "schema_version": 1,
   "purpose": "exclude every inspected development/calibration seed from confirmation",
-  "seeds": [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 2000],
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012
+  ],
   "records": [
     {
       "seed": 1000,
@@ -20,7 +43,30 @@
     {
       "seed": 2000,
       "status": "reserved-operational-calibration",
-      "uses": ["next-one-world-development-gate"]
+      "uses": [
+        "volcengine-gate-c",
+        "v3-two-model-validity-and-manipulation-gate"
+      ]
+    },
+    {
+      "seeds": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012
+      ],
+      "status": "reserved-v3-independent-development",
+      "uses": [
+        "v3-two-model-stratified-development-classification"
+      ]
     }
   ]
 }

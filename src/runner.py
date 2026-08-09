@@ -85,11 +85,14 @@ class Policy(Protocol):
 class GenerationResponse:
     """Canonical adapter envelope with auditable per-candidate usage.
 
-    Provider adapters must aggregate usage across every billed attempt for the
-    slot, including retries. ``provider_request_count`` is therefore one plus
-    the retry count. ``raw`` remains only for constructor compatibility; live
-    provider adapters leave it ``None`` and no raw assistant content is stored
-    or serialized.
+    A one-shot provider adapter reports the telemetry of that accepted physical
+    response, so ``provider_request_count`` is one.  A legacy adapter that owns
+    an internal retry loop may instead aggregate every known billed attempt,
+    but it must not claim unknown timeout usage as complete.  V3 keeps physical
+    retry accounting in its separate durable execution audit and deliberately
+    replays only the accepted response here. ``raw`` remains only for
+    constructor compatibility; live provider adapters leave it ``None`` and no
+    raw assistant content is stored or serialized.
     """
 
     expression: Any
@@ -471,6 +474,7 @@ def run_episode(
     state: dict[str, Any] = {"best_probe_score": 0.0, "round": 0, "improved": False}
     best_score = 0.0
     slot_bests: list[CandidateRecord | None] = [None] * candidates_per_round
+    seen_valid_behavior_hashes: set[str] = set()
 
     for round_index in range(rounds):
         round_temperatures = _policy_temperatures(
@@ -543,6 +547,18 @@ def run_episode(
                 slot_bests[slot_index] = record
 
         valid_records = [record for record in records if record.syntax_valid and record.runtime_valid]
+        pre_round_best_score = best_score
+        validity_novelty_observation: dict[str, Any] | None = None
+        if bool(
+            getattr(policy, "requires_validity_novelty_observation", False)
+        ):
+            validity_novelty_observation = _validity_novelty_observation(
+                policy,
+                valid_records,
+                seen_valid_behavior_hashes,
+                pre_round_best_score=pre_round_best_score,
+                planned_candidate_count=candidates_per_round,
+            )
         round_best = max((record.probe_score for record in valid_records), default=0.0)
         # A round made entirely of invalid responses must not count as progress
         # merely because its default score is numerically equal to the initial
@@ -572,6 +588,8 @@ def run_episode(
             "best_score": best_score,
             "improved": improved,
         }
+        if validity_novelty_observation is not None:
+            policy_observation.update(validity_novelty_observation)
         if str(getattr(policy, "arm_id", "")).upper() == "MTX":
             # Only MTX owns an elite-exchange state. Other controllers receive
             # scores alone, preserving the frozen rule that E cannot inspect
@@ -684,6 +702,55 @@ def _policy_temperature(policy: Any, round_index: int, state: Mapping[str, Any])
     """Compatibility helper for callers that only need one slot."""
 
     return _policy_temperatures(policy, round_index, state, 1)[0]
+
+
+def _validity_novelty_observation(
+    policy: Any,
+    valid_records: Sequence[CandidateRecord],
+    seen_valid_behavior_hashes: set[str],
+    *,
+    pre_round_best_score: float,
+    planned_candidate_count: int,
+) -> dict[str, Any]:
+    """Return the scalar-only E2 observation and advance runner-owned novelty state.
+
+    Behavioral identities are used only inside this helper.  Neither the hash
+    values nor candidate records cross the policy boundary.  Missing behavior
+    hashes fail closed because silently substituting structural novelty would
+    change the declared E2 treatment.
+    """
+
+    tolerance = float(getattr(policy, "useful_novelty_score_tolerance"))
+    if not math.isfinite(tolerance) or not 0.0 <= tolerance <= 1.0:
+        raise ValueError(
+            "policy useful_novelty_score_tolerance must lie within [0, 1]"
+        )
+    behavior_best_scores: dict[str, float] = {}
+    for record in valid_records:
+        behavior_hash = record.behavior_hash
+        if not isinstance(behavior_hash, str) or not behavior_hash:
+            raise ValueError(
+                "E2 requires a non-empty behavior hash for every valid candidate"
+            )
+        behavior_best_scores[behavior_hash] = max(
+            float(record.probe_score),
+            behavior_best_scores.get(behavior_hash, float("-inf")),
+        )
+    new_behavior_hashes = set(behavior_best_scores) - seen_valid_behavior_hashes
+    useful_new_behavior_count = sum(
+        behavior_best_scores[behavior_hash] > 0.0
+        and behavior_best_scores[behavior_hash]
+        >= pre_round_best_score - tolerance
+        for behavior_hash in new_behavior_hashes
+    )
+    seen_valid_behavior_hashes.update(behavior_best_scores)
+    return {
+        "pre_round_best_score": float(pre_round_best_score),
+        "planned_candidate_count": int(planned_candidate_count),
+        "valid_candidate_count": len(valid_records),
+        "new_behavior_count": len(new_behavior_hashes),
+        "useful_new_behavior_count": useful_new_behavior_count,
+    }
 
 
 def _make_default_policy() -> Any:

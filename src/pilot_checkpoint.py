@@ -344,6 +344,18 @@ def load_envelope(
         raise PilotCheckpointError("immutable campaign state is not UTF-8 JSON") from exc
     if not isinstance(value, Mapping):
         raise PilotCheckpointError("immutable campaign envelope must be an object")
+    expected_envelope_keys = {
+        "schema_version",
+        "kind",
+        "payload_sha256",
+        "payload",
+    }
+    if set(value) != expected_envelope_keys:
+        raise PilotCheckpointError("immutable campaign envelope keys drifted")
+    # Scan the complete envelope, not only its hashed payload.  Otherwise an
+    # attacker could append an unhashed top-level raw/private field while
+    # keeping payload_sha256 valid.
+    _reject_sensitive_checkpoint_fields(value)
     if value.get("schema_version") != CHECKPOINT_SCHEMA_VERSION:
         raise PilotCheckpointError("immutable campaign schema version drifted")
     if value.get("kind") != expected_kind:
