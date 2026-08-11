@@ -264,7 +264,8 @@ Uncertainty is descriptive. A depth-stratified world-cluster bootstrap uses
 100,000 replicates and RNG seed `20260809`: independently within each of depths
 3, 4, and 5, resample four world indices with replacement; for every selected
 world retain both routes and all arms. Report percentile 95% intervals for both
-route deltas and `delta_bar`. Also report an exact two-sided paired sign-flip
+route deltas and `delta_bar`, using nearest-rank order statistics at 2.5% and
+97.5%. Also report an exact two-sided paired sign-flip
 randomization p-value over all `2^12=4096` world sign patterns for each route
 and for the equal-route per-world contrast. These p-values are exploratory,
 uncorrected, and never override the development label. Per-depth estimates
@@ -284,3 +285,10 @@ endpoints, private examples/labels, and candidate-linked private-test scores
 must not appear in public artifacts. Manifests bind sanitized checkpoints,
 world seals, provider contracts, exact model identities, request-body hashes,
 attempt ledgers, the instantiated config, this specification, and source tree.
+
+Every episode seal is computed from a deterministic replay of its 20 committed
+logical-call checkpoints. Stored generation metrics and the E2 controller trace
+must exactly match that replay before the seal can advance the campaign or enter
+the compatibility screen. The finalized development snapshot has one fixed,
+exclusive path inside the campaign directory; a production finalization cannot
+inject an alternate evaluator or publish to a second path.

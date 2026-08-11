@@ -10,6 +10,7 @@ world coordinates and hashes, never generated examples or hidden laws.
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from functools import lru_cache
 import json
 from pathlib import Path
 from typing import Any
@@ -824,6 +825,7 @@ def validate_v3_config(
         raise V3DevelopmentError("v3 statistical analysis plan drifted")
     if statistical.get("bootstrap") != {
         "kind": "depth_stratified_world_cluster_percentile",
+        "percentile_method": "nearest_rank_order_statistic",
         "replicates": 100000,
         "rng_seed": 20260809,
         "confidence_level": 0.95,
@@ -1269,7 +1271,7 @@ def build_campaign_manifest(
     }
 
 
-def validate_campaign_manifest(
+def _validate_campaign_manifest_uncached(
     campaign_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
     """Validate every self-contained config, source, route, and plan binding."""
@@ -1345,6 +1347,34 @@ def validate_campaign_manifest(
     ):
         raise V3DevelopmentError("campaign manifest campaign metadata drifted")
     return manifest
+
+
+@lru_cache(maxsize=8)
+def _validated_campaign_manifest_bytes(encoded: bytes) -> bytes:
+    """Cache only immutable canonical bytes, never a caller-owned object."""
+
+    value = json.loads(encoded.decode("utf-8"))
+    validated = _validate_campaign_manifest_uncached(value)
+    return canonical_json_bytes(validated)
+
+
+def validate_campaign_manifest(
+    campaign_manifest: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate a manifest, with content-addressed reuse for repeated audits.
+
+    Campaign storage rechecks the same 104-entry manifest for every immutable
+    artifact.  Keying the cache by canonical bytes keeps those checks cheap
+    without trusting object identity: any mutation produces a different key
+    and therefore runs the complete validator again.  Cached values are bytes
+    and each caller receives a fresh detached object.
+    """
+
+    if not isinstance(campaign_manifest, Mapping):
+        raise V3DevelopmentError("campaign manifest must be an object")
+    detached = _detached(campaign_manifest)
+    encoded = canonical_json_bytes(detached)
+    return json.loads(_validated_campaign_manifest_bytes(encoded).decode("utf-8"))
 
 
 def transaction_identity_payload(

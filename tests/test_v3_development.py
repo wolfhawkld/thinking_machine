@@ -455,6 +455,9 @@ class V3DevelopmentTests(unittest.TestCase):
         self.assertEqual(manifest["frozen_config"], self.frozen)
         self.assertEqual(manifest["source_manifest"], SOURCE_MANIFEST)
         self.assertEqual(validate_campaign_manifest(manifest), manifest)
+        detached_cached = validate_campaign_manifest(manifest)
+        detached_cached["execution_plan"][0]["world_seed"] += 1
+        self.assertEqual(validate_campaign_manifest(manifest), manifest)
 
         payload = transaction_identity_payload(manifest, self.plan[0])
         self.assertEqual(

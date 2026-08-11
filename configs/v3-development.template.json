@@ -292,6 +292,7 @@
     "selected_candidate_test_runtime_failure_primary_correct": 0,
     "bootstrap": {
       "kind": "depth_stratified_world_cluster_percentile",
+      "percentile_method": "nearest_rank_order_statistic",
       "replicates": 100000,
       "rng_seed": 20260809,
       "confidence_level": 0.95,
