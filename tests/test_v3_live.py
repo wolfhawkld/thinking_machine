@@ -35,6 +35,7 @@ def _response(
     *,
     fingerprint: str | None = None,
     cache: bool = False,
+    finish_reason: str = "stop",
 ) -> GenerationResponse:
     return GenerationResponse(
         expression="(var x1)",
@@ -44,7 +45,7 @@ def _response(
         provider_request_count=1,
         seed_supported=False,
         provider_model=f"{model}-snapshot",
-        finish_reason="stop",
+        finish_reason=finish_reason,
         prompt_cache_hit_tokens=4 if cache else None,
         prompt_cache_miss_tokens=6 if cache else None,
         reasoning_tokens=0,
@@ -114,6 +115,31 @@ class V3RouteCanaryTests(unittest.TestCase):
                 "official-deepseek-v4",
                 fingerprints=["first"] * 7 + ["second"],
             )
+
+    def test_length_finish_is_a_paid_content_result_not_campaign_fatal(self) -> None:
+        credentials = _credentials("deepseek-v4-flash")
+        calls = 0
+
+        def generate(_self, _prompt, **_kwargs):
+            nonlocal calls
+            result = _response(
+                credentials.model,
+                finish_reason="length" if calls == 3 else "stop",
+            )
+            calls += 1
+            return result
+
+        with mock.patch.object(OpenAICompatibleGenerator, "generate", new=generate):
+            artifact = run_route_canary(
+                credentials,
+                provider="provider",
+                stratum_id="official-deepseek-v4",
+            )
+        self.assertTrue(artifact["passed"])
+        self.assertEqual(
+            artifact["accepted_response_contract"]["finish_reasons"],
+            ["stop", "length"],
+        )
 
     def test_binding_requires_same_current_route(self) -> None:
         credentials = _credentials("deepseek-v4-flash")

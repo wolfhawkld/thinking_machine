@@ -99,8 +99,8 @@ def _response_contract(
     models = {response.provider_model for response in responses}
     if None in models or len(models) != 1:
         raise V3LiveError("route canary response model was absent or unstable")
-    if any(response.finish_reason != "stop" for response in responses):
-        raise V3LiveError("route canary finish reason was not consistently stop")
+    if any(response.finish_reason not in {"stop", "length"} for response in responses):
+        raise V3LiveError("route canary returned an unsupported finish reason")
     if any(response.provider_request_count != 1 for response in responses):
         raise V3LiveError("route canary adapter made more than one request per slot")
     if any(response.output_tokens > V3_MAX_OUTPUT_TOKENS for response in responses):
@@ -143,7 +143,7 @@ def _response_contract(
 
     contract = AcceptedResponseContract(
         provider_models=(str(next(iter(models))),),
-        finish_reasons=("stop",),
+        finish_reasons=("stop", "length"),
         max_output_tokens=V3_MAX_OUTPUT_TOKENS,
         seed_supported=generator.seed_supported,
         require_zero_reasoning_tokens=True,

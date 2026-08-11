@@ -4,6 +4,17 @@
 **Scope:** new development evidence only; never confirmatory evidence
 **Config template:** `configs/v3-development.template.json`
 
+**Pre-gate operational amendment (2026-08-12):** The first route-bound gate
+attempt stopped during gate shard 3, slot 12, before any compatibility-screen
+classification or main-grid request, because an accepted 2xx response exhausted
+the 256-token cap and did not report `finish_reason=stop`. No arm-level gate
+metric was inspected. The response contract had incorrectly treated every
+non-`stop` finish as an accounting failure. V3 now prospectively accepts the
+closed set `{stop, length}`. A `length` response consumes its original logical
+slot exactly once; its returned content proceeds through the same JSON/DSL
+validity rules and is never regenerated. The incomplete first gate attempt is
+retained as calibration history and excluded from the restarted campaign.
+
 ## 1. Purpose and separation from staged v2
 
 V3 asks whether the validity-aware, novelty-aware adaptive controller E2
@@ -174,6 +185,10 @@ sensitivities, but neither can replace or revise the primary zero-score rule.
 Invalid assistant schema, DSL, depth/node/output-bound, or runtime content is a
 scientific content result for its planned slot. It receives the frozen invalid
 score/eligibility handling and is never regenerated.
+
+An accepted HTTP response with `finish_reason=length` is handled identically:
+it is a paid content result, not a transport or accounting failure. If its
+truncated content is malformed, the ordinary invalid-candidate rule applies.
 
 ## 5. Request attempts and retry boundary
 

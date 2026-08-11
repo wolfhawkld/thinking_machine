@@ -349,7 +349,7 @@ def _template_request_contract() -> dict[str, Any]:
 def _template_response_contract() -> dict[str, Any]:
     return {
         "provider_models": None,
-        "finish_reasons": ["stop"],
+        "finish_reasons": ["stop", "length"],
         "max_output_tokens": 256,
         "seed_supported": None,
         "require_zero_reasoning_tokens": None,
@@ -409,7 +409,7 @@ def _normalize_response_contract(
         raise V3DevelopmentError(f"{name} must be an object")
     result = _detached(value)
     _exact_keys(name, result, _RESPONSE_CONTRACT_KEYS)
-    if result.get("finish_reasons") != ["stop"]:
+    if result.get("finish_reasons") != ["stop", "length"]:
         raise V3DevelopmentError(f"{name}.finish_reasons drifted")
     if result.get("max_output_tokens") != 256:
         raise V3DevelopmentError(f"{name}.max_output_tokens drifted")

@@ -72,7 +72,7 @@ def _generator(*, base_url: str, model: str) -> OpenAICompatibleGenerator:
 def _response_contract(snapshot: str) -> AcceptedResponseContract:
     return AcceptedResponseContract(
         provider_models=(snapshot,),
-        finish_reasons=("stop",),
+        finish_reasons=("stop", "length"),
         max_output_tokens=256,
         seed_supported=False,
         require_zero_reasoning_tokens=True,

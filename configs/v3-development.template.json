@@ -77,7 +77,7 @@
         },
         "accepted_response_contract": {
           "provider_models": null,
-          "finish_reasons": ["stop"],
+          "finish_reasons": ["stop", "length"],
           "max_output_tokens": 256,
           "seed_supported": null,
           "require_zero_reasoning_tokens": null,
@@ -117,7 +117,7 @@
         },
         "accepted_response_contract": {
           "provider_models": null,
-          "finish_reasons": ["stop"],
+          "finish_reasons": ["stop", "length"],
           "max_output_tokens": 256,
           "seed_supported": null,
           "require_zero_reasoning_tokens": null,
