@@ -69,7 +69,7 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertFalse(config["independence"]["continues_staged_v2_s3"])
         self.assertEqual(
             [model["expected_model_family"] for model in config["model_strata"]],
-            ["DeepSeek v4", "GLM-5.2"],
+            ["DeepSeek v4", "MiniMax M3"],
         )
         for model in config["model_strata"]:
             self.assertIsNone(model["provider"])

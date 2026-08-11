@@ -15,6 +15,15 @@ slot exactly once; its returned content proceeds through the same JSON/DSL
 validity rules and is never regenerated. The incomplete first gate attempt is
 retained as calibration history and excluded from the restarted campaign.
 
+**Pre-main route substitution (2026-08-12):** The complete restarted screen
+passed on DeepSeek but failed on the Volcengine GLM-5.2 route: all 80 responses
+had the required JSON envelope, but only 66/80 expressions were valid under the
+frozen DSL. The main grid and private test were never started. At the user's
+direction, that second route is replaced prospectively by the newly available
+Volcengine Agent Plan MiniMax M3 route. The failed GLM screen remains calibration
+history and is not pooled with the new screen or any later main-grid estimate.
+Seeds `2001--2012` remain untouched.
+
 ## 1. Purpose and separation from staged v2
 
 V3 asks whether the validity-aware, novelty-aware adaptive controller E2
@@ -30,7 +39,7 @@ from any later confirmation by `configs/development-seed-registry.json`.
 The two planned model strata are:
 
 1. an official DeepSeek v4 route; and
-2. an official GLM-5.2 route.
+2. a Volcengine Agent Plan MiniMax M3 route.
 
 The template deliberately does not bind either route to the currently
 available endpoint. After a clean route-specific canary and before the first
@@ -231,7 +240,7 @@ score and define:
 `delta_m = mean_score(E2, m) - mean_score(C, m)`.
 
 The two-route summary is the equal-stratum mean
-`delta_bar = (delta_DeepSeek + delta_GLM) / 2`; a model with more tokens or
+`delta_bar = (delta_DeepSeek + delta_MiniMax) / 2`; a model with more tokens or
 valid candidates receives no extra weight. Report both paired world-level
 contrasts, both model means, the equal-stratum mean, all-invalid counts, and
 uncertainty intervals. The frozen development-only classification is:

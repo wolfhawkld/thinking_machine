@@ -95,8 +95,8 @@
       }
     },
     {
-      "stratum_id": "official-glm-5.2",
-      "expected_model_family": "GLM-5.2",
+      "stratum_id": "volcengine-minimax-m3",
+      "expected_model_family": "MiniMax M3",
       "route_requirement": "official-route-canary-before-freeze",
       "provider": null,
       "name": null,
