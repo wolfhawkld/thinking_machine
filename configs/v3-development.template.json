@@ -95,8 +95,8 @@
       }
     },
     {
-      "stratum_id": "volcengine-minimax-m3",
-      "expected_model_family": "MiniMax M3",
+      "stratum_id": "volcengine-kimi-k3",
+      "expected_model_family": "Kimi K3",
       "route_requirement": "official-route-canary-before-freeze",
       "provider": null,
       "name": null,

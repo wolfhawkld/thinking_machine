@@ -340,8 +340,8 @@ def initialize_v3_campaign(
     *,
     deepseek_credentials: ProviderCredentials,
     deepseek_canary: str | Path,
-    minimax_credentials: ProviderCredentials,
-    minimax_canary: str | Path,
+    kimi_credentials: ProviderCredentials,
+    kimi_canary: str | Path,
 ) -> dict[str, Any]:
     """Freeze the two observed routes and publish the V3 campaign manifest."""
 
@@ -352,10 +352,10 @@ def initialize_v3_campaign(
             deepseek_credentials,
             expected_stratum_id="official-deepseek-v4",
         ),
-        "volcengine-minimax-m3": model_binding_from_canary(
-            minimax_canary,
-            minimax_credentials,
-            expected_stratum_id="volcengine-minimax-m3",
+        "volcengine-kimi-k3": model_binding_from_canary(
+            kimi_canary,
+            kimi_credentials,
+            expected_stratum_id="volcengine-kimi-k3",
         ),
     }
     frozen, plan = freeze_v3_design(
@@ -371,8 +371,8 @@ def initialize_v3_campaign(
         forbidden_values=(
             deepseek_credentials.api_key,
             deepseek_credentials.base_url,
-            minimax_credentials.api_key,
-            minimax_credentials.base_url,
+            kimi_credentials.api_key,
+            kimi_credentials.base_url,
         ),
     )
     return {
@@ -387,11 +387,11 @@ def initialize_v3_campaign(
 
 def _credential_map(
     deepseek_credentials: ProviderCredentials,
-    minimax_credentials: ProviderCredentials,
+    kimi_credentials: ProviderCredentials,
 ) -> dict[str, ProviderCredentials]:
     return {
         "official-deepseek-v4": deepseek_credentials,
-        "volcengine-minimax-m3": minimax_credentials,
+        "volcengine-kimi-k3": kimi_credentials,
     }
 
 
@@ -399,7 +399,7 @@ def run_next_live_shard(
     campaign_dir: str | Path,
     *,
     deepseek_credentials: ProviderCredentials,
-    minimax_credentials: ProviderCredentials,
+    kimi_credentials: ProviderCredentials,
 ) -> dict[str, Any]:
     """Run exactly the current 20-call frontier with its bound model route."""
 
@@ -407,7 +407,7 @@ def run_next_live_shard(
     manifest = envelope["payload"]
     frontier = next_shard_frontier(campaign_dir, envelope)
     credentials_by_stratum = _credential_map(
-        deepseek_credentials, minimax_credentials
+        deepseek_credentials, kimi_credentials
     )
     if frontier is None:
         credentials = deepseek_credentials
@@ -426,7 +426,7 @@ def run_live_campaign(
     campaign_dir: str | Path,
     *,
     deepseek_credentials: ProviderCredentials,
-    minimax_credentials: ProviderCredentials,
+    kimi_credentials: ProviderCredentials,
     stop_after_gate: bool = True,
     max_shards: int | None = None,
 ) -> dict[str, Any]:
@@ -466,7 +466,7 @@ def run_live_campaign(
         status = run_next_live_shard(
             campaign_dir,
             deepseek_credentials=deepseek_credentials,
-            minimax_credentials=minimax_credentials,
+            kimi_credentials=kimi_credentials,
         )
         completed += 1
         if status["status"] in {
@@ -496,8 +496,8 @@ def _credentials(path: Path, prefix: str) -> ProviderCredentials:
 def _add_two_route_credentials(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--deepseek-env-file", type=Path, required=True)
     parser.add_argument("--deepseek-env-prefix", default="DEEPSEEK")
-    parser.add_argument("--minimax-env-file", type=Path, required=True)
-    parser.add_argument("--minimax-env-prefix", default="HERMES")
+    parser.add_argument("--kimi-env-file", type=Path, required=True)
+    parser.add_argument("--kimi-env-prefix", default="KIMI")
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -515,7 +515,7 @@ def _parser() -> argparse.ArgumentParser:
     initialize = commands.add_parser("init", help="freeze routes and initialize campaign")
     initialize.add_argument("--campaign-dir", type=Path, required=True)
     initialize.add_argument("--deepseek-canary", type=Path, required=True)
-    initialize.add_argument("--minimax-canary", type=Path, required=True)
+    initialize.add_argument("--kimi-canary", type=Path, required=True)
     _add_two_route_credentials(initialize)
 
     run = commands.add_parser("run", help="advance the live generation campaign")
@@ -552,10 +552,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 args.deepseek_env_file, args.deepseek_env_prefix
             ),
             deepseek_canary=args.deepseek_canary,
-            minimax_credentials=_credentials(
-                args.minimax_env_file, args.minimax_env_prefix
+            kimi_credentials=_credentials(
+                args.kimi_env_file, args.kimi_env_prefix
             ),
-            minimax_canary=args.minimax_canary,
+            kimi_canary=args.kimi_canary,
         )
     elif args.command == "run":
         result = run_live_campaign(
@@ -563,8 +563,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             deepseek_credentials=_credentials(
                 args.deepseek_env_file, args.deepseek_env_prefix
             ),
-            minimax_credentials=_credentials(
-                args.minimax_env_file, args.minimax_env_prefix
+            kimi_credentials=_credentials(
+                args.kimi_env_file, args.kimi_env_prefix
             ),
             stop_after_gate=not args.continue_main,
             max_shards=args.max_shards,

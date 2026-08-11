@@ -165,46 +165,46 @@ class V3RouteCanaryTests(unittest.TestCase):
 class V3LiveCampaignTests(unittest.TestCase):
     def test_two_canaries_initialize_bound_campaign(self) -> None:
         deepseek = _credentials("deepseek-v4-flash")
-        minimax = _credentials("minimax-m3", suffix="-minimax")
+        kimi = _credentials("kimi-k3", suffix="-kimi")
         deepseek_artifact = _run_canary(deepseek, "official-deepseek-v4")
-        minimax_artifact = _run_canary(minimax, "volcengine-minimax-m3")
+        kimi_artifact = _run_canary(kimi, "volcengine-kimi-k3")
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             deepseek_path = _write_new_json(
                 root / "deepseek-canary.json", deepseek_artifact
             )
-            minimax_path = _write_new_json(
-                root / "minimax-canary.json", minimax_artifact
+            kimi_path = _write_new_json(
+                root / "kimi-canary.json", kimi_artifact
             )
             campaign = root / "campaign"
             status = initialize_v3_campaign(
                 campaign,
                 deepseek_credentials=deepseek,
                 deepseek_canary=deepseek_path,
-                minimax_credentials=minimax,
-                minimax_canary=minimax_path,
+                kimi_credentials=kimi,
+                kimi_canary=kimi_path,
             )
             self.assertEqual(status["status"], "campaign_initialized")
             manifest = load_campaign_manifest(campaign)["payload"]
             self.assertEqual(len(manifest["execution_plan"]), 104)
             self.assertEqual(
                 {item["stratum_id"] for item in manifest["frozen_config"]["model_strata"]},
-                {"official-deepseek-v4", "volcengine-minimax-m3"},
+                {"official-deepseek-v4", "volcengine-kimi-k3"},
             )
 
     def test_run_next_selects_frontier_model(self) -> None:
         deepseek = _credentials("deepseek-v4-flash")
-        minimax = _credentials("minimax-m3", suffix="-minimax")
+        kimi = _credentials("kimi-k3", suffix="-kimi")
         envelope = {
             "payload": {
                 "execution_plan": [
-                    {"model_stratum": "volcengine-minimax-m3"},
+                    {"model_stratum": "volcengine-kimi-k3"},
                 ]
             }
         }
 
         def run(_campaign, generator, **_kwargs):
-            self.assertEqual(generator.model, minimax.model)
+            self.assertEqual(generator.model, kimi.model)
             return {"status": "gate_in_progress"}
 
         with (
@@ -215,13 +215,13 @@ class V3LiveCampaignTests(unittest.TestCase):
             status = run_next_live_shard(
                 "campaign",
                 deepseek_credentials=deepseek,
-                minimax_credentials=minimax,
+                kimi_credentials=kimi,
             )
         self.assertEqual(status["status"], "gate_in_progress")
 
     def test_gate_stop_repairs_missing_screen_without_starting_main(self) -> None:
         deepseek = _credentials("deepseek-v4-flash")
-        minimax = _credentials("minimax-m3", suffix="-minimax")
+        kimi = _credentials("kimi-k3", suffix="-kimi")
         envelope = {"payload": {"execution_plan": []}}
         screen = {"payload": {"status": "passed"}}
         lease = object()
@@ -245,7 +245,7 @@ class V3LiveCampaignTests(unittest.TestCase):
             status = run_live_campaign(
                 "campaign",
                 deepseek_credentials=deepseek,
-                minimax_credentials=minimax,
+                kimi_credentials=kimi,
             )
         publish.assert_called_once_with("campaign", envelope, lease=lease)
         run_next.assert_not_called()

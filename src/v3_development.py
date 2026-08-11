@@ -25,7 +25,7 @@ V3_TEMPLATE_PATH = PROJECT_ROOT / "configs" / "v3-development.template.json"
 DEVELOPMENT_SEED_REGISTRY_PATH = (
     PROJECT_ROOT / "configs" / "development-seed-registry.json"
 )
-V3_MODEL_STRATA = ("official-deepseek-v4", "volcengine-minimax-m3")
+V3_MODEL_STRATA = ("official-deepseek-v4", "volcengine-kimi-k3")
 V3_ARM_IDS = ("L", "H", "C", "E2")
 V3_CALLS_PER_SHARD = 20
 V3_GATE_SHARDS = 8
@@ -665,7 +665,7 @@ def validate_v3_config(
                 )
         if stratum.get("structured_output") is not True:
             raise V3DevelopmentError("every v3 model must require structured output")
-        expected_family = ("DeepSeek v4", "MiniMax M3")[index]
+        expected_family = ("DeepSeek v4", "Kimi K3")[index]
         if (
             stratum.get("expected_model_family") != expected_family
             or stratum.get("route_requirement")

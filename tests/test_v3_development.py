@@ -119,11 +119,11 @@ def _bindings() -> dict[str, dict[str, object]]:
             base_url="https://deepseek-route.invalid/v1",
             artifact_sha256="b" * 64,
         ),
-        "volcengine-minimax-m3": _binding(
+        "volcengine-kimi-k3": _binding(
             provider="volcengine-agent-plan",
-            name="minimax-m3",
-            snapshot="minimax-m3-response-snapshot",
-            base_url="https://minimax-route.invalid/v1",
+            name="kimi-k3",
+            snapshot="kimi-k3-response-snapshot",
+            base_url="https://kimi-route.invalid/v1",
             artifact_sha256="c" * 64,
         ),
     }
@@ -186,7 +186,7 @@ class V3DevelopmentTests(unittest.TestCase):
                 base_url=(
                     "https://deepseek-route.invalid/v1"
                     if binding["provider"] == "official-deepseek"
-                    else "https://minimax-route.invalid/v1"
+                    else "https://kimi-route.invalid/v1"
                 ),
                 model=str(binding["name"]),
             )
@@ -255,7 +255,7 @@ class V3DevelopmentTests(unittest.TestCase):
         ).decode("utf-8")
         for forbidden in (
             "https://deepseek-route.invalid",
-            "https://minimax-route.invalid",
+            "https://kimi-route.invalid",
             "fixture-secret-never-frozen",
             "hidden_law",
             "train_examples",
@@ -270,11 +270,11 @@ class V3DevelopmentTests(unittest.TestCase):
         cases: list[dict[str, dict[str, object]]] = []
 
         missing_stratum = deepcopy(self.bindings)
-        del missing_stratum["volcengine-minimax-m3"]
+        del missing_stratum["volcengine-kimi-k3"]
         cases.append(missing_stratum)
 
         missing_contract_field = deepcopy(self.bindings)
-        del missing_contract_field["volcengine-minimax-m3"][
+        del missing_contract_field["volcengine-kimi-k3"][
             "sanitized_request_contract"
         ]["transport_profile"]
         cases.append(missing_contract_field)
@@ -292,7 +292,7 @@ class V3DevelopmentTests(unittest.TestCase):
         cases.append(failed_canary)
 
         mismatched_canary = deepcopy(self.bindings)
-        mismatched_canary["volcengine-minimax-m3"]["canary_evidence"][
+        mismatched_canary["volcengine-kimi-k3"]["canary_evidence"][
             "route_binding_sha256"
         ] = "d" * 64
         cases.append(mismatched_canary)
@@ -352,7 +352,7 @@ class V3DevelopmentTests(unittest.TestCase):
             )
 
         drifted_response = deepcopy(runtime)
-        drifted_response["volcengine-minimax-m3"]["accepted_response_contract"][
+        drifted_response["volcengine-kimi-k3"]["accepted_response_contract"][
             "prompt_cache_mode"
         ] = "complete"
         with self.assertRaisesRegex(
@@ -398,10 +398,10 @@ class V3DevelopmentTests(unittest.TestCase):
 
     def test_cross_stratum_route_aliasing_is_rejected(self) -> None:
         duplicated = deepcopy(self.bindings)
-        duplicated["volcengine-minimax-m3"] = deepcopy(
+        duplicated["volcengine-kimi-k3"] = deepcopy(
             duplicated["official-deepseek-v4"]
         )
-        duplicated["volcengine-minimax-m3"]["provider"] = "volcengine-agent-plan"
+        duplicated["volcengine-kimi-k3"]["provider"] = "volcengine-agent-plan"
         with self.assertRaisesRegex(V3DevelopmentError, "distinct exact routes"):
             freeze_v3_design(
                 load_v3_template(),
@@ -411,11 +411,11 @@ class V3DevelopmentTests(unittest.TestCase):
 
     def test_plan_identity_changes_with_route_or_sampling_contract(self) -> None:
         changed = deepcopy(self.bindings)
-        changed["volcengine-minimax-m3"] = _binding(
+        changed["volcengine-kimi-k3"] = _binding(
             provider="volcengine-agent-plan",
-            name="minimax-m3",
-            snapshot="minimax-m3-response-snapshot",
-            base_url="https://minimax-route-new.invalid/v1",
+            name="kimi-k3",
+            snapshot="kimi-k3-response-snapshot",
+            base_url="https://kimi-route-new.invalid/v1",
             artifact_sha256="d" * 64,
         )
         changed_frozen, changed_plan = freeze_v3_design(
@@ -525,11 +525,11 @@ class V3DevelopmentTests(unittest.TestCase):
         encoded = canonical_json_bytes(manifest).decode("utf-8")
         self.assertNotIn("fixture-secret-never-frozen", encoded)
         self.assertNotIn("https://deepseek-route.invalid", encoded)
-        self.assertNotIn("https://minimax-route.invalid", encoded)
+        self.assertNotIn("https://kimi-route.invalid", encoded)
 
     def test_non_json_or_non_hash_inputs_fail_closed(self) -> None:
         bindings = deepcopy(self.bindings)
-        bindings["volcengine-minimax-m3"]["accepted_response_contract"][
+        bindings["volcengine-kimi-k3"]["accepted_response_contract"][
             "provider_fingerprint_sha256"
         ] = []
         with self.assertRaises(V3DevelopmentError):
