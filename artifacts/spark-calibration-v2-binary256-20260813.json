@@ -1,0 +1,1338 @@
+{
+  "K_values": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "kind": "spark-zero-api-offline-calibration",
+  "per_world": {
+    "1000": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 33.9921875,
+          "mean_contraction_bits": 3.7645474939530135,
+          "mean_terminal_N": 32.1875,
+          "singleton_count": 11,
+          "singleton_rate": 0.04296875,
+          "singleton_without_direct_hit_count": 10,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 83.5078125,
+          "mean_contraction_bits": 6.497029021584727,
+          "mean_terminal_N": 5.2109375,
+          "singleton_count": 106,
+          "singleton_rate": 0.4140625,
+          "singleton_without_direct_hit_count": 105,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.921875,
+          "mean_contraction_bits": 7.692301172136068,
+          "mean_terminal_N": 1.453125,
+          "singleton_count": 204,
+          "singleton_rate": 0.796875,
+          "singleton_without_direct_hit_count": 203,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.6328125,
+          "mean_contraction_bits": 7.9765625,
+          "mean_terminal_N": 1.0234375,
+          "singleton_count": 250,
+          "singleton_rate": 0.9765625,
+          "singleton_without_direct_hit_count": 249,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 6.6875,
+          "mean_contraction_bits": 0.716392228752265,
+          "mean_terminal_N": 205.6640625,
+          "singleton_count": 3,
+          "singleton_rate": 0.01171875,
+          "singleton_without_direct_hit_count": 2,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 23.78125,
+          "mean_contraction_bits": 2.3690673647602654,
+          "mean_terminal_N": 100.5625,
+          "singleton_count": 18,
+          "singleton_rate": 0.0703125,
+          "singleton_without_direct_hit_count": 17,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 40.27734375,
+          "mean_contraction_bits": 3.512136916638179,
+          "mean_terminal_N": 67.0,
+          "singleton_count": 45,
+          "singleton_rate": 0.17578125,
+          "singleton_without_direct_hit_count": 44,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 66.7109375,
+          "mean_contraction_bits": 5.374578289712226,
+          "mean_terminal_N": 18.703125,
+          "singleton_count": 90,
+          "singleton_rate": 0.3515625,
+          "singleton_without_direct_hit_count": 89,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1001": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 39.796875,
+          "mean_contraction_bits": 3.8548523639962258,
+          "mean_terminal_N": 29.53125,
+          "singleton_count": 9,
+          "singleton_rate": 0.03515625,
+          "singleton_without_direct_hit_count": 8,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 89.0078125,
+          "mean_contraction_bits": 6.5748364854167685,
+          "mean_terminal_N": 5.7890625,
+          "singleton_count": 111,
+          "singleton_rate": 0.43359375,
+          "singleton_without_direct_hit_count": 110,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 108.421875,
+          "mean_contraction_bits": 7.706401330239337,
+          "mean_terminal_N": 1.484375,
+          "singleton_count": 215,
+          "singleton_rate": 0.83984375,
+          "singleton_without_direct_hit_count": 214,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.5,
+          "mean_contraction_bits": 7.957988720694675,
+          "mean_terminal_N": 1.046875,
+          "singleton_count": 247,
+          "singleton_rate": 0.96484375,
+          "singleton_without_direct_hit_count": 246,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 11.796875,
+          "mean_contraction_bits": 2.1914602950272095,
+          "mean_terminal_N": 68.65625,
+          "singleton_count": 1,
+          "singleton_rate": 0.00390625,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 46.8203125,
+          "mean_contraction_bits": 4.124779113997435,
+          "mean_terminal_N": 30.5546875,
+          "singleton_count": 21,
+          "singleton_rate": 0.08203125,
+          "singleton_without_direct_hit_count": 20,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 76.74609375,
+          "mean_contraction_bits": 5.776369681770053,
+          "mean_terminal_N": 11.4453125,
+          "singleton_count": 84,
+          "singleton_rate": 0.328125,
+          "singleton_without_direct_hit_count": 83,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.37890625,
+          "mean_contraction_bits": 7.478815710927498,
+          "mean_terminal_N": 1.7734375,
+          "singleton_count": 174,
+          "singleton_rate": 0.6796875,
+          "singleton_without_direct_hit_count": 173,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1002": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 35.60546875,
+          "mean_contraction_bits": 3.879734465258687,
+          "mean_terminal_N": 30.4765625,
+          "singleton_count": 10,
+          "singleton_rate": 0.0390625,
+          "singleton_without_direct_hit_count": 9,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 89.80859375,
+          "mean_contraction_bits": 6.708443395706248,
+          "mean_terminal_N": 4.25,
+          "singleton_count": 118,
+          "singleton_rate": 0.4609375,
+          "singleton_without_direct_hit_count": 117,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 108.84765625,
+          "mean_contraction_bits": 7.755744824168044,
+          "mean_terminal_N": 1.3359375,
+          "singleton_count": 214,
+          "singleton_rate": 0.8359375,
+          "singleton_without_direct_hit_count": 213,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.53515625,
+          "mean_contraction_bits": 7.973613720694674,
+          "mean_terminal_N": 1.03125,
+          "singleton_count": 251,
+          "singleton_rate": 0.98046875,
+          "singleton_without_direct_hit_count": 250,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 27.58203125,
+          "mean_contraction_bits": 3.43609954159803,
+          "mean_terminal_N": 34.0078125,
+          "singleton_count": 4,
+          "singleton_rate": 0.015625,
+          "singleton_without_direct_hit_count": 3,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 62.9765625,
+          "mean_contraction_bits": 5.115731955106219,
+          "mean_terminal_N": 23.328125,
+          "singleton_count": 62,
+          "singleton_rate": 0.2421875,
+          "singleton_without_direct_hit_count": 61,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 90.89453125,
+          "mean_contraction_bits": 6.661071375451404,
+          "mean_terminal_N": 7.8984375,
+          "singleton_count": 146,
+          "singleton_rate": 0.5703125,
+          "singleton_without_direct_hit_count": 145,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.59375,
+          "mean_contraction_bits": 7.574243287266833,
+          "mean_terminal_N": 1.859375,
+          "singleton_count": 205,
+          "singleton_rate": 0.80078125,
+          "singleton_without_direct_hit_count": 204,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1003": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 33.67578125,
+          "mean_contraction_bits": 3.7237199188817454,
+          "mean_terminal_N": 35.46875,
+          "singleton_count": 12,
+          "singleton_rate": 0.046875,
+          "singleton_without_direct_hit_count": 11,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 82.71875,
+          "mean_contraction_bits": 6.462093729861585,
+          "mean_terminal_N": 7.875,
+          "singleton_count": 117,
+          "singleton_rate": 0.45703125,
+          "singleton_without_direct_hit_count": 116,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 106.87890625,
+          "mean_contraction_bits": 7.634664892830741,
+          "mean_terminal_N": 1.640625,
+          "singleton_count": 207,
+          "singleton_rate": 0.80859375,
+          "singleton_without_direct_hit_count": 206,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.0390625,
+          "mean_contraction_bits": 7.950176220694675,
+          "mean_terminal_N": 1.0546875,
+          "singleton_count": 245,
+          "singleton_rate": 0.95703125,
+          "singleton_without_direct_hit_count": 244,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 12.44140625,
+          "mean_contraction_bits": 2.1204241128161323,
+          "mean_terminal_N": 76.140625,
+          "singleton_count": 2,
+          "singleton_rate": 0.0078125,
+          "singleton_without_direct_hit_count": 1,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 46.23046875,
+          "mean_contraction_bits": 4.475679480746613,
+          "mean_terminal_N": 19.0546875,
+          "singleton_count": 20,
+          "singleton_rate": 0.078125,
+          "singleton_without_direct_hit_count": 19,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 77.55078125,
+          "mean_contraction_bits": 6.020661426605791,
+          "mean_terminal_N": 8.875,
+          "singleton_count": 93,
+          "singleton_rate": 0.36328125,
+          "singleton_without_direct_hit_count": 92,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 102.53515625,
+          "mean_contraction_bits": 7.311177611920065,
+          "mean_terminal_N": 2.4296875,
+          "singleton_count": 165,
+          "singleton_rate": 0.64453125,
+          "singleton_without_direct_hit_count": 164,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1004": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 38.01953125,
+          "mean_contraction_bits": 3.9247443057431215,
+          "mean_terminal_N": 30.390625,
+          "singleton_count": 14,
+          "singleton_rate": 0.0546875,
+          "singleton_without_direct_hit_count": 13,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 79.59765625,
+          "mean_contraction_bits": 6.45432018038244,
+          "mean_terminal_N": 5.9921875,
+          "singleton_count": 110,
+          "singleton_rate": 0.4296875,
+          "singleton_without_direct_hit_count": 109,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 104.60546875,
+          "mean_contraction_bits": 7.619203345877486,
+          "mean_terminal_N": 1.6484375,
+          "singleton_count": 203,
+          "singleton_rate": 0.79296875,
+          "singleton_without_direct_hit_count": 202,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 111.87109375,
+          "mean_contraction_bits": 7.950176220694674,
+          "mean_terminal_N": 1.0703125,
+          "singleton_count": 249,
+          "singleton_rate": 0.97265625,
+          "singleton_without_direct_hit_count": 248,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 10.0390625,
+          "mean_contraction_bits": 1.691186892150709,
+          "mean_terminal_N": 105.109375,
+          "singleton_count": 4,
+          "singleton_rate": 0.015625,
+          "singleton_without_direct_hit_count": 3,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 35.3203125,
+          "mean_contraction_bits": 3.784004460592805,
+          "mean_terminal_N": 37.6796875,
+          "singleton_count": 20,
+          "singleton_rate": 0.078125,
+          "singleton_without_direct_hit_count": 19,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 76.3671875,
+          "mean_contraction_bits": 5.936718980115531,
+          "mean_terminal_N": 6.796875,
+          "singleton_count": 70,
+          "singleton_rate": 0.2734375,
+          "singleton_without_direct_hit_count": 69,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 103.2421875,
+          "mean_contraction_bits": 7.416315710927498,
+          "mean_terminal_N": 1.8359375,
+          "singleton_count": 164,
+          "singleton_rate": 0.640625,
+          "singleton_without_direct_hit_count": 163,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1005": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 39.81640625,
+          "mean_contraction_bits": 3.9603760126005505,
+          "mean_terminal_N": 26.8828125,
+          "singleton_count": 9,
+          "singleton_rate": 0.03515625,
+          "singleton_without_direct_hit_count": 8,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 81.1328125,
+          "mean_contraction_bits": 6.6084433793052995,
+          "mean_terminal_N": 4.546875,
+          "singleton_count": 117,
+          "singleton_rate": 0.45703125,
+          "singleton_without_direct_hit_count": 116,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 106.296875,
+          "mean_contraction_bits": 7.717817066572159,
+          "mean_terminal_N": 1.4140625,
+          "singleton_count": 210,
+          "singleton_rate": 0.8203125,
+          "singleton_without_direct_hit_count": 209,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.921875,
+          "mean_contraction_bits": 7.9921875,
+          "mean_terminal_N": 1.0078125,
+          "singleton_count": 254,
+          "singleton_rate": 0.9921875,
+          "singleton_without_direct_hit_count": 253,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 18.13671875,
+          "mean_contraction_bits": 2.465352695866718,
+          "mean_terminal_N": 77.6875,
+          "singleton_count": 5,
+          "singleton_rate": 0.01953125,
+          "singleton_without_direct_hit_count": 4,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 57.765625,
+          "mean_contraction_bits": 5.107851095725429,
+          "mean_terminal_N": 11.7734375,
+          "singleton_count": 34,
+          "singleton_rate": 0.1328125,
+          "singleton_without_direct_hit_count": 33,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 88.09765625,
+          "mean_contraction_bits": 6.645237819885122,
+          "mean_terminal_N": 4.2421875,
+          "singleton_count": 111,
+          "singleton_rate": 0.43359375,
+          "singleton_without_direct_hit_count": 110,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.21875,
+          "mean_contraction_bits": 7.600375927641419,
+          "mean_terminal_N": 1.625,
+          "singleton_count": 199,
+          "singleton_rate": 0.77734375,
+          "singleton_without_direct_hit_count": 198,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1006": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 37.578125,
+          "mean_contraction_bits": 3.970012071369344,
+          "mean_terminal_N": 28.7578125,
+          "singleton_count": 12,
+          "singleton_rate": 0.046875,
+          "singleton_without_direct_hit_count": 11,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 81.39453125,
+          "mean_contraction_bits": 6.442519675194894,
+          "mean_terminal_N": 6.828125,
+          "singleton_count": 104,
+          "singleton_rate": 0.40625,
+          "singleton_without_direct_hit_count": 103,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 103.87890625,
+          "mean_contraction_bits": 7.56626733422009,
+          "mean_terminal_N": 1.765625,
+          "singleton_count": 199,
+          "singleton_rate": 0.77734375,
+          "singleton_without_direct_hit_count": 198,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.109375,
+          "mean_contraction_bits": 7.942363720694675,
+          "mean_terminal_N": 1.0625,
+          "singleton_count": 243,
+          "singleton_rate": 0.94921875,
+          "singleton_without_direct_hit_count": 242,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 24.8984375,
+          "mean_contraction_bits": 3.2741398187128583,
+          "mean_terminal_N": 36.7265625,
+          "singleton_count": 2,
+          "singleton_rate": 0.0078125,
+          "singleton_without_direct_hit_count": 1,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 62.28125,
+          "mean_contraction_bits": 5.314845093800991,
+          "mean_terminal_N": 10.7734375,
+          "singleton_count": 35,
+          "singleton_rate": 0.13671875,
+          "singleton_without_direct_hit_count": 34,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 88.95703125,
+          "mean_contraction_bits": 6.669608253312962,
+          "mean_terminal_N": 4.7578125,
+          "singleton_count": 129,
+          "singleton_rate": 0.50390625,
+          "singleton_without_direct_hit_count": 128,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.203125,
+          "mean_contraction_bits": 7.629801172136068,
+          "mean_terminal_N": 1.59375,
+          "singleton_count": 202,
+          "singleton_rate": 0.7890625,
+          "singleton_without_direct_hit_count": 201,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1007": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 41.1640625,
+          "mean_contraction_bits": 3.994364104105444,
+          "mean_terminal_N": 25.2890625,
+          "singleton_count": 12,
+          "singleton_rate": 0.046875,
+          "singleton_without_direct_hit_count": 11,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 86.87109375,
+          "mean_contraction_bits": 6.606942106580013,
+          "mean_terminal_N": 4.4296875,
+          "singleton_count": 105,
+          "singleton_rate": 0.41015625,
+          "singleton_without_direct_hit_count": 104,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 109.5546875,
+          "mean_contraction_bits": 7.772403662084023,
+          "mean_terminal_N": 1.2890625,
+          "singleton_count": 215,
+          "singleton_rate": 0.83984375,
+          "singleton_without_direct_hit_count": 214,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.921875,
+          "mean_contraction_bits": 7.9921875,
+          "mean_terminal_N": 1.0078125,
+          "singleton_count": 254,
+          "singleton_rate": 0.9921875,
+          "singleton_without_direct_hit_count": 253,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 8.515625,
+          "mean_contraction_bits": 1.6610961680235377,
+          "mean_terminal_N": 102.6171875,
+          "singleton_count": 4,
+          "singleton_rate": 0.015625,
+          "singleton_without_direct_hit_count": 3,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 37.76171875,
+          "mean_contraction_bits": 3.4974742975456214,
+          "mean_terminal_N": 50.4140625,
+          "singleton_count": 23,
+          "singleton_rate": 0.08984375,
+          "singleton_without_direct_hit_count": 22,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 72.05859375,
+          "mean_contraction_bits": 5.411429101588524,
+          "mean_terminal_N": 14.0390625,
+          "singleton_count": 55,
+          "singleton_rate": 0.21484375,
+          "singleton_without_direct_hit_count": 54,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 94.67578125,
+          "mean_contraction_bits": 6.775296293597914,
+          "mean_terminal_N": 5.8671875,
+          "singleton_count": 149,
+          "singleton_rate": 0.58203125,
+          "singleton_without_direct_hit_count": 148,
+          "trajectory_count": 256
+        }
+      ]
+    },
+    "1008": {
+      "response_entropy": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 36.77734375,
+          "mean_contraction_bits": 3.7364995616581234,
+          "mean_terminal_N": 30.6640625,
+          "singleton_count": 8,
+          "singleton_rate": 0.03125,
+          "singleton_without_direct_hit_count": 7,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 79.328125,
+          "mean_contraction_bits": 6.297002062342966,
+          "mean_terminal_N": 6.3671875,
+          "singleton_count": 97,
+          "singleton_rate": 0.37890625,
+          "singleton_without_direct_hit_count": 96,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 106.8515625,
+          "mean_contraction_bits": 7.6127522347274725,
+          "mean_terminal_N": 1.5859375,
+          "singleton_count": 196,
+          "singleton_rate": 0.765625,
+          "singleton_without_direct_hit_count": 195,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.8828125,
+          "mean_contraction_bits": 7.9765625,
+          "mean_terminal_N": 1.0234375,
+          "singleton_count": 250,
+          "singleton_rate": 0.9765625,
+          "singleton_without_direct_hit_count": 249,
+          "trajectory_count": 256
+        }
+      ],
+      "shortest_parent": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 256
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 12.67578125,
+          "mean_contraction_bits": 1.9154563407747656,
+          "mean_terminal_N": 96.875,
+          "singleton_count": 4,
+          "singleton_rate": 0.015625,
+          "singleton_without_direct_hit_count": 3,
+          "trajectory_count": 256
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 33.93359375,
+          "mean_contraction_bits": 3.237602017735772,
+          "mean_terminal_N": 65.859375,
+          "singleton_count": 23,
+          "singleton_rate": 0.08984375,
+          "singleton_without_direct_hit_count": 22,
+          "trajectory_count": 256
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 60.5625,
+          "mean_contraction_bits": 5.068320926873198,
+          "mean_terminal_N": 23.546875,
+          "singleton_count": 72,
+          "singleton_rate": 0.28125,
+          "singleton_without_direct_hit_count": 71,
+          "trajectory_count": 256
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 1,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 92.49609375,
+          "mean_contraction_bits": 6.725988010834635,
+          "mean_terminal_N": 4.703125,
+          "singleton_count": 134,
+          "singleton_rate": 0.5234375,
+          "singleton_without_direct_hit_count": 133,
+          "trajectory_count": 256
+        }
+      ]
+    }
+  },
+  "protocol": {
+    "model_calls": 0,
+    "query_selector_receives_realized_target": false,
+    "query_selector_uses_private_test": false,
+    "response_entropy_prior": "uniform_over_current_version_space",
+    "target_selection_exhaustive": true
+  },
+  "schema_version": 1,
+  "selectors": {
+    "response_entropy": {
+      "aggregate_by_K": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 37.380642361111114,
+          "mean_contraction_bits": 3.867650033062894,
+          "mean_terminal_N": 29.9609375,
+          "singleton_count": 97,
+          "singleton_rate": 0.04210069444444445,
+          "singleton_without_direct_hit_count": 88,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 83.70746527777777,
+          "mean_contraction_bits": 6.516847781819447,
+          "mean_terminal_N": 5.698784722222222,
+          "singleton_count": 985,
+          "singleton_rate": 0.4275173611111111,
+          "singleton_without_direct_hit_count": 976,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 107.02864583333333,
+          "mean_contraction_bits": 7.675283984761715,
+          "mean_terminal_N": 1.5130208333333333,
+          "singleton_count": 1863,
+          "singleton_rate": 0.80859375,
+          "singleton_without_direct_hit_count": 1854,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 112.49045138888889,
+          "mean_contraction_bits": 7.967979844830373,
+          "mean_terminal_N": 1.0364583333333333,
+          "singleton_count": 2243,
+          "singleton_rate": 0.9735243055555556,
+          "singleton_without_direct_hit_count": 2234,
+          "trajectory_count": 2304
+        }
+      ],
+      "headroom_vs_shortest_parent_by_K": [
+        {
+          "K": 0,
+          "direct_hit_rate_gain": 0.0,
+          "mean_certified_fact_count_gain": 0.0,
+          "mean_contraction_bits_gain": 0.0,
+          "mean_terminal_N_reduction": 0.0,
+          "singleton_rate_gain": 0.0
+        },
+        {
+          "K": 1,
+          "direct_hit_rate_gain": 0.0,
+          "mean_certified_fact_count_gain": 22.62803819444445,
+          "mean_contraction_bits_gain": 1.704138022649322,
+          "mean_terminal_N_reduction": 59.31510416666667,
+          "singleton_rate_gain": 0.02951388888888889
+        },
+        {
+          "K": 2,
+          "direct_hit_rate_gain": 0.0,
+          "mean_certified_fact_count_gain": 38.499565972222214,
+          "mean_contraction_bits_gain": 2.4027327951515645,
+          "mean_terminal_N_reduction": 33.190104166666664,
+          "singleton_rate_gain": 0.31640625
+        },
+        {
+          "K": 3,
+          "direct_hit_rate_gain": 0.0,
+          "mean_certified_fact_count_gain": 32.416232638888886,
+          "mean_contraction_bits_gain": 1.930666820068299,
+          "mean_terminal_N_reduction": 14.998263888888888,
+          "singleton_rate_gain": 0.4592013888888889
+        },
+        {
+          "K": 4,
+          "direct_hit_rate_gain": 0.0,
+          "mean_certified_fact_count_gain": 13.706597222222214,
+          "mean_contraction_bits_gain": 0.8694696209454804,
+          "mean_terminal_N_reduction": 3.4513888888888893,
+          "singleton_rate_gain": 0.33029513888888895
+        }
+      ]
+    },
+    "shortest_parent": {
+      "aggregate_by_K": [
+        {
+          "K": 0,
+          "direct_hit_count": 0,
+          "direct_hit_rate": 0.0,
+          "mean_certified_fact_count": 0.0,
+          "mean_contraction_bits": 0.0,
+          "mean_terminal_N": 256.0,
+          "singleton_count": 0,
+          "singleton_rate": 0.0,
+          "singleton_without_direct_hit_count": 0,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 1,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 14.752604166666666,
+          "mean_contraction_bits": 2.163512010413572,
+          "mean_terminal_N": 89.27604166666667,
+          "singleton_count": 29,
+          "singleton_rate": 0.012586805555555556,
+          "singleton_without_direct_hit_count": 20,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 2,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 45.20789930555556,
+          "mean_contraction_bits": 4.114114986667882,
+          "mean_terminal_N": 38.888888888888886,
+          "singleton_count": 256,
+          "singleton_rate": 0.1111111111111111,
+          "singleton_without_direct_hit_count": 247,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 3,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 74.61241319444444,
+          "mean_contraction_bits": 5.744617164693416,
+          "mean_terminal_N": 16.51128472222222,
+          "singleton_count": 805,
+          "singleton_rate": 0.3493923611111111,
+          "singleton_without_direct_hit_count": 796,
+          "trajectory_count": 2304
+        },
+        {
+          "K": 4,
+          "direct_hit_count": 9,
+          "direct_hit_rate": 0.00390625,
+          "mean_certified_fact_count": 98.78385416666667,
+          "mean_contraction_bits": 7.098510223884893,
+          "mean_terminal_N": 4.487847222222222,
+          "singleton_count": 1482,
+          "singleton_rate": 0.6432291666666666,
+          "singleton_without_direct_hit_count": 1473,
+          "trajectory_count": 2304
+        }
+      ]
+    }
+  },
+  "target_indices_per_world": 256,
+  "world_seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008
+  ]
+}

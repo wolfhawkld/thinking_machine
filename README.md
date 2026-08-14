@@ -13,6 +13,10 @@ The first experiment uses runtime-generated symbolic worlds and a programmatic v
 - Historical concept memo: [entropy-cycling-scientific-agent-position-paper.md](entropy-cycling-scientific-agent-position-paper.md)
 - Frozen development protocol: [experiment-spec.md](experiment-spec.md)
 - Short-preprint structure: [paper-outline.md](paper-outline.md)
+- Spark-to-knowledge mechanism study and results: [spark-to-knowledge-experiment-plan.md](spark-to-knowledge-experiment-plan.md)
+- Prospective layered mechanism result: `K1=22/32`, `K2=16/32`,
+  `K3=9/32`, and `K4=3/32`, classified under the frozen rule as
+  `prospective_cross_world_replication_observed` within the finite DSL benchmark
 - Non-secret provider record: [provider-integration.md](provider-integration.md)
 - Local DSL, worlds, verifier, policies, runner, and experiment harness: complete
 - Unit/integration checks: the complete local test suite passes; the exact test

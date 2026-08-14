@@ -1,0 +1,1650 @@
+{
+  "analysis_sha256": "c3f458c5a3bb8ba44411e7fae6e9edb98868f4d9df27234a88f9a7777ffc52af",
+  "canonical_24_call_scope": true,
+  "classification": "exploratory_mechanism_instance_observed",
+  "confirmatory_evidence": false,
+  "diagnostic_mechanism_classification": "exploratory_mechanism_instance_observed",
+  "evidence_scope": "post_calibration_exploratory_only",
+  "factorial_success_counts": {
+    "Y00": 0,
+    "Y01": 9,
+    "Y10": 0,
+    "Y11": 5
+  },
+  "factual_slot_count": 18,
+  "generation_fully_sealed_before_target_analysis": true,
+  "generation_sha256": "10a2e17386567b2638567768944e6c48bde806a84c570782e68f653309ab0f46",
+  "interpretation_limit": "existence/feasibility signal only; not a confirmatory positive or negative",
+  "kind": "spark-closure-offline-analysis",
+  "model_call_count": 24,
+  "neutral_no_op_valid_count": 6,
+  "neutral_slot_count": 6,
+  "plan_sha256": "6e5ca96db22c71921d45c455d75c755c428369a204f5af73d117c1711dc71480",
+  "schema_version": 1,
+  "strict_event_count": 1,
+  "strict_reachable_gate_remains_failed": true,
+  "valid_lineage_count": 7,
+  "worlds": [
+    {
+      "parent_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": true,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 0,
+          "slot_id": "world-3000:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_hash": "5ce8a7fd23d56ade529ef52b0ec815466af799e4deb7559d549c1494f00e5b70",
+          "action_parse_valid": true,
+          "child_behavior_hash": "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308",
+          "child_canonical_hash": "abc36ef552331c2f8a5ef16987e4fa967dd72b5778f6943b4fd05d8420e3bc2e",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "abc36ef552331c2f8a5ef16987e4fa967dd72b5778f6943b4fd05d8420e3bc2e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": false,
+            "Y11": true
+          },
+          "lineage_failure": null,
+          "lineage_hash": "33e243dd0f5ee7dcc6f8275f776158be7b9bd5a7b73de93a7961a15a8dea4c72",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "1531f5a56b3fead2a913107dfbe1b3e7d2608edf122379bf5b6adb39d370adff",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:26b5ef4dd4bd77e7",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  53,
+                  21,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 2,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 3,
+                "seed_canonical_hash": "1531f5a56b3fead2a913107dfbe1b3e7d2608edf122379bf5b6adb39d370adff",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "a5881039d3ab076105c59f207ea3456f49489d7cfddaefcd6654a269c5e6bf67",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:e045bc72ab8295a0",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  37,
+                  21,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 2,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 3,
+                "seed_canonical_hash": "a5881039d3ab076105c59f207ea3456f49489d7cfddaefcd6654a269c5e6bf67",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "affine_commutative:e8d7564a357cd38d",
+          "motif_stratum": "affine_commutative",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 1,
+          "slot_id": "world-3000:motif-1",
+          "slot_index": 1,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": false,
+            "child_full_domain_recovered": true,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": true,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": false,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_hash": "bcb7d6bc42c4674577fa852cec542dca9f57c60662900cc4a5af98acfe839de2",
+          "action_parse_valid": true,
+          "child_behavior_hash": "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308",
+          "child_canonical_hash": "eca8eac606fe615eee6a481cd5b3b5eb88830a08cd042507e9f8183af6cac018",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "eca8eac606fe615eee6a481cd5b3b5eb88830a08cd042507e9f8183af6cac018",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": false,
+            "Y11": true
+          },
+          "lineage_failure": null,
+          "lineage_hash": "3483776a651fc2e29cc8a13ed8bd091093933181034eba2a26072567ef7a27f4",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "bcd9bb833fa417e263f94f72f055b13cd64de06d39c9e5ebe2a872dbeb44d404",
+              "direct_hit": false,
+              "motif_id": "affine_directional:15a872c89dec6f7e",
+              "motif_stratum": "affine_directional",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  37,
+                  21,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 2,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 3,
+                "seed_canonical_hash": "bcd9bb833fa417e263f94f72f055b13cd64de06d39c9e5ebe2a872dbeb44d404",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "5dd12ec60a1b119e27c02ee069117f5884fecc120394b185e41db66760305c65",
+              "direct_hit": false,
+              "motif_id": "affine_directional:3c6bbbaae5f601c8",
+              "motif_stratum": "affine_directional",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  53,
+                  21,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 2,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 3,
+                "seed_canonical_hash": "5dd12ec60a1b119e27c02ee069117f5884fecc120394b185e41db66760305c65",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "affine_directional:0dcbf081c5f24e8b",
+          "motif_stratum": "affine_directional",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 2,
+          "slot_id": "world-3000:motif-2",
+          "slot_index": 2,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": false,
+            "child_full_domain_recovered": true,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": true,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": false,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_multiplicative:9259080c43d6b697",
+          "motif_stratum": "affine_multiplicative",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              53,
+              21,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 3,
+          "slot_id": "world-3000:motif-3",
+          "slot_index": 3,
+          "strict_event": false
+        }
+      ],
+      "strict_event_count": 0,
+      "target_canonical_hash": "07be231316dfc00bc0375c5b906dc0bdf7c87f83a9dbef96c394c064254faaaa",
+      "target_index": 141,
+      "target_seed_namespace_sha256": "eaf7319b34b120cd8461e5ad18f818346ac8d333068c16a9ead7891053cd34b2",
+      "world_hash": "e0a0dae773bfad4b42e3101b48e58c601a369fa74c8ae435c6018213567ba57e",
+      "world_seed": 3000
+    },
+    {
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": true,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              84,
+              16,
+              6,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 4,
+          "slot_id": "world-3001:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "pairwise_variable:f5c15daf480e1054",
+          "motif_stratum": "pairwise_variable",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              84,
+              16,
+              6,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 5,
+          "slot_id": "world-3001:motif-1",
+          "slot_index": 1,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_commutative:15d4441a1fb3e068",
+          "motif_stratum": "affine_commutative",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              84,
+              16,
+              6,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 6,
+          "slot_id": "world-3001:motif-2",
+          "slot_index": 2,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_directional:9697645be27ecb92",
+          "motif_stratum": "affine_directional",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              84,
+              16,
+              6,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 7,
+          "slot_id": "world-3001:motif-3",
+          "slot_index": 3,
+          "strict_event": false
+        }
+      ],
+      "strict_event_count": 0,
+      "target_canonical_hash": "ce35cbe874e3d437a644b18222fa01e4b498d7442168c466298ad7fd287bf3b8",
+      "target_index": 168,
+      "target_seed_namespace_sha256": "47eb5e9a4942fadbc53bdaf227daf01ccdf315f23e7032b506e9b284ab3894ce",
+      "world_hash": "fcd7c4c7b0e812354be6ba9192aa6e80f1579a3486216ca1af3cc62a102347c1",
+      "world_seed": 3001
+    },
+    {
+      "parent_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": false,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              145,
+              131,
+              79,
+              3
+            ],
+            "certified_fact_count": 86,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 8,
+          "slot_id": "world-3002:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_hash": "ac818c2e5e6bc9988b3905c92b180f6920c890d83dea06f74cf504b784d473e8",
+          "action_parse_valid": true,
+          "child_behavior_hash": "7aeee51e4bb6d7345b3e6dcce33ff93703f3559988068262d87267ca5668a3a8",
+          "child_canonical_hash": "605d9eaf7030f27dc185c0d22c64f021c84cfdf9f748e1769e0c5777e5ff424f",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              79,
+              3,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "605d9eaf7030f27dc185c0d22c64f021c84cfdf9f748e1769e0c5777e5ff424f",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": false,
+            "Y11": true
+          },
+          "lineage_failure": null,
+          "lineage_hash": "9d94ec21cfe38a038bc0a940d633f1b700084671ee065bdf8b24509a016c1bb7",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "d310f5e1594407fe9956d8bde95d6748a100169a01ecd9a39acdc626e9824bc8",
+              "direct_hit": false,
+              "motif_id": "affine_multiplicative:0eee0e0e645a0aeb",
+              "motif_stratum": "affine_multiplicative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  3,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 1,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 2,
+                "seed_canonical_hash": "d310f5e1594407fe9956d8bde95d6748a100169a01ecd9a39acdc626e9824bc8",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "19a70f39d0f54439cedffd342a87de4a82de129cc66cdf8829269e435fcc17d7",
+              "direct_hit": false,
+              "motif_id": "affine_multiplicative:12b31cb97e4c015c",
+              "motif_stratum": "affine_multiplicative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  3,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 1,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 2,
+                "seed_canonical_hash": "19a70f39d0f54439cedffd342a87de4a82de129cc66cdf8829269e435fcc17d7",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "affine_multiplicative:42edcf705a2be9bd",
+          "motif_stratum": "affine_multiplicative",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              145,
+              131,
+              79,
+              3
+            ],
+            "certified_fact_count": 86,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 9,
+          "slot_id": "world-3002:motif-1",
+          "slot_index": 1,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": false,
+            "child_full_domain_recovered": true,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": true,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": true,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_hash": "c9fbe989412001d48aa90168b1a2d6e72d5857a95e04081fdac0d603c1aac516",
+          "action_parse_valid": true,
+          "child_behavior_hash": "346ea2c9294b5bae10036db15aaebeeac054e6a1224c35dca2b0f8e180192f8e",
+          "child_canonical_hash": "4889b6637bb99a88edca84a236b9b5fd13612109810e1f8a2bc65b6c11c5eee7",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 79,
+            "N_t": [
+              256,
+              220,
+              145,
+              131,
+              79
+            ],
+            "certified_fact_count": 10,
+            "contraction_bits": 1.6962192518228971,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "4889b6637bb99a88edca84a236b9b5fd13612109810e1f8a2bc65b6c11c5eee7",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": false,
+            "Y11": false
+          },
+          "lineage_failure": null,
+          "lineage_hash": "1c53d94e7e67c3a9d3c3cf464740a5782ce4a98203f2ad75cd41c46181261269",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "8656154b0646c86c97dce26bdec1a25251c38ce510cc87e08abae7fdaa3889cb",
+              "direct_hit": false,
+              "motif_id": "pairwise_variable:04654a21341965a4",
+              "motif_stratum": "pairwise_variable",
+              "trajectory": {
+                "N_T": 79,
+                "N_t": [
+                  256,
+                  220,
+                  145,
+                  131,
+                  79
+                ],
+                "certified_fact_count": 10,
+                "contraction_bits": 1.6962192518228971,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "8656154b0646c86c97dce26bdec1a25251c38ce510cc87e08abae7fdaa3889cb",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "84f8e4b0b4f1fd0e78926042c21b3b8cfc23f04900757248f2568060e0d667da",
+              "direct_hit": false,
+              "motif_id": "pairwise_variable:17c77bbe1202d5a6",
+              "motif_stratum": "pairwise_variable",
+              "trajectory": {
+                "N_T": 79,
+                "N_t": [
+                  256,
+                  220,
+                  145,
+                  131,
+                  79
+                ],
+                "certified_fact_count": 10,
+                "contraction_bits": 1.6962192518228971,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "84f8e4b0b4f1fd0e78926042c21b3b8cfc23f04900757248f2568060e0d667da",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "pairwise_variable:e8a856f12bd784b8",
+          "motif_stratum": "pairwise_variable",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              145,
+              131,
+              79,
+              3
+            ],
+            "certified_fact_count": 86,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 10,
+          "slot_id": "world-3002:motif-2",
+          "slot_index": 2,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": true,
+            "child_full_domain_recovered": false,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": false,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": true,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_hash": "a99fe2cf2165ba7f9ffd53ca3cd9f2f200fffa9250a934f348a4c311d292c33b",
+          "action_parse_valid": true,
+          "child_behavior_hash": "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308",
+          "child_canonical_hash": "3b23cac025d5ddb6e32dd058bfbd37d4d9013309313b0b212c5d06a69b1e2307",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              3,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 1,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 2,
+            "seed_canonical_hash": "3b23cac025d5ddb6e32dd058bfbd37d4d9013309313b0b212c5d06a69b1e2307",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": false,
+            "Y11": true
+          },
+          "lineage_failure": null,
+          "lineage_hash": "e9ad1ee352bab2be1df88e1ba2e36fdd3745956fd8b74cef9391b5b3111fa770",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "91d44d99d58142e5b3cacbb390a877fef3d1d1bc18c3516ca6ab2b9a380bcaf1",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:232147a04f9e7f1b",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  92,
+                  79,
+                  3,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 3,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "91d44d99d58142e5b3cacbb390a877fef3d1d1bc18c3516ca6ab2b9a380bcaf1",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "519250d53b3cda27a7342f619b8581afc62119ed89023d5157ecf10d66bdc8e8",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:90f1100dfec7dfb2",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 1,
+                "N_t": [
+                  256,
+                  3,
+                  1
+                ],
+                "certified_fact_count": 113,
+                "contraction_bits": 8.0,
+                "exact_identification": true,
+                "full_domain_recovered": true,
+                "non_match_response_count": 1,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 2,
+                "seed_canonical_hash": "519250d53b3cda27a7342f619b8581afc62119ed89023d5157ecf10d66bdc8e8",
+                "termination_reason": "singleton",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "affine_commutative:2cea74505059a9b9",
+          "motif_stratum": "affine_commutative",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              145,
+              131,
+              79,
+              3
+            ],
+            "certified_fact_count": 86,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": true,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 11,
+          "slot_id": "world-3002:motif-3",
+          "slot_index": 3,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": false,
+            "child_full_domain_recovered": true,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": true,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": true,
+            "positive_non_match_oracle_contraction": true
+          }
+        }
+      ],
+      "strict_event_count": 0,
+      "target_canonical_hash": "18c7a7c86c4567bea034f71fe1dc6ee76259d0141ee3ac135e9f2ed0747b6330",
+      "target_index": 20,
+      "target_seed_namespace_sha256": "da3c7e5c1e9a9af1e59b7bdeda8f33de8122936613c2f7ed6bffcd400f9e5bcf",
+      "world_hash": "dbb6c91c4f84791d2d332c3bc3554371aff941a50633de53b31b000bff58b2fe",
+      "world_seed": 3002
+    },
+    {
+      "parent_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": true,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              46,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 2,
+            "seed_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 12,
+          "slot_id": "world-3003:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_directional:e46d6e5d564b5bd1",
+          "motif_stratum": "affine_directional",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              46,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 2,
+            "seed_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 13,
+          "slot_id": "world-3003:motif-1",
+          "slot_index": 1,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_multiplicative:c231a44b45ce6dae",
+          "motif_stratum": "affine_multiplicative",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              46,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 2,
+            "seed_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 14,
+          "slot_id": "world-3003:motif-2",
+          "slot_index": 2,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": true,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "pairwise_variable:04654a21341965a4",
+          "motif_stratum": "pairwise_variable",
+          "parent_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              46,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 2,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 2,
+            "seed_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "serial_index": 15,
+          "slot_id": "world-3003:motif-3",
+          "slot_index": 3,
+          "strict_event": false
+        }
+      ],
+      "strict_event_count": 0,
+      "target_canonical_hash": "724e73663d04e6a1d7fe731772311cf791e891530f9af71b3a87c1c7377e3c73",
+      "target_index": 132,
+      "target_seed_namespace_sha256": "655c259d8d4e458c7a24989b46ef75d44084e44ab25d825c36c169f724d8db12",
+      "world_hash": "372da5827a9da9da388a38764fb164b9090881bc745999283e78925ed7e90ce0",
+      "world_seed": 3003
+    },
+    {
+      "parent_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": false,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 4,
+            "N_t": [
+              256,
+              176,
+              161,
+              98,
+              4
+            ],
+            "certified_fact_count": 84,
+            "contraction_bits": 6.0,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 16,
+          "slot_id": "world-3004:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_commutative:beda5e140d1addca",
+          "motif_stratum": "affine_commutative",
+          "parent_trajectory": {
+            "N_T": 4,
+            "N_t": [
+              256,
+              176,
+              161,
+              98,
+              4
+            ],
+            "certified_fact_count": 84,
+            "contraction_bits": 6.0,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 17,
+          "slot_id": "world-3004:motif-1",
+          "slot_index": 1,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_directional:e517ca638be3bd57",
+          "motif_stratum": "affine_directional",
+          "parent_trajectory": {
+            "N_T": 4,
+            "N_t": [
+              256,
+              176,
+              161,
+              98,
+              4
+            ],
+            "certified_fact_count": 84,
+            "contraction_bits": 6.0,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 18,
+          "slot_id": "world-3004:motif-2",
+          "slot_index": 2,
+          "strict_event": false
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_multiplicative:5587d628bfc7b18b",
+          "motif_stratum": "affine_multiplicative",
+          "parent_trajectory": {
+            "N_T": 4,
+            "N_t": [
+              256,
+              176,
+              161,
+              98,
+              4
+            ],
+            "certified_fact_count": 84,
+            "contraction_bits": 6.0,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 19,
+          "slot_id": "world-3004:motif-3",
+          "slot_index": 3,
+          "strict_event": false
+        }
+      ],
+      "strict_event_count": 0,
+      "target_canonical_hash": "15a639fe8d528f8ae77da3929ac2cafd77cc68d59f147ad5ad2f045980110d5c",
+      "target_index": 50,
+      "target_seed_namespace_sha256": "c344559957b3c41f035a32559bc80ca63cfce7603218c41cb137790d66fa038b",
+      "world_hash": "1d0e183e87cf3aa17fd5b1790de92322bcf0ce6fa1a0e920f7cd660ada9bbaed",
+      "world_seed": 3004
+    },
+    {
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "slot_results": [
+        {
+          "Y00": false,
+          "Y01": false,
+          "action_parse_valid": true,
+          "condition": "neutral",
+          "neutral_no_op_valid": true,
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              143,
+              45,
+              25,
+              3
+            ],
+            "certified_fact_count": 96,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 20,
+          "slot_id": "world-3005:neutral",
+          "slot_index": 0,
+          "strict_event": false
+        },
+        {
+          "action_hash": "aadebe5b5e3e3c9dfccff12e8b6b80b60401f3f328062832ec1f68d6805b7c58",
+          "action_parse_valid": true,
+          "child_behavior_hash": "4145ee31494c1a0d756fe6020ead49dc01641fbd45f42342bfc479d5303b00d8",
+          "child_canonical_hash": "88370c367c17a1bf752faf40adccc4138de4f11e152a86424dc3ac3966873c47",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              143,
+              45,
+              25,
+              3
+            ],
+            "certified_fact_count": 96,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "88370c367c17a1bf752faf40adccc4138de4f11e152a86424dc3ac3966873c47",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": false,
+            "Y11": false
+          },
+          "lineage_failure": null,
+          "lineage_hash": "0913191fe7df9783f9792add3e6e76a7d41744089d06cb93bf109622facb71dd",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "9c361910d12cc342649fd30bb3f62aa614f3acaf2b7ac688e1807dd8a1be246a",
+              "direct_hit": false,
+              "motif_id": "pairwise_variable:04654a21341965a4",
+              "motif_stratum": "pairwise_variable",
+              "trajectory": {
+                "N_T": 25,
+                "N_t": [
+                  256,
+                  182,
+                  143,
+                  45,
+                  25
+                ],
+                "certified_fact_count": 29,
+                "contraction_bits": 3.356143810225275,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "9c361910d12cc342649fd30bb3f62aa614f3acaf2b7ac688e1807dd8a1be246a",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "e6e995dec074d608d42e34355e7c7c926843dda71759261d8f094a46de3adbf1",
+              "direct_hit": false,
+              "motif_id": "pairwise_variable:32ec7596e3a4e2b9",
+              "motif_stratum": "pairwise_variable",
+              "trajectory": {
+                "N_T": 3,
+                "N_t": [
+                  256,
+                  143,
+                  45,
+                  25,
+                  3
+                ],
+                "certified_fact_count": 96,
+                "contraction_bits": 6.415037499278844,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "e6e995dec074d608d42e34355e7c7c926843dda71759261d8f094a46de3adbf1",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "pairwise_variable:989325c3b91295ac",
+          "motif_stratum": "pairwise_variable",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              143,
+              45,
+              25,
+              3
+            ],
+            "certified_fact_count": 96,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 21,
+          "slot_id": "world-3005:motif-1",
+          "slot_index": 1,
+          "strict_event": false,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": true,
+            "child_full_domain_recovered": false,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": false,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": true,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_hash": "db7afd038c32c1a77d90b61d0a33c45e41dd4ada49304f0ccb2db823c9eebfc8",
+          "action_parse_valid": true,
+          "child_behavior_hash": "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308",
+          "child_canonical_hash": "d1a6adbfa68c59fbd6824858026626392be5b057a452996696053d185bc14267",
+          "child_direct_hit": false,
+          "child_trajectory": {
+            "N_T": 1,
+            "N_t": [
+              256,
+              4,
+              3,
+              1
+            ],
+            "certified_fact_count": 113,
+            "contraction_bits": 8.0,
+            "exact_identification": true,
+            "full_domain_recovered": true,
+            "non_match_response_count": 3,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 3,
+            "seed_canonical_hash": "d1a6adbfa68c59fbd6824858026626392be5b057a452996696053d185bc14267",
+            "termination_reason": "singleton",
+            "truth_retained": true
+          },
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": false,
+            "Y11": true
+          },
+          "lineage_failure": null,
+          "lineage_hash": "0bc96aaac6427695083368224e5fd1f746c683cdc53feab54cf19c6bd0096e69",
+          "lineage_valid": true,
+          "matched_replacements": [
+            {
+              "child_canonical_hash": "77ad358c10f2945440e8415ac46c6b99f4268382633489ebfc0cb821fa2477b3",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:232147a04f9e7f1b",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 25,
+                "N_t": [
+                  256,
+                  182,
+                  143,
+                  45,
+                  25
+                ],
+                "certified_fact_count": 29,
+                "contraction_bits": 3.356143810225275,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "77ad358c10f2945440e8415ac46c6b99f4268382633489ebfc0cb821fa2477b3",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            },
+            {
+              "child_canonical_hash": "85f4af6f52429e094afd14a28f77c415acad614c94a90b08791dff06ddac3da7",
+              "direct_hit": false,
+              "motif_id": "affine_commutative:890fe65a5713a4ef",
+              "motif_stratum": "affine_commutative",
+              "trajectory": {
+                "N_T": 25,
+                "N_t": [
+                  256,
+                  182,
+                  143,
+                  45,
+                  25
+                ],
+                "certified_fact_count": 29,
+                "contraction_bits": 3.356143810225275,
+                "exact_identification": false,
+                "full_domain_recovered": false,
+                "non_match_response_count": 4,
+                "positive_non_match_contraction": true,
+                "rounds_completed": 4,
+                "seed_canonical_hash": "85f4af6f52429e094afd14a28f77c415acad614c94a90b08791dff06ddac3da7",
+                "termination_reason": "round_limit",
+                "truth_retained": true
+              }
+            }
+          ],
+          "motif_id": "affine_commutative:b3d97b3f5e914d00",
+          "motif_stratum": "affine_commutative",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              143,
+              45,
+              25,
+              3
+            ],
+            "certified_fact_count": 96,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 22,
+          "slot_id": "world-3005:motif-2",
+          "slot_index": 2,
+          "strict_event": true,
+          "strict_event_checks": {
+            "at_least_one_matched_replacement_does_not_reach_endpoint": true,
+            "child_full_domain_recovered": true,
+            "child_not_direct_hit": true,
+            "child_terminal_singleton": true,
+            "child_truth_retained": true,
+            "lineage_valid": true,
+            "parent_deletion_does_not_reach_endpoint": true,
+            "positive_non_match_oracle_contraction": true
+          }
+        },
+        {
+          "action_parse_valid": true,
+          "condition": "motif",
+          "factorial_definition": {
+            "first_index": "assigned_spark_action_absent_0_present_1",
+            "second_index": "oracle_evidence_absent_0_present_1",
+            "success": "complete_domain_target_recovered_and_unique_when_evidence_present"
+          },
+          "factorial_outcomes": {
+            "Y00": false,
+            "Y01": false,
+            "Y10": null,
+            "Y11": null
+          },
+          "lineage_failure": "not_in_frozen_reachable_lineage_set",
+          "lineage_valid": false,
+          "motif_id": "affine_directional:e46d6e5d564b5bd1",
+          "motif_stratum": "affine_directional",
+          "parent_trajectory": {
+            "N_T": 3,
+            "N_t": [
+              256,
+              143,
+              45,
+              25,
+              3
+            ],
+            "certified_fact_count": 96,
+            "contraction_bits": 6.415037499278844,
+            "exact_identification": false,
+            "full_domain_recovered": false,
+            "non_match_response_count": 4,
+            "positive_non_match_contraction": true,
+            "rounds_completed": 4,
+            "seed_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+            "termination_reason": "round_limit",
+            "truth_retained": true
+          },
+          "serial_index": 23,
+          "slot_id": "world-3005:motif-3",
+          "slot_index": 3,
+          "strict_event": false
+        }
+      ],
+      "strict_event_count": 1,
+      "target_canonical_hash": "39351fe461ed38aaf791da595232b4f7e2c044efdc94fce8987f67d0b2eaec2d",
+      "target_index": 83,
+      "target_seed_namespace_sha256": "82b4cbf218998b9d94da31c23f28d2b9ec706a7c72337dd8de08a44d5399a5c2",
+      "world_hash": "4c2706fbf1b2b21cfeb710908c0028d66848774815903e3b4c20462df85de296",
+      "world_seed": 3005
+    }
+  ]
+}

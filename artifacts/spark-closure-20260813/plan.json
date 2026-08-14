@@ -1,0 +1,1077 @@
+{
+  "evidence_scope": "post_calibration_exploratory_only",
+  "kind": "spark-closure-generation-plan",
+  "model_route": {
+    "canary_artifact_sha256": "940f07c4e78e2ebca8581e73f35c57eb91fbb4352312fcc5fe4afde2b61a9228",
+    "model_stratum": "official-deepseek-v4",
+    "provider": "deepseek-official-openai-compatible",
+    "request_model": "deepseek-v4-flash",
+    "response_model": "deepseek-v4-flash",
+    "route_binding_sha256": "02bd12bf58025f50146c47ac7ecb891fd68e37efe0d4dda8692b5947961e5964"
+  },
+  "plan_sha256": "6e5ca96db22c71921d45c455d75c755c428369a204f5af73d117c1711dc71480",
+  "protocol": {
+    "analysis_max_oracle_queries": 4,
+    "calls_per_world": 4,
+    "first_query": "generated_child_or_parent_control",
+    "generation_reads_target_or_evidence_or_test_outcomes": false,
+    "generation_then_analysis_barrier": true,
+    "max_output_tokens": 256,
+    "physical_attempts_per_slot": 1,
+    "remaining_query_rule": "shortest_bank_member_then_canonical_hash",
+    "temperature": 0.2,
+    "thinking": "disabled"
+  },
+  "schema_version": 1,
+  "slots": [
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 0,
+      "slot_id": "world-3000:neutral",
+      "slot_index": 0,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const -3) (var x3))",
+      "motif_id": "affine_commutative:e8d7564a357cd38d",
+      "motif_selection_sha256": "867d359b29ed3232ff9f6598644a7b8e3c4aa2f3e8b311583d82f63e81cda9f3",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 1,
+      "slot_id": "world-3000:motif-1",
+      "slot_index": 1,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const 3))",
+      "motif_id": "affine_directional:0dcbf081c5f24e8b",
+      "motif_selection_sha256": "7014b7d7d29a7b68d9d25d8669b6cbecfeb9e74d165c19d5ca865f5ef6b57e1e",
+      "motif_stratum": "affine_directional",
+      "serial_index": 2,
+      "slot_id": "world-3000:motif-2",
+      "slot_index": 2,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 1) (var x1))",
+      "motif_id": "affine_multiplicative:9259080c43d6b697",
+      "motif_selection_sha256": "76d1ed682b1a1020ba0456a1d18e4973d7413f521596f806de33b3b9bd159dd7",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 3,
+      "slot_id": "world-3000:motif-3",
+      "slot_index": 3,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 4,
+      "slot_id": "world-3001:neutral",
+      "slot_index": 0,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (var x2) (var x3))",
+      "motif_id": "pairwise_variable:f5c15daf480e1054",
+      "motif_selection_sha256": "20bd51e55f3cd3c936634034c1fb77e3bfde657a8f8c97ce5ddd1453cca03bbe",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 5,
+      "slot_id": "world-3001:motif-1",
+      "slot_index": 1,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 3) (var x2))",
+      "motif_id": "affine_commutative:15d4441a1fb3e068",
+      "motif_selection_sha256": "483685dd2f46e666ecbe5346491efcebc4df90ebeb82c0cb208d4f64ef8c1389",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 6,
+      "slot_id": "world-3001:motif-2",
+      "slot_index": 2,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x1) (const -3))",
+      "motif_id": "affine_directional:9697645be27ecb92",
+      "motif_selection_sha256": "3d28d6a993736e957b558c2383a9c45868ebd59746ffba6a4b9bb5ecbd056576",
+      "motif_stratum": "affine_directional",
+      "serial_index": 7,
+      "slot_id": "world-3001:motif-3",
+      "slot_index": 3,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 8,
+      "slot_id": "world-3002:neutral",
+      "slot_index": 0,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 2) (var x2))",
+      "motif_id": "affine_multiplicative:42edcf705a2be9bd",
+      "motif_selection_sha256": "81cd3dec0f1f651a290d850ec1d8af441c5b2eecdc0d04bb3e3e78af536641f7",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 9,
+      "slot_id": "world-3002:motif-1",
+      "slot_index": 1,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (var x1) (var x1))",
+      "motif_id": "pairwise_variable:e8a856f12bd784b8",
+      "motif_selection_sha256": "dd0dbd6c8199bba8464f4397abd7e2a9cc50ce350242bf92c4b02de5a5de6d58",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 10,
+      "slot_id": "world-3002:motif-2",
+      "slot_index": 2,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 1) (var x2))",
+      "motif_id": "affine_commutative:2cea74505059a9b9",
+      "motif_selection_sha256": "3aa3186695dbe7b1b56ae82e3c76c86f621fa70822a6acd0fba072deb1f4f62c",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 11,
+      "slot_id": "world-3002:motif-3",
+      "slot_index": 3,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 12,
+      "slot_id": "world-3003:neutral",
+      "slot_index": 0,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const 0))",
+      "motif_id": "affine_directional:e46d6e5d564b5bd1",
+      "motif_selection_sha256": "d41ff814f9e1b8bf6c967f48a94de8beb48f088c5bfd8bef35ec76cd48e7541e",
+      "motif_stratum": "affine_directional",
+      "serial_index": 13,
+      "slot_id": "world-3003:motif-1",
+      "slot_index": 1,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const -3) (var x1))",
+      "motif_id": "affine_multiplicative:c231a44b45ce6dae",
+      "motif_selection_sha256": "099f4d054ee020e097164c61d860e627b682c14e14865bf83c1a529401c5bdf9",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 14,
+      "slot_id": "world-3003:motif-2",
+      "slot_index": 2,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (var x1))",
+      "motif_id": "pairwise_variable:04654a21341965a4",
+      "motif_selection_sha256": "a7b72d3059e17bb4a25135ada8b96f97221a4fec40141d95f74b19fcf893a46c",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 15,
+      "slot_id": "world-3003:motif-3",
+      "slot_index": 3,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 16,
+      "slot_id": "world-3004:neutral",
+      "slot_index": 0,
+      "world_index": 4,
+      "world_seed": 3004
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 0) (var x2))",
+      "motif_id": "affine_commutative:beda5e140d1addca",
+      "motif_selection_sha256": "2f31af7313bd68927dc0ed885268b74cc0752c47f01acbd1f63e78b78304de7a",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 17,
+      "slot_id": "world-3004:motif-1",
+      "slot_index": 1,
+      "world_index": 4,
+      "world_seed": 3004
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const -1))",
+      "motif_id": "affine_directional:e517ca638be3bd57",
+      "motif_selection_sha256": "04907982c5764cc3344ebf8bcd0cd1d94693e53a16f156265db5104fc2305351",
+      "motif_stratum": "affine_directional",
+      "serial_index": 18,
+      "slot_id": "world-3004:motif-2",
+      "slot_index": 2,
+      "world_index": 4,
+      "world_seed": 3004
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const -2) (var x2))",
+      "motif_id": "affine_multiplicative:5587d628bfc7b18b",
+      "motif_selection_sha256": "a575495d03a9d46d2a68417ed7405cf568f86368d2ca428bbd50eece655bcaa2",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 19,
+      "slot_id": "world-3004:motif-3",
+      "slot_index": 3,
+      "world_index": 4,
+      "world_seed": 3004
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 20,
+      "slot_id": "world-3005:neutral",
+      "slot_index": 0,
+      "world_index": 5,
+      "world_seed": 3005
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (var x1) (var x2))",
+      "motif_id": "pairwise_variable:989325c3b91295ac",
+      "motif_selection_sha256": "af46211aee3b42b243e1e46e725230d41f059083826573e6780b09cafb918eed",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 21,
+      "slot_id": "world-3005:motif-1",
+      "slot_index": 1,
+      "world_index": 5,
+      "world_seed": 3005
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const -1) (var x2))",
+      "motif_id": "affine_commutative:b3d97b3f5e914d00",
+      "motif_selection_sha256": "217c30bae01a0b5638b04c4523d0c0c1c50a66b88f9711744654d545b649ff65",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 22,
+      "slot_id": "world-3005:motif-2",
+      "slot_index": 2,
+      "world_index": 5,
+      "world_seed": 3005
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const 0))",
+      "motif_id": "affine_directional:e46d6e5d564b5bd1",
+      "motif_selection_sha256": "9765959d7d33c83520516a40f4671fa38381d5e8d04d1f718aa702155e7304ea",
+      "motif_stratum": "affine_directional",
+      "serial_index": 23,
+      "slot_id": "world-3005:motif-3",
+      "slot_index": 3,
+      "world_index": 5,
+      "world_seed": 3005
+    }
+  ],
+  "source_manifest_sha256": "3ccf0fffe2ae3a6cfad14c1caee0517cdec1fffe57e92c8bee4faa07f421f0c3",
+  "stratum_counts": {
+    "affine_commutative": 5,
+    "affine_directional": 5,
+    "affine_multiplicative": 4,
+    "pairwise_variable": 4
+  },
+  "world_seeds": [
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005
+  ],
+  "worlds": [
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            0,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+      "target_seed": 106277960163396427410235396829806925799827722432327378695336796275912204956850,
+      "target_seed_namespace_sha256": "eaf7319b34b120cd8461e5ad18f818346ac8d333068c16a9ead7891053cd34b2",
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            0,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            -1
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "53427894f2f5c4ab90cb0c85f3f026578be0c386d735a6b4cfc54b153f7b6d00",
+          "old_subtree": "(var x3)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (var x3) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "target_seed": 32530074233338570177185615797355326182381531762188135564775071230605265507534,
+      "target_seed_namespace_sha256": "47eb5e9a4942fadbc53bdaf227daf01ccdf315f23e7032b506e9b284ab3894ce",
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "9168018c477277d900bb848e11affc4a985746862299a06f5fbbfb03eb5c95e2",
+          "old_subtree": "(var x2)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "9a70c5459743dcaf58a7e0d2045519a7cc3ec4813b860522558f2569d6536f11",
+          "old_subtree": "(const -2)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x2) (const -2)) (const 1) (const 0))",
+      "parent_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+      "target_seed": 98711083918616534376439614864111839595204714705006267492233759219316978244559,
+      "target_seed_namespace_sha256": "da3c7e5c1e9a9af1e59b7bdeda8f33de8122936613c2f7ed6bffcd400f9e5bcf",
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "85235d817884dbc2146d3bbbcacae98f4b711d618f4fbefdf0d09d4fe635cabc",
+          "old_subtree": "(const 0)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 0)) (const 1) (const 0))",
+      "parent_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+      "target_seed": 45846407249077206802186546572284904099821897824498296171373140667064099855122,
+      "target_seed_namespace_sha256": "655c259d8d4e458c7a24989b46ef75d44084e44ab25d825c36c169f724d8db12",
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            0,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            1
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "9168018c477277d900bb848e11affc4a985746862299a06f5fbbfb03eb5c95e2",
+          "old_subtree": "(var x2)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (var x1) (var x2)) (const 1) (const 0))",
+      "parent_canonical_hash": "7b9090bdfc7f55d97c7874a6552ba75caf459e2d19f84503038fb922b3da5e5b",
+      "target_seed": 88321741856689313997813322683341910932375896068020441574006473209364155597707,
+      "target_seed_namespace_sha256": "c344559957b3c41f035a32559bc80ca63cfce7603218c41cb137790d66fa038b",
+      "world_index": 4,
+      "world_seed": 3004
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "53427894f2f5c4ab90cb0c85f3f026578be0c386d735a6b4cfc54b153f7b6d00",
+          "old_subtree": "(var x3)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (var x3) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "target_seed": 59120110368890891505666695316418543003641244168543426033200522821081180513730,
+      "target_seed_namespace_sha256": "82b4cbf218998b9d94da31c23f28d2b9ec706a7c72337dd8de08a44d5399a5c2",
+      "world_index": 5,
+      "world_seed": 3005
+    }
+  ]
+}

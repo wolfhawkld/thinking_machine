@@ -113,7 +113,7 @@ def frozen_confirmatory_config() -> dict:
     config = load_config(ROOT / "configs" / "pilot.json")
     config["status"] = "confirmatory-frozen"
     config["worlds"] = [
-        {"seed": 3000 + index, "depth": (3, 4, 5)[index % 3]}
+        {"seed": 4000 + index, "depth": (3, 4, 5)[index % 3]}
         for index in range(40)
     ]
     config["model"] = {

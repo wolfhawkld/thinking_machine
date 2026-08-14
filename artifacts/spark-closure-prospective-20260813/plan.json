@@ -1,0 +1,1073 @@
+{
+  "evidence_scope": "prospective_mechanism_replication",
+  "kind": "spark-closure-generation-plan",
+  "model_route": {
+    "canary_artifact_sha256": "940f07c4e78e2ebca8581e73f35c57eb91fbb4352312fcc5fe4afde2b61a9228",
+    "model_stratum": "official-deepseek-v4",
+    "provider": "deepseek-official-openai-compatible",
+    "request_model": "deepseek-v4-flash",
+    "response_model": "deepseek-v4-flash",
+    "route_binding_sha256": "02bd12bf58025f50146c47ac7ecb891fd68e37efe0d4dda8692b5947961e5964"
+  },
+  "motif_selection_namespace": "spark-closure-v1",
+  "plan_sha256": "60003e4ea397456faf981bc5a954396760257e66b851ef942a819f132cb00f28",
+  "protocol": {
+    "analysis_max_oracle_queries": 4,
+    "calls_per_world": 4,
+    "first_query": "generated_child_or_parent_control",
+    "generation_reads_target_or_evidence_or_test_outcomes": false,
+    "generation_then_analysis_barrier": true,
+    "max_output_tokens": 256,
+    "physical_attempts_per_slot": 1,
+    "remaining_query_rule": "shortest_bank_member_then_canonical_hash",
+    "temperature": 0.2,
+    "thinking": "disabled"
+  },
+  "protocol_id": "prospective-v1",
+  "replication_of": {
+    "analysis_sha256": "c3f458c5a3bb8ba44411e7fae6e9edb98868f4d9df27234a88f9a7777ffc52af",
+    "generation_sha256": "10a2e17386567b2638567768944e6c48bde806a84c570782e68f653309ab0f46",
+    "plan_sha256": "6e5ca96db22c71921d45c455d75c755c428369a204f5af73d117c1711dc71480"
+  },
+  "schema_version": 1,
+  "slots": [
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 0,
+      "slot_id": "world-10000:neutral",
+      "slot_index": 0,
+      "world_index": 0,
+      "world_seed": 10000
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 3) (var x2))",
+      "motif_id": "affine_commutative:15d4441a1fb3e068",
+      "motif_selection_sha256": "29aac9cb9459d64545313e38a2b1719d02e6bcd27ce1a5793d5cd4b25faf6cad",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 1,
+      "slot_id": "world-10000:motif-1",
+      "slot_index": 1,
+      "world_index": 0,
+      "world_seed": 10000
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (const 1) (var x1))",
+      "motif_id": "affine_directional:8db8872b560ea9c9",
+      "motif_selection_sha256": "57c76f904c85431a2e892b830203a2bf4c979800407ea151450534d8c718e796",
+      "motif_stratum": "affine_directional",
+      "serial_index": 2,
+      "slot_id": "world-10000:motif-2",
+      "slot_index": 2,
+      "world_index": 0,
+      "world_seed": 10000
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 0) (var x2))",
+      "motif_id": "affine_multiplicative:0eee0e0e645a0aeb",
+      "motif_selection_sha256": "87047640769af67b8426a31291ee4d366bcf9abdb33291bb0b926e1be09f887e",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 3,
+      "slot_id": "world-10000:motif-3",
+      "slot_index": 3,
+      "world_index": 0,
+      "world_seed": 10000
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 4,
+      "slot_id": "world-10001:neutral",
+      "slot_index": 0,
+      "world_index": 1,
+      "world_seed": 10001
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (var x1) (var x1))",
+      "motif_id": "pairwise_variable:8cd8695729d8a9cd",
+      "motif_selection_sha256": "098590daa68dd7a0c242588e23ba61d1a542308595ee215e6c0a884801412bb5",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 5,
+      "slot_id": "world-10001:motif-1",
+      "slot_index": 1,
+      "world_index": 1,
+      "world_seed": 10001
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 1) (var x1))",
+      "motif_id": "affine_commutative:e6f8cf82e2847af9",
+      "motif_selection_sha256": "ec59b8be8631c04ca9b2630f74e2f32094728d74aa0760b73314999ee4ff809c",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 6,
+      "slot_id": "world-10001:motif-2",
+      "slot_index": 2,
+      "world_index": 1,
+      "world_seed": 10001
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x2) (const 2))",
+      "motif_id": "affine_directional:027a7f523a163c37",
+      "motif_selection_sha256": "75e7ba2ddd4ced2fee02b1ac126841b2914f5199f067082a71abea126c3863a7",
+      "motif_stratum": "affine_directional",
+      "serial_index": 7,
+      "slot_id": "world-10001:motif-3",
+      "slot_index": 3,
+      "world_index": 1,
+      "world_seed": 10001
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 8,
+      "slot_id": "world-10002:neutral",
+      "slot_index": 0,
+      "world_index": 2,
+      "world_seed": 10002
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const -3) (var x3))",
+      "motif_id": "affine_multiplicative:2529e44a485571ee",
+      "motif_selection_sha256": "1db4a85b1afcb2becf087af05e28baac3cd5dd69b8af07e68294105e9eea6a6c",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 9,
+      "slot_id": "world-10002:motif-1",
+      "slot_index": 1,
+      "world_index": 2,
+      "world_seed": 10002
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (var x1) (var x3))",
+      "motif_id": "pairwise_variable:5ede5336393365f8",
+      "motif_selection_sha256": "a215a6c6b100009ae64a002a776095f5ae3b526bbf73f44a146401062f372b8b",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 10,
+      "slot_id": "world-10002:motif-2",
+      "slot_index": 2,
+      "world_index": 2,
+      "world_seed": 10002
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const -1) (var x1))",
+      "motif_id": "affine_commutative:d172efc4f440224e",
+      "motif_selection_sha256": "46fe38e4fedc97901bd157f08a3106c757f29bfccba7574361c50fb959b007dc",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 11,
+      "slot_id": "world-10002:motif-3",
+      "slot_index": 3,
+      "world_index": 2,
+      "world_seed": 10002
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 12,
+      "slot_id": "world-10003:neutral",
+      "slot_index": 0,
+      "world_index": 3,
+      "world_seed": 10003
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (const 2) (var x1))",
+      "motif_id": "affine_directional:77890786ef260988",
+      "motif_selection_sha256": "59bd0b45dc69976f5429762b51351e0674c9bd1efd96dea8e853e735873e08d8",
+      "motif_stratum": "affine_directional",
+      "serial_index": 13,
+      "slot_id": "world-10003:motif-1",
+      "slot_index": 1,
+      "world_index": 3,
+      "world_seed": 10003
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 2) (var x1))",
+      "motif_id": "affine_multiplicative:d6288ce99f04cdfb",
+      "motif_selection_sha256": "e1f37b2671c3c9f8ca689074e73e7e67a82c96bd835fae2bea773d1218d088d6",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 14,
+      "slot_id": "world-10003:motif-2",
+      "slot_index": 2,
+      "world_index": 3,
+      "world_seed": 10003
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (var x1) (var x3))",
+      "motif_id": "pairwise_variable:7e37387c91991675",
+      "motif_selection_sha256": "8f4af65abdd5bca8c4af912365df118b4cbbc550cd3b487151f1784e0e22f5cc",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 15,
+      "slot_id": "world-10003:motif-3",
+      "slot_index": 3,
+      "world_index": 3,
+      "world_seed": 10003
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 16,
+      "slot_id": "world-10004:neutral",
+      "slot_index": 0,
+      "world_index": 4,
+      "world_seed": 10004
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 0) (var x3))",
+      "motif_id": "affine_commutative:b4d840d19d78714a",
+      "motif_selection_sha256": "7466c7c17d7f23792a0f5ca7d9cfa6beada7b06ceec5078a8bf89a4e57e2a528",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 17,
+      "slot_id": "world-10004:motif-1",
+      "slot_index": 1,
+      "world_index": 4,
+      "world_seed": 10004
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x1) (const 2))",
+      "motif_id": "affine_directional:d76a1664b0beafa8",
+      "motif_selection_sha256": "d3adc51f2143a2bfa962738f9f33f531e828d57310b59ecb5d2c9a1a9a7dcc29",
+      "motif_stratum": "affine_directional",
+      "serial_index": 18,
+      "slot_id": "world-10004:motif-2",
+      "slot_index": 2,
+      "world_index": 4,
+      "world_seed": 10004
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 3) (var x3))",
+      "motif_id": "affine_multiplicative:90d6c3617df6dd0e",
+      "motif_selection_sha256": "92f66705d893408fa71f48d9c0f3d7d0bd34139c5ae3144d230124f436e89b46",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 19,
+      "slot_id": "world-10004:motif-3",
+      "slot_index": 3,
+      "world_index": 4,
+      "world_seed": 10004
+    },
+    {
+      "condition": "neutral",
+      "motif": null,
+      "motif_id": null,
+      "motif_selection_sha256": null,
+      "motif_stratum": null,
+      "serial_index": 20,
+      "slot_id": "world-10005:neutral",
+      "slot_index": 0,
+      "world_index": 5,
+      "world_seed": 10005
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (var x1) (var x3))",
+      "motif_id": "pairwise_variable:5ede5336393365f8",
+      "motif_selection_sha256": "f91dd6d077145b1effa36a5d682b240100e79b6810e38508a8fd5b36716b6604",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 21,
+      "slot_id": "world-10005:motif-1",
+      "slot_index": 1,
+      "world_index": 5,
+      "world_seed": 10005
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const 2) (var x1))",
+      "motif_id": "affine_commutative:e045bc72ab8295a0",
+      "motif_selection_sha256": "aefbcfbb9b53f09bf4d394bb09a6d13cdf424a0fb099f6cbd5d222cb96949553",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 22,
+      "slot_id": "world-10005:motif-2",
+      "slot_index": 2,
+      "world_index": 5,
+      "world_seed": 10005
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (const -3) (var x3))",
+      "motif_id": "affine_directional:7eb33652ee6f6a34",
+      "motif_selection_sha256": "5e8efe6c29430c27bae8581dcbf4a96367ef17e0ec9cbb20cfb329cfb0cea79b",
+      "motif_stratum": "affine_directional",
+      "serial_index": 23,
+      "slot_id": "world-10005:motif-3",
+      "slot_index": 3,
+      "world_index": 5,
+      "world_seed": 10005
+    }
+  ],
+  "source_manifest_sha256": "661f62b17b8c854ee33dacb414ac70ed1c70c8490d788b52e5cd291ea2702857",
+  "stratum_counts": {
+    "affine_commutative": 5,
+    "affine_directional": 5,
+    "affine_multiplicative": 4,
+    "pairwise_variable": 4
+  },
+  "target_seed_namespace": "spark-closure-prospective-v1",
+  "world_seeds": [
+    10000,
+    10001,
+    10002,
+    10003,
+    10004,
+    10005
+  ],
+  "worlds": [
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            1
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "53427894f2f5c4ab90cb0c85f3f026578be0c386d735a6b4cfc54b153f7b6d00",
+          "old_subtree": "(var x3)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (var x3) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "world_index": 0,
+      "world_seed": 10000
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            0,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -2,
+            2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+      "world_index": 1,
+      "world_seed": 10001
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            0,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            0
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+      "world_index": 2,
+      "world_seed": 10002
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "85235d817884dbc2146d3bbbcacae98f4b711d618f4fbefdf0d09d4fe635cabc",
+          "old_subtree": "(const 0)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 0)) (const 1) (const 0))",
+      "parent_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+      "world_index": 3,
+      "world_seed": 10003
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            0,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "53427894f2f5c4ab90cb0c85f3f026578be0c386d735a6b4cfc54b153f7b6d00",
+          "old_subtree": "(var x3)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (const 1) (var x3)) (const 1) (const 0))",
+      "parent_canonical_hash": "2d347fec204536c6723cf8b7105ce3e0ae98df53da9fa5fc6543c0883a11a222",
+      "world_index": 4,
+      "world_seed": 10004
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            1
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "9168018c477277d900bb848e11affc4a985746862299a06f5fbbfb03eb5c95e2",
+          "old_subtree": "(var x2)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "9a70c5459743dcaf58a7e0d2045519a7cc3ec4813b860522558f2569d6536f11",
+          "old_subtree": "(const -2)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x2) (const -2)) (const 1) (const 0))",
+      "parent_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+      "world_index": 5,
+      "world_seed": 10005
+    }
+  ]
+}

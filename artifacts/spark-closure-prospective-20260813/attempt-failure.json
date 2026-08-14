@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "spark-closure-prospective-attempt-failure",
+  "protocol_id": "prospective-v1",
+  "plan_sha256": "60003e4ea397456faf981bc5a954396760257e66b851ef942a819f132cb00f28",
+  "source_manifest_sha256": "661f62b17b8c854ee33dacb414ac70ed1c70c8490d788b52e5cd291ea2702857",
+  "status": "non_evaluable_incomplete_attempt",
+  "planned_logical_calls": 24,
+  "physical_requests_started_lower_bound": 1,
+  "protocol_accepted_generation_records": 0,
+  "failure_stage": "accepted_response_contract_validation",
+  "failure_category": "provider_fingerprint_contract",
+  "generation_artifact_published": false,
+  "target_seed_derived": false,
+  "target_dependent_analysis_unlocked": false,
+  "within_attempt_retry_permitted": false,
+  "raw_provider_fingerprint_persisted": false
+}
