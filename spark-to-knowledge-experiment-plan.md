@@ -795,3 +795,81 @@ prospective_cross_world_replication_observed
 本轮的最强科学解释是：在冻结的有限DSL/bank、target-independent motif prompt、真oracle evidence和确定性四轮压缩器中，已prospective地在三个独立world观察到“可追踪spark/action 改变首个查询路径 → 真实反例证据进入 → 版本空间压缩到唯一目标”，且删除spark或替换为两个同frame controls后在相同预算内都不成功。这是有限系统中的cross-world mechanism signal，不是temperature/熵因果证据，不是一般发生率或ATE，不支持跨模型泛化，更不证明LLM发现了人类未知知识。
 
 冻结analysis的canonical `analysis_sha256` 为 `b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691`，文件 SHA-256 为 `14dc6b9406a7265703f787b008fa62268aa3fbc6d76a0e077b5e8b733489c749`。plan、generation、analysis三个canonical digest及哈希链均已独立重算通过。
+
+## 20. Cross-model paired replication design draft
+
+**状态**：MiniMax target-free canary已通过；fresh seeds、route contract、endpoint与执行顺序已登记，science plan尚未生成，尚未进行192次science调用或任何新hidden-target分析。
+
+### 20.1 研究问题与模型路线
+
+下一轮只检验一个新问题：第19节的有限系统机制信号是否依赖DeepSeek，还是能在第二个通用模型中独立出现。它不是prompt-level Spark/no-Spark因果试验，也不重新检验temperature或熵。
+
+参考模型保留official DeepSeek `deepseek-v4-flash`。第二模型预选为Volcengine Agent Plan的`minimax-m3`：历史80-call校准中该路线为80/80 search-valid、零retry、零transport failure；其旧compatibility screen失败来自`H>L`温度操纵方向为负，与本轮固定`temperature=0.2`的lineage任务正交。正式纳入前必须通过新的、只含公开D0/parent/motif/action grammar的target-free canary；canary失败即停，不自动改选第三模型。
+
+### 20.2 配对设计
+
+- 一次性冻结32个全新worlds；每world仍为3个factual motif slots、0 neutral，共96个公共slots；
+- DeepSeek与MiniMax面对逐字节相同的D0、parent、assigned motif、action grammar与slot顺序；每个模型各96次，总计192次scientific calls；
+- 同一world的bank、hidden target、motif与oracle预算在两模型间完全相同，唯一变化是模型生成的action；
+- 每个`model × slot`恰一次物理请求。invalid/no-op保留在分母，不补抽、不重试内容、不按结果替换world；
+- 两个96-record generation artifacts全部完成、验证并封存后，才首次派生共同hidden targets并运行一次joint analysis；任一arm不完整则paired study为`non_evaluable_incomplete_attempt`；
+- 独立统计单位仍是32个worlds，不能把两个模型池化成64个worlds，也不能把96个slots当IID。
+
+只跑第二模型96次虽然成本更低，但会把模型差异与新旧world批次差异混在一起，因此不作为首选。
+
+### 20.3 冻结endpoint与配对报告
+
+对每个模型、每个world分别原样计算第19节的同slot嵌套`E1..E4`与`K1..K4`：lineage feasibility、oracle-mediated closure、paired parent-deletion advantage、以及两个matched replacements都失败的strong specificity。四轮oracle、`child first + 3 shortest-bank members`、non-direct/truth-retained/full-domain规则均不变。
+
+每个模型仍按原判定：`K4>=2`为该模型的prospective cross-world replication；`K4=1`为单一实例；`K4=0`为frozen protocol下未观察到；`K1=0`单列为model-DSL interface failure。另对每层报告32个world的配对四格表：两者都通过、仅DeepSeek、仅MiniMax、两者都未通过。两个模型在同一个world同时达到K4只作更强的描述性证据，不设为必要条件。
+
+总体解释预先固定：
+
+- MiniMax `K4>=2`且DeepSeek `K4>=2`：获得同批次、paired cross-model机制复制；
+- MiniMax `K4>=2`但DeepSeek `<2`：第二模型positive，但参考模型在新批次不稳定，整体鲁棒性证据混合；
+- DeepSeek `K4>=2`而MiniMax `K4=0,K1>0`：未获得跨模型复制，支持当前操作化的模型依赖；
+- MiniMax `K1=0`：接口不兼容，不判机制失败；
+- 两模型均`K4<2`：本批未复制，不撤销layered-v1的三个封存实例，但表明稳定性有限。
+
+### 20.4 本轮不加入的因果对照与停止点
+
+Parent deletion与matched replacements检验的是已生成child之后的查询路径特异性，不等价于“不给模型看Spark时会生成什么”。本轮为保持对layered-v1的精确跨模型复制，不加入prompt-level no-Spark条件。后者应成为单独研究：在相同world中随机分配真实motif与matched sham motif，让两种条件都可自由生成合法action，再比较有效查询概率。
+
+本节最初的停止点是首次付费canary之后；该canary现已按20.5节完成并通过。当前停止点移至science plan生成与独立复核之后、192次science调用之前。science analysis完成后无论positive、single instance、not observed或interface failure都立即停下讨论，不自动加world、改prompt或追加第三模型。
+
+### 20.5 MiniMax action canary结果与route冻结（2026-08-14）
+
+唯一一次12-call target-free MiniMax action canary已经完成并通过。它只使用退役world的公开D0、target-independent parent、assigned motif与action grammar；没有派生hidden target，没有运行oracle、lineage outcome或compressor，因此不进入science分母。
+
+- canary plan canonical SHA-256：`8151108cf5edf3eb6edc6cb368b0267254d8daacd0fbd964b6255fde7fbc3eac`；plan文件SHA-256：`78669a8777cae32c383937e6247a69d7edcb07823486e1b2e7c89689e4ea5f7f`；
+- canary artifact文件SHA-256：`18d978aea51c7b2e6e55014f9f43163cb2b87928dcf2e5ac4a0eecb56d5d3748`；
+- 12/12 outer JSON有效，12/12 factual action grammar有效且非`no_op`，四个motif strata各3次，每次恰一个physical request；
+- request/response alias均为`minimax-m3`；route binding为`d3e06286932d1317194caf85c86af0b511f17d88d40bf7c03ea64bed8409df31`；cache与provider fingerprint均为absent；
+- DeepSeek继续绑定r4 canary文件SHA-256 `d5a4df862aa4084c34af2e76da3ae98985c7f3c63fbc8cc3bdfe1edfb4edc497`、route binding `0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa`，并有layered-v1的96/96 action grammar有效作为历史接口佐证。
+
+MiniMax alias不提供可绑定的backend fingerprint，所以未来结论只指向本次执行时的Volcengine `minimax-m3` alias route，不声称永久固定snapshot。两条route的qualification证据不完全对称；本研究是两个预选模型的paired replication，不是模型总体的随机样本。
+
+### 20.6 Fresh worlds与执行顺序冻结
+
+正式协议ID冻结为`cross-model-paired-v1`，base/target/motif namespace冻结为`spark-closure-cross-model-paired-v1`。world seed draw namespace为`spark-closure-cross-model-paired-v1:world-seed`；对index `0..31`计算SHA-256(namespace + `:` + decimal index)，取前8 bytes大端整数并mask至63 bits。唯一允许的跳过理由是与冻结前registry碰撞；本轮32个候选均不碰撞且内部唯一，已以`reserved-cross-model-paired-v1-unopened`登记。
+
+冻结32个world seeds依次为：`5609854509399487714, 8058848814949332127, 7432589210973578845, 3920682316420328816, 1418744941558891841, 7604204542873609924, 1387282349159788876, 8242426922921378803, 1160497852689591359, 6872575636001638699, 7396720935553072228, 5279887130524777443, 5123783953932712497, 3034756861122824323, 2262333810103905472, 518707974867583009, 7993937249025442561, 3850349365944176259, 7211834526608777947, 6627891344710956940, 4402357155133626695, 4960748528416202938, 5566094773751083457, 3680507740242696405, 6866785901476227762, 5033621553926766983, 5357853615180860507, 3120120567224792408, 1045602656972176335, 2858014253687291177, 1789187785946847608, 6476484620047087171`。
+
+32/32只完成了target-free public bank/D0/parent构造检查；没有派生target namespace seed，没有enumerate lineage、运行compressor或读取outcome。若后续任一world在正式冻结代码下构造失败，整个协议版本停止，不按难度换seed。
+
+192次调用按public slot `0..95`顺序执行，并在每个slot内调用两个模型。偶数slot为DeepSeek先、MiniMax后；奇数slot为MiniMax先、DeepSeek后，因此两route各48次先调用、48次后调用。这个顺序只平衡route×time次序，不改变每个模型内部的96-slot固定序列。无内容重试、无补抽、无partial resume；任一中断或contract drift使整批non-evaluable，禁止解锁hidden targets。
+
+### 20.7 固定joint分析与联合分类
+
+任意runtime callback不属于正式分析接口。两份96-record artifacts通过joint barrier后，只能调用source-manifest中冻结的joint layered analyzer。每个world只构造一次共享hidden target、`SparkWorld`、compressor、parent baseline和reachable lineage集合，再分别评估两个模型的action。
+
+每模型独立输出第19节的`K1..K4`、world denominator 32、原三档classification与漏斗诊断。每层另输出paired四格与world seed列表：`both`、`deepseek_only`、`minimax_only`、`neither`；四格之和必须为32，且不得pool为64 worlds或把96 slots当IID。本轮不增加McNemar、p值或事后阈值。
+
+联合分类冻结为：
+
+- 两模型均`K4>=2`：`paired_cross_model_replication_observed`；
+- 恰一模型`K4>=2`：`mixed_model_robustness_evidence`；
+- 两模型均`K4<2`：`paired_cross_model_replication_not_observed`；
+- 任一模型`K1=0`另标`model_dsl_interface_failure`，不得把该模型解释为机制negative。
+
+最终plan还必须绑定layered-v1的canonical plan/generation/analysis SHA、四轮预算、上述endpoint和classification、两份canary文件SHA与route contract、当前source manifest以及192-entry执行顺序。完成代码、tests、registry与协议文档后才生成plan；plan生成后不得再修改`src/`、`tests/`、`configs/`或本协议文档。两份generation完整封存后只运行一次joint analysis，随后无论结果如何立即停止讨论。

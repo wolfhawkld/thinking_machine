@@ -3,17 +3,25 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
-from pathlib import Path
+import tempfile
 import unittest
+from pathlib import Path
 from unittest import mock
 
 from src.credentials import ProviderCredentials
+from src.providers.openai_compatible import OpenAICompatibleGenerator
+from src.runner import GenerationResponse
 from src.spark_calibration import (
     SHORTEST_PARENT,
     build_calibration_context,
     run_calibration_trajectory,
 )
 from src.spark_closure import (
+    CLOSURE_ACTION_CANARY_CALLS_PER_WORLD,
+    CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE,
+    CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+    CLOSURE_ACTION_CANARY_ID,
+    CLOSURE_ACTION_CANARY_WORLD_SEEDS,
     CLOSURE_EVIDENCE_SCOPE,
     CLOSURE_EXPECTED_CALLS,
     CLOSURE_EXPECTED_FACTUAL_CALLS,
@@ -45,7 +53,9 @@ from src.spark_closure import (
     PROSPECTIVE_V2_TARGET_SEED_NAMESPACE,
     PROSPECTIVE_V2_WORLD_SEEDS,
     ClosureError,
+    ClosureProtocolSpec,
     analyze_closure,
+    build_closure_action_canary_plan,
     build_closure_plan,
     build_closure_prompt,
     classify_closure_outcome,
@@ -54,6 +64,7 @@ from src.spark_closure import (
     generate_closure,
     main,
     parse_action,
+    run_closure_action_canary,
     summarize_layered_endpoints,
     validate_closure_canary,
 )
@@ -64,7 +75,8 @@ from src.spark_lineage import (
     enumerate_reachable_children,
     select_parent,
 )
-from src.spark_world import generate_spark_world
+from src.spark_world import _world_structure, generate_spark_world
+from src.v3_live import build_v3_generator
 
 
 def _sha256_json(value: object) -> str:
@@ -183,6 +195,299 @@ class SparkClosureTests(unittest.TestCase):
             sum(slot["condition"] == "motif" for slot in self.plan["slots"]),
             CLOSURE_EXPECTED_FACTUAL_CALLS,
         )
+
+    def test_action_canary_is_target_free_one_shot_and_binds_an_arbitrary_route(
+        self,
+    ) -> None:
+        with (
+            mock.patch(
+                "src.spark_closure._derive_target_seed",
+                side_effect=AssertionError("canary derived a hidden target"),
+            ) as derive_target,
+            mock.patch(
+                "src.spark_closure.generate_spark_world",
+                side_effect=AssertionError("canary constructed a dummy target"),
+            ) as build_target_world,
+            mock.patch(
+                "src.spark_closure._world_structure",
+                wraps=_world_structure,
+            ) as build_public_world,
+            mock.patch(
+                "src.spark_world._label",
+                side_effect=AssertionError("canary labeled a hidden target"),
+            ) as label_target,
+        ):
+            plan = build_closure_action_canary_plan()
+
+        derive_target.assert_not_called()
+        build_target_world.assert_not_called()
+        label_target.assert_not_called()
+        self.assertEqual(build_public_world.call_count, 4)
+        self.assertEqual(plan["canary_id"], CLOSURE_ACTION_CANARY_ID)
+        self.assertEqual(
+            plan["evidence_scope"], CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE
+        )
+        self.assertEqual(
+            plan["protocol"],
+            {
+                "world_seeds": list(CLOSURE_ACTION_CANARY_WORLD_SEEDS),
+                "world_count": 4,
+                "factual_calls_per_world": CLOSURE_ACTION_CANARY_CALLS_PER_WORLD,
+                "logical_calls": CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+                "temperature": CLOSURE_TEMPERATURE,
+                "max_output_tokens": CLOSURE_MAX_OUTPUT_TOKENS,
+                "thinking": "disabled",
+                "physical_attempts_per_slot": 1,
+                "hidden_target_derived": False,
+                "oracle_or_compressor_run": False,
+                "private_target_labels_or_outcomes_evaluated": False,
+                "content_gate": {
+                    "outer_schema_valid_required": (
+                        CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+                    ),
+                    "factual_action_parse_valid_required": (
+                        CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+                    ),
+                    "no_op_is_valid_for_factual_slot": False,
+                },
+            },
+        )
+        self.assertEqual(len(plan["slots"]), CLOSURE_ACTION_CANARY_EXPECTED_CALLS)
+        self.assertEqual(
+            plan["stratum_counts"], {stratum: 3 for stratum in MOTIF_STRATA}
+        )
+        self.assertTrue(
+            all(
+                "target_seed" not in world
+                and "target_seed_namespace_sha256" not in world
+                for world in plan["worlds"]
+            )
+        )
+
+        credentials = ProviderCredentials(
+            base_url="https://minimax-route.example/v1",
+            model="minimax-m3-unit-request",
+            api_key="unit-secret-minimax-key",
+        )
+        generator = build_v3_generator(credentials)
+        calls: list[dict[str, object]] = []
+
+        def generate(
+            _self: OpenAICompatibleGenerator,
+            prompt: str,
+            **kwargs: object,
+        ) -> GenerationResponse:
+            calls.append({"prompt": prompt, **kwargs})
+            return GenerationResponse(
+                expression="(edit replace 1 1)",
+                input_tokens=40,
+                output_tokens=7,
+                latency_ms=2.5,
+                provider_request_count=1,
+                seed_supported=False,
+                provider_model="minimax-m3-unit-snapshot",
+                finish_reason="stop",
+                prompt_cache_hit_tokens=None,
+                prompt_cache_miss_tokens=None,
+                reasoning_tokens=0,
+                candidate_format="json_expression",
+                provider_fingerprint="unit-minimax-fingerprint",
+            )
+
+        with (
+            mock.patch.object(
+                OpenAICompatibleGenerator,
+                "generate",
+                new=generate,
+            ),
+            mock.patch(
+                "src.spark_closure._derive_target_seed",
+                side_effect=AssertionError("canary opened a hidden target"),
+            ) as derive_target,
+            mock.patch("src.spark_closure.SparkCompressor") as compressor,
+        ):
+            artifact = run_closure_action_canary(
+                plan,
+                generator,
+                provider="unit-minimax-openai-compatible",
+                model_stratum="unit-minimax-m3",
+            )
+
+        derive_target.assert_not_called()
+        compressor.assert_not_called()
+        self.assertEqual(len(calls), CLOSURE_ACTION_CANARY_EXPECTED_CALLS)
+        for index, call in enumerate(calls):
+            self.assertEqual(call["temperature"], CLOSURE_TEMPERATURE)
+            self.assertEqual(
+                call["max_output_tokens"], CLOSURE_MAX_OUTPUT_TOKENS
+            )
+            self.assertEqual(call["round_index"], index // 3)
+            self.assertEqual(call["candidate_index"], index % 3 + 1)
+        self.assertTrue(artifact["passed"])
+        self.assertTrue(artifact["contract_satisfied"])
+        self.assertEqual(artifact["kind"], "v3-route-canary")
+        self.assertEqual(artifact["canary_profile"], CLOSURE_ACTION_CANARY_ID)
+        self.assertEqual(
+            artifact["identity"],
+            {
+                "request_model": "minimax-m3-unit-request",
+                "response_model": "minimax-m3-unit-snapshot",
+            },
+        )
+        self.assertEqual(
+            artifact["accepted_response_contract"]["provider_models"],
+            ["minimax-m3-unit-snapshot"],
+        )
+        self.assertEqual(
+            artifact["accepted_response_contract"]["prompt_cache_mode"],
+            "absent",
+        )
+        self.assertEqual(
+            artifact["accepted_response_contract"]["provider_fingerprint_mode"],
+            "exact_sha256",
+        )
+        self.assertEqual(
+            artifact["diagnostics"]["outer_schema_valid_count"],
+            CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+        )
+        self.assertEqual(
+            artifact["diagnostics"]["factual_action_parse_valid_count"],
+            CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+        )
+        self.assertTrue(artifact["diagnostics"]["content_gate_passed"])
+        self.assertEqual(
+            {tuple(record["action"]["path"]) for record in artifact["diagnostics"]["records"]},
+            {(1, 1)},
+        )
+        encoded = json.dumps(artifact, sort_keys=True)
+        self.assertNotIn(credentials.api_key, encoded)
+        self.assertNotIn(credentials.base_url, encoded)
+        self.assertNotIn("(edit replace 1 1)", encoded)
+        self.assertTrue(all(call["prompt"] not in encoded for call in calls))
+
+        with tempfile.TemporaryDirectory() as directory:
+            canary_path = Path(directory) / "minimax-canary.json"
+            canary_path.write_text(
+                json.dumps(artifact, sort_keys=True, separators=(",", ":")) + "\n",
+                encoding="utf-8",
+            )
+            canary_sha256 = hashlib.sha256(canary_path.read_bytes()).hexdigest()
+            protocol = ClosureProtocolSpec(
+                protocol_id="unit-minimax-protocol",
+                world_seeds=CLOSURE_ACTION_CANARY_WORLD_SEEDS,
+                target_seed_namespace="unused-unit-target-namespace",
+                motif_selection_namespace="unused-unit-motif-namespace",
+                evidence_scope="unit-route-binding-only",
+                model_stratum="unit-minimax-m3",
+                provider_profile="unit-minimax-openai-compatible",
+                request_model="minimax-m3-unit-request",
+                response_model="minimax-m3-unit-snapshot",
+                canary_artifact_sha256=canary_sha256,
+                route_binding_sha256=artifact["route_binding_sha256"],
+                accepted_response_contract=artifact[
+                    "accepted_response_contract"
+                ],
+                neutral_calls_per_world=0,
+                calls_per_world=1,
+                expected_call_count=1,
+                expected_factual_call_count=1,
+                classification_mode="layered_world_endpoints",
+            )
+            with mock.patch.dict(
+                "src.spark_closure._PROTOCOLS",
+                {protocol.protocol_id: protocol},
+            ):
+                bound_generator, contract, binding = validate_closure_canary(
+                    credentials,
+                    canary_path,
+                    protocol_id=protocol.protocol_id,
+                )
+
+        self.assertEqual(bound_generator.model, credentials.model)
+        self.assertEqual(contract.to_dict(), artifact["accepted_response_contract"])
+        self.assertEqual(binding["provider"], protocol.provider_profile)
+        self.assertEqual(binding["snapshot"], protocol.response_model)
+
+    def test_action_canary_rejects_an_unstable_twelve_response_route(self) -> None:
+        plan = build_closure_action_canary_plan()
+        credentials = ProviderCredentials(
+            base_url="https://unstable-route.example/v1",
+            model="unit-request-model",
+            api_key="unused-unit-key",
+        )
+        generator = build_v3_generator(credentials)
+        calls = 0
+
+        def generate(
+            _self: OpenAICompatibleGenerator,
+            _prompt: str,
+            **_kwargs: object,
+        ) -> GenerationResponse:
+            nonlocal calls
+            calls += 1
+            return GenerationResponse(
+                expression="(edit replace 1 1)",
+                input_tokens=20,
+                output_tokens=7,
+                latency_ms=1.0,
+                provider_request_count=1,
+                seed_supported=False,
+                provider_model=(
+                    "unit-snapshot-a"
+                    if calls < CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+                    else "unit-snapshot-b"
+                ),
+                finish_reason="stop",
+                prompt_cache_hit_tokens=None,
+                prompt_cache_miss_tokens=None,
+                reasoning_tokens=0,
+                candidate_format="json_expression",
+                provider_fingerprint=None,
+            )
+
+        with (
+            mock.patch.object(OpenAICompatibleGenerator, "generate", new=generate),
+            mock.patch(
+                "src.spark_closure._derive_target_seed",
+                side_effect=AssertionError("canary opened a hidden target"),
+            ) as derive_target,
+            mock.patch("src.spark_closure.SparkCompressor") as compressor,
+            self.assertRaisesRegex(ClosureError, "response model.*unstable"),
+        ):
+            run_closure_action_canary(
+                plan,
+                generator,
+                provider="unit-provider",
+                model_stratum="unit-stratum",
+            )
+
+        self.assertEqual(calls, CLOSURE_ACTION_CANARY_EXPECTED_CALLS)
+        derive_target.assert_not_called()
+        compressor.assert_not_called()
+
+    def test_action_canary_cli_requires_explicit_execution_before_credentials(self) -> None:
+        with (
+            mock.patch("src.spark_closure._read_json") as read_json,
+            mock.patch("src.spark_closure.load_provider_credentials") as load_credentials,
+            self.assertRaises(SystemExit),
+        ):
+            main(
+                [
+                    "canary",
+                    "--plan",
+                    "unused-plan.json",
+                    "--output",
+                    "unused-result.json",
+                    "--provider",
+                    "unit-provider",
+                    "--model-stratum",
+                    "unit-model",
+                    "--env-prefix",
+                    "UNIT",
+                ]
+            )
+        read_json.assert_not_called()
+        load_credentials.assert_not_called()
 
     def test_prospective_plan_is_frozen_and_target_independent_to_construct(self) -> None:
         # Building the prospective generation plan may inspect only the
@@ -1098,6 +1403,46 @@ class SparkClosureTests(unittest.TestCase):
         self.assertEqual(
             replayed["analysis_sha256"],
             "c3f458c5a3bb8ba44411e7fae6e9edb98868f4d9df27234a88f9a7777ffc52af",
+        )
+
+    def test_prospective_v2_sealed_artifacts_replay_exactly(self) -> None:
+        artifact_dir = (
+            Path(__file__).resolve().parents[1]
+            / "artifacts"
+            / "spark-closure-prospective-v2-20260813"
+        )
+        plan = json.loads((artifact_dir / "plan.json").read_text(encoding="utf-8"))
+        generation = json.loads(
+            (artifact_dir / "generation.json").read_text(encoding="utf-8")
+        )
+        expected = json.loads(
+            (artifact_dir / "analysis.json").read_text(encoding="utf-8")
+        )
+        replayed = analyze_closure(plan, generation)
+        self.assertEqual(replayed, expected)
+        self.assertEqual(
+            replayed["analysis_sha256"],
+            "1d5eab64cd1540ab872b5bbecef0d53d0eb3219e77ddc5069e33cf71ac728390",
+        )
+
+    def test_layered_v1_sealed_artifacts_replay_exactly(self) -> None:
+        artifact_dir = (
+            Path(__file__).resolve().parents[1]
+            / "artifacts"
+            / "spark-closure-layered-v1-20260814"
+        )
+        plan = json.loads((artifact_dir / "plan.json").read_text(encoding="utf-8"))
+        generation = json.loads(
+            (artifact_dir / "generation.json").read_text(encoding="utf-8")
+        )
+        expected = json.loads(
+            (artifact_dir / "analysis.json").read_text(encoding="utf-8")
+        )
+        replayed = analyze_closure(plan, generation)
+        self.assertEqual(replayed, expected)
+        self.assertEqual(
+            replayed["analysis_sha256"],
+            "b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691",
         )
 
 

@@ -7,7 +7,7 @@ before any target-dependent oracle or private/full-domain outcome is built.
 
 The code is intentionally a small research runner.  It provides no retry or
 resume machinery and never sends a network request unless the CLI ``generate``
-subcommand is explicitly invoked with ``--execute``.
+or target-free ``canary`` subcommand is explicitly invoked with ``--execute``.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ import math
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Literal, Protocol
 
@@ -40,8 +41,12 @@ from .spark_lineage import (
     motif_by_id,
     select_parent,
 )
-from .spark_world import SparkWorld, generate_spark_world
-from .staged_pilot_v3 import AcceptedResponseContract, V3ResponseContractError
+from .spark_world import SparkWorld, _world_structure, generate_spark_world
+from .staged_pilot_v3 import (
+    AcceptedResponseContract,
+    V3ResponseContractError,
+    route_binding_sha256,
+)
 from .v3_live import build_v3_generator, model_binding_from_canary
 
 
@@ -53,6 +58,14 @@ CLOSURE_EXPECTED_FACTUAL_CALLS = 18
 CLOSURE_TEMPERATURE = 0.2
 CLOSURE_MAX_OUTPUT_TOKENS = 256
 CLOSURE_MAX_ROUNDS = 4
+CLOSURE_ACTION_CANARY_ID = "closure-action-grammar-v1"
+CLOSURE_ACTION_CANARY_WORLD_SEEDS = CLOSURE_WORLD_SEEDS[:4]
+CLOSURE_ACTION_CANARY_CALLS_PER_WORLD = 3
+CLOSURE_ACTION_CANARY_EXPECTED_CALLS = 12
+CLOSURE_ACTION_CANARY_MOTIF_SELECTION_NAMESPACE = CLOSURE_ACTION_CANARY_ID
+CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE = (
+    "target_free_route_and_action_grammar_calibration_only"
+)
 CLOSURE_PROTOCOL_ID = "development-v1"
 CLOSURE_SEED_NAMESPACE = "spark-closure-v1"
 CLOSURE_TARGET_SEED_NAMESPACE = CLOSURE_SEED_NAMESPACE
@@ -172,6 +185,21 @@ CLOSURE_CANARY_PATH = (
     / "deepseek-official.json"
 )
 
+# These completed prospective artifacts may be recomputed after compatible
+# source changes.  The exact plan/generation pair is the capability: an
+# unopened or otherwise unknown prospective artifact still has to match the
+# current source manifest before any hidden target can be materialized.
+_SEALED_HISTORICAL_REPLAY_ANALYSES = {
+    (
+        "dd7b70faab2960873bdd727f6424bea3e219d6cc341035d0632e9493fa5f8612",
+        "908c445e749920b8ba2333508f4c2f1cdb41aee197563458069e77ee1111c15e",
+    ): "1d5eab64cd1540ab872b5bbecef0d53d0eb3219e77ddc5069e33cf71ac728390",
+    (
+        "45b22d0e1b1b7657bfa7ae016e315e1af980e5b8a8771b9768ed1bef9c13777d",
+        "570e84a005b87925358e13c559ac890d437844fc5fb5f85922c4661d655e827d",
+    ): "b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691",
+}
+
 
 class ClosureError(ValueError):
     """A closure plan, generation artifact, or action is malformed."""
@@ -186,6 +214,10 @@ class ClosureProtocolSpec:
     target_seed_namespace: str
     motif_selection_namespace: str
     evidence_scope: str
+    model_stratum: str
+    provider_profile: str
+    request_model: str
+    response_model: str
     canary_artifact_sha256: str
     route_binding_sha256: str
     accepted_response_contract: Mapping[str, Any]
@@ -211,6 +243,10 @@ _PROTOCOLS = {
         target_seed_namespace=CLOSURE_TARGET_SEED_NAMESPACE,
         motif_selection_namespace=CLOSURE_MOTIF_SELECTION_NAMESPACE,
         evidence_scope=CLOSURE_EVIDENCE_SCOPE,
+        model_stratum=CLOSURE_MODEL_STRATUM,
+        provider_profile=CLOSURE_PROVIDER_PROFILE,
+        request_model=CLOSURE_REQUEST_MODEL,
+        response_model=CLOSURE_EXPECTED_RESPONSE_MODEL,
         canary_artifact_sha256=CLOSURE_CANARY_SHA256,
         route_binding_sha256=CLOSURE_ROUTE_BINDING_SHA256,
         accepted_response_contract=CLOSURE_ACCEPTED_RESPONSE_CONTRACT,
@@ -226,6 +262,10 @@ _PROTOCOLS = {
         target_seed_namespace=PROSPECTIVE_TARGET_SEED_NAMESPACE,
         motif_selection_namespace=PROSPECTIVE_MOTIF_SELECTION_NAMESPACE,
         evidence_scope=PROSPECTIVE_EVIDENCE_SCOPE,
+        model_stratum=CLOSURE_MODEL_STRATUM,
+        provider_profile=CLOSURE_PROVIDER_PROFILE,
+        request_model=CLOSURE_REQUEST_MODEL,
+        response_model=CLOSURE_EXPECTED_RESPONSE_MODEL,
         canary_artifact_sha256=CLOSURE_CANARY_SHA256,
         route_binding_sha256=CLOSURE_ROUTE_BINDING_SHA256,
         accepted_response_contract=CLOSURE_ACCEPTED_RESPONSE_CONTRACT,
@@ -241,6 +281,10 @@ _PROTOCOLS = {
         target_seed_namespace=PROSPECTIVE_V2_TARGET_SEED_NAMESPACE,
         motif_selection_namespace=PROSPECTIVE_V2_MOTIF_SELECTION_NAMESPACE,
         evidence_scope=PROSPECTIVE_V2_EVIDENCE_SCOPE,
+        model_stratum=CLOSURE_MODEL_STRATUM,
+        provider_profile=CLOSURE_PROVIDER_PROFILE,
+        request_model=CLOSURE_REQUEST_MODEL,
+        response_model=CLOSURE_EXPECTED_RESPONSE_MODEL,
         canary_artifact_sha256=PROSPECTIVE_V2_CANARY_SHA256,
         route_binding_sha256=PROSPECTIVE_V2_ROUTE_BINDING_SHA256,
         accepted_response_contract=PROSPECTIVE_V2_ACCEPTED_RESPONSE_CONTRACT,
@@ -256,6 +300,10 @@ _PROTOCOLS = {
         target_seed_namespace=LAYERED_TARGET_SEED_NAMESPACE,
         motif_selection_namespace=LAYERED_MOTIF_SELECTION_NAMESPACE,
         evidence_scope=LAYERED_EVIDENCE_SCOPE,
+        model_stratum=CLOSURE_MODEL_STRATUM,
+        provider_profile=CLOSURE_PROVIDER_PROFILE,
+        request_model=CLOSURE_REQUEST_MODEL,
+        response_model=CLOSURE_EXPECTED_RESPONSE_MODEL,
         canary_artifact_sha256=LAYERED_CANARY_SHA256,
         route_binding_sha256=PROSPECTIVE_V2_ROUTE_BINDING_SHA256,
         accepted_response_contract=PROSPECTIVE_V2_ACCEPTED_RESPONSE_CONTRACT,
@@ -460,6 +508,62 @@ def _public_world_entry(
     return entry
 
 
+def _target_free_public_world_entry(
+    world_index: int,
+    world_seed: int,
+) -> dict[str, Any]:
+    """Build the public canary view without selecting or labeling a target.
+
+    The conditioned bank shares one training signature by construction, so a
+    fixed canonical bank member can recover the public D0 labels without being
+    treated as a hidden target.  Evidence/test point splits may be constructed
+    as part of the target-blind bank, but no target labels or outcomes are
+    materialized.
+    """
+
+    hypotheses, train_points, _evidence_points, _test_points, _group_size = (
+        _world_structure(world_seed)
+    )
+    if not hypotheses:
+        raise ClosureError("target-free canary world has an empty bank")
+    training_signature = tuple(
+        dsl.evaluate(hypotheses[0], point) for point in train_points
+    )
+    if any(
+        tuple(dsl.evaluate(hypothesis, point) for point in train_points)
+        != training_signature
+        for hypothesis in hypotheses[1:]
+    ):
+        raise ClosureError("conditioned bank does not share one public D0 signature")
+    parent = min(
+        hypotheses,
+        key=lambda ast: (dsl.node_count(ast), dsl.canonical_hash(ast)),
+    )
+    paths = []
+    for path in EDIT_PATHS:
+        subtree = get_subtree(parent, path)
+        paths.append(
+            {
+                "path": list(path),
+                "expected_old_subtree_hash": dsl.canonical_hash(subtree),
+                "old_subtree": dsl.to_sexpr(subtree),
+            }
+        )
+    return {
+        "world_index": world_index,
+        "world_seed": world_seed,
+        "D0": [
+            {"point": list(point), "label": label}
+            for point, label in zip(
+                train_points, training_signature, strict=True
+            )
+        ],
+        "parent": dsl.to_sexpr(parent),
+        "parent_canonical_hash": dsl.canonical_hash(parent),
+        "allowed_paths": paths,
+    }
+
+
 def _protocol_spec(protocol_id: str) -> ClosureProtocolSpec:
     try:
         return _PROTOCOLS[protocol_id]
@@ -507,10 +611,10 @@ def _model_route_for_protocol(
     protocol: ClosureProtocolSpec,
 ) -> dict[str, Any]:
     return {
-        "model_stratum": CLOSURE_MODEL_STRATUM,
-        "provider": CLOSURE_PROVIDER_PROFILE,
-        "request_model": CLOSURE_REQUEST_MODEL,
-        "response_model": CLOSURE_EXPECTED_RESPONSE_MODEL,
+        "model_stratum": protocol.model_stratum,
+        "provider": protocol.provider_profile,
+        "request_model": protocol.request_model,
+        "response_model": protocol.response_model,
         "canary_artifact_sha256": protocol.canary_artifact_sha256,
         "route_binding_sha256": protocol.route_binding_sha256,
     }
@@ -728,6 +832,123 @@ def build_closure_prompt(
 build_prompt = build_closure_prompt
 
 
+def build_closure_action_canary_plan() -> dict[str, Any]:
+    """Build the fixed 12-call, target-free action-grammar canary plan.
+
+    Four retired development worlds are constructed only with ``target_seed=0``
+    to recover their public conditioned banks, D0, and parents.  Three factual
+    slots per world balance the four motif strata at three calls each.  No
+    namespace-derived hidden target, oracle, compressor, or private outcome is
+    touched.
+    """
+
+    worlds = [
+        _target_free_public_world_entry(world_index, world_seed)
+        for world_index, world_seed in enumerate(CLOSURE_ACTION_CANARY_WORLD_SEEDS)
+    ]
+    slots: list[dict[str, Any]] = []
+    stratum_counts = {stratum: 0 for stratum in MOTIF_STRATA}
+    for world_index, world_seed in enumerate(CLOSURE_ACTION_CANARY_WORLD_SEEDS):
+        for factual_index in range(CLOSURE_ACTION_CANARY_CALLS_PER_WORLD):
+            slot_index = factual_index + 1
+            stratum = _stratum_for(
+                world_index,
+                factual_index,
+                factual_calls_per_world=CLOSURE_ACTION_CANARY_CALLS_PER_WORLD,
+            )
+            motif, selection_digest = _select_motif(
+                world_seed,
+                slot_index,
+                stratum,
+                namespace=CLOSURE_ACTION_CANARY_MOTIF_SELECTION_NAMESPACE,
+            )
+            stratum_counts[stratum] += 1
+            slots.append(
+                {
+                    "serial_index": len(slots),
+                    "slot_id": f"canary-world-{world_seed}:motif-{slot_index}",
+                    "world_index": world_index,
+                    "world_seed": world_seed,
+                    "slot_index": slot_index,
+                    "condition": "motif",
+                    "motif_id": motif.motif_id,
+                    "motif_stratum": motif.stratum,
+                    "motif": dsl.to_sexpr(motif.ast),
+                    "motif_selection_sha256": selection_digest,
+                }
+            )
+    prompt_hashes = [
+        {
+            "slot_id": slot["slot_id"],
+            "sha256": hashlib.sha256(
+                build_closure_prompt({"worlds": worlds}, slot).encode("utf-8")
+            ).hexdigest(),
+        }
+        for slot in slots
+    ]
+    plan_without_digest: dict[str, Any] = {
+        "schema_version": 1,
+        "kind": "spark-closure-action-canary-plan",
+        "canary_id": CLOSURE_ACTION_CANARY_ID,
+        "evidence": False,
+        "evidence_scope": CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE,
+        "source_manifest_sha256": source_manifest(PROJECT_ROOT)[
+            "source_manifest_sha256"
+        ],
+        "world_seeds": list(CLOSURE_ACTION_CANARY_WORLD_SEEDS),
+        "worlds": worlds,
+        "slots": slots,
+        "stratum_counts": stratum_counts,
+        "prompt_sha256s": prompt_hashes,
+        "prompt_set_sha256": _sha256_json(prompt_hashes),
+        "protocol": {
+            "world_seeds": list(CLOSURE_ACTION_CANARY_WORLD_SEEDS),
+            "world_count": len(CLOSURE_ACTION_CANARY_WORLD_SEEDS),
+            "factual_calls_per_world": CLOSURE_ACTION_CANARY_CALLS_PER_WORLD,
+            "logical_calls": CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+            "temperature": CLOSURE_TEMPERATURE,
+            "max_output_tokens": CLOSURE_MAX_OUTPUT_TOKENS,
+            "thinking": "disabled",
+            "physical_attempts_per_slot": 1,
+            "hidden_target_derived": False,
+            "oracle_or_compressor_run": False,
+            "private_target_labels_or_outcomes_evaluated": False,
+            "content_gate": {
+                "outer_schema_valid_required": CLOSURE_ACTION_CANARY_EXPECTED_CALLS,
+                "factual_action_parse_valid_required": (
+                    CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+                ),
+                "no_op_is_valid_for_factual_slot": False,
+            },
+        },
+    }
+    return {
+        **plan_without_digest,
+        "canary_plan_sha256": _sha256_json(plan_without_digest),
+    }
+
+
+def _validate_closure_action_canary_plan(
+    plan: Mapping[str, Any],
+) -> tuple[tuple[Mapping[str, Any], str], ...]:
+    if not isinstance(plan, Mapping):
+        raise ClosureError("closure action canary plan must be an object")
+    expected = build_closure_action_canary_plan()
+    if dict(plan) != expected:
+        raise ClosureError("closure action canary plan differs from the fixed design")
+    result: list[tuple[Mapping[str, Any], str]] = []
+    prompt_hashes = plan.get("prompt_sha256s")
+    if not isinstance(prompt_hashes, list) or len(prompt_hashes) != len(plan["slots"]):
+        raise ClosureError("closure action canary prompt hash schedule is malformed")
+    for slot, expected_hash in zip(plan["slots"], prompt_hashes, strict=True):
+        prompt = build_closure_prompt(plan, slot)
+        observed = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+        if expected_hash != {"slot_id": slot["slot_id"], "sha256": observed}:
+            raise ClosureError("closure action canary prompt digest mismatch")
+        result.append((slot, prompt))
+    return tuple(result)
+
+
 def parse_action(expression: Any) -> ParsedAction:
     """Parse exactly one expression in the frozen closure action grammar."""
 
@@ -787,6 +1008,214 @@ def _telemetry(response: Any) -> dict[str, Any]:
     if isinstance(response, Mapping):
         return {name: response.get(name) for name in names}
     return {name: getattr(response, name, None) for name in names}
+
+
+def _closure_canary_response_contract(
+    generator: OpenAICompatibleGenerator,
+    responses: Sequence[GenerationResponse],
+) -> AcceptedResponseContract:
+    """Freeze one stable route contract across all 12 independent responses."""
+
+    if len(responses) != CLOSURE_ACTION_CANARY_EXPECTED_CALLS:
+        raise ClosureError("closure action canary response count is incomplete")
+    if any(response.provider_request_count != 1 for response in responses):
+        raise ClosureError("closure action canary made more than one physical request")
+    models = {response.provider_model for response in responses}
+    if (
+        len(models) != 1
+        or None in models
+        or not isinstance(next(iter(models)), str)
+        or not str(next(iter(models))).strip()
+    ):
+        raise ClosureError("closure action canary response model is absent or unstable")
+    if any(
+        response.finish_reason not in {"stop", "length"} for response in responses
+    ):
+        raise ClosureError("closure action canary finish reason is unsupported")
+    if any(
+        response.output_tokens > CLOSURE_MAX_OUTPUT_TOKENS for response in responses
+    ):
+        raise ClosureError("closure action canary exceeded its output cap")
+    if any(
+        response.seed_supported is not generator.seed_supported
+        for response in responses
+    ):
+        raise ClosureError("closure action canary seed capability is inconsistent")
+    if any(response.reasoning_tokens not in {None, 0} for response in responses):
+        raise ClosureError("closure action canary did not keep reasoning disabled")
+
+    cache_values = [
+        (response.prompt_cache_hit_tokens, response.prompt_cache_miss_tokens)
+        for response in responses
+    ]
+    if all(values == (None, None) for values in cache_values):
+        cache_mode = "absent"
+    elif all(
+        all(type(value) is int for value in values)
+        and response.input_tokens == sum(int(value) for value in values)
+        for response, values in zip(responses, cache_values, strict=True)
+    ):
+        cache_mode = "complete"
+    else:
+        raise ClosureError("closure action canary cache telemetry is inconsistent")
+
+    fingerprints = [response.provider_fingerprint for response in responses]
+    if all(fingerprint is None for fingerprint in fingerprints):
+        fingerprint_mode = "absent"
+        fingerprint_sha256 = None
+    elif (
+        all(
+            isinstance(fingerprint, str) and fingerprint.strip()
+            for fingerprint in fingerprints
+        )
+        and len(set(fingerprints)) == 1
+    ):
+        fingerprint_mode = "exact_sha256"
+        fingerprint_sha256 = hashlib.sha256(
+            str(fingerprints[0]).encode("utf-8")
+        ).hexdigest()
+    else:
+        raise ClosureError("closure action canary provider fingerprint is unstable")
+
+    try:
+        contract = AcceptedResponseContract(
+            provider_models=(str(next(iter(models))),),
+            finish_reasons=("stop", "length"),
+            max_output_tokens=CLOSURE_MAX_OUTPUT_TOKENS,
+            seed_supported=generator.seed_supported,
+            require_zero_reasoning_tokens=True,
+            prompt_cache_mode=cache_mode,
+            provider_fingerprint_mode=fingerprint_mode,
+            provider_fingerprint_sha256=fingerprint_sha256,
+        )
+        for response in responses:
+            contract.validate(response)
+    except (TypeError, ValueError, V3ResponseContractError) as exc:
+        raise ClosureError(
+            "closure action canary response contract is inconsistent"
+        ) from exc
+    return contract
+
+
+def run_closure_action_canary(
+    plan: Mapping[str, Any],
+    generator: OpenAICompatibleGenerator,
+    *,
+    provider: str,
+    model_stratum: str,
+) -> dict[str, Any]:
+    """Execute 12 target-free action requests and freeze their stable route.
+
+    The returned object deliberately follows the existing ``v3-route-canary``
+    binding envelope so it can later authorize a route added to the closure
+    protocol table.  Raw prompts, assistant text, endpoints, fingerprints, and
+    credentials are never persisted.
+    """
+
+    scheduled = _validate_closure_action_canary_plan(plan)
+    if type(generator) is not OpenAICompatibleGenerator:
+        raise TypeError("canary generator must be an OpenAICompatibleGenerator")
+    if not isinstance(provider, str) or not provider.strip():
+        raise ClosureError("canary provider label must be non-empty")
+    if not isinstance(model_stratum, str) or not model_stratum.strip():
+        raise ClosureError("canary model stratum must be non-empty")
+
+    responses: list[GenerationResponse] = []
+    records: list[dict[str, Any]] = []
+    for slot, prompt in scheduled:
+        response = generator.generate(
+            prompt,
+            temperature=CLOSURE_TEMPERATURE,
+            max_output_tokens=CLOSURE_MAX_OUTPUT_TOKENS,
+            round_index=int(slot["world_index"]),
+            candidate_index=int(slot["slot_index"]),
+        )
+        if not isinstance(response, GenerationResponse):
+            raise ClosureError(
+                "live closure action canary must return GenerationResponse"
+            )
+        responses.append(response)
+        parsed: ParsedAction | None = None
+        if response.candidate_format == "json_expression":
+            try:
+                candidate = parse_action(response.expression)
+            except ClosureError:
+                pass
+            else:
+                if not candidate.is_no_op:
+                    parsed = candidate
+        records.append(
+            {
+                "serial_index": slot["serial_index"],
+                "slot_id": slot["slot_id"],
+                "world_index": slot["world_index"],
+                "world_seed": slot["world_seed"],
+                "slot_index": slot["slot_index"],
+                "motif_id": slot["motif_id"],
+                "motif_stratum": slot["motif_stratum"],
+                "outer_schema_valid": (
+                    response.candidate_format == "json_expression"
+                ),
+                "factual_action_parse_valid": parsed is not None,
+                "action": None if parsed is None else parsed.to_dict(),
+                "candidate_format": response.candidate_format,
+                "input_tokens": response.input_tokens,
+                "output_tokens": response.output_tokens,
+                "latency_ms": float(response.latency_ms),
+            }
+        )
+    contract = _closure_canary_response_contract(generator, responses)
+
+    outer_valid_count = sum(record["outer_schema_valid"] for record in records)
+    action_valid_count = sum(
+        record["factual_action_parse_valid"] for record in records
+    )
+    content_gate_passed = (
+        outer_valid_count == CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+        and action_valid_count == CLOSURE_ACTION_CANARY_EXPECTED_CALLS
+    )
+    binding_sha256 = route_binding_sha256(generator, contract)
+    return {
+        "schema_version": 1,
+        "kind": "v3-route-canary",
+        "canary_profile": CLOSURE_ACTION_CANARY_ID,
+        "canary_plan_sha256": plan["canary_plan_sha256"],
+        "prompt_set_sha256": plan["prompt_set_sha256"],
+        "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+        "evidence": False,
+        "evidence_scope": CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE,
+        "passed": content_gate_passed,
+        "stratum_id": model_stratum.strip(),
+        "provider": provider.strip(),
+        "identity": {
+            "request_model": generator.model,
+            "response_model": response.provider_model,
+        },
+        "sanitized_request_contract": generator.sanitized_request_contract(),
+        "accepted_response_contract": contract.to_dict(),
+        "route_binding_sha256": binding_sha256,
+        "protocol": dict(plan["protocol"]),
+        "diagnostics": {
+            "outer_schema_valid_count": outer_valid_count,
+            "factual_action_parse_valid_count": action_valid_count,
+            "content_gate_passed": content_gate_passed,
+            "candidate_format_counts": {
+                str(candidate_format): sum(
+                    response.candidate_format == candidate_format
+                    for response in responses
+                )
+                for candidate_format in sorted(
+                    {response.candidate_format for response in responses},
+                    key=str,
+                )
+            },
+            "input_tokens": sum(response.input_tokens for response in responses),
+            "output_tokens": sum(response.output_tokens for response in responses),
+            "latency_ms": sum(float(response.latency_ms) for response in responses),
+            "records": records,
+        },
+        "contract_satisfied": True,
+    }
 
 
 def _validate_live_response(
@@ -971,13 +1400,36 @@ def _validate_plan_envelope(plan: Mapping[str, Any]) -> tuple[Mapping[str, Any],
     return tuple(normalized)
 
 
-def _require_current_source_manifest(plan: Mapping[str, Any]) -> None:
-    """Refuse a paid/live attempt when code differs from the sealed plan."""
+def _historical_replay_analysis_sha256(
+    plan: Mapping[str, Any], generation: Mapping[str, Any] | None
+) -> str | None:
+    if generation is None:
+        return None
+    return _SEALED_HISTORICAL_REPLAY_ANALYSES.get(
+        (plan.get("plan_sha256"), generation.get("generation_sha256"))
+    )
+
+
+def _require_current_source_manifest(
+    plan: Mapping[str, Any],
+    *,
+    generation: Mapping[str, Any] | None = None,
+) -> str | None:
+    """Require frozen source, except for an exact completed historical replay.
+
+    The return value is the expected historical analysis digest when the
+    plan/generation pair is in the sealed replay table.  Live generation never
+    supplies a generation artifact and therefore can never use this exception.
+    """
 
     if plan.get("source_manifest_sha256") != source_manifest(PROJECT_ROOT).get(
         "source_manifest_sha256"
     ):
-        raise ClosureError("closure implementation source manifest drifted")
+        historical_analysis = _historical_replay_analysis_sha256(plan, generation)
+        if historical_analysis is None:
+            raise ClosureError("closure implementation source manifest drifted")
+        return historical_analysis
+    return _historical_replay_analysis_sha256(plan, generation)
 
 
 def generate_closure(
@@ -1748,11 +2200,14 @@ def analyze_closure(
     slots = _validate_plan_envelope(plan)
     protocol_spec = _plan_protocol_spec(plan)
     validated_generation = _validate_generation_envelope(plan, generation)
+    historical_analysis_sha256: str | None = None
     if _requires_hidden_target_barrier(protocol_spec):
         # The first target-dependent pass must execute the exact source tree
-        # frozen before generation.  Legacy development artifacts remain
+        # frozen before generation.  Exact completed historical pairs remain
         # replayable under later compatible analyzers.
-        _require_current_source_manifest(plan)
+        historical_analysis_sha256 = _require_current_source_manifest(
+            plan, generation=generation
+        )
     parsed_by_serial = {
         int(record["serial_index"]): parsed
         for record, parsed in validated_generation
@@ -1958,10 +2413,16 @@ def analyze_closure(
             motif_selection_namespace=protocol_spec.motif_selection_namespace,
             prospective_layered_evidence=canonical_scope,
         )
-    return {
+    report = {
         **report_without_digest,
         "analysis_sha256": _sha256_json(report_without_digest),
     }
+    if (
+        historical_analysis_sha256 is not None
+        and report["analysis_sha256"] != historical_analysis_sha256
+    ):
+        raise ClosureError("historical closure replay differs from its sealed analysis")
+    return report
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -1995,13 +2456,13 @@ def validate_closure_canary(
     """Bind execution to the route canary frozen by one closure protocol."""
 
     protocol_spec = _protocol_spec(protocol_id)
-    if credentials.model != CLOSURE_REQUEST_MODEL:
+    if credentials.model != protocol_spec.request_model:
         raise ClosureError("closure credentials name another request model")
     try:
         binding = model_binding_from_canary(
             canary_path,
             credentials,
-            expected_stratum_id=CLOSURE_MODEL_STRATUM,
+            expected_stratum_id=protocol_spec.model_stratum,
         )
         contract_value = binding["accepted_response_contract"]
         contract = AcceptedResponseContract(
@@ -2021,17 +2482,17 @@ def validate_closure_canary(
             ],
         )
     except (KeyError, TypeError, ValueError) as exc:
-        raise ClosureError("official DeepSeek V3 canary binding is invalid") from exc
+        raise ClosureError("closure route canary binding is invalid") from exc
     if contract.to_dict() != dict(protocol_spec.accepted_response_contract):
         raise ClosureError(
             f"V3 canary response contract differs from {protocol_id}"
         )
     if (
-        binding.get("provider") != CLOSURE_PROVIDER_PROFILE
-        or binding.get("name") != CLOSURE_REQUEST_MODEL
-        or binding.get("snapshot") != CLOSURE_EXPECTED_RESPONSE_MODEL
+        binding.get("provider") != protocol_spec.provider_profile
+        or binding.get("name") != protocol_spec.request_model
+        or binding.get("snapshot") != protocol_spec.response_model
     ):
-        raise ClosureError("V3 canary binds a different model identity")
+        raise ClosureError("closure canary binds a different model identity")
     canary_evidence = binding.get("canary_evidence")
     if not isinstance(canary_evidence, Mapping) or (
         canary_evidence.get("artifact_sha256")
@@ -2061,6 +2522,22 @@ def _live_generator(
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+
+    canary_plan_parser = commands.add_parser(
+        "canary-plan", help="build the fixed target-free action canary plan"
+    )
+    canary_plan_parser.add_argument("--output", type=Path)
+
+    canary_parser = commands.add_parser(
+        "canary", help="execute the 12-call target-free action-grammar canary"
+    )
+    canary_parser.add_argument("--plan", type=Path, required=True)
+    canary_parser.add_argument("--output", type=Path, required=True)
+    canary_parser.add_argument("--execute", action="store_true")
+    canary_parser.add_argument("--provider", required=True)
+    canary_parser.add_argument("--model-stratum", required=True)
+    canary_parser.add_argument("--env-prefix", required=True)
+    canary_parser.add_argument("--env-file", type=Path)
 
     plan_parser = commands.add_parser("plan", help="build the frozen 24-call plan")
     plan_parser.add_argument("--output", type=Path)
@@ -2097,6 +2574,26 @@ def main(argv: Sequence[str] | None = None) -> int:
     analyze_parser.add_argument("--output", type=Path)
 
     args = parser.parse_args(argv)
+    if args.command == "canary-plan":
+        _emit_json(build_closure_action_canary_plan(), args.output)
+        return 0
+    if args.command == "canary":
+        if not args.execute:
+            parser.error("canary requires --execute; no network call was made")
+        plan = _read_json(args.plan)
+        _validate_closure_action_canary_plan(plan)
+        _require_current_source_manifest(plan)
+        credentials = load_provider_credentials(
+            prefix=args.env_prefix, env_file=args.env_file
+        )
+        result = run_closure_action_canary(
+            plan,
+            build_v3_generator(credentials),
+            provider=args.provider,
+            model_stratum=args.model_stratum,
+        )
+        _emit_json(result, args.output)
+        return 0
     if args.command == "plan":
         _emit_json(build_closure_plan(protocol_id=args.protocol), args.output)
         return 0
@@ -2141,6 +2638,12 @@ if __name__ == "__main__":
 
 
 __all__ = [
+    "CLOSURE_ACTION_CANARY_CALLS_PER_WORLD",
+    "CLOSURE_ACTION_CANARY_EVIDENCE_SCOPE",
+    "CLOSURE_ACTION_CANARY_EXPECTED_CALLS",
+    "CLOSURE_ACTION_CANARY_ID",
+    "CLOSURE_ACTION_CANARY_MOTIF_SELECTION_NAMESPACE",
+    "CLOSURE_ACTION_CANARY_WORLD_SEEDS",
     "CLOSURE_CALLS_PER_WORLD",
     "CLOSURE_ACCEPTED_RESPONSE_CONTRACT",
     "CLOSURE_EVIDENCE_SCOPE",
@@ -2185,6 +2688,7 @@ __all__ = [
     "ClosureProtocolSpec",
     "ParsedAction",
     "analyze_closure",
+    "build_closure_action_canary_plan",
     "build_closure_plan",
     "build_closure_prompt",
     "build_prompt",
@@ -2194,6 +2698,7 @@ __all__ = [
     "generate_closure",
     "main",
     "parse_action",
+    "run_closure_action_canary",
     "summarize_layered_endpoints",
     "validate_closure_canary",
 ]

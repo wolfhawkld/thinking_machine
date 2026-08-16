@@ -21,6 +21,7 @@ _ROOT_FILES = (
     "paper-outline.md",
     "provider-integration.md",
     "pyproject.toml",
+    "spark-to-knowledge-experiment-plan.md",
     "v3-development-spec.md",
 )
 _TREE_SUFFIXES = {".py", ".json"}
