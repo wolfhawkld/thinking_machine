@@ -874,3 +874,34 @@ Parent deletion与matched replacements检验的是已生成child之后的查询�
 最终plan必须绑定layered-v1的canonical plan/generation/analysis SHA、四轮预算、上述endpoint与五档classification、三份active canary文件SHA与route contract、冻结后的source manifest以及288-entry执行顺序。代码、tests、registry与本文本完成后才能生成plan；从plan生成起不得再修改`src/`、`tests/`、`configs/`或本文本。plan、generation与analysis的生成时间和digest只记录在各自immutable artifact及运行报告中，不回写本节。
 
 协议要求在正式science plan生成并独立复核后、288次调用之前停一次；三份generation完整封存后才可运行唯一一次joint analysis。analysis完成后，无论是`all_routes_replication_observed`、其他四档联合结果、single instance或interface failure，都立即停止；不自动加world、改prompt、补调用、换route或追加第四模型。
+
+## 21. Post-hoc action-opportunity map（2026-08-21）
+
+本节在第20节正式结果已经解锁之后记录，因此只定义一次纯离线、事后描述性诊断。它不增加样本、不改变正式`replication_not_observed`分类，也不能把第20节重新判为positive。目的仅是区分：K4稀少主要来自冻结任务中缺少可行action，还是存在可行action而三条route没有选中。整个诊断不得调用模型或provider。
+
+输入只允许第20节已经封存的exact artifact triple：canonical plan SHA-256 `a52c70b7cc8595ce1615dba1c5146576d23ff8330d0d44b2dd1de66ef9798064`、generation bundle SHA-256 `4f0ef3ff627f3e8c0df3667ff4668de57e3bbc2d16314b20f10bb9bd17c4e928`、analysis SHA-256 `a4bbe0eb862d2af20690a759eb47ab7b1975f7197a20ecc34357251d556a6bb0`。三者的self-digest、hash chain、3×96 identities和正式K1--K4必须在诊断前重新验证；任何不一致立即停止。新诊断另绑定执行时的current source manifest，不放宽live generation或正式joint-analysis的source guard。
+
+### 21.1 冻结机会宇宙与端点
+
+对全部32 worlds × 3 assigned-motif slots，不筛world、不筛slot，穷举prompt当时真实允许的10个action frames：两个path `(1,1)`、`(1,2)`分别配`replace`、`add-right`、`sub-right`、`sub-left`、`mul-right`。因此主计数固定为96 slots、960 raw syntactic actions；matched replacements是反事实controls，不加入模型动作菜单，亦不加入其他motif、no-op、多步编辑或prompt外动作。
+
+对每个slot定义严格嵌套的action集合：
+
+- `C1`：action精确匹配`enumerate_reachable_children(world)`中assigned motif的control-ready lineage record；
+- `C2`：`C1`且child非direct hit、truth retained、存在positive non-MATCH contraction，并在冻结四轮内达到`N_T=1`及full-domain recovery；
+- `C3`：`C2`且同预算parent不能闭合；
+- `C4`：`C3`且该lineage按原target-blind结构顺序冻结的前两个matched replacements均不能闭合。
+
+不得引入development reachability calibration的`rho_V`筛选，不得从replacement pool中事后挑两个失败controls，也不得以“任意一对失败”替代正式K4。每行必须落入`invalid / C1-only / C2-only / C3-only / C4`之一，invalid仍留在固定960分母。
+
+`slot opportunity Cj`表示该slot的`Cj`非空；`world opportunity Cj`表示该world三个slots中至少一个`Cj`非空。存在性不受去重影响。密度同时报告：raw action count；K1--K3按`child_behavior_hash`的semantic count；K4按`(child_behavior_hash, frozen replacement-1 behavior hash, frozen replacement-2 behavior hash)`组成的counterfactual-bundle count。相同child经不同frame得到不同controls时必须保留frame dependence，不得择优合并。
+
+现有replacement pool只排除与focal相同行为的control，并不保证两个controls彼此语义不同。为忠实保留原K4，正式判断仍使用冻结前两个；同时另报raw pool大小、unique-behavior pool大小、前两个是否behavior-distinct，以及全pool按behavior去重后的closure比例。这些只作robustness描述，不重分类。
+
+### 21.2 模型overlay与解释边界
+
+机会landscape先仅由plan、hidden target和确定性代码构造，不读取三臂generation选择。随后才将288个已封存动作精确overlay：某arm在某slot的`hit Cj`仅当其规范化实际action恰好属于该slot的`Cj`；有机会但未命中记为`opportunity_miss`，无可行动作记为`no_opportunity`。world层只有在该arm三个已选动作中至少一个命中时才算world hit。机会地图只构造一次，不能把共享96 slots乘成三份独立机会；正式推断单位仍为32 worlds，所有slot/action比例均是有限网格census，不报p值或置信区间。
+
+overlay必须逐arm、逐world、逐qualifying slot精确复现封存正式结果：Flash `26/23/6/0`、Pro `24/21/6/0`、GLM `27/23/7/1`。任何偏差均使机会地图不可发布。重点描述共同六个K3 worlds究竟没有K4机会、只有其他slot有机会，还是同slot另有K4 action；另描述GLM唯一K4所在slot的K4 raw/bundle数量、语义别名、control distinctness及path分布。
+
+“有机会但未命中”只表示：在真实target事后已知后，代码发现当时菜单中存在一个会达到K4的action，而模型没有输出它。模型生成时看不到target，因此不能据此说模型“犯错”、本应知道答案、理解了或未理解spark，也不能识别prompt-level因果、充分/必要条件、重复采样概率、真实世界外推或人类未知发现。若机会world不足2，只能说明该冻结网格对原复制门槛存在availability ceiling；若机会world至少2而模型不足2，才可把正式未复制进一步定位为“可行action存在但实际选择未命中”的事后机制诊断，仍不得改写正式classification。
