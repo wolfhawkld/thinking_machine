@@ -1,0 +1,348 @@
+{
+  "accepted_response_contract": {
+    "finish_reasons": [
+      "stop",
+      "length"
+    ],
+    "max_output_tokens": 256,
+    "prompt_cache_mode": "complete",
+    "provider_fingerprint_mode": "exact_sha256",
+    "provider_fingerprint_sha256": "a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787",
+    "provider_models": [
+      "deepseek-v4-pro"
+    ],
+    "require_zero_reasoning_tokens": true,
+    "seed_supported": false
+  },
+  "canary_plan_sha256": "8ede1082eb9f3a70a46020c19af1d3dac01529e69e161066f16ed9764df09bc7",
+  "canary_profile": "closure-action-grammar-v1",
+  "completed_at_utc": "2026-08-20T16:26:15.802467+00:00",
+  "contract_satisfied": true,
+  "diagnostics": {
+    "candidate_format_counts": {
+      "json_expression": 12
+    },
+    "content_gate_passed": true,
+    "factual_action_parse_valid_count": 12,
+    "input_tokens": 7572,
+    "latency_ms": 29867.300300000352,
+    "outer_schema_valid_count": 12,
+    "output_tokens": 152,
+    "records": [
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            2
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 631,
+        "latency_ms": 1826.1801290009316,
+        "motif_id": "affine_commutative:2cea74505059a9b9",
+        "motif_stratum": "affine_commutative",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 0,
+        "slot_id": "canary-world-3000:motif-1",
+        "slot_index": 1,
+        "world_index": 0,
+        "world_seed": 3000
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 629,
+        "latency_ms": 2981.894046000889,
+        "motif_id": "affine_directional:e46d6e5d564b5bd1",
+        "motif_stratum": "affine_directional",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 1,
+        "slot_id": "canary-world-3000:motif-2",
+        "slot_index": 2,
+        "world_index": 0,
+        "world_seed": 3000
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 633,
+        "latency_ms": 2109.3177100010507,
+        "motif_id": "affine_multiplicative:7a6285bb8d004cee",
+        "motif_stratum": "affine_multiplicative",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 2,
+        "slot_id": "canary-world-3000:motif-3",
+        "slot_index": 3,
+        "world_index": 0,
+        "world_seed": 3000
+      },
+      {
+        "action": {
+          "binary_operator": "sub",
+          "motif_side": "right",
+          "operation": "wrap_binary",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 632,
+        "latency_ms": 2240.013790999001,
+        "motif_id": "pairwise_variable:2961d08b2e20b123",
+        "motif_stratum": "pairwise_variable",
+        "outer_schema_valid": true,
+        "output_tokens": 16,
+        "serial_index": 3,
+        "slot_id": "canary-world-3001:motif-1",
+        "slot_index": 1,
+        "world_index": 1,
+        "world_seed": 3001
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 638,
+        "latency_ms": 3813.6356249997334,
+        "motif_id": "affine_commutative:f966d7e61b9a0b5d",
+        "motif_stratum": "affine_commutative",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 4,
+        "slot_id": "canary-world-3001:motif-2",
+        "slot_index": 2,
+        "world_index": 1,
+        "world_seed": 3001
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 632,
+        "latency_ms": 2108.4777020005276,
+        "motif_id": "affine_directional:2fef0a06dd02390b",
+        "motif_stratum": "affine_directional",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 5,
+        "slot_id": "canary-world-3001:motif-3",
+        "slot_index": 3,
+        "world_index": 1,
+        "world_seed": 3001
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 632,
+        "latency_ms": 2460.979984000005,
+        "motif_id": "affine_multiplicative:7ae68b6f797162b5",
+        "motif_stratum": "affine_multiplicative",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 6,
+        "slot_id": "canary-world-3002:motif-1",
+        "slot_index": 1,
+        "world_index": 2,
+        "world_seed": 3002
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 629,
+        "latency_ms": 2284.978964000402,
+        "motif_id": "pairwise_variable:32ec7596e3a4e2b9",
+        "motif_stratum": "pairwise_variable",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 7,
+        "slot_id": "canary-world-3002:motif-2",
+        "slot_index": 2,
+        "world_index": 2,
+        "world_seed": 3002
+      },
+      {
+        "action": {
+          "binary_operator": "add",
+          "motif_side": "right",
+          "operation": "wrap_binary",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 627,
+        "latency_ms": 2425.1793830007955,
+        "motif_id": "affine_commutative:b902076cf137753d",
+        "motif_stratum": "affine_commutative",
+        "outer_schema_valid": true,
+        "output_tokens": 16,
+        "serial_index": 8,
+        "slot_id": "canary-world-3002:motif-3",
+        "slot_index": 3,
+        "world_index": 2,
+        "world_seed": 3002
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            2
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 628,
+        "latency_ms": 2606.0783989996708,
+        "motif_id": "affine_directional:59232b6ff38fcb1a",
+        "motif_stratum": "affine_directional",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 9,
+        "slot_id": "canary-world-3003:motif-1",
+        "slot_index": 1,
+        "world_index": 3,
+        "world_seed": 3003
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            1
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 633,
+        "latency_ms": 2767.4933089983824,
+        "motif_id": "affine_multiplicative:fdbdb3c18b87c83c",
+        "motif_stratum": "affine_multiplicative",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 10,
+        "slot_id": "canary-world-3003:motif-2",
+        "slot_index": 2,
+        "world_index": 3,
+        "world_seed": 3003
+      },
+      {
+        "action": {
+          "operation": "replace",
+          "path": [
+            1,
+            2
+          ]
+        },
+        "candidate_format": "json_expression",
+        "factual_action_parse_valid": true,
+        "input_tokens": 628,
+        "latency_ms": 2243.071257998963,
+        "motif_id": "pairwise_variable:f5c15daf480e1054",
+        "motif_stratum": "pairwise_variable",
+        "outer_schema_valid": true,
+        "output_tokens": 12,
+        "serial_index": 11,
+        "slot_id": "canary-world-3003:motif-3",
+        "slot_index": 3,
+        "world_index": 3,
+        "world_seed": 3003
+      }
+    ]
+  },
+  "evidence": false,
+  "evidence_scope": "target_free_route_and_action_grammar_calibration_only",
+  "identity": {
+    "request_model": "deepseek-v4-pro",
+    "response_model": "deepseek-v4-pro"
+  },
+  "kind": "v3-route-canary",
+  "passed": true,
+  "prompt_set_sha256": "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094",
+  "protocol": {
+    "content_gate": {
+      "factual_action_parse_valid_required": 12,
+      "no_op_is_valid_for_factual_slot": false,
+      "outer_schema_valid_required": 12
+    },
+    "factual_calls_per_world": 3,
+    "hidden_target_derived": false,
+    "logical_calls": 12,
+    "max_output_tokens": 256,
+    "oracle_or_compressor_run": false,
+    "physical_attempts_per_slot": 1,
+    "private_target_labels_or_outcomes_evaluated": false,
+    "temperature": 0.2,
+    "thinking": "disabled",
+    "world_count": 4,
+    "world_seeds": [
+      3000,
+      3001,
+      3002,
+      3003
+    ]
+  },
+  "provider": "deepseek-official-openai-compatible",
+  "route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+  "sanitized_request_contract": {
+    "adapter": "openai-compatible-chat-completions-v1",
+    "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+    "request_model": "deepseek-v4-pro",
+    "response_format": "json_object",
+    "seed_supported": false,
+    "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+    "timeout_seconds": 120.0,
+    "transport_profile": "stdlib-urllib-one-shot-v1"
+  },
+  "schema_version": 1,
+  "stratum_id": "official-deepseek-v4-pro"
+}

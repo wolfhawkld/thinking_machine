@@ -15,6 +15,7 @@ from src.providers.openai_compatible import HTTPResponse, OpenAICompatibleGenera
 from src.provenance import PROJECT_ROOT, source_manifest
 from src.spark_cross_model import (
     COMPARISON_ARM_ID,
+    CROSS_MODEL_ARM_COUNT,
     CROSS_MODEL_ARM_IDS,
     CROSS_MODEL_CALLS_PER_ARM,
     CROSS_MODEL_MOTIF_SELECTION_NAMESPACE,
@@ -22,6 +23,9 @@ from src.spark_cross_model import (
     CROSS_MODEL_SEED_NAMESPACE,
     CROSS_MODEL_TARGET_SEED_NAMESPACE,
     CROSS_MODEL_WORLD_SEEDS,
+    DEEPSEEK_FLASH_ARM_ID,
+    DEEPSEEK_PRO_ARM_ID,
+    GLM_ARM_ID,
     REFERENCE_ARM_ID,
     CrossModelError,
     RouteArmSpec,
@@ -65,10 +69,8 @@ def _fixed_route(arm_id: str) -> RouteArmSpec:
     )
 
 
-def _fixed_routes() -> tuple[RouteArmSpec, RouteArmSpec]:
-    return tuple(  # type: ignore[return-value]
-        _fixed_route(arm_id) for arm_id in CROSS_MODEL_ARM_IDS
-    )
+def _fixed_routes() -> tuple[RouteArmSpec, ...]:
+    return tuple(_fixed_route(arm_id) for arm_id in CROSS_MODEL_ARM_IDS)
 
 
 def _toy_public_world(
@@ -194,7 +196,7 @@ def _fake_generation(
         plan,
         route,
         records,
-        paired_execution_schedule_validated=True,
+        triad_execution_schedule_validated=True,
     )
 
 
@@ -203,12 +205,12 @@ def _fake_bundle(
 ) -> dict[str, object]:
     unsigned = {
         "schema_version": 1,
-        "kind": "spark-cross-model-paired-generations",
+        "kind": "spark-cross-model-matched-triad-generations",
         "protocol_id": plan["protocol_id"],
         "plan_sha256": plan["plan_sha256"],
         "execution_schedule_completed": True,
         "execution_trace": copy.deepcopy(plan["execution_schedule"]),
-        "total_call_count": 192,
+        "total_call_count": CROSS_MODEL_ARM_COUNT * CROSS_MODEL_CALLS_PER_ARM,
         "generations": generations,
     }
     return {**unsigned, "bundle_sha256": _sha256_json(unsigned)}
@@ -257,8 +259,8 @@ def _binding_for(arm_id: str) -> dict[str, object]:
     }
 
 
-class _MiniMaxTransport:
-    def __init__(self, *, response_model: str = "minimax-m3") -> None:
+class _GLMTransport:
+    def __init__(self, *, response_model: str = "glm-5.2") -> None:
         self.calls: list[dict[str, object]] = []
         self.response_model = response_model
 
@@ -286,10 +288,10 @@ class _MiniMaxTransport:
         return HTTPResponse(200, json.dumps(payload).encode("utf-8"))
 
 
-def _minimax_generator(
-    *, model: str = "minimax-m3", response_model: str = "minimax-m3"
-) -> tuple[OpenAICompatibleGenerator, _MiniMaxTransport]:
-    transport = _MiniMaxTransport(response_model=response_model)
+def _glm_generator(
+    *, model: str = "glm-5.2", response_model: str = "glm-5.2"
+) -> tuple[OpenAICompatibleGenerator, _GLMTransport]:
+    transport = _GLMTransport(response_model=response_model)
     generator = OpenAICompatibleGenerator(
         base_url="https://unit.invalid/v1",
         api_key="unit-secret",
@@ -306,8 +308,13 @@ class SparkCrossModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.plan = _build_target_free_test_plan()
-        cls.reference = _fake_generation(cls.plan, REFERENCE_ARM_ID)
-        cls.comparison = _fake_generation(cls.plan, COMPARISON_ARM_ID)
+        cls.generations = {
+            arm_id: _fake_generation(cls.plan, arm_id)
+            for arm_id in CROSS_MODEL_ARM_IDS
+        }
+        cls.reference = cls.generations[DEEPSEEK_FLASH_ARM_ID]
+        cls.pro = cls.generations[DEEPSEEK_PRO_ARM_ID]
+        cls.comparison = cls.generations[GLM_ARM_ID]
 
     def _assert_analysis_rejected_before_target(
         self,
@@ -344,6 +351,14 @@ class SparkCrossModelTests(unittest.TestCase):
         )
         self.assertEqual(self.plan["protocol_id"], CROSS_MODEL_PROTOCOL_ID)
         self.assertEqual(
+            CROSS_MODEL_PROTOCOL_ID,
+            "cross-model-matched-triad-v1",
+        )
+        self.assertEqual(
+            CROSS_MODEL_SEED_NAMESPACE,
+            "spark-closure-cross-model-paired-v1",
+        )
+        self.assertEqual(
             self.plan["target_seed_namespace"],
             CROSS_MODEL_TARGET_SEED_NAMESPACE,
         )
@@ -351,6 +366,43 @@ class SparkCrossModelTests(unittest.TestCase):
             self.plan["motif_selection_namespace"],
             CROSS_MODEL_MOTIF_SELECTION_NAMESPACE,
         )
+
+    def test_triad_routes_and_cli_credentials_are_frozen(self) -> None:
+        self.assertEqual(
+            CROSS_MODEL_ARM_IDS,
+            ("deepseek-flash", "deepseek-pro", "glm-5.2"),
+        )
+        flash = cross_model._ROUTE_FREEZES[DEEPSEEK_FLASH_ARM_ID]
+        pro = cross_model._ROUTE_FREEZES[DEEPSEEK_PRO_ARM_ID]
+        glm = cross_model._ROUTE_FREEZES[GLM_ARM_ID]
+        self.assertEqual(flash["request_model"], "deepseek-v4-flash")
+        self.assertEqual(pro["model_stratum"], "official-deepseek-v4-pro")
+        self.assertEqual(pro["request_model"], "deepseek-v4-pro")
+        self.assertEqual(pro["response_model"], "deepseek-v4-pro")
+        self.assertEqual(
+            pro["accepted_response_contract"]["provider_fingerprint_sha256"],
+            "a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787",
+        )
+        self.assertNotEqual(
+            pro["accepted_response_contract"]["provider_fingerprint_sha256"],
+            flash["accepted_response_contract"]["provider_fingerprint_sha256"],
+        )
+        self.assertEqual(glm["model_stratum"], "tencent-tokenhub-glm-5.2")
+        self.assertEqual(
+            glm["provider_profile"],
+            "tencent-tokenhub-openai-compatible",
+        )
+        self.assertEqual(glm["request_model"], "glm-5.2")
+        self.assertEqual(glm["response_model"], "glm-5.2")
+        self.assertEqual(
+            glm["sanitized_request_contract"]["adapter"],
+            "openai-compatible-chat-completions-v1",
+        )
+        parser = cross_model.argparse.ArgumentParser()
+        cross_model._add_credential_arguments(parser)
+        arguments = parser.parse_args([])
+        self.assertEqual(arguments.deepseek_env_prefix, "DEEPSEEK")
+        self.assertEqual(arguments.glm_env_prefix, "TENCENT")
 
     def test_route_arm_from_canary_uses_real_binding_and_fixed_files(self) -> None:
         for arm_id in CROSS_MODEL_ARM_IDS:
@@ -375,7 +427,7 @@ class SparkCrossModelTests(unittest.TestCase):
     def test_canary_hash_or_model_error_is_target_free(self) -> None:
         credentials = ProviderCredentials(
             base_url="https://unit.invalid/v1",
-            model="minimax-m3",
+            model="glm-5.2",
             api_key="unit-secret",
         )
         with tempfile.TemporaryDirectory() as directory:
@@ -416,22 +468,61 @@ class SparkCrossModelTests(unittest.TestCase):
         self.assertEqual(self.plan["prior_layered_v1"], cross_model.LAYERED_V1_ARTIFACTS)
         protocol = self.plan["protocol"]
         self.assertEqual(protocol["analysis_max_oracle_queries"], 4)
-        self.assertFalse(protocol["pool_two_arms_as_64_worlds"])
+        self.assertFalse(protocol["pool_route_arms_as_independent_worlds"])
         self.assertEqual(set(protocol["endpoint_definitions"]), {"K1", "K2", "K3", "K4"})
         schedule = self.plan["execution_schedule"]
-        self.assertEqual(len(schedule), 192)
+        self.assertEqual(len(schedule), 288)
+        permutation_counts = {
+            permutation: 0 for permutation in cross_model._TRIAD_ORDER_PERMUTATIONS
+        }
+        stratum_occurrences = {stratum: 0 for stratum in MOTIF_STRATA}
+        stratum_permutation_counts = {
+            (stratum, permutation_index): 0
+            for stratum in MOTIF_STRATA
+            for permutation_index in range(6)
+        }
+        arm_position_counts = {
+            (arm_id, position): 0
+            for arm_id in CROSS_MODEL_ARM_IDS
+            for position in range(CROSS_MODEL_ARM_COUNT)
+        }
         for serial_index in range(96):
-            pair = schedule[serial_index * 2 : serial_index * 2 + 2]
-            expected = (
-                CROSS_MODEL_ARM_IDS
-                if serial_index % 2 == 0
-                else tuple(reversed(CROSS_MODEL_ARM_IDS))
-            )
-            self.assertEqual(tuple(row["arm_id"] for row in pair), expected)
+            triad = schedule[
+                serial_index * CROSS_MODEL_ARM_COUNT :
+                serial_index * CROSS_MODEL_ARM_COUNT + CROSS_MODEL_ARM_COUNT
+            ]
+            stratum = self.plan["slots"][serial_index]["motif_stratum"]
+            occurrence = stratum_occurrences[stratum]
+            permutation_index = occurrence % 6
+            expected = cross_model._TRIAD_ORDER_PERMUTATIONS[
+                permutation_index
+            ]
+            observed = tuple(row["arm_id"] for row in triad)
+            permutation_counts[observed] += 1
+            stratum_permutation_counts[(stratum, permutation_index)] += 1
+            stratum_occurrences[stratum] += 1
+            self.assertEqual(observed, expected)
             self.assertEqual(
-                [row["serial_index"] for row in pair],
-                [serial_index, serial_index],
+                [row["serial_index"] for row in triad],
+                [serial_index] * CROSS_MODEL_ARM_COUNT,
             )
+            self.assertEqual(
+                [row["motif_stratum"] for row in triad],
+                [stratum] * CROSS_MODEL_ARM_COUNT,
+            )
+            self.assertEqual(
+                [row["stratum_occurrence_index"] for row in triad],
+                [occurrence] * CROSS_MODEL_ARM_COUNT,
+            )
+            self.assertEqual(
+                [row["order_permutation_index"] for row in triad],
+                [permutation_index] * CROSS_MODEL_ARM_COUNT,
+            )
+            for position, arm_id in enumerate(observed):
+                arm_position_counts[(arm_id, position)] += 1
+        self.assertEqual(set(permutation_counts.values()), {16})
+        self.assertEqual(set(stratum_permutation_counts.values()), {4})
+        self.assertEqual(set(arm_position_counts.values()), {32})
         self.assertTrue(
             all(
                 "target_seed" not in world
@@ -454,17 +545,17 @@ class SparkCrossModelTests(unittest.TestCase):
                 cross_model._validate_plan(drifted)
 
     def test_single_arm_generation_validates_contract_and_emits_partials(self) -> None:
-        generator, transport = _minimax_generator()
+        generator, transport = _glm_generator()
         partials: list[dict[str, object]] = []
         with (
             mock.patch.object(
                 OpenAICompatibleGenerator,
                 "sanitized_request_contract",
-                return_value=copy.deepcopy(cross_model._MINIMAX_REQUEST_CONTRACT),
+                return_value=copy.deepcopy(cross_model._GLM_REQUEST_CONTRACT),
             ),
             mock.patch(
                 "src.spark_cross_model.route_binding_sha256",
-                return_value=cross_model.MINIMAX_ROUTE_BINDING_SHA256,
+                return_value=cross_model.GLM_ROUTE_BINDING_SHA256,
             ),
             mock.patch("src.spark_closure._derive_target_seed") as derive,
             mock.patch("src.spark_closure.SparkCompressor") as compressor,
@@ -480,7 +571,7 @@ class SparkCrossModelTests(unittest.TestCase):
         self.assertEqual(len(transport.calls), 96)
         self.assertEqual(artifact["call_count"], 96)
         self.assertIs(artifact["live_response_contract_validated"], True)
-        self.assertIs(artifact["paired_execution_schedule_validated"], False)
+        self.assertIs(artifact["triad_execution_schedule_validated"], False)
         self.assertEqual(len(partials), 96)
         self.assertEqual(partials[-1]["call_count"], 96)
         self.assertFalse(
@@ -489,11 +580,11 @@ class SparkCrossModelTests(unittest.TestCase):
         self.assertFalse(partials[-1]["resume_supported"])
         self._assert_analysis_rejected_before_target(
             self.plan,
-            [self.reference, artifact],
+            [self.reference, self.pro, artifact],
         )
 
     def test_wrong_request_model_is_rejected_before_network_or_target(self) -> None:
-        generator, transport = _minimax_generator(model="wrong-model")
+        generator, transport = _glm_generator(model="wrong-model")
         with (
             mock.patch("src.spark_closure._derive_target_seed") as derive,
             mock.patch("src.spark_closure.generate_spark_world") as build_world,
@@ -507,16 +598,16 @@ class SparkCrossModelTests(unittest.TestCase):
         compressor.assert_not_called()
 
     def test_wrong_response_alias_is_rejected_before_target(self) -> None:
-        generator, transport = _minimax_generator(response_model="another-model")
+        generator, transport = _glm_generator(response_model="another-model")
         with (
             mock.patch.object(
                 OpenAICompatibleGenerator,
                 "sanitized_request_contract",
-                return_value=copy.deepcopy(cross_model._MINIMAX_REQUEST_CONTRACT),
+                return_value=copy.deepcopy(cross_model._GLM_REQUEST_CONTRACT),
             ),
             mock.patch(
                 "src.spark_cross_model.route_binding_sha256",
-                return_value=cross_model.MINIMAX_ROUTE_BINDING_SHA256,
+                return_value=cross_model.GLM_ROUTE_BINDING_SHA256,
             ),
             mock.patch("src.spark_closure._derive_target_seed") as derive,
             mock.patch("src.spark_closure.generate_spark_world") as build_world,
@@ -532,10 +623,9 @@ class SparkCrossModelTests(unittest.TestCase):
         build_world.assert_not_called()
         compressor.assert_not_called()
 
-    def test_paired_runner_uses_frozen_alternating_order(self) -> None:
+    def test_triad_runner_uses_frozen_balanced_order(self) -> None:
         generators = {
-            REFERENCE_ARM_ID: _minimax_generator()[0],
-            COMPARISON_ARM_ID: _minimax_generator()[0],
+            arm_id: _glm_generator()[0] for arm_id in CROSS_MODEL_ARM_IDS
         }
         observed: list[tuple[int, str]] = []
 
@@ -573,12 +663,12 @@ class SparkCrossModelTests(unittest.TestCase):
             for row in self.plan["execution_schedule"]
         ]
         self.assertEqual(observed, expected)
-        self.assertEqual(bundle["total_call_count"], 192)
+        self.assertEqual(bundle["total_call_count"], 288)
         self.assertTrue(bundle["execution_schedule_completed"])
         self.assertEqual(bundle["execution_trace"], self.plan["execution_schedule"])
         self.assertEqual(
             [generation["call_count"] for generation in bundle["generations"]],
-            [96, 96],
+            [96, 96, 96],
         )
         tampered = copy.deepcopy(bundle)
         tampered["execution_trace"][0], tampered["execution_trace"][1] = (
@@ -598,9 +688,9 @@ class SparkCrossModelTests(unittest.TestCase):
         short["call_count"] = 95
         _reseal_generation(short)
         cases = (
-            [short, self.comparison],
+            [short, self.pro, self.comparison],
             [self.reference],
-            [self.reference, copy.deepcopy(self.reference)],
+            [self.reference, copy.deepcopy(self.reference), self.comparison],
         )
         for generations in cases:
             with self.subTest(call_counts=[item["call_count"] for item in generations]):
@@ -611,14 +701,14 @@ class SparkCrossModelTests(unittest.TestCase):
         _reseal_generation(drifted)
         self._assert_analysis_rejected_before_target(
             self.plan,
-            [self.reference, drifted],
+            [self.reference, self.pro, drifted],
         )
 
     def test_source_manifest_drift_stops_network_core_and_target(self) -> None:
         drifted = copy.deepcopy(self.plan)
         drifted["source_manifest_sha256"] = "0" * 64
         _reseal_plan(drifted)
-        generator, transport = _minimax_generator()
+        generator, transport = _glm_generator()
         with (
             mock.patch(
                 "src.spark_cross_model._run_joint_analysis_core",
@@ -633,7 +723,10 @@ class SparkCrossModelTests(unittest.TestCase):
             with self.assertRaisesRegex(CrossModelError, "source manifest drifted"):
                 analyze_cross_model(
                     drifted,
-                    _fake_bundle(drifted, [self.reference, self.comparison]),
+                    _fake_bundle(
+                        drifted,
+                        [self.reference, self.pro, self.comparison],
+                    ),
                 )
         self.assertEqual(transport.calls, [])
         core.assert_not_called()
@@ -643,8 +736,8 @@ class SparkCrossModelTests(unittest.TestCase):
 
     def test_valid_barrier_enters_only_the_fixed_joint_core(self) -> None:
         synthetic = {
-            "joint_classification": "paired_cross_model_replication_not_observed",
-            "pooled_64_world_analysis_performed": False,
+            "joint_classification": "replication_not_observed",
+            "pooled_route_arm_world_analysis_performed": False,
         }
         with mock.patch(
             "src.spark_cross_model._run_joint_analysis_core",
@@ -652,59 +745,75 @@ class SparkCrossModelTests(unittest.TestCase):
         ) as core:
             report = analyze_cross_model(
                 self.plan,
-                _fake_bundle(self.plan, [self.comparison, self.reference]),
+                _fake_bundle(
+                    self.plan,
+                    [self.comparison, self.reference, self.pro],
+                ),
             )
         core.assert_called_once()
         self.assertEqual(report["joint_analysis"], synthetic)
-        self.assertTrue(report["both_96_record_arms_validated_before_analysis"])
+        self.assertTrue(
+            report["all_three_96_record_arms_validated_before_analysis"]
+        )
 
-    def test_paired_four_cell_tables_use_worlds_not_pooled_arms(self) -> None:
-        seeds = (11, 22, 33, 44)
-        reference = []
-        comparison = []
-        reference_flags = (True, True, False, False)
-        comparison_flags = (True, False, True, False)
-        for seed, ref, comp in zip(
-            seeds, reference_flags, comparison_flags, strict=True
-        ):
-            reference.append(
-                {"world_seed": seed, "endpoints": {name: ref for name in "LMDR"}}
-            )
-            comparison.append(
-                {"world_seed": seed, "endpoints": {name: comp for name in "LMDR"}}
-            )
-        tables = cross_model._paired_four_cell_tables(reference, comparison)
+    def test_triad_tables_and_closed_joint_classification(self) -> None:
+        patterns = tuple(cross_model._EIGHT_CELL_PATTERN_ARMS.values())
+        seeds = tuple(range(11, 11 + len(patterns)))
+        worlds_by_arm: dict[str, list[dict[str, object]]] = {
+            arm_id: [] for arm_id in CROSS_MODEL_ARM_IDS
+        }
+        for seed, passed_arms in zip(seeds, patterns, strict=True):
+            for arm_id in CROSS_MODEL_ARM_IDS:
+                passed = arm_id in passed_arms
+                worlds_by_arm[arm_id].append(
+                    {
+                        "world_seed": seed,
+                        "endpoints": {name: passed for name in "LMDR"},
+                    }
+                )
+        tables = cross_model._triad_endpoint_tables(worlds_by_arm)
         for layer in ("K1", "K2", "K3", "K4"):
+            table = tables[layer]
             self.assertEqual(
-                tables[layer]["counts"],
-                {
-                    "both": 1,
-                    "reference_only": 1,
-                    "comparison_only": 1,
-                    "neither": 1,
-                },
+                table["eight_cell_counts"],
+                {name: 1 for name in cross_model._EIGHT_CELL_PATTERN_ARMS},
             )
-            self.assertEqual(tables[layer]["world_denominator"], 4)
-        self.assertEqual(
-            cross_model._joint_classification(
-                {"K1": 3, "K4": 2}, {"K1": 3, "K4": 2}
-            ),
-            "paired_cross_model_replication_observed",
-        )
-        self.assertEqual(
-            cross_model._joint_classification(
-                {"K1": 3, "K4": 2}, {"K1": 3, "K4": 0}
-            ),
-            "mixed_model_robustness_evidence",
-        )
-        self.assertEqual(
-            cross_model._joint_classification(
-                {"K1": 3, "K4": 0}, {"K1": 0, "K4": 0}
-            ),
-            "paired_cross_model_replication_not_observed",
-        )
+            self.assertEqual(table["world_denominator"], 8)
+            self.assertEqual(len(table["pairwise_four_cell_tables"]), 3)
+            for paired in table["pairwise_four_cell_tables"].values():
+                self.assertEqual(paired["world_denominator"], 8)
+                self.assertEqual(sum(paired["counts"].values()), 8)
 
-    def test_joint_core_reuses_one_synthetic_world_context_for_both_arms(self) -> None:
+        def counts(*positive: str) -> dict[str, dict[str, int]]:
+            return {
+                arm_id: {"K1": 3, "K4": 2 if arm_id in positive else 0}
+                for arm_id in CROSS_MODEL_ARM_IDS
+            }
+
+        cases = (
+            (
+                CROSS_MODEL_ARM_IDS,
+                "all_routes_replication_observed",
+            ),
+            (
+                (DEEPSEEK_FLASH_ARM_ID, GLM_ARM_ID),
+                "cross_family_replication_observed",
+            ),
+            (
+                (DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID),
+                "deepseek_family_only_replication_observed",
+            ),
+            ((DEEPSEEK_PRO_ARM_ID,), "single_route_replication_observed"),
+            ((), "replication_not_observed"),
+        )
+        for positive, expected in cases:
+            with self.subTest(positive=positive):
+                self.assertEqual(
+                    cross_model._joint_classification(counts(*positive)),
+                    expected,
+                )
+
+    def test_joint_core_reuses_one_synthetic_world_context_for_all_arms(self) -> None:
         toy_seeds = (101, 202)
         parent = object()
         target = object()
@@ -740,13 +849,22 @@ class SparkCrossModelTests(unittest.TestCase):
             "route_arms": [route.to_dict() for route in _fixed_routes()],
         }
         artifacts = {
-            REFERENCE_ARM_ID: {
+            DEEPSEEK_FLASH_ARM_ID: {
                 "records": [
                     {"serial_index": index, "action": {"operation": "no_op"}}
                     for index in range(2)
                 ]
             },
-            COMPARISON_ARM_ID: {
+            DEEPSEEK_PRO_ARM_ID: {
+                "records": [
+                    {
+                        "serial_index": index,
+                        "action": {"operation": "replace", "path": [1, 1]},
+                    }
+                    for index in range(2)
+                ]
+            },
+            GLM_ARM_ID: {
                 "records": [
                     {
                         "serial_index": index,
@@ -821,14 +939,22 @@ class SparkCrossModelTests(unittest.TestCase):
         self.assertEqual(lineages.call_count, 2)
         self.assertEqual(result["shared_target_world_count"], 2)
         self.assertEqual(
-            result["arms"][REFERENCE_ARM_ID]["world_counts_K"],
+            result["arms"][DEEPSEEK_FLASH_ARM_ID]["world_counts_K"],
             {"K1": 0, "K2": 0, "K3": 0, "K4": 0},
         )
         self.assertEqual(
-            result["arms"][COMPARISON_ARM_ID]["world_counts_K"],
+            result["arms"][DEEPSEEK_PRO_ARM_ID]["world_counts_K"],
             {"K1": 2, "K2": 2, "K3": 2, "K4": 2},
         )
-        self.assertFalse(result["pooled_64_world_analysis_performed"])
+        self.assertEqual(
+            result["arms"][GLM_ARM_ID]["world_counts_K"],
+            {"K1": 2, "K2": 2, "K3": 2, "K4": 2},
+        )
+        self.assertEqual(
+            result["joint_classification"],
+            "cross_family_replication_observed",
+        )
+        self.assertFalse(result["pooled_route_arm_world_analysis_performed"])
 
     def test_cli_generate_requires_execute_before_reading_or_network(self) -> None:
         with (

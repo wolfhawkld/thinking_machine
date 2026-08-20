@@ -251,14 +251,20 @@
         1789187785946847608,
         6476484620047087171
       ],
-      "status": "reserved-cross-model-paired-v1-unopened",
+      "status": "assigned-cross-model-matched-triad-v1-frozen-unopened-at-registration",
       "uses": [
-        "32-world-two-route-paired-layered-mechanism-replication"
+        "32-world-official-deepseek-v4-flash-and-v4-pro-vs-tencent-tokenhub-glm-5.2-matched-triad-layered-mechanism-replication"
       ],
       "draw": {
         "namespace": "spark-closure-cross-model-paired-v1:world-seed",
         "rule": "sha256(namespace + ':' + zero_based_index), first 8 bytes big-endian, mask to 63 bits",
         "exclusions": "registry collision only; none occurred"
+      },
+      "assignment": {
+        "active_protocol": "cross-model-matched-triad-v1",
+        "base_target_and_motif_namespace": "spark-closure-cross-model-paired-v1",
+        "superseded_pre_plan_protocol": "cross-model-paired-v2",
+        "provenance": "the unopened paired-v1-named task grid was retained unchanged when the two-arm v2 design was superseded by the matched triad before any formal plan, science call, target derivation, or hidden-target analysis"
       }
     }
   ]

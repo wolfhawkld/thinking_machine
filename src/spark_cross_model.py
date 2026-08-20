@@ -1,6 +1,6 @@
-"""Research-only paired cross-model replication for the spark closure study.
+"""Research-only matched-triad replication for the spark closure study.
 
-The public plan is target-free.  Both frozen 96-call route arms must finish and
+The public plan is target-free.  All three frozen 96-call route arms must finish and
 pass their live response contracts before the built-in joint analyzer derives
 one shared target per world.  There is no retry, resume, adaptive sampling, or
 network access unless the CLI ``generate`` command is given ``--execute``.
@@ -29,12 +29,17 @@ from .v3_live import V3LiveError, build_v3_generator, model_binding_from_canary
 CROSS_MODEL_WORLD_COUNT = 32
 CROSS_MODEL_CALLS_PER_WORLD = 3
 CROSS_MODEL_CALLS_PER_ARM = 96
-CROSS_MODEL_ARM_COUNT = 2
-CROSS_MODEL_PROTOCOL_ID = "cross-model-paired-v1"
+CROSS_MODEL_ARM_COUNT = 3
+CROSS_MODEL_PROTOCOL_ID = "cross-model-matched-triad-v1"
+# The matched triad deliberately reuses the unopened V1 task grid so the
+# public worlds, motifs, targets, and slot identities do not move after route
+# calibration.  Only the pre-target route protocol and execution order change.
 CROSS_MODEL_SEED_NAMESPACE = "spark-closure-cross-model-paired-v1"
 CROSS_MODEL_TARGET_SEED_NAMESPACE = CROSS_MODEL_SEED_NAMESPACE
 CROSS_MODEL_MOTIF_SELECTION_NAMESPACE = CROSS_MODEL_SEED_NAMESPACE
-CROSS_MODEL_EVIDENCE_SCOPE = "prospective_paired_cross_model_mechanism_replication"
+CROSS_MODEL_EVIDENCE_SCOPE = (
+    "prospective_matched_triad_cross_model_mechanism_replication"
+)
 CROSS_MODEL_WORLD_SEEDS = (
     5609854509399487714,
     8058848814949332127,
@@ -70,33 +75,58 @@ CROSS_MODEL_WORLD_SEEDS = (
     6476484620047087171,
 )
 
-REFERENCE_ARM_ID = "deepseek-reference"
-COMPARISON_ARM_ID = "minimax-comparison"
-CROSS_MODEL_ARM_IDS = (REFERENCE_ARM_ID, COMPARISON_ARM_ID)
+DEEPSEEK_FLASH_ARM_ID = "deepseek-flash"
+DEEPSEEK_PRO_ARM_ID = "deepseek-pro"
+GLM_ARM_ID = "glm-5.2"
+CROSS_MODEL_ARM_IDS = (
+    DEEPSEEK_FLASH_ARM_ID,
+    DEEPSEEK_PRO_ARM_ID,
+    GLM_ARM_ID,
+)
+# Backward-compatible Python aliases only.  Saved matched-triad artifacts use
+# the neutral arm ids above and never serialize retired reference/comparison ids.
+REFERENCE_ARM_ID = DEEPSEEK_FLASH_ARM_ID
+COMPARISON_ARM_ID = GLM_ARM_ID
 
 DEEPSEEK_CANARY_PATH = (
     PROJECT_ROOT
     / "artifacts"
-    / "v3-canaries-20260814-r4"
-    / "deepseek-official.json"
+    / "spark-cross-model-canaries-20260820"
+    / "deepseek-v4-flash-action-canary.json"
 )
-MINIMAX_CANARY_PATH = (
+GLM_CANARY_PATH = (
     PROJECT_ROOT
     / "artifacts"
-    / "spark-cross-model-canaries-20260814"
-    / "minimax-m3-action-canary.json"
+    / "spark-cross-model-canaries-20260820-tencent"
+    / "glm-5.2-action-canary.json"
+)
+DEEPSEEK_PRO_CANARY_PATH = (
+    PROJECT_ROOT
+    / "artifacts"
+    / "spark-cross-model-canaries-20260821-pro"
+    / "deepseek-v4-pro-action-canary.json"
 )
 DEEPSEEK_CANARY_SHA256 = (
-    "d5a4df862aa4084c34af2e76da3ae98985c7f3c63fbc8cc3bdfe1edfb4edc497"
+    "0516ffd54692097ec06f2278951aae20c0835a86bacdef9af80699508a7e4f6a"
 )
-MINIMAX_CANARY_SHA256 = (
-    "18d978aea51c7b2e6e55014f9f43163cb2b87928dcf2e5ac4a0eecb56d5d3748"
+GLM_CANARY_SHA256 = (
+    "9523e9422ca67bea9ece8a0358a4a06bf6080d38656fbfedce9b84c899178210"
+)
+DEEPSEEK_PRO_CANARY_SHA256 = (
+    "1f7b92dabcc8c4c562d89328dd6cb9c4119b8cbec6e287926728c96ce8c0fce6"
 )
 DEEPSEEK_ROUTE_BINDING_SHA256 = (
     "0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa"
 )
-MINIMAX_ROUTE_BINDING_SHA256 = (
-    "d3e06286932d1317194caf85c86af0b511f17d88d40bf7c03ea64bed8409df31"
+GLM_ROUTE_BINDING_SHA256 = (
+    "02243ec1c415c25c9938f4d4a209b8e3864212ce3952ae3715d8140e4c13a6e9"
+)
+DEEPSEEK_PRO_ROUTE_BINDING_SHA256 = (
+    "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936"
+)
+
+ACTION_CANARY_PROMPT_SET_SHA256 = (
+    "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094"
 )
 
 LAYERED_V1_ARTIFACTS = {
@@ -109,8 +139,20 @@ LAYERED_V1_ARTIFACTS = {
 _DEEPSEEK_RESPONSE_CONTRACT = dict(
     spark_closure.PROSPECTIVE_V2_ACCEPTED_RESPONSE_CONTRACT
 )
-_MINIMAX_RESPONSE_CONTRACT = {
-    "provider_models": ["minimax-m3"],
+_DEEPSEEK_PRO_RESPONSE_CONTRACT = {
+    "provider_models": ["deepseek-v4-pro"],
+    "finish_reasons": ["stop", "length"],
+    "max_output_tokens": 256,
+    "seed_supported": False,
+    "require_zero_reasoning_tokens": True,
+    "prompt_cache_mode": "complete",
+    "provider_fingerprint_mode": "exact_sha256",
+    "provider_fingerprint_sha256": (
+        "a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787"
+    ),
+}
+_GLM_RESPONSE_CONTRACT = {
+    "provider_models": ["glm-5.2"],
     "finish_reasons": ["stop", "length"],
     "max_output_tokens": 256,
     "seed_supported": False,
@@ -131,10 +173,14 @@ _DEEPSEEK_REQUEST_CONTRACT = {
     "response_format": "json_object",
     "transport_profile": "stdlib-urllib-one-shot-v1",
 }
-_MINIMAX_REQUEST_CONTRACT = {
+_DEEPSEEK_PRO_REQUEST_CONTRACT = {
+    **_DEEPSEEK_REQUEST_CONTRACT,
+    "request_model": "deepseek-v4-pro",
+}
+_GLM_REQUEST_CONTRACT = {
     "adapter": "openai-compatible-chat-completions-v1",
-    "endpoint_sha256": "1bd16951c4578c69f19ec55fdc3732059275e26824feede86450b686737ce017",
-    "request_model": "minimax-m3",
+    "endpoint_sha256": "2095d8a5425aaf2ce7b1c8a4b63baecdc0ffc4851ac92810b191ee3b9194840c",
+    "request_model": "glm-5.2",
     "seed_supported": False,
     "timeout_seconds": 120.0,
     "static_request_extensions_sha256": (
@@ -145,7 +191,7 @@ _MINIMAX_REQUEST_CONTRACT = {
 }
 
 _ROUTE_FREEZES = {
-    REFERENCE_ARM_ID: {
+    DEEPSEEK_FLASH_ARM_ID: {
         "model_stratum": "official-deepseek-v4",
         "provider_profile": "deepseek-official-openai-compatible",
         "request_model": "deepseek-v4-flash",
@@ -155,23 +201,43 @@ _ROUTE_FREEZES = {
         "canary_artifact_sha256": DEEPSEEK_CANARY_SHA256,
         "route_binding_sha256": DEEPSEEK_ROUTE_BINDING_SHA256,
         "accepted_response_contract": _DEEPSEEK_RESPONSE_CONTRACT,
+        "canary_plan_sha256": (
+            "5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc"
+        ),
     },
-    COMPARISON_ARM_ID: {
-        "model_stratum": "volcengine-minimax-m3",
-        "provider_profile": "volcengine-agent-plan-openai-compatible",
-        "request_model": "minimax-m3",
-        "response_model": "minimax-m3",
-        "sanitized_request_contract": _MINIMAX_REQUEST_CONTRACT,
-        "canary_path": MINIMAX_CANARY_PATH,
-        "canary_artifact_sha256": MINIMAX_CANARY_SHA256,
-        "route_binding_sha256": MINIMAX_ROUTE_BINDING_SHA256,
-        "accepted_response_contract": _MINIMAX_RESPONSE_CONTRACT,
+    DEEPSEEK_PRO_ARM_ID: {
+        "model_stratum": "official-deepseek-v4-pro",
+        "provider_profile": "deepseek-official-openai-compatible",
+        "request_model": "deepseek-v4-pro",
+        "response_model": "deepseek-v4-pro",
+        "sanitized_request_contract": _DEEPSEEK_PRO_REQUEST_CONTRACT,
+        "canary_path": DEEPSEEK_PRO_CANARY_PATH,
+        "canary_artifact_sha256": DEEPSEEK_PRO_CANARY_SHA256,
+        "route_binding_sha256": DEEPSEEK_PRO_ROUTE_BINDING_SHA256,
+        "accepted_response_contract": _DEEPSEEK_PRO_RESPONSE_CONTRACT,
+        "canary_plan_sha256": (
+            "8ede1082eb9f3a70a46020c19af1d3dac01529e69e161066f16ed9764df09bc7"
+        ),
+    },
+    GLM_ARM_ID: {
+        "model_stratum": "tencent-tokenhub-glm-5.2",
+        "provider_profile": "tencent-tokenhub-openai-compatible",
+        "request_model": "glm-5.2",
+        "response_model": "glm-5.2",
+        "sanitized_request_contract": _GLM_REQUEST_CONTRACT,
+        "canary_path": GLM_CANARY_PATH,
+        "canary_artifact_sha256": GLM_CANARY_SHA256,
+        "route_binding_sha256": GLM_ROUTE_BINDING_SHA256,
+        "accepted_response_contract": _GLM_RESPONSE_CONTRACT,
+        "canary_plan_sha256": (
+            "5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc"
+        ),
     },
 }
 
 
 class CrossModelError(ValueError):
-    """A paired plan, route arm, or generation artifact is malformed."""
+    """A triad plan, route arm, or generation artifact is malformed."""
 
 
 @dataclass(frozen=True)
@@ -406,23 +472,22 @@ def route_arm_from_canary(
         != frozen["route_binding_sha256"]
     ):
         raise CrossModelError("route canary identity or contract differs from the freeze")
-    if arm_id == COMPARISON_ARM_ID and (
+    if (
         artifact.get("canary_profile") != "closure-action-grammar-v1"
         or artifact.get("canary_plan_sha256")
-        != "8151108cf5edf3eb6edc6cb368b0267254d8daacd0fbd964b6255fde7fbc3eac"
+        != frozen["canary_plan_sha256"]
         or artifact.get("prompt_set_sha256")
-        != "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094"
+        != ACTION_CANARY_PROMPT_SET_SHA256
     ):
-        raise CrossModelError("MiniMax action-grammar canary profile differs")
-    if arm_id == COMPARISON_ARM_ID:
-        diagnostics = artifact.get("diagnostics")
-        if (
-            not isinstance(diagnostics, Mapping)
-            or diagnostics.get("outer_schema_valid_count") != 12
-            or diagnostics.get("factual_action_parse_valid_count") != 12
-            or diagnostics.get("content_gate_passed") is not True
-        ):
-            raise CrossModelError("MiniMax action-grammar content gate differs")
+        raise CrossModelError("route action-grammar canary profile differs")
+    diagnostics = artifact.get("diagnostics")
+    if (
+        not isinstance(diagnostics, Mapping)
+        or diagnostics.get("outer_schema_valid_count") != 12
+        or diagnostics.get("factual_action_parse_valid_count") != 12
+        or diagnostics.get("content_gate_passed") is not True
+    ):
+        raise CrossModelError("route action-grammar content gate differs")
     try:
         binding = model_binding_from_canary(
             path,
@@ -525,9 +590,14 @@ def _validate_routes(
     route_arms: Any,
     *,
     require_wire_shape: bool,
-) -> tuple[dict[str, Any], dict[str, Any]]:
-    if not isinstance(route_arms, (list, tuple)) or len(route_arms) != 2:
-        raise CrossModelError("paired cross-model plans require exactly two route arms")
+) -> tuple[dict[str, Any], ...]:
+    if (
+        not isinstance(route_arms, (list, tuple))
+        or len(route_arms) != CROSS_MODEL_ARM_COUNT
+    ):
+        raise CrossModelError(
+            "matched-triad plans require exactly three route arms"
+        )
     normalized = tuple(_normalized_route(route) for route in route_arms)
     if require_wire_shape:
         expected_fields = set(_ROUTE_FIELDS) | {"route_identity_sha256"}
@@ -539,19 +609,19 @@ def _validate_routes(
 
     arm_ids = [route["arm_id"] for route in normalized]
     if len(set(arm_ids)) != CROSS_MODEL_ARM_COUNT:
-        raise CrossModelError("paired cross-model route arm ids must be unique")
+        raise CrossModelError("matched-triad route arm ids must be unique")
     model_strata = [route["model_stratum"] for route in normalized]
     route_bindings = [route["route_binding_sha256"] for route in normalized]
     if (
         len(set(model_strata)) != CROSS_MODEL_ARM_COUNT
         or len(set(route_bindings)) != CROSS_MODEL_ARM_COUNT
     ):
-        raise CrossModelError("paired cross-model routes must be distinct")
+        raise CrossModelError("matched-triad routes must be distinct")
     route_ids = [route["route_identity_sha256"] for route in normalized]
     if len(set(route_ids)) != CROSS_MODEL_ARM_COUNT:
-        raise CrossModelError("paired cross-model routes must be distinct")
+        raise CrossModelError("matched-triad routes must be distinct")
     if tuple(arm_ids) != CROSS_MODEL_ARM_IDS:
-        raise CrossModelError("paired cross-model route arm ordering is frozen")
+        raise CrossModelError("matched-triad route arm ordering is frozen")
     for route in normalized:
         frozen = _ROUTE_FREEZES[str(route["arm_id"])]
         for field in (
@@ -566,7 +636,7 @@ def _validate_routes(
         ):
             if route[field] != frozen[field]:
                 raise CrossModelError(
-                    f"paired route {route['arm_id']} differs from frozen {field}"
+                    f"triad route {route['arm_id']} differs from frozen {field}"
                 )
     return normalized  # type: ignore[return-value]
 
@@ -600,9 +670,9 @@ def _validate_public_grid(
     if not isinstance(worlds, list) or not isinstance(slots, list) or not isinstance(seeds, list):
         raise CrossModelError("public worlds, world_seeds, and slots must be lists")
     if len(worlds) != CROSS_MODEL_WORLD_COUNT or len(seeds) != CROSS_MODEL_WORLD_COUNT:
-        raise CrossModelError("paired cross-model plan requires exactly 32 worlds")
+        raise CrossModelError("matched-triad plan requires exactly 32 worlds")
     if len(slots) != CROSS_MODEL_CALLS_PER_ARM:
-        raise CrossModelError("paired cross-model plan requires exactly 96 slots")
+        raise CrossModelError("matched-triad plan requires exactly 96 slots")
     if any(type(seed) is not int for seed in seeds) or len(set(seeds)) != len(seeds):
         raise CrossModelError("public world seeds must be unique integers")
 
@@ -709,7 +779,7 @@ def _validate_public_grid(
 
 def _frozen_protocol() -> dict[str, Any]:
     return {
-        "generation_then_joint_analysis_barrier": True,
+        "all_three_generations_then_shared_target_analysis_barrier": True,
         "route_arm_count": CROSS_MODEL_ARM_COUNT,
         "world_count": CROSS_MODEL_WORLD_COUNT,
         "calls_per_world_per_arm": CROSS_MODEL_CALLS_PER_WORLD,
@@ -728,7 +798,7 @@ def _frozen_protocol() -> dict[str, Any]:
         "first_query": "generated_child_or_parent_control",
         "remaining_query_rule": "shortest_bank_member_then_canonical_hash",
         "primary_analysis_unit": "world",
-        "pool_two_arms_as_64_worlds": False,
+        "pool_route_arms_as_independent_worlds": False,
         "endpoint_definitions": {
             "K1": "world_has_at_least_one_lineage_valid_factual_slot",
             "K2": (
@@ -742,52 +812,87 @@ def _frozen_protocol() -> dict[str, Any]:
             ),
         },
         "per_arm_classification": {
-            "K1=0": "model_dsl_interface_failure",
-            "K1>0,K4=0": "not_observed_under_frozen_protocol",
+            "K4=0": "not_observed_under_frozen_protocol",
             "K4=1": "single_prospective_mechanism_instance_observed",
             "K4>=2": "prospective_cross_world_replication_observed",
         },
-        "paired_four_cell_labels": [
-            "both",
-            "reference_only",
-            "comparison_only",
-            "neither",
+        "per_arm_interface_failure_flag": "K1=0",
+        "execution_order_permutations": [
+            list(order) for order in _TRIAD_ORDER_PERMUTATIONS
         ],
+        "execution_order_rotation_unit": (
+            "within_motif_stratum_occurrence_index_mod_6"
+        ),
+        "execution_slots_per_permutation": 16,
+        "execution_slots_per_stratum_per_permutation": 4,
+        "eight_cell_pattern_unit": "same_world_seed_within_each_K_layer",
+        "pairwise_four_cell_unit": "same_world_seed_within_each_K_layer",
+        "pairwise_route_pairs": [list(pair) for pair in _TRIAD_ROUTE_PAIRS],
         "joint_classification_closed_set": [
-            "paired_cross_model_interface_failure",
-            "paired_cross_model_replication_observed",
-            "mixed_model_robustness_evidence",
-            "paired_cross_model_replication_not_observed",
+            "all_routes_replication_observed",
+            "cross_family_replication_observed",
+            "deepseek_family_only_replication_observed",
+            "single_route_replication_observed",
+            "replication_not_observed",
         ],
         "joint_classification_rules": {
-            "either_arm_K1=0": "paired_cross_model_interface_failure",
-            "both_arms_K4>=2": "paired_cross_model_replication_observed",
-            "exactly_one_arm_K4>=2": "mixed_model_robustness_evidence",
-            "both_arms_K1>0_and_K4<2": (
-                "paired_cross_model_replication_not_observed"
+            "all_three_arms_K4>=2": "all_routes_replication_observed",
+            "glm_and_at_least_one_deepseek_arm_K4>=2": (
+                "cross_family_replication_observed"
             ),
+            "only_both_deepseek_arms_K4>=2": (
+                "deepseek_family_only_replication_observed"
+            ),
+            "exactly_one_arm_K4>=2": "single_route_replication_observed",
+            "no_arm_K4>=2": "replication_not_observed",
         },
-        "paired_four_cell_unit": "same_world_seed_within_each_K_layer",
+        "single_instance_reporting_rule": (
+            "per_arm_K4_equals_1_reported_separately_without_changing_"
+            "cross_world_joint_classification"
+        ),
     }
+
+
+_TRIAD_ORDER_PERMUTATIONS = (
+    (DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID, GLM_ARM_ID),
+    (DEEPSEEK_FLASH_ARM_ID, GLM_ARM_ID, DEEPSEEK_PRO_ARM_ID),
+    (DEEPSEEK_PRO_ARM_ID, DEEPSEEK_FLASH_ARM_ID, GLM_ARM_ID),
+    (DEEPSEEK_PRO_ARM_ID, GLM_ARM_ID, DEEPSEEK_FLASH_ARM_ID),
+    (GLM_ARM_ID, DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID),
+    (GLM_ARM_ID, DEEPSEEK_PRO_ARM_ID, DEEPSEEK_FLASH_ARM_ID),
+)
+_TRIAD_ROUTE_PAIRS = (
+    (DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID),
+    (DEEPSEEK_FLASH_ARM_ID, GLM_ARM_ID),
+    (DEEPSEEK_PRO_ARM_ID, GLM_ARM_ID),
+)
 
 
 def _expected_execution_schedule(
     slots: Sequence[Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
     schedule: list[dict[str, Any]] = []
+    occurrences_by_stratum: dict[str, int] = {}
     for slot in slots:
         serial_index = int(slot["serial_index"])
-        order = (
-            CROSS_MODEL_ARM_IDS
-            if serial_index % 2 == 0
-            else tuple(reversed(CROSS_MODEL_ARM_IDS))
+        motif_stratum = str(slot["motif_stratum"])
+        stratum_occurrence_index = occurrences_by_stratum.get(motif_stratum, 0)
+        order_permutation_index = stratum_occurrence_index % len(
+            _TRIAD_ORDER_PERMUTATIONS
         )
+        order = _TRIAD_ORDER_PERMUTATIONS[
+            order_permutation_index
+        ]
+        occurrences_by_stratum[motif_stratum] = stratum_occurrence_index + 1
         for within_slot_order, arm_id in enumerate(order):
             schedule.append(
                 {
                     "execution_index": len(schedule),
                     "serial_index": serial_index,
                     "slot_id": slot["slot_id"],
+                    "motif_stratum": motif_stratum,
+                    "stratum_occurrence_index": stratum_occurrence_index,
+                    "order_permutation_index": order_permutation_index,
                     "arm_id": arm_id,
                     "within_slot_order": within_slot_order,
                 }
@@ -799,12 +904,12 @@ def _validate_plan(
     plan: Mapping[str, Any],
 ) -> tuple[
     tuple[Mapping[str, Any], ...],
-    tuple[dict[str, Any], dict[str, Any]],
+    tuple[dict[str, Any], ...],
     tuple[str, ...],
     tuple[str, ...],
 ]:
     if not isinstance(plan, Mapping):
-        raise CrossModelError("paired cross-model plan must be an object")
+        raise CrossModelError("matched-triad plan must be an object")
     expected_plan_fields = {
         "schema_version",
         "kind",
@@ -826,12 +931,12 @@ def _validate_plan(
         "plan_sha256",
     }
     if set(plan) != expected_plan_fields:
-        raise CrossModelError("paired cross-model plan uses a non-frozen schema")
+        raise CrossModelError("matched-triad plan uses a non-frozen schema")
     if (
         plan.get("schema_version") != 1
-        or plan.get("kind") != "spark-cross-model-paired-plan"
+        or plan.get("kind") != "spark-cross-model-matched-triad-plan"
     ):
-        raise CrossModelError("unsupported paired cross-model plan schema")
+        raise CrossModelError("unsupported matched-triad plan schema")
     frozen_metadata = {
         "protocol_id": CROSS_MODEL_PROTOCOL_ID,
         "base_seed_namespace": CROSS_MODEL_SEED_NAMESPACE,
@@ -840,25 +945,25 @@ def _validate_plan(
         "evidence_scope": CROSS_MODEL_EVIDENCE_SCOPE,
     }
     if any(plan.get(field) != value for field, value in frozen_metadata.items()):
-        raise CrossModelError("paired plan protocol namespaces differ from the freeze")
+        raise CrossModelError("triad plan protocol namespaces differ from the freeze")
     if not _is_lowercase_sha256(plan.get("source_manifest_sha256")):
         raise CrossModelError(
-            "paired plan source_manifest_sha256 must be a lowercase SHA-256"
+            "triad plan source_manifest_sha256 must be a lowercase SHA-256"
         )
     unsigned = {key: value for key, value in plan.items() if key != "plan_sha256"}
     if plan.get("plan_sha256") != _sha256_json(unsigned):
-        raise CrossModelError("paired cross-model plan digest mismatch")
+        raise CrossModelError("matched-triad plan digest mismatch")
 
     routes = _validate_routes(plan.get("route_arms"), require_wire_shape=True)
     worlds, slots, world_digests, slot_digests = _validate_public_grid(plan)
     if tuple(plan.get("world_seeds", ())) != CROSS_MODEL_WORLD_SEEDS:
-        raise CrossModelError("paired plan differs from the audited world seeds")
+        raise CrossModelError("triad plan differs from the audited world seeds")
     if plan.get("prior_layered_v1") != LAYERED_V1_ARTIFACTS:
-        raise CrossModelError("paired plan does not bind the layered-v1 artifacts")
+        raise CrossModelError("triad plan does not bind the layered-v1 artifacts")
     if plan.get("protocol") != _frozen_protocol():
-        raise CrossModelError("paired cross-model protocol fields are malformed")
+        raise CrossModelError("matched-triad protocol fields are malformed")
     if plan.get("execution_schedule") != _expected_execution_schedule(slots):
-        raise CrossModelError("paired alternating execution schedule is malformed")
+        raise CrossModelError("balanced triad execution schedule is malformed")
     return slots, routes, world_digests, slot_digests
 
 
@@ -868,7 +973,7 @@ def _require_current_source_manifest(plan: Mapping[str, Any]) -> None:
     current = source_manifest(PROJECT_ROOT).get("source_manifest_sha256")
     if plan.get("source_manifest_sha256") != current:
         raise CrossModelError(
-            "paired plan source manifest drifted from the current implementation"
+            "triad plan source manifest drifted from the current implementation"
         )
 
 
@@ -929,7 +1034,7 @@ def build_cross_model_plan(
 
     plan_without_digest: dict[str, Any] = {
         "schema_version": 1,
-        "kind": "spark-cross-model-paired-plan",
+        "kind": "spark-cross-model-matched-triad-plan",
         "protocol_id": CROSS_MODEL_PROTOCOL_ID,
         "base_seed_namespace": CROSS_MODEL_SEED_NAMESPACE,
         "target_seed_namespace": CROSS_MODEL_TARGET_SEED_NAMESPACE,
@@ -988,7 +1093,7 @@ def _preflight_live_route(
         raise CrossModelError("frozen response alias differs from its route")
     if contract.max_output_tokens != max_output_tokens:
         raise CrossModelError(
-            "paired plan output cap differs from its route response contract"
+            "triad plan output cap differs from its route response contract"
         )
     try:
         observed_binding = route_binding_sha256(generator, contract)
@@ -1059,7 +1164,7 @@ def _seal_arm_generation(
     route: Mapping[str, Any],
     records: Sequence[Mapping[str, Any]],
     *,
-    paired_execution_schedule_validated: bool = False,
+    triad_execution_schedule_validated: bool = False,
 ) -> dict[str, Any]:
     artifact_without_digest: dict[str, Any] = {
         "schema_version": 1,
@@ -1073,8 +1178,8 @@ def _seal_arm_generation(
         "response_model": route["response_model"],
         "route_binding_sha256": route["route_binding_sha256"],
         "live_response_contract_validated": True,
-        "paired_execution_schedule_validated": (
-            paired_execution_schedule_validated
+        "triad_execution_schedule_validated": (
+            triad_execution_schedule_validated
         ),
         "generation_complete_before_joint_target_analysis": True,
         "call_count": len(records),
@@ -1119,8 +1224,8 @@ def generate_cross_model_arm(
 ) -> dict[str, Any]:
     """Generate one arm sequentially for diagnostics and compatibility.
 
-    Formal paired execution uses :func:`generate_cross_model` so the two arms
-    follow the frozen alternating schedule.
+    Formal triad execution uses :func:`generate_cross_model` so all three arms
+    follow the frozen balanced six-permutation schedule.
     """
 
     slots, routes, world_digests, slot_digests = _validate_plan(plan)
@@ -1150,13 +1255,13 @@ def generate_cross_model_arm(
     return _seal_arm_generation(plan, route, records)
 
 
-def _paired_generation_partial(
+def _triad_generation_partial(
     plan: Mapping[str, Any],
     records_by_arm: Mapping[str, Sequence[Mapping[str, Any]]],
 ) -> dict[str, Any]:
     partial_without_digest = {
         "schema_version": 1,
-        "kind": "spark-cross-model-paired-generation-partial",
+        "kind": "spark-cross-model-matched-triad-generation-partial",
         "protocol_id": plan["protocol_id"],
         "plan_sha256": plan["plan_sha256"],
         "generation_complete_before_joint_target_analysis": False,
@@ -1183,14 +1288,16 @@ def generate_cross_model(
     *,
     progress_callback: Callable[[Mapping[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
-    """Run both arms in the frozen slot-alternating 192-call order."""
+    """Run all arms in the frozen balanced 288-call triad order."""
 
     slots, routes, world_digests, slot_digests = _validate_plan(plan)
     _require_current_source_manifest(plan)
     if not isinstance(generators, Mapping) or set(generators) != set(
         CROSS_MODEL_ARM_IDS
     ):
-        raise CrossModelError("paired generation requires both frozen generators")
+        raise CrossModelError(
+            "matched-triad generation requires all three frozen generators"
+        )
     route_by_arm = {str(route["arm_id"]): route for route in routes}
     contracts = {
         arm_id: _preflight_live_route(
@@ -1219,19 +1326,19 @@ def generate_cross_model(
             )
         )
         if progress_callback is not None:
-            progress_callback(_paired_generation_partial(plan, records_by_arm))
+            progress_callback(_triad_generation_partial(plan, records_by_arm))
     generations = [
         _seal_arm_generation(
             plan,
             route_by_arm[arm_id],
             sorted(records_by_arm[arm_id], key=lambda row: int(row["serial_index"])),
-            paired_execution_schedule_validated=True,
+            triad_execution_schedule_validated=True,
         )
         for arm_id in CROSS_MODEL_ARM_IDS
     ]
     bundle_without_digest = {
         "schema_version": 1,
-        "kind": "spark-cross-model-paired-generations",
+        "kind": "spark-cross-model-matched-triad-generations",
         "protocol_id": plan["protocol_id"],
         "plan_sha256": plan["plan_sha256"],
         "execution_schedule_completed": True,
@@ -1268,14 +1375,14 @@ def _validate_arm_generation(
     if generation.get("route_arm") != expected_route:
         raise CrossModelError("route generation binding differs from its planned route")
     if generation.get("plan_sha256") != plan.get("plan_sha256"):
-        raise CrossModelError("route generation belongs to another paired plan")
+        raise CrossModelError("route generation belongs to another triad plan")
     if generation.get("public_identity_sha256") != plan.get(
         "public_identity_sha256"
     ):
         raise CrossModelError("route generation public identity differs from its plan")
     if (
         generation.get("live_response_contract_validated") is not True
-        or generation.get("paired_execution_schedule_validated") is not True
+        or generation.get("triad_execution_schedule_validated") is not True
         or generation.get("request_model") != expected_route.get("request_model")
         or generation.get("response_model") != expected_route.get("response_model")
         or generation.get("route_binding_sha256")
@@ -1349,7 +1456,7 @@ def validate_joint_generation_barrier(
     plan: Mapping[str, Any],
     generations: Sequence[Mapping[str, Any]],
 ) -> dict[str, Mapping[str, Any]]:
-    """Validate both complete arms using public data only.
+    """Validate all three complete arms using public data only.
 
     This function is the single gate in front of target-dependent analysis.
     It neither accepts a partial arm nor combines records from different plans,
@@ -1358,8 +1465,13 @@ def validate_joint_generation_barrier(
 
     slots, routes, world_digests, slot_digests = _validate_plan(plan)
     _require_current_source_manifest(plan)
-    if not isinstance(generations, (list, tuple)) or len(generations) != 2:
-        raise CrossModelError("joint analysis requires both route generation arms")
+    if (
+        not isinstance(generations, (list, tuple))
+        or len(generations) != CROSS_MODEL_ARM_COUNT
+    ):
+        raise CrossModelError(
+            "joint analysis requires all three route generation arms"
+        )
     arm_ids = [
         generation.get("arm_id") if isinstance(generation, Mapping) else None
         for generation in generations
@@ -1368,7 +1480,7 @@ def validate_joint_generation_barrier(
     if len(set(arm_ids)) != CROSS_MODEL_ARM_COUNT:
         raise CrossModelError("joint analysis received a duplicate route arm")
     if set(arm_ids) != set(expected_arm_ids):
-        raise CrossModelError("joint analysis route arms differ from its paired plan")
+        raise CrossModelError("joint analysis route arms differ from its triad plan")
 
     artifacts_by_arm: dict[str, Mapping[str, Any]] = {}
     identities_by_arm: dict[str, tuple[tuple[Any, ...], ...]] = {}
@@ -1391,10 +1503,13 @@ def validate_joint_generation_barrier(
         )
         artifacts_by_arm[arm_id] = generation
 
-    first_arm, second_arm = expected_arm_ids
-    if identities_by_arm[first_arm] != identities_by_arm[second_arm]:
+    first_identity = identities_by_arm[expected_arm_ids[0]]
+    if any(
+        identities_by_arm[arm_id] != first_identity
+        for arm_id in expected_arm_ids[1:]
+    ):
         raise CrossModelError(
-            "route arms do not share world/D0/parent/motif identity"
+            "triad arms do not share world/D0/parent/motif identity"
         )
     return artifacts_by_arm
 
@@ -1408,70 +1523,143 @@ def _classify_arm(world_counts_k: Mapping[str, Any]) -> str:
 
 
 def _joint_classification(
-    reference_counts: Mapping[str, Any],
-    comparison_counts: Mapping[str, Any],
+    counts_by_arm: Mapping[str, Mapping[str, Any]],
 ) -> str:
-    reference_positive = int(reference_counts["K4"]) >= 2
-    comparison_positive = int(comparison_counts["K4"]) >= 2
-    if reference_positive and comparison_positive:
-        return "paired_cross_model_replication_observed"
-    if reference_positive != comparison_positive:
-        return "mixed_model_robustness_evidence"
-    return "paired_cross_model_replication_not_observed"
-
-
-def _paired_four_cell_tables(
-    reference_worlds: Sequence[Mapping[str, Any]],
-    comparison_worlds: Sequence[Mapping[str, Any]],
-) -> dict[str, Any]:
-    """Build paired world tables from already-derived per-arm endpoints."""
-
-    reference_by_seed = {
-        row.get("world_seed"): row for row in reference_worlds
-    }
-    comparison_by_seed = {
-        row.get("world_seed"): row for row in comparison_worlds
-    }
-    if (
-        len(reference_by_seed) != len(reference_worlds)
-        or len(comparison_by_seed) != len(comparison_worlds)
-        or set(reference_by_seed) != set(comparison_by_seed)
+    if not isinstance(counts_by_arm, Mapping) or set(counts_by_arm) != set(
+        CROSS_MODEL_ARM_IDS
     ):
-        raise CrossModelError("paired endpoint worlds are missing or duplicated")
-    ordered_seeds = [row.get("world_seed") for row in reference_worlds]
+        raise CrossModelError("joint classification requires all triad arm counts")
+    try:
+        positive = {
+            arm_id
+            for arm_id in CROSS_MODEL_ARM_IDS
+            if int(counts_by_arm[arm_id]["K4"]) >= 2
+        }
+    except (KeyError, TypeError, ValueError) as exc:
+        raise CrossModelError("triad K4 counts are malformed") from exc
+    if positive == set(CROSS_MODEL_ARM_IDS):
+        return "all_routes_replication_observed"
+    if GLM_ARM_ID in positive and positive.intersection(
+        {DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID}
+    ):
+        return "cross_family_replication_observed"
+    if positive == {DEEPSEEK_FLASH_ARM_ID, DEEPSEEK_PRO_ARM_ID}:
+        return "deepseek_family_only_replication_observed"
+    if len(positive) == 1:
+        return "single_route_replication_observed"
+    return "replication_not_observed"
+
+
+_EIGHT_CELL_PATTERN_ARMS = {
+    "all_three": CROSS_MODEL_ARM_IDS,
+    "deepseek_flash_and_pro_only": (
+        DEEPSEEK_FLASH_ARM_ID,
+        DEEPSEEK_PRO_ARM_ID,
+    ),
+    "deepseek_flash_and_glm_only": (DEEPSEEK_FLASH_ARM_ID, GLM_ARM_ID),
+    "deepseek_pro_and_glm_only": (DEEPSEEK_PRO_ARM_ID, GLM_ARM_ID),
+    "deepseek_flash_only": (DEEPSEEK_FLASH_ARM_ID,),
+    "deepseek_pro_only": (DEEPSEEK_PRO_ARM_ID,),
+    "glm_only": (GLM_ARM_ID,),
+    "none": (),
+}
+
+
+def _triad_endpoint_tables(
+    worlds_by_arm: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
+    """Build eight-cell and all three pairwise tables for every K layer."""
+
+    if not isinstance(worlds_by_arm, Mapping) or set(worlds_by_arm) != set(
+        CROSS_MODEL_ARM_IDS
+    ):
+        raise CrossModelError("endpoint tables require all triad arms")
+    indexed: dict[str, dict[Any, Mapping[str, Any]]] = {}
+    ordered_seeds: list[Any] | None = None
+    for arm_id in CROSS_MODEL_ARM_IDS:
+        worlds = worlds_by_arm[arm_id]
+        by_seed = {row.get("world_seed"): row for row in worlds}
+        arm_seeds = [row.get("world_seed") for row in worlds]
+        if len(by_seed) != len(worlds):
+            raise CrossModelError("triad endpoint worlds are duplicated")
+        if ordered_seeds is None:
+            ordered_seeds = arm_seeds
+        elif arm_seeds != ordered_seeds:
+            raise CrossModelError(
+                "triad endpoint worlds are missing, reordered, or mismatched"
+            )
+        indexed[arm_id] = by_seed
+    assert ordered_seeds is not None
+
+    pattern_name_by_arms = {
+        frozenset(arm_ids): name
+        for name, arm_ids in _EIGHT_CELL_PATTERN_ARMS.items()
+    }
     endpoint_names = {"K1": "L", "K2": "M", "K3": "D", "K4": "R"}
     tables: dict[str, Any] = {}
     for alias, endpoint in endpoint_names.items():
-        cells: dict[str, list[Any]] = {
-            "both": [],
-            "reference_only": [],
-            "comparison_only": [],
-            "neither": [],
+        pattern_seeds: dict[str, list[Any]] = {
+            name: [] for name in _EIGHT_CELL_PATTERN_ARMS
         }
         for seed in ordered_seeds:
-            reference_endpoints = reference_by_seed[seed].get("endpoints")
-            comparison_endpoints = comparison_by_seed[seed].get("endpoints")
-            if not isinstance(reference_endpoints, Mapping) or not isinstance(
-                comparison_endpoints, Mapping
-            ):
-                raise CrossModelError("paired world endpoints are malformed")
-            reference_passed = reference_endpoints.get(endpoint) is True
-            comparison_passed = comparison_endpoints.get(endpoint) is True
-            cell = (
-                "both"
-                if reference_passed and comparison_passed
-                else "reference_only"
-                if reference_passed
-                else "comparison_only"
-                if comparison_passed
-                else "neither"
-            )
-            cells[cell].append(seed)
+            passed: set[str] = set()
+            for arm_id in CROSS_MODEL_ARM_IDS:
+                endpoints = indexed[arm_id][seed].get("endpoints")
+                if not isinstance(endpoints, Mapping):
+                    raise CrossModelError("triad world endpoints are malformed")
+                if endpoints.get(endpoint) is True:
+                    passed.add(arm_id)
+            pattern_seeds[pattern_name_by_arms[frozenset(passed)]].append(seed)
+
+        pairwise: dict[str, Any] = {}
+        for left_arm, right_arm in _TRIAD_ROUTE_PAIRS:
+            cells: dict[str, list[Any]] = {
+                "both": [],
+                "left_only": [],
+                "right_only": [],
+                "neither": [],
+            }
+            for seed in ordered_seeds:
+                left_endpoints = indexed[left_arm][seed].get("endpoints")
+                right_endpoints = indexed[right_arm][seed].get("endpoints")
+                assert isinstance(left_endpoints, Mapping)
+                assert isinstance(right_endpoints, Mapping)
+                left_passed = left_endpoints.get(endpoint) is True
+                right_passed = right_endpoints.get(endpoint) is True
+                cell = (
+                    "both"
+                    if left_passed and right_passed
+                    else "left_only"
+                    if left_passed
+                    else "right_only"
+                    if right_passed
+                    else "neither"
+                )
+                cells[cell].append(seed)
+            pair_key = f"{left_arm}__{right_arm}"
+            pairwise[pair_key] = {
+                "left_arm_id": left_arm,
+                "right_arm_id": right_arm,
+                "world_denominator": len(ordered_seeds),
+                "counts": {
+                    cell: len(world_seeds)
+                    for cell, world_seeds in cells.items()
+                },
+                "world_seeds": cells,
+            }
         tables[alias] = {
             "endpoint": endpoint,
             "world_denominator": len(ordered_seeds),
-            "counts": {name: len(seeds) for name, seeds in cells.items()},
-            "world_seeds": cells,
+            "eight_cell_pattern_arm_ids": {
+                name: list(arm_ids)
+                for name, arm_ids in _EIGHT_CELL_PATTERN_ARMS.items()
+            },
+            "eight_cell_counts": {
+                name: len(world_seeds)
+                for name, world_seeds in pattern_seeds.items()
+            },
+            "eight_cell_world_seeds": pattern_seeds,
+            "pairwise_four_cell_tables": pairwise,
         }
     return tables
 
@@ -1602,30 +1790,41 @@ def _run_joint_analysis_core(
             "worlds": results_by_arm[arm_id],
         }
 
-    paired_tables = _paired_four_cell_tables(
-        summaries[REFERENCE_ARM_ID]["worlds"],
-        summaries[COMPARISON_ARM_ID]["worlds"],
+    endpoint_tables = _triad_endpoint_tables(
+        {
+            arm_id: summaries[arm_id]["worlds"]
+            for arm_id in CROSS_MODEL_ARM_IDS
+        }
     )
-    reference_counts = summaries[REFERENCE_ARM_ID]["world_counts_K"]
-    comparison_counts = summaries[COMPARISON_ARM_ID]["world_counts_K"]
+    counts_by_arm = {
+        arm_id: summaries[arm_id]["world_counts_K"]
+        for arm_id in CROSS_MODEL_ARM_IDS
+    }
     return {
         "shared_target_world_count": len(shared_worlds),
         "shared_worlds": shared_worlds,
         "arms": arms,
-        "paired_four_cell_world_tables": paired_tables,
-        "pooled_64_world_analysis_performed": False,
+        "triad_endpoint_world_tables": endpoint_tables,
+        "pooled_route_arm_world_analysis_performed": False,
         "slot_results_treated_as_iid": False,
         "joint_interface_failure_arms": [
             arm_id
             for arm_id in CROSS_MODEL_ARM_IDS
             if int(summaries[arm_id]["world_counts_K"]["K1"]) == 0
         ],
-        "joint_classification": _joint_classification(
-            reference_counts,
-            comparison_counts,
-        ),
+        "single_prospective_mechanism_instance_arms": [
+            arm_id
+            for arm_id in CROSS_MODEL_ARM_IDS
+            if int(summaries[arm_id]["world_counts_K"]["K4"]) == 1
+        ],
+        "cross_world_replication_arms": [
+            arm_id
+            for arm_id in CROSS_MODEL_ARM_IDS
+            if int(summaries[arm_id]["world_counts_K"]["K4"]) >= 2
+        ],
+        "joint_classification": _joint_classification(counts_by_arm),
         "interpretation_limit": (
-            "paired finite-system cross-model mechanism replication only; not "
+            "matched-triad finite-system cross-model mechanism replication only; not "
             "temperature causation, prevalence, an average treatment effect, or "
             "evidence of human-unknown discovery"
         ),
@@ -1636,7 +1835,7 @@ def analyze_cross_model(
     plan: Mapping[str, Any],
     bundle: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Run the fixed core only from the frozen paired-execution bundle."""
+    """Run the fixed core only from the frozen matched-triad bundle."""
 
     generations = _generations_from_bundle(plan, bundle)
     artifacts_by_arm = validate_joint_generation_barrier(plan, generations)
@@ -1644,12 +1843,12 @@ def analyze_cross_model(
 
     report_without_digest: dict[str, Any] = {
         "schema_version": 1,
-        "kind": "spark-cross-model-joint-analysis",
+        "kind": "spark-cross-model-matched-triad-joint-analysis",
         "protocol_id": plan["protocol_id"],
         "plan_sha256": plan["plan_sha256"],
         "public_identity_sha256": plan["public_identity_sha256"],
-        "both_96_record_arms_validated_before_analysis": True,
-        "paired_192_call_execution_schedule_validated": True,
+        "all_three_96_record_arms_validated_before_analysis": True,
+        "balanced_288_call_execution_schedule_validated": True,
         "generation_bundle_sha256": bundle["bundle_sha256"],
         "generation_sha256_by_arm": {
             arm_id: artifact["generation_sha256"]
@@ -1701,11 +1900,11 @@ def _emit_progress(value: Mapping[str, Any], output: str | Path) -> None:
 
 def _generations_from_bundle(
     plan: Mapping[str, Any], bundle: Mapping[str, Any]
-) -> tuple[Mapping[str, Any], Mapping[str, Any]]:
+) -> tuple[Mapping[str, Any], ...]:
     if (
         not isinstance(bundle, Mapping)
         or bundle.get("schema_version") != 1
-        or bundle.get("kind") != "spark-cross-model-paired-generations"
+        or bundle.get("kind") != "spark-cross-model-matched-triad-generations"
         or bundle.get("protocol_id") != CROSS_MODEL_PROTOCOL_ID
         or bundle.get("plan_sha256") != plan.get("plan_sha256")
         or bundle.get("execution_schedule_completed") is not True
@@ -1713,55 +1912,85 @@ def _generations_from_bundle(
         or bundle.get("total_call_count")
         != CROSS_MODEL_ARM_COUNT * CROSS_MODEL_CALLS_PER_ARM
     ):
-        raise CrossModelError("paired generation bundle is malformed")
+        raise CrossModelError("matched-triad generation bundle is malformed")
     unsigned = {key: value for key, value in bundle.items() if key != "bundle_sha256"}
     if bundle.get("bundle_sha256") != _sha256_json(unsigned):
-        raise CrossModelError("paired generation bundle digest mismatch")
+        raise CrossModelError("matched-triad generation bundle digest mismatch")
     generations = bundle.get("generations")
-    if not isinstance(generations, list) or len(generations) != 2:
-        raise CrossModelError("paired generation bundle must contain two arms")
+    if (
+        not isinstance(generations, list)
+        or len(generations) != CROSS_MODEL_ARM_COUNT
+    ):
+        raise CrossModelError(
+            "matched-triad generation bundle must contain three arms"
+        )
     return tuple(generations)  # type: ignore[return-value]
 
 
 def _load_cli_routes_and_credentials(
     args: argparse.Namespace,
 ) -> tuple[
-    tuple[RouteArmSpec, RouteArmSpec],
+    tuple[RouteArmSpec, ...],
     dict[str, ProviderCredentials],
 ]:
+    deepseek = load_provider_credentials(
+        prefix=args.deepseek_env_prefix,
+        env_file=args.deepseek_env_file,
+    )
+    if deepseek.model != _ROUTE_FREEZES[DEEPSEEK_FLASH_ARM_ID]["request_model"]:
+        raise CrossModelError(
+            "shared DeepSeek credentials must name the frozen Flash model"
+        )
+    glm = load_provider_credentials(
+        prefix=args.glm_env_prefix,
+        env_file=args.glm_env_file,
+    )
     credentials = {
-        REFERENCE_ARM_ID: load_provider_credentials(
-            prefix=args.reference_env_prefix,
-            env_file=args.reference_env_file,
+        DEEPSEEK_FLASH_ARM_ID: deepseek,
+        DEEPSEEK_PRO_ARM_ID: ProviderCredentials(
+            base_url=deepseek.base_url,
+            model=str(_ROUTE_FREEZES[DEEPSEEK_PRO_ARM_ID]["request_model"]),
+            api_key=deepseek.api_key,
         ),
-        COMPARISON_ARM_ID: load_provider_credentials(
-            prefix=args.comparison_env_prefix,
-            env_file=args.comparison_env_file,
-        ),
+        GLM_ARM_ID: glm,
     }
-    routes = (
-        route_arm_from_canary(
-            REFERENCE_ARM_ID,
-            credentials[REFERENCE_ARM_ID],
-        ),
-        route_arm_from_canary(
-            COMPARISON_ARM_ID,
-            credentials[COMPARISON_ARM_ID],
-        ),
+    routes = tuple(
+        route_arm_from_canary(arm_id, credentials[arm_id])
+        for arm_id in CROSS_MODEL_ARM_IDS
     )
     return routes, credentials
 
 
 def _add_credential_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--reference-env-file", type=Path)
-    parser.add_argument("--comparison-env-file", type=Path)
-    parser.add_argument("--reference-env-prefix", default="DEEPSEEK")
-    parser.add_argument("--comparison-env-prefix", default="VOLCENGINE")
+    parser.add_argument(
+        "--deepseek-env-file",
+        "--reference-env-file",
+        dest="deepseek_env_file",
+        type=Path,
+    )
+    parser.add_argument(
+        "--glm-env-file",
+        "--comparison-env-file",
+        dest="glm_env_file",
+        type=Path,
+    )
+    parser.add_argument(
+        "--deepseek-env-prefix",
+        "--reference-env-prefix",
+        dest="deepseek_env_prefix",
+        default="DEEPSEEK",
+    )
+    parser.add_argument(
+        "--glm-env-prefix",
+        "--comparison-env-prefix",
+        dest="glm_env_prefix",
+        default="TENCENT",
+    )
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Frozen research-only paired cross-model closure runner"
+        description="Frozen research-only matched-triad closure runner"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -1798,7 +2027,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             {key: value for key, value in saved.items() if key != "route_identity_sha256"}
             for saved in plan["route_arms"]
         ]:
-            raise CrossModelError("current canary routes differ from the paired plan")
+            raise CrossModelError("current canary routes differ from the triad plan")
         generators = {
             arm_id: build_v3_generator(credentials[arm_id])
             for arm_id in CROSS_MODEL_ARM_IDS
@@ -1824,7 +2053,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     raise AssertionError("unreachable cross-model command")
 
 
-# Descriptive aliases for notebooks that prefer the longer paired name.
+# Compatibility aliases for notebooks written against the retired paired API.
 PairedCrossModelError = CrossModelError
 build_paired_cross_model_plan = build_cross_model_plan
 generate_route_arm = generate_cross_model_arm
@@ -1833,6 +2062,7 @@ analyze_paired_cross_model = analyze_cross_model
 
 __all__ = [
     "CROSS_MODEL_ARM_COUNT",
+    "CROSS_MODEL_ARM_IDS",
     "CROSS_MODEL_CALLS_PER_ARM",
     "CROSS_MODEL_CALLS_PER_WORLD",
     "CROSS_MODEL_PROTOCOL_ID",
@@ -1841,6 +2071,9 @@ __all__ = [
     "CROSS_MODEL_MOTIF_SELECTION_NAMESPACE",
     "CROSS_MODEL_WORLD_SEEDS",
     "CROSS_MODEL_WORLD_COUNT",
+    "DEEPSEEK_FLASH_ARM_ID",
+    "DEEPSEEK_PRO_ARM_ID",
+    "GLM_ARM_ID",
     "REFERENCE_ARM_ID",
     "COMPARISON_ARM_ID",
     "CrossModelError",

@@ -796,80 +796,81 @@ prospective_cross_world_replication_observed
 
 冻结analysis的canonical `analysis_sha256` 为 `b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691`，文件 SHA-256 为 `14dc6b9406a7265703f787b008fa62268aa3fbc6d76a0e077b5e8b733489c749`。plan、generation、analysis三个canonical digest及哈希链均已独立重算通过。
 
-## 20. Cross-model paired replication design draft
+## 20. Cross-model matched-triad replication final protocol
 
-**状态**：MiniMax target-free canary已通过；fresh seeds、route contract、endpoint与执行顺序已登记，science plan尚未生成，尚未进行192次science调用或任何新hidden-target分析。
+**冻结时点声明**：本节定义唯一active的`cross-model-matched-triad-v1`正式协议。本文本封存时，32-world task grid仍保持unopened，尚未生成正式science plan，未发生本协议的288次science调用，也未派生或分析任何hidden target。其后状态只以相应不可变artifact为准；不得通过回写本段改变这一freeze-time事实。
 
-### 20.1 研究问题与模型路线
+`cross-model-paired-v2`曾完成两路由的pre-plan代码、文本与canary准备，但在正式plan、science call、target seed派生和hidden-target分析之前，因预先决定加入DeepSeek Pro而被本三臂协议取代。它是`pre-plan_superseded_design`，不是实验attempt，也没有positive/negative结果。
 
-下一轮只检验一个新问题：第19节的有限系统机制信号是否依赖DeepSeek，还是能在第二个通用模型中独立出现。它不是prompt-level Spark/no-Spark因果试验，也不重新检验temperature或熵。
+### 20.1 研究问题与正式模型路线
 
-参考模型保留official DeepSeek `deepseek-v4-flash`。第二模型预选为Volcengine Agent Plan的`minimax-m3`：历史80-call校准中该路线为80/80 search-valid、零retry、零transport failure；其旧compatibility screen失败来自`H>L`温度操纵方向为负，与本轮固定`temperature=0.2`的lineage任务正交。正式纳入前必须通过新的、只含公开D0/parent/motif/action grammar的target-free canary；canary失败即停，不自动改选第三模型。
+本轮只检验一个问题：第19节的有限系统机制信号，能否在三条预选的通用模型alias route上独立复制，以及一致性只出现在DeepSeek家族内，还是能跨越DeepSeek与GLM家族。它不是prompt-level Spark/no-Spark因果试验，也不重新检验temperature或熵。
 
-### 20.2 配对设计
+三个active arms冻结为：
+
+- `deepseek-flash`：DeepSeek官方API的`deepseek-v4-flash`；
+- `deepseek-pro`：DeepSeek官方API的`deepseek-v4-pro`；
+- `glm-5.2`：Tencent TokenHub的`glm-5.2`。
+
+MiniMax与Kimi路线仍作为pre-plan abandoned development；它们未触碰本批fresh targets，不进入正式模型、science分母、结果或解释。三个active arms也不是从模型总体中随机抽样；Flash与Pro共享模型家族及provider，GLM同时改变模型家族与provider。因此差异不能分解为纯底层模型效应，三路一致也不能推广为所有LLM的普遍规律。
+
+### 20.2 Matched-triad设计
 
 - 一次性冻结32个全新worlds；每world仍为3个factual motif slots、0 neutral，共96个公共slots；
-- DeepSeek与MiniMax面对逐字节相同的D0、parent、assigned motif、action grammar与slot顺序；每个模型各96次，总计192次scientific calls；
-- 同一world的bank、hidden target、motif与oracle预算在两模型间完全相同，唯一变化是模型生成的action；
-- 每个`model × slot`恰一次物理请求。invalid/no-op保留在分母，不补抽、不重试内容、不按结果替换world；
-- 两个96-record generation artifacts全部完成、验证并封存后，才首次派生共同hidden targets并运行一次joint analysis；任一arm不完整则paired study为`non_evaluable_incomplete_attempt`；
-- 独立统计单位仍是32个worlds，不能把两个模型池化成64个worlds，也不能把96个slots当IID。
+- 三个arms面对逐字节相同的D0、parent、assigned motif、action grammar与slot顺序；每arm 96次，总计288次scientific calls；
+- 同一world的bank、hidden target、motif与oracle预算在三个arms间完全相同，唯一任务层变化是各模型生成的action；
+- 每个`arm × slot`恰一次物理请求。invalid/no-op保留在分母，不补抽、不重试内容、不按结果替换world；
+- 三个96-record generation artifacts全部完成、验证并封存后，才首次派生共同hidden targets并运行唯一一次joint analysis；任一arm不完整则整个triad为`non_evaluable_incomplete_attempt`；
+- 独立统计单位仍是32个worlds，不能把三个arms池化成96个worlds，也不能把96个slots或288次calls当IID。
 
-只跑第二模型96次虽然成本更低，但会把模型差异与新旧world批次差异混在一起，因此不作为首选。
+第三个arm增加的是预选路由间一致性与家族边界证据，不会把统计样本从32个worlds自动变为96，也不会自动产生统计显著性。
 
-### 20.3 冻结endpoint与配对报告
+### 20.3 冻结endpoint与world-level报告
 
-对每个模型、每个world分别原样计算第19节的同slot嵌套`E1..E4`与`K1..K4`：lineage feasibility、oracle-mediated closure、paired parent-deletion advantage、以及两个matched replacements都失败的strong specificity。四轮oracle、`child first + 3 shortest-bank members`、non-direct/truth-retained/full-domain规则均不变。
+对每arm、每world分别原样计算第19节的同slot嵌套`E1..E4`与`K1..K4`：lineage feasibility、oracle-mediated closure、paired parent-deletion advantage、以及两个matched replacements都失败的strong specificity。四轮oracle、`child first + 3 shortest-bank members`、non-direct/truth-retained/full-domain规则均不变。
 
-每个模型仍按原判定：`K4>=2`为该模型的prospective cross-world replication；`K4=1`为单一实例；`K4=0`为frozen protocol下未观察到；`K1=0`单列为model-DSL interface failure。另对每层报告32个world的配对四格表：两者都通过、仅DeepSeek、仅MiniMax、两者都未通过。两个模型在同一个world同时达到K4只作更强的描述性证据，不设为必要条件。
+每arm仍按原判定：`K4>=2`为该arm的prospective cross-world replication；`K4=1`为单一实例；`K4=0`为frozen protocol下未观察到。`K1=0`另报`model_dsl_interface_failure`，不得把该arm当作机制negative。
 
-总体解释预先固定：
+对每一层`K1..K4`，报告32个worlds落入的八个互斥通过组合：三路均不通过、仅Flash、仅Pro、仅GLM、仅Flash+Pro、仅Flash+GLM、仅Pro+GLM、三路均通过；每格同时给出count与world seed列表，八格之和必须为32。另对Flash–Pro、Flash–GLM、Pro–GLM三个pairs分别报告配对四格表作描述诊断。同一world跨arm通过是更强的描述性证据，不设为单一必要endpoint。
 
-- MiniMax `K4>=2`且DeepSeek `K4>=2`：获得同批次、paired cross-model机制复制；
-- MiniMax `K4>=2`但DeepSeek `<2`：第二模型positive，但参考模型在新批次不稳定，整体鲁棒性证据混合；
-- DeepSeek `K4>=2`而MiniMax `K4=0,K1>0`：未获得跨模型复制，支持当前操作化的模型依赖；
-- MiniMax `K1=0`：接口不兼容，不判机制失败；
-- 两模型均`K4<2`：本批未复制，不撤销layered-v1的三个封存实例，但表明稳定性有限。
+### 20.4 冻结联合分类与解释边界
 
-### 20.4 本轮不加入的因果对照与停止点
+令某arm在`K4>=2`时称为“达到cross-world replication阈值”。五档联合分类按下列顺序冻结：
+
+- 三个arms都达到：`all_routes_replication_observed`；这是本轮最强的预选路由一致性，也包含跨家族复制；
+- GLM与恰一个DeepSeek arm达到：`cross_family_replication_observed`；支持跨家族复制，但第三路未复制表明鲁棒性仍有边界；
+- 只有Flash与Pro达到：`deepseek_family_only_replication_observed`；只支持DeepSeek家族内一致，不称跨家族复制；
+- 恰一个arm达到：`single_route_replication_observed`；支持路由特异的cross-world复制，不支持cross-model robustness；
+- 没有arm达到：`replication_not_observed`；只表示本冻结triad下未复制，不撤销layered-v1的三个封存实例，也不外推为机制总体negative。
+
+每arm的`K4=1`单实例状态独立报告，不改变以`K4>=2`为准的五档联合分类。任一arm `K1=0`的interface failure也独立报告；联合label仍只编码哪些arm观察到`K4>=2`，解释时不得把interface-failed arm的`K4=0`当作反证。本轮不增加p值、事后阈值或基于结果的model表决规则。
 
 Parent deletion与matched replacements检验的是已生成child之后的查询路径特异性，不等价于“不给模型看Spark时会生成什么”。本轮为保持对layered-v1的精确跨模型复制，不加入prompt-level no-Spark条件。后者应成为单独研究：在相同world中随机分配真实motif与matched sham motif，让两种条件都可自由生成合法action，再比较有效查询概率。
 
-本节最初的停止点是首次付费canary之后；该canary现已按20.5节完成并通过。当前停止点移至science plan生成与独立复核之后、192次science调用之前。science analysis完成后无论positive、single instance、not observed或interface failure都立即停下讨论，不自动加world、改prompt或追加第三模型。
+### 20.5 三route target-free action canary与冻结（2026-08-21）
 
-### 20.5 MiniMax action canary结果与route冻结（2026-08-14）
+三条active route均完成了12-call target-free action canary。canary只使用退役world的公开D0、target-independent parent、assigned motif与action grammar；没有派生hidden target，没有运行oracle、lineage outcome或compressor，因此不进入science分母。三份canary的prompt-set SHA-256完全相同，均为`41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094`；Flash与GLM共享早先的canary plan，Pro因独立时点生成plan而具有不同plan digest，不影响prompt-set同一性。
 
-唯一一次12-call target-free MiniMax action canary已经完成并通过。它只使用退役world的公开D0、target-independent parent、assigned motif与action grammar；没有派生hidden target，没有运行oracle、lineage outcome或compressor，因此不进入science分母。
+- Flash/GLM使用内容逐字节相同的canary plan，分别存于`artifacts/spark-cross-model-canaries-20260820/deepseek-v4-flash-action-plan.json`和`artifacts/spark-cross-model-canaries-20260820-tencent/glm-5.2-action-plan.json`；其canonical SHA-256为`5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc`，文件SHA-256为`8b1cd6277df4b347c4e98ee909d0452d6a258277a0df72e377dca5c7a490b3ca`；
+- Flash canary artifact `artifacts/spark-cross-model-canaries-20260820/deepseek-v4-flash-action-canary.json`的文件SHA-256为`0516ffd54692097ec06f2278951aae20c0835a86bacdef9af80699508a7e4f6a`；provider为`deepseek-official-openai-compatible`，request/response alias均为`deepseek-v4-flash`，endpoint SHA-256为`948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3`，route binding为`0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa`，exact provider fingerprint为`c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859`；
+- Pro canary plan `artifacts/spark-cross-model-canaries-20260821-pro/deepseek-v4-pro-action-plan.json`的canonical SHA-256为`8ede1082eb9f3a70a46020c19af1d3dac01529e69e161066f16ed9764df09bc7`，plan文件SHA-256为`15eca6ddced1b19fc22d10633a2dab9dbb840dbf291bd58e05ea7a9b168eb88c`；canary artifact `artifacts/spark-cross-model-canaries-20260821-pro/deepseek-v4-pro-action-canary.json`的文件SHA-256为`1f7b92dabcc8c4c562d89328dd6cb9c4119b8cbec6e287926728c96ce8c0fce6`，provider为`deepseek-official-openai-compatible`，request/response alias均为`deepseek-v4-pro`，endpoint SHA-256为`948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3`，route binding为`d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936`，exact provider fingerprint为`a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787`；
+- GLM canary artifact `artifacts/spark-cross-model-canaries-20260820-tencent/glm-5.2-action-canary.json`的文件SHA-256为`9523e9422ca67bea9ece8a0358a4a06bf6080d38656fbfedce9b84c899178210`；provider为`tencent-tokenhub-openai-compatible`，request/response alias均为`glm-5.2`，endpoint SHA-256为`2095d8a5425aaf2ce7b1c8a4b63baecdc0ffc4851ac92810b191ee3b9194840c`，route binding为`02243ec1c415c25c9938f4d4a209b8e3864212ce3952ae3715d8140e4c13a6e9`；GLM不提供可绑定的backend fingerprint，因此对它的结论只指向本次执行时的Tencent TokenHub alias route；
+- 三条route均为12/12 outer JSON有效、12/12 factual action grammar有效且非`no_op`，四个motif strata各3次，每slot恰一个physical request；temperature `0.2`、max output tokens `256`、thinking disabled、zero reasoning tokens与JSON-object response contract保持不变。
 
-- canary plan canonical SHA-256：`8151108cf5edf3eb6edc6cb368b0267254d8daacd0fbd964b6255fde7fbc3eac`；plan文件SHA-256：`78669a8777cae32c383937e6247a69d7edcb07823486e1b2e7c89689e4ea5f7f`；
-- canary artifact文件SHA-256：`18d978aea51c7b2e6e55014f9f43163cb2b87928dcf2e5ac4a0eecb56d5d3748`；
-- 12/12 outer JSON有效，12/12 factual action grammar有效且非`no_op`，四个motif strata各3次，每次恰一个physical request；
-- request/response alias均为`minimax-m3`；route binding为`d3e06286932d1317194caf85c86af0b511f17d88d40bf7c03ea64bed8409df31`；cache与provider fingerprint均为absent；
-- DeepSeek继续绑定r4 canary文件SHA-256 `d5a4df862aa4084c34af2e76da3ae98985c7f3c63fbc8cc3bdfe1edfb4edc497`、route binding `0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa`，并有layered-v1的96/96 action grammar有效作为历史接口佐证。
+### 20.6 Unopened task grid与288-call执行顺序冻结
 
-MiniMax alias不提供可绑定的backend fingerprint，所以未来结论只指向本次执行时的Volcengine `minimax-m3` alias route，不声称永久固定snapshot。两条route的qualification证据不完全对称；本研究是两个预选模型的paired replication，不是模型总体的随机样本。
-
-### 20.6 Fresh worlds与执行顺序冻结
-
-正式协议ID冻结为`cross-model-paired-v1`，base/target/motif namespace冻结为`spark-closure-cross-model-paired-v1`。world seed draw namespace为`spark-closure-cross-model-paired-v1:world-seed`；对index `0..31`计算SHA-256(namespace + `:` + decimal index)，取前8 bytes大端整数并mask至63 bits。唯一允许的跳过理由是与冻结前registry碰撞；本轮32个候选均不碰撞且内部唯一，已以`reserved-cross-model-paired-v1-unopened`登记。
+正式协议ID为`cross-model-matched-triad-v1`。为避免因pre-plan route选择改变任何任务，base、target与motif-selection namespace继续使用已登记但从未打开的`spark-closure-cross-model-paired-v1`，world seed draw provenance也继续是`spark-closure-cross-model-paired-v1:world-seed`；namespace中的`paired-v1`是原始task-grid登记标识，不是active protocol版本。对index `0..31`计算SHA-256(namespace + `:` + decimal index)，取前8 bytes大端整数并mask至63 bits；唯一允许的跳过理由是与冻结前registry碰撞，本轮32个候选均不碰撞且内部唯一。
 
 冻结32个world seeds依次为：`5609854509399487714, 8058848814949332127, 7432589210973578845, 3920682316420328816, 1418744941558891841, 7604204542873609924, 1387282349159788876, 8242426922921378803, 1160497852689591359, 6872575636001638699, 7396720935553072228, 5279887130524777443, 5123783953932712497, 3034756861122824323, 2262333810103905472, 518707974867583009, 7993937249025442561, 3850349365944176259, 7211834526608777947, 6627891344710956940, 4402357155133626695, 4960748528416202938, 5566094773751083457, 3680507740242696405, 6866785901476227762, 5033621553926766983, 5357853615180860507, 3120120567224792408, 1045602656972176335, 2858014253687291177, 1789187785946847608, 6476484620047087171`。
 
-32/32只完成了target-free public bank/D0/parent构造检查；没有派生target namespace seed，没有enumerate lineage、运行compressor或读取outcome。若后续任一world在正式冻结代码下构造失败，整个协议版本停止，不按难度换seed。
+在本三臂协议冻结前，32/32只完成target-free public bank/D0/parent构造检查；没有派生target namespace seed，没有enumerate lineage、运行compressor或读取outcome。新增的Pro canary也只使用retired development worlds，未打开这32个worlds。若后续任一world在正式冻结代码下构造失败，整个协议版本停止，不按难度换seed。
 
-192次调用按public slot `0..95`顺序执行，并在每个slot内调用两个模型。偶数slot为DeepSeek先、MiniMax后；奇数slot为MiniMax先、DeepSeek后，因此两route各48次先调用、48次后调用。这个顺序只平衡route×time次序，不改变每个模型内部的96-slot固定序列。无内容重试、无补抽、无partial resume；任一中断或contract drift使整批non-evaluable，禁止解锁hidden targets。
+288次调用按public slot `0..95`顺序执行，并在每个slot内调用三个arms。设`F=deepseek-flash`、`P=deepseek-pro`、`G=glm-5.2`，对每个motif stratum单独按其第`k`次出现的`occurrence_index mod 6`依次使用`FPG, FGP, PFG, PGF, GFP, GPF`；在当前四strata轮转布局中等价于按`(serial_index // 4) mod 6`取排列，不得改为`serial_index mod 6`。每个`stratum × permutation`组合各出现4次，总体六个排列各16次；因此每arm各32次位于slot内第一、第二、第三位，任意两route的先后次序也各为48/48。这个顺序同时平衡motif stratum与route×time次序，不改变每arm内部的96-slot固定序列。无内容重试、无补抽、无partial resume；任一中断或contract drift使整批non-evaluable，禁止解锁hidden targets。
 
-### 20.7 固定joint分析与联合分类
+### 20.7 固定joint分析与停止规则
 
-任意runtime callback不属于正式分析接口。两份96-record artifacts通过joint barrier后，只能调用source-manifest中冻结的joint layered analyzer。每个world只构造一次共享hidden target、`SparkWorld`、compressor、parent baseline和reachable lineage集合，再分别评估两个模型的action。
+任意runtime callback不属于正式分析接口。三份96-record artifacts通过joint barrier后，只能调用source-manifest中冻结的joint layered analyzer。每个world只构造一次共享hidden target、`SparkWorld`、compressor、parent baseline和reachable lineage集合，再分别评估三个arms的action。
 
-每模型独立输出第19节的`K1..K4`、world denominator 32、原三档classification与漏斗诊断。每层另输出paired四格与world seed列表：`both`、`deepseek_only`、`minimax_only`、`neither`；四格之和必须为32，且不得pool为64 worlds或把96 slots当IID。本轮不增加McNemar、p值或事后阈值。
+最终plan必须绑定layered-v1的canonical plan/generation/analysis SHA、四轮预算、上述endpoint与五档classification、三份active canary文件SHA与route contract、冻结后的source manifest以及288-entry执行顺序。代码、tests、registry与本文本完成后才能生成plan；从plan生成起不得再修改`src/`、`tests/`、`configs/`或本文本。plan、generation与analysis的生成时间和digest只记录在各自immutable artifact及运行报告中，不回写本节。
 
-联合分类冻结为：
-
-- 两模型均`K4>=2`：`paired_cross_model_replication_observed`；
-- 恰一模型`K4>=2`：`mixed_model_robustness_evidence`；
-- 两模型均`K4<2`：`paired_cross_model_replication_not_observed`；
-- 任一模型`K1=0`另标`model_dsl_interface_failure`，不得把该模型解释为机制negative。
-
-最终plan还必须绑定layered-v1的canonical plan/generation/analysis SHA、四轮预算、上述endpoint和classification、两份canary文件SHA与route contract、当前source manifest以及192-entry执行顺序。完成代码、tests、registry与协议文档后才生成plan；plan生成后不得再修改`src/`、`tests/`、`configs/`或本协议文档。两份generation完整封存后只运行一次joint analysis，随后无论结果如何立即停止讨论。
+协议要求在正式science plan生成并独立复核后、288次调用之前停一次；三份generation完整封存后才可运行唯一一次joint analysis。analysis完成后，无论是`all_routes_replication_observed`、其他四档联合结果、single instance或interface failure，都立即停止；不自动加world、改prompt、补调用、换route或追加第四模型。

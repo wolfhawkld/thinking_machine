@@ -1,0 +1,731 @@
+{
+  "canary_id": "closure-action-grammar-v1",
+  "canary_plan_sha256": "5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc",
+  "evidence": false,
+  "evidence_scope": "target_free_route_and_action_grammar_calibration_only",
+  "kind": "spark-closure-action-canary-plan",
+  "prompt_set_sha256": "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094",
+  "prompt_sha256s": [
+    {
+      "sha256": "5f83e6ed599f80482c4d8778d730ad7f37eaa8c7402a27cc15b809292b891390",
+      "slot_id": "canary-world-3000:motif-1"
+    },
+    {
+      "sha256": "5cc02f535f96d001b5d758bda16390e8b706a9d15053795ce3faaa22c30b1ee5",
+      "slot_id": "canary-world-3000:motif-2"
+    },
+    {
+      "sha256": "df8b3590f5cd9b18cbd0a63712e6d3d23259c938158be94ddbfc1998369429c3",
+      "slot_id": "canary-world-3000:motif-3"
+    },
+    {
+      "sha256": "fec3fed78eeb9b466b5f461e0d6a12521e60e71a4fb39abfec339211df88297a",
+      "slot_id": "canary-world-3001:motif-1"
+    },
+    {
+      "sha256": "d8ff91f707373f7ebb978d01b69bd132d5a9526a4c21f76d2d4b1fc60407f3dd",
+      "slot_id": "canary-world-3001:motif-2"
+    },
+    {
+      "sha256": "bd2354a839250da891f0b694dad825efe0a38ab9c03ae9f5772fc74f5e92da4f",
+      "slot_id": "canary-world-3001:motif-3"
+    },
+    {
+      "sha256": "f12aac35afd8a96036f0a21ac19d22a393d7da76c29913efda6f88472ebcb84b",
+      "slot_id": "canary-world-3002:motif-1"
+    },
+    {
+      "sha256": "f505e927029411293d8bd4042520cfd7bb619089280666ed5a7ca9477d32f09d",
+      "slot_id": "canary-world-3002:motif-2"
+    },
+    {
+      "sha256": "74dee8aa48d54b097a089b5910921de5048ffb7ba9304f3b01980d8a73d36c4a",
+      "slot_id": "canary-world-3002:motif-3"
+    },
+    {
+      "sha256": "2c0ca295c8652df523e0d7a8e6e9dff6ab814be7117d16ad816a39912e7d5766",
+      "slot_id": "canary-world-3003:motif-1"
+    },
+    {
+      "sha256": "ca575db2009cfe4c324f458e453fa7100a63b7739350e6dcc7e6c22031fb2982",
+      "slot_id": "canary-world-3003:motif-2"
+    },
+    {
+      "sha256": "18f4b73d337c61dc3b909664599aac727d21303ebe7830513e7eb4f134fe9260",
+      "slot_id": "canary-world-3003:motif-3"
+    }
+  ],
+  "protocol": {
+    "content_gate": {
+      "factual_action_parse_valid_required": 12,
+      "no_op_is_valid_for_factual_slot": false,
+      "outer_schema_valid_required": 12
+    },
+    "factual_calls_per_world": 3,
+    "hidden_target_derived": false,
+    "logical_calls": 12,
+    "max_output_tokens": 256,
+    "oracle_or_compressor_run": false,
+    "physical_attempts_per_slot": 1,
+    "private_target_labels_or_outcomes_evaluated": false,
+    "temperature": 0.2,
+    "thinking": "disabled",
+    "world_count": 4,
+    "world_seeds": [
+      3000,
+      3001,
+      3002,
+      3003
+    ]
+  },
+  "schema_version": 1,
+  "slots": [
+    {
+      "condition": "motif",
+      "motif": "(add (const 1) (var x2))",
+      "motif_id": "affine_commutative:2cea74505059a9b9",
+      "motif_selection_sha256": "725a6a0984e7c631fc0c1973a36416181fd1ba3e2c5f772b6463c94ff9cae412",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 0,
+      "slot_id": "canary-world-3000:motif-1",
+      "slot_index": 1,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const 0))",
+      "motif_id": "affine_directional:e46d6e5d564b5bd1",
+      "motif_selection_sha256": "653f40a29b2408afbd56e2bc550d57d38c75e62520577d390ab1836e61735602",
+      "motif_stratum": "affine_directional",
+      "serial_index": 1,
+      "slot_id": "canary-world-3000:motif-2",
+      "slot_index": 2,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const 1) (var x3))",
+      "motif_id": "affine_multiplicative:7a6285bb8d004cee",
+      "motif_selection_sha256": "39ae7c15d8f10ee2bfc225c7a682352b62124410089e97b0ca28decd685dea26",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 2,
+      "slot_id": "canary-world-3000:motif-3",
+      "slot_index": 3,
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x1) (var x1))",
+      "motif_id": "pairwise_variable:2961d08b2e20b123",
+      "motif_selection_sha256": "b5884a328620cdaf0b3ef76e812fb2b580376aede1b9d77b4aa83a384c0ad58a",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 3,
+      "slot_id": "canary-world-3001:motif-1",
+      "slot_index": 1,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const -3) (var x2))",
+      "motif_id": "affine_commutative:f966d7e61b9a0b5d",
+      "motif_selection_sha256": "327f50a1690abecaa3db2441fd1ffa944ca5285217a33f881ab66490fe4886e9",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 4,
+      "slot_id": "canary-world-3001:motif-2",
+      "slot_index": 2,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x3) (const -3))",
+      "motif_id": "affine_directional:2fef0a06dd02390b",
+      "motif_selection_sha256": "3f8acfe24d6d92876def9c0fcdc859c223b9dc042704a650f2fe524c1ff0c38d",
+      "motif_stratum": "affine_directional",
+      "serial_index": 5,
+      "slot_id": "canary-world-3001:motif-3",
+      "slot_index": 3,
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const -1) (var x1))",
+      "motif_id": "affine_multiplicative:7ae68b6f797162b5",
+      "motif_selection_sha256": "0596e4f00cf5d275adf5d9fd08ddbdad3386f0f5b24a4afdf1644c98c5a3c80c",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 6,
+      "slot_id": "canary-world-3002:motif-1",
+      "slot_index": 1,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (var x2) (var x3))",
+      "motif_id": "pairwise_variable:32ec7596e3a4e2b9",
+      "motif_selection_sha256": "6ee835c99d767d9d2da11912347b024bc5b1bbcb0fdfe1e29abc42b1480d673c",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 7,
+      "slot_id": "canary-world-3002:motif-2",
+      "slot_index": 2,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(add (const -2) (var x2))",
+      "motif_id": "affine_commutative:b902076cf137753d",
+      "motif_selection_sha256": "d60db7a7c39ab647380775c2ccfadd48b577a6bd882c3b03590bbf968cfa5dde",
+      "motif_stratum": "affine_commutative",
+      "serial_index": 8,
+      "slot_id": "canary-world-3002:motif-3",
+      "slot_index": 3,
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "condition": "motif",
+      "motif": "(sub (var x2) (const 0))",
+      "motif_id": "affine_directional:59232b6ff38fcb1a",
+      "motif_selection_sha256": "563d8a1dc7feee4e517baee893bb46c06d31240c503a1b6438d3b822a9c076e8",
+      "motif_stratum": "affine_directional",
+      "serial_index": 9,
+      "slot_id": "canary-world-3003:motif-1",
+      "slot_index": 1,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (const -2) (var x1))",
+      "motif_id": "affine_multiplicative:fdbdb3c18b87c83c",
+      "motif_selection_sha256": "da883b8137011ec1f2d1b4218c5fbf9dd148a27eb121ff0362d0f88d057b4e82",
+      "motif_stratum": "affine_multiplicative",
+      "serial_index": 10,
+      "slot_id": "canary-world-3003:motif-2",
+      "slot_index": 2,
+      "world_index": 3,
+      "world_seed": 3003
+    },
+    {
+      "condition": "motif",
+      "motif": "(mul (var x2) (var x3))",
+      "motif_id": "pairwise_variable:f5c15daf480e1054",
+      "motif_selection_sha256": "7ce786382c6f3aee34a757c6585de5d8466f3af5f92b23a8798256a767a89d4e",
+      "motif_stratum": "pairwise_variable",
+      "serial_index": 11,
+      "slot_id": "canary-world-3003:motif-3",
+      "slot_index": 3,
+      "world_index": 3,
+      "world_seed": 3003
+    }
+  ],
+  "source_manifest_sha256": "466f070e10f5229e43558f340aa21ab5fb0e803d0124e13e4d86fd82c2d29864",
+  "stratum_counts": {
+    "affine_commutative": 3,
+    "affine_directional": 3,
+    "affine_multiplicative": 3,
+    "pairwise_variable": 3
+  },
+  "world_seeds": [
+    3000,
+    3001,
+    3002,
+    3003
+  ],
+  "worlds": [
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            0,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "02b24cd5c7f83784868b4f0049316c2c2dfd21a7c8adeb22dfc888a2a037d47e",
+      "world_index": 0,
+      "world_seed": 3000
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            0,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            -1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            -1
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "53427894f2f5c4ab90cb0c85f3f026578be0c386d735a6b4cfc54b153f7b6d00",
+          "old_subtree": "(var x3)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "309d48a24e7592298c663dda4ad4dd581ca884991d525db994c36a8188d5a42a",
+          "old_subtree": "(const 1)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (gt (var x3) (const 1)) (const 1) (const 0))",
+      "parent_canonical_hash": "1258687e683f15bcc1ab58045f97828dac5b58fbd89b82942184bbac276b369e",
+      "world_index": 1,
+      "world_seed": 3001
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -2,
+            1,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            0,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            -1,
+            1,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "9168018c477277d900bb848e11affc4a985746862299a06f5fbbfb03eb5c95e2",
+          "old_subtree": "(var x2)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "9a70c5459743dcaf58a7e0d2045519a7cc3ec4813b860522558f2569d6536f11",
+          "old_subtree": "(const -2)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x2) (const -2)) (const 1) (const 0))",
+      "parent_canonical_hash": "08a597941b0c6a0f71f85cca9b8c877950283687748f44a1a7ab1a5bf9b5ad30",
+      "world_index": 2,
+      "world_seed": 3002
+    },
+    {
+      "D0": [
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -2,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            -2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            0,
+            -1
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            -1,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "label": 0,
+          "point": [
+            1,
+            1,
+            -2
+          ]
+        }
+      ],
+      "allowed_paths": [
+        {
+          "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+          "old_subtree": "(var x1)",
+          "path": [
+            1,
+            1
+          ]
+        },
+        {
+          "expected_old_subtree_hash": "85235d817884dbc2146d3bbbcacae98f4b711d618f4fbefdf0d09d4fe635cabc",
+          "old_subtree": "(const 0)",
+          "path": [
+            1,
+            2
+          ]
+        }
+      ],
+      "parent": "(ite (eq (var x1) (const 0)) (const 1) (const 0))",
+      "parent_canonical_hash": "05a4d8363d4af0b06be6875cd1d6ca6c1f3f053ad4727be9095c6a16d22681b4",
+      "world_index": 3,
+      "world_seed": 3003
+    }
+  ]
+}
