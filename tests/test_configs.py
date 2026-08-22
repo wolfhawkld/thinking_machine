@@ -1,3 +1,4 @@
+import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -60,6 +61,58 @@ class ExperimentConfigTests(unittest.TestCase):
             record for record in registry["records"] if record.get("seed") == 1000
         )
         self.assertIn("attempt-B-interface-calibration", retired["uses"])
+
+    def test_strong_k4_feasibility_stream_is_frozen_and_reserved(self) -> None:
+        config = self.load_json("configs/spark-strong-k4-feasibility-v2.json")
+        registry = self.load_json("configs/development-seed-registry.json")
+        stream = config["candidate_stream"]
+        namespace = stream["world_seed_namespace"]
+        count = stream["candidate_world_count"]
+        expected = [
+            int.from_bytes(
+                hashlib.sha256(f"{namespace}:{index}".encode("ascii")).digest()[:8],
+                "big",
+            )
+            & ((1 << 63) - 1)
+            for index in range(count)
+        ]
+
+        self.assertEqual(stream["candidate_index_start"], 0)
+        self.assertEqual(count, 1024)
+        self.assertEqual(stream["stage_world_count"], 64)
+        self.assertIs(stream["fixed_full_scan_required"], True)
+        self.assertEqual(len(expected), len(set(expected)))
+        self.assertEqual(registry["seeds"][-count:], expected)
+        self.assertFalse(set(registry["seeds"][:-count]).intersection(expected))
+        digest = hashlib.sha256(
+            json.dumps(expected, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        self.assertEqual(digest, stream["candidate_seed_vector_sha256"])
+        self.assertEqual(
+            config["endpoint"]["minimum_unique_control_behaviors"], 3
+        )
+        target = config["private_target_and_public_motif_namespaces"]
+        self.assertIn("full 32-byte digest", target["target_seed_rule"])
+        self.assertIn("exactly once", target["target_selection_rule"])
+        cohort = config["balanced_cohort"]
+        self.assertEqual(cohort["target_worlds_per_stratum"], 8)
+        self.assertEqual(cohort["target_total_worlds"], 4 * 8)
+        self.assertEqual(cohort["fallback_worlds_per_stratum"], 6)
+        self.assertEqual(cohort["fallback_total_worlds"], 4 * 6)
+        self.assertEqual(cohort["full_classification"], "full_32_balanced_feasible")
+        self.assertEqual(
+            cohort["failure_classification"],
+            "balanced_strong_K4_benchmark_not_feasible_under_cap",
+        )
+        self.assertIn("capacity 1", cohort["matching_graph"])
+        self.assertEqual(config["artifact_contract"]["provider_calls_made"], 0)
+        self.assertIs(config["artifact_contract"]["model_outputs_read"], False)
+        reservation = registry["records"][-1]
+        self.assertEqual(reservation["candidate_indices"], {"start": 0, "count": 1024})
+        self.assertEqual(reservation["candidate_seed_vector_sha256"], digest)
+        retired = registry["records"][-2]
+        self.assertEqual(retired["status"], "retired-pre-plan-implementation-smoke")
+        self.assertIn("candidate index 0", retired["retirement_reason"])
 
     def test_v3_development_template_is_frozen_except_model_bindings(self) -> None:
         config = self.load_json("configs/v3-development.template.json")

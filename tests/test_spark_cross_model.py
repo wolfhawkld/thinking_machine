@@ -343,11 +343,33 @@ class SparkCrossModelTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        record = registry["records"][-1]
+        frozen_namespace = f"{CROSS_MODEL_SEED_NAMESPACE}:world-seed"
+        matching_records = [
+            record
+            for record in registry["records"]
+            if record.get("status")
+            == "assigned-cross-model-matched-triad-v1-frozen-unopened-at-registration"
+            and record.get("draw", {}).get("namespace") == frozen_namespace
+        ]
+        self.assertEqual(len(matching_records), 1)
+        record = matching_records[0]
         self.assertEqual(tuple(record["seeds"]), CROSS_MODEL_WORLD_SEEDS)
-        self.assertEqual(
-            record["draw"]["namespace"],
-            f"{CROSS_MODEL_SEED_NAMESPACE}:world-seed",
+        self.assertEqual(record["draw"]["namespace"], frozen_namespace)
+
+        registered_seeds = registry["seeds"]
+        segment_starts = [
+            start
+            for start in range(len(registered_seeds) - len(CROSS_MODEL_WORLD_SEEDS) + 1)
+            if tuple(
+                registered_seeds[start : start + len(CROSS_MODEL_WORLD_SEEDS)]
+            )
+            == CROSS_MODEL_WORLD_SEEDS
+        ]
+        self.assertEqual(len(segment_starts), 1)
+        segment_end = segment_starts[0] + len(CROSS_MODEL_WORLD_SEEDS)
+        self.assertLess(segment_end, len(registered_seeds))
+        self.assertTrue(
+            set(CROSS_MODEL_WORLD_SEEDS).isdisjoint(registered_seeds[segment_end:])
         )
         self.assertEqual(self.plan["protocol_id"], CROSS_MODEL_PROTOCOL_ID)
         self.assertEqual(

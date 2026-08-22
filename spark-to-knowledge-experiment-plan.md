@@ -905,3 +905,55 @@ Parent deletion与matched replacements检验的是已生成child之后的查询�
 overlay必须逐arm、逐world、逐qualifying slot精确复现封存正式结果：Flash `26/23/6/0`、Pro `24/21/6/0`、GLM `27/23/7/1`。任何偏差均使机会地图不可发布。重点描述共同六个K3 worlds究竟没有K4机会、只有其他slot有机会，还是同slot另有K4 action；另描述GLM唯一K4所在slot的K4 raw/bundle数量、语义别名、control distinctness及path分布。
 
 “有机会但未命中”只表示：在真实target事后已知后，代码发现当时菜单中存在一个会达到K4的action，而模型没有输出它。模型生成时看不到target，因此不能据此说模型“犯错”、本应知道答案、理解了或未理解spark，也不能识别prompt-level因果、充分/必要条件、重复采样概率、真实世界外推或人类未知发现。若机会world不足2，只能说明该冻结网格对原复制门槛存在availability ceiling；若机会world至少2而模型不足2，才可把正式未复制进一步定位为“可行action存在但实际选择未命中”的事后机制诊断，仍不得改写正式classification。
+
+## 22. Full-pool strong-K4 feasibility scan（2026-08-22）
+
+第21节显示，原正式K4的17个raw actions中只有5个在完整matched-replacement pool下仍稳健；这5个动作又只覆盖2个slots、2个worlds，且四个动作是同一world/slot/child behavior的语法frame变体。两个world分别属于`affine_commutative`和`affine_multiplicative`，`affine_directional`与`pairwise_variable`没有完整pool机会。因此，不能直接在旧32-world网格上通过增加模型调用解决强消融稀疏问题。
+
+实现阶段曾建立`spark-strong-k4-feasibility-v1`候选namespace，但在要求的target-free plan barrier封存之前，开发烟测与随后只读代码审计各自materialize了同一个candidate index 0。两次都没有模型/provider调用，没有生成正式plan、shard或科学结果；但该顺序已使v1不能再声称完全unopened。不得只删除或替换candidate 0来修补，因此v1整套1024-seed namespace在registry中标为`retired-pre-plan-implementation-smoke`并永久排除，不能进入后续benchmark或confirmation。
+
+唯一active扫描改为全新`spark-strong-k4-feasibility-v2`，配置为`configs/spark-strong-k4-feasibility-v2.json`。它只回答：当前有限DSL、world generator、motif library、10-action菜单和四轮压缩器能否构造24或32个跨motif平衡、预先已知存在强消融机会的world。它不是模型实验，不读取任何generation，不调用provider，也不改变第20节的`replication_not_observed`。扫描中打开hidden target，因此其入选集是outcome-conditioned challenge set，不是自然world分布的prospective样本。
+
+### 22.1 新端点`K4_full_pool`
+
+`K1--K3`逐项保持第19--21节定义与四轮预算不变。不得修改旧`K4`或用新结果回写旧artifact。对一个已达K3的focal action，构造其完整可用matched-replacement pool：control必须来自冻结motif library，能在同一parent上独立replay，保持相同path、operation、binary operator、motif side、old-subtree、motif stratum和complexity bucket，通过原target-blind D0/evidence-novelty lineage约束，并且完整域行为不同于focal child。
+
+controls按完整域`child_behavior_hash`去重；语法别名保留作审计，但不增加消融证据数。若同一behavior出现不同endpoint结果，扫描立即失败。新的主端点定义为：
+
+```text
+K4_full_pool = K3
+               and unique_control_behavior_count >= 3
+               and every unique control fails exact identification
+```
+
+至少三个controls必须彼此行为不同且都不同于focal child。旧K4的冻结前两个controls只作历史对照，不参与新主端点。full-pool bundle绑定action frame、focal child behavior及排序后的全部unique control behavior hashes；相同child若来自不同frame/control pool仍是不同bundle。未来模型命中必须以exact action或相同full-pool bundle判定，单纯child semantic相同不能算正式命中。
+
+### 22.2 固定候选流与扫描分母
+
+候选协议ID为`spark-strong-k4-feasibility-v2`。候选index固定为`0..1023`，必须完整扫描1024 worlds，不因提前找到足够机会而截停，也不得在结果不足时临时扩到1025以后。world seed按`SHA256("spark-strong-k4-feasibility-v2:world-seed:" + decimal_index)`前8 bytes大端整数并mask至63 bits；只允许排除预先登记的seed collision，本冻结流没有collision。target namespace固定为`spark-strong-k4-feasibility-v2`；对每个world精确复用`_target_seed_for_namespace`，即把`SHA256(namespace + ":target:" + decimal_world_seed)`完整32-byte digest解释为大端整数，并只调用一次现有`generate_spark_world(world_seed, target_seed)`，由其已有`random.Random(target_seed).randrange(256)`选择唯一target。禁止在256个bank members中寻找有利target。
+
+每world仍有三个target-blind assigned motif slots。stratum按`MOTIF_STRATA[(candidate_index * 3 + factual_index) mod 4]`轮转；motif按现有SHA-256选择器一次确定，不因hidden outcome换motif。每slot穷举两个path乘五个prompt内action frames，固定10 actions。invariant、replay、hash或构造错误使扫描停止，不得把异常当作无机会world或补抽seed。
+
+在首次派生target或运行compressor之前，必须生成并独立复核一个target-free scan plan。该plan绑定配置文件bytes SHA、current source manifest、完整1024-seed向量，以及按原candidate index冻结的3072个slot motif/stratum/selection identities；不得包含target seed/index/hash、`SparkWorld.world_hash`或任何endpoint。plan封存后，扫描期间不得修改`src/`、`tests/`、`configs/`或本文本；shard和最终merge都必须绑定同一plan canonical digest。
+
+实现测试可以在`generate_spark_world`被完全mock、没有target RNG draw且不保存candidate-specific输出时验证通用target-seed SHA公式；单独计算该不可见哈希整数不构成target materialization。打开world的边界精确定义为：真实调用`generate_spark_world`并执行`random.Random(target_seed).randrange(256)`，或以其他方式得到target index、labels、trajectory或endpoint。active v2在plan barrier前这些事件计数必须全部为0。
+
+1024-world固定census可分成16个连续64-world shards并行计算；每个shard绑定配置文件SHA、current source manifest、候选range及self-digest，merge必须拒绝gap、overlap、重复range或manifest/config漂移。并行顺序不得改变按candidate index排序的最终结果。所有被扫描的seeds无论是否入选，都属于已打开的development/benchmark-construction worlds，永久排除于未来随机确认样本。
+
+### 22.3 平衡可行性分类
+
+对每个world记录至少一个`K4_full_pool` action所覆盖的motif strata集合。构造四strata联合的bipartite b-matching：world节点容量严格为1，每个stratum节点容量严格为共同配额`q`，因此同一多stratum world不能重复占两个独立名额；只检查四个边际eligible counts不充分。对任一可行assignment，依冻结`MOTIF_STRATA`顺序分别列出该stratum升序candidate indices，再拼成长度`4q`的assignment vector；在所有可行exact-q assignments中唯一选择字典序最小vector。禁止按strong action数量、child `N_T`、压缩幅度、control pool大小、模型偏好或人工观感排序。入选后必须保留原candidate index、slot index和motif assignment，不能因重排world而重新抽取motif。
+
+扫描完整1024 worlds后按以下闭集分类：
+
+- 每个stratum可分配8个互不重复world：`full_32_balanced_feasible`，固定构造32-world cohort；
+- 上述不成立，但每个stratum可分配至少6个互不重复world：`reduced_24_balanced_feasible`，固定取每stratum 6个、共24 worlds，不事后选择25--31；
+- 任一stratum无法达到6：`balanced_strong_K4_benchmark_not_feasible_under_cap`。
+
+必须同时报告raw actions、unique focal behaviors、full-pool bundles、eligible slots/worlds、每stratum capacity与deficit、每个K3 control pool的raw/unique size及全部unique-control `N_T`、每world的机会数量，以及入选cohort的target/child/motif/frame重复情况。K3未成立的action只报告结构pool size，不为无关controls额外运行compressor。若全局qualifying child behaviors少于4种或任一stratum只有一种，标记`low_semantic_diversity`；不得因多样性不足换world，也不得声称跨行为鲁棒。
+
+### 22.4 后续使用与解释边界
+
+扫描GO只表示可以构造强消融benchmark，不使spark假设变成positive。若以后调用模型，必须先从私有扫描结果生成单独封存的public plan；public projection只含world seed、D0、parent、assigned motif和10-action grammar，递归排除target seed/index/hash、`SparkWorld.world_hash`、trajectory、`N_T`、endpoint flags、eligible action及control outcomes。public plan需绑定私有scan artifact digest，但不得暴露其内容。
+
+当前扫描只保证每个入选world存在一个被分配到construction stratum的witness slot，不保证该world的另外两个slots也有机会；本节不预先决定未来模型实验只呈现witness slot还是继续呈现三个slots。未来正式协议必须二选一并冻结分母：若只呈现witness slot，才能估计有限系统中的`P(model选择K4_full_pool action | 该prompt已知存在机会)`；若呈现全部三个slots，则primary只能是world-level“至少一个slot命中”，并另报eligible-slot条件命中率。因为world/motif按真实target outcome富集，入选cohort不能估计自然机会率，不能与旧实验的`x/32`直接作发生率比较，也不能据此作模型总体排名、entropy因果、人类未知发现或真实世界外推。完整pool也只对冻结motif library和same-frame controls完整，不是对所有可能替代spark的普遍必要性证明；它仍是给定child后的路径消融，不等价于prompt-level随机移除spark。

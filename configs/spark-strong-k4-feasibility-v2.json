@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "kind": "spark-strong-k4-feasibility-scan-config",
+  "protocol_id": "spark-strong-k4-feasibility-v2",
+  "evidence_scope": "offline_outcome_conditioned_strong_ablation_benchmark_feasibility_only",
+  "candidate_stream": {
+    "candidate_index_start": 0,
+    "candidate_world_count": 1024,
+    "fixed_full_scan_required": true,
+    "stage_world_count": 64,
+    "world_seed_namespace": "spark-strong-k4-feasibility-v2:world-seed",
+    "world_seed_rule": "sha256(world_seed_namespace + ':' + decimal_candidate_index), first 8 bytes big-endian, mask to 63 bits",
+    "candidate_seed_vector_sha256": "05ddba77ac4e5bded52446f0168334b4ef6eaeabe8dbc4bb9baa1928c6becc42",
+    "collision_exclusions": "registered seed collision only; none occur in the frozen 0..1023 stream"
+  },
+  "private_target_and_public_motif_namespaces": {
+    "target_seed_namespace": "spark-strong-k4-feasibility-v2",
+    "target_seed_rule": "sha256(target_seed_namespace + ':target:' + decimal_world_seed), full 32-byte digest interpreted as one big-endian integer",
+    "target_selection_rule": "call existing generate_spark_world(world_seed, target_seed) exactly once; its existing random.Random(target_seed).randrange(256) selects the sole target",
+    "motif_selection_namespace": "spark-strong-k4-feasibility-v2"
+  },
+  "world_grid": {
+    "assigned_motif_slots_per_world": 3,
+    "raw_actions_per_slot": 10,
+    "action_paths": [
+      [1, 1],
+      [1, 2]
+    ],
+    "action_frames_per_path": [
+      "replace",
+      "add-right",
+      "sub-right",
+      "sub-left",
+      "mul-right"
+    ],
+    "motif_strata_in_frozen_order": [
+      "affine_commutative",
+      "affine_directional",
+      "affine_multiplicative",
+      "pairwise_variable"
+    ],
+    "slot_stratum_rule": "MOTIF_STRATA[(candidate_index * 3 + factual_index) mod 4]",
+    "motif_rule": "existing SHA-256 _select_motif over world_seed, one-based slot_index, stratum, and motif_selection_namespace",
+    "target_draws_per_world": 1,
+    "motif_redraws_per_slot": 0,
+    "candidate_replacement_on_outcome": false
+  },
+  "endpoint": {
+    "name": "K4_full_pool",
+    "historical_formal_K4_reclassified": false,
+    "closure_max_rounds": 4,
+    "requires_K3": true,
+    "replacement_pool": "all structurally valid same-parent, same-frame, same-stratum, same-complexity matched replacements from the frozen motif library whose complete-domain behavior differs from the focal child",
+    "control_deduplication": "complete-domain child_behavior_hash",
+    "minimum_unique_control_behaviors": 3,
+    "all_unique_controls_must_fail_exact_identification": true,
+    "behavior_equivalent_controls_must_have_identical_endpoint": true,
+    "model_hit_identity_for_future_use": "exact action or identical full-pool counterfactual bundle; child semantic identity alone is insufficient"
+  },
+  "balanced_cohort": {
+    "independent_unit": "unique world",
+    "one_construction_stratum_assignment_per_world": true,
+    "target_worlds_per_stratum": 8,
+    "target_total_worlds": 32,
+    "fallback_worlds_per_stratum": 6,
+    "fallback_total_worlds": 24,
+    "full_classification": "full_32_balanced_feasible",
+    "fallback_classification": "reduced_24_balanced_feasible",
+    "failure_classification": "balanced_strong_K4_benchmark_not_feasible_under_cap",
+    "matching_graph": "one bipartite graph from eligible worlds to K4_full_pool witness motif strata; every world has capacity 1 and every selected stratum has exact capacity q",
+    "unique_assignment_encoding": "for each motif stratum in frozen order, sort its assigned candidate indices ascending, then concatenate the four lists",
+    "selection_rule": "among every feasible exact-q joint b-matching choose the lexicographically smallest unique_assignment_encoding; never rank by action count, N_T, control-pool size, or model output",
+    "fixed_scan_then_select": true
+  },
+  "artifact_contract": {
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "future_public_projection_excludes": [
+      "target_seed",
+      "target_index",
+      "world_hash",
+      "target_canonical_hash",
+      "target_seed_namespace_sha256",
+      "trajectory",
+      "N_T",
+      "endpoint_flags",
+      "eligible_action_identity",
+      "control_outcomes"
+    ],
+    "interpretation_limit": "constructs an outcome-conditioned finite DSL challenge set; does not test the hypothesis, estimate natural-world opportunity prevalence, change the sealed matched-triad result, establish model ranking, or imply human-unknown discovery"
+  }
+}
