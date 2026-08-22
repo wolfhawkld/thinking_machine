@@ -957,3 +957,56 @@ K4_full_pool = K3
 扫描GO只表示可以构造强消融benchmark，不使spark假设变成positive。若以后调用模型，必须先从私有扫描结果生成单独封存的public plan；public projection只含world seed、D0、parent、assigned motif和10-action grammar，递归排除target seed/index/hash、`SparkWorld.world_hash`、trajectory、`N_T`、endpoint flags、eligible action及control outcomes。public plan需绑定私有scan artifact digest，但不得暴露其内容。
 
 当前扫描只保证每个入选world存在一个被分配到construction stratum的witness slot，不保证该world的另外两个slots也有机会；本节不预先决定未来模型实验只呈现witness slot还是继续呈现三个slots。未来正式协议必须二选一并冻结分母：若只呈现witness slot，才能估计有限系统中的`P(model选择K4_full_pool action | 该prompt已知存在机会)`；若呈现全部三个slots，则primary只能是world-level“至少一个slot命中”，并另报eligible-slot条件命中率。因为world/motif按真实target outcome富集，入选cohort不能估计自然机会率，不能与旧实验的`x/32`直接作发生率比较，也不能据此作模型总体排名、entropy因果、人类未知发现或真实世界外推。完整pool也只对冻结motif library和same-frame controls完整，不是对所有可能替代spark的普遍必要性证明；它仍是给定child后的路径消融，不等价于prompt-level随机移除spark。
+
+## 23. Masked matched-sham choice benchmark（设计冻结，2026-08-22）
+
+第22节的32-world cohort证明了强K4机会可构造，但原action prompt不适合直接调用模型。旧prompt按固定顺序先列`replace path (1,1)`，随后又用该action展示具体JSON答案；入选cohort同时存在D0全零、constant-zero child和少数action frame占优的公开shortcut。因而第22节artifact保持不动，只作为已封存的benchmark construction input；新的模型层使用独立协议`spark-strong-k4-fair-choice-v1`和`configs/spark-strong-k4-fair-choice-v1.json`。本节只冻结设计、构建器、离线评分和检验；在public/private plan另行封存并复核以前不得调用provider。
+
+### 23.1 32个独立matched pairs
+
+独立单位仍是第22节联合matching选出的32个unique worlds，每个construction stratum恰8个。每world只呈现其唯一construction witness slot，不呈现另外两个slot；每个模型对该world作两次相互独立、无历史消息的选择：一次给factual motif，一次给matched sham motif，共64次调用。pair内D0、parent、10个semantic action frames、opaque option IDs、option到action的置换、prompt文字与response contract逐字相同，唯一内容差异是motif表达式。prompt和public task均不出现`factual/sham/true/control/witness`等条件标签。
+
+全局pair ordinal唯一冻结为32个assignment按candidate index升序后的0-based位置。每个construction stratum内部再按candidate index给出0-based rank：even rank在phase 1呈现factual、phase 2呈现sham，odd rank相反；public执行序列为全部pairs按ordinal的phase 1，随后同序phase 2。因而每个phase、每个stratum均为4/4，总体为16/16且paired prompts不相邻。正式执行仍须在plan中冻结跨route顺序，不能根据中途输出调整。
+
+matched sham不能从已知令K4 focal action失败的private controls中挑选，因为这种选择会利用hidden outcome把负臂人为做弱。对每world固定调用现有cached `_world_structure(world_seed)`，用共享training-signature bank的`hypotheses[0]`恢复D0 labels；evidence/test只保留target-independent point locations并填充不会被K1读取的零标签，不派生target seed/index，随后逐字核对sealed D0和parent。对factual motif和每个候选motif分别计算10-bit target-blind structural support mask：某bit为1仅表示对应action属于`enumerate_reachable_children`的K1/control-ready lineage。候选限制为同motif stratum、同complexity bucket，排除与factual motif完整域行为相同的motif；先按motif完整域behavior分组，避免某种行为仅因语法别名多而获得更高权重。
+
+所有hash payload均用UTF-8、sorted keys、`,`/`:` separators、`ensure_ascii=false`、`allow_nan=false`的canonical JSON。`pair_anchor=SHA256({upstream_public_identity_sha256,witness_slot_id})`，这两个target-free construction identities只用于私有构建、不进入provider manifest。每个behavior组内先取`SHA256({namespace,phase='alias-representative',pair_anchor,motif_behavior_hash,motif_canonical_hash})`最小的alias代表，最终以motif ID破理论同分；只计算该代表的support mask。再按`(Hamming distance, SHA256({namespace,phase='behavior-tie',pair_anchor,motif_behavior_hash,representative_canonical_hash}), motif_behavior_hash, representative motif ID)`升序唯一选择sham。这个过程只匹配公开结构，不要求sham的10个action没有K4机会，也不得在看到private结果后换sham。
+
+排除semantic-equivalent motifs并按behavior等权后的target-blind构建审计固定为：32 pairs的最小K1-mask Hamming distance分布`{0:20, 1:6, 2:4, 3:2}`；53个factual K4 frames中，所选sham在50个frame上仍有K1 support，29/32 worlds的全部factual-K4 frames都保持K1。50个结构有效frame中34个sham child达不到K2；若把另3个K1-invalid frame按正式规则记为K2 miss，则共37/53，19/32 worlds的全部factual-K4 frames均为sham K2 miss。解释时必须把“34个合法frame不闭合”与“3个frame不再K1-valid”分开，不能把37个都称为matched replacement closure failure。这些数字只能作预模型审计，不能反过来重选sham；任何实现若不能逐项复现，或两个独立实现不能复现同一个最终sham向量，应在provider调用前停止。
+
+### 23.2 中性choice prompt与public/private隔离
+
+10个action不再用grammar中天然的书写顺序呈现。先按协议SHA-256得到一个target/outcome-blind base permutation，再按pair ordinal向左循环平移；同一pair两臂复用完全相同的排列。由此32 pairs中每个semantic action在每个显示位置出现3或4次。每题生成等长、无语义的opaque option IDs：每个display position取canonical JSON `{namespace,pair_anchor,display_position}`的SHA-256前8位大写hex并加前缀`Q`，pair内碰撞立即失败。模型只能返回`{"expression": <one listed opaque ID>}`，prompt不提供任何具体合法ID或action作为答案例子。每行用同一模板说明一个action，不能对某个path、operation或side增加建议性措辞。
+
+provider-facing public manifest与private scoring key必须是两个物理文件。public task只含opaque `task_id`、冻结的`rendered_prompt`及其SHA-256；prompt只含D0、parent、一个不带条件标签的context表达式、10个等格式choices和中性response schema。它递归排除candidate/world/slot identifiers、seed/hash、construction stratum、motif ID/hash、condition、option到raw action映射、target、endpoint、trajectory、`N_T`与control outcome。private key才保存pair/world/slot绑定、condition、motif、option mapping及两臂10个action的K1--K4结果。public manifest还必须绑定可从private design字段重算的commitment，private key反向绑定public manifest digest；后续sealed plan再绑定两个文件的exact bytes SHA和64-task bijection。live generation接口只允许读取public manifest中已冻结的prompt bytes，不能接受private key、world seed或scoring callback。
+
+`task_id`只用于本地把response归回public task，不能进入provider message或provider metadata；provider只接收该task的`rendered_prompt` bytes。后续sealed plan必须同时绑定fair-choice config、public manifest、private key的exact file SHA、current source manifest和64-task bijection，并在执行前后检查source/config未漂移。三路各64个generation完整封存以前，analyzer不得加载private key；任一缺失不能用另外两路缩小Holm family。当前代码阶段不生成这些正式文件，也不授权science calls。
+
+上游历史输入必须按其冻结时身份验证：plan文件SHA `e99ceee07a8472c8694516fc537dd04c40b00efe0a4e8d950e3dbe0390c0fb98`、result文件SHA `1ec8f0262fd1c27024e9c6d25702b1f1d799c8693cc7f082805ea434cf855c1a`、scan config文件SHA `78dd0bf573f38cf55aa1812a19ee3778e8bb2ea22783244a86c88099bd532ac0`，内部plan/scan SHA分别为`9f00e5811ae19cf6337988781aa4e4b094b44477e19d688745e66b51eb5b09bc`和`e5e69e46fecbf9a6bea1a540281b4579f2b7f1902697352007e6153a2360ab91`，历史source manifest为`f1af9c04ab97307e42a9bfae0a4a1618b0db1af3d677340e420b9564dc303a0c`。验证旧self-digest与交叉绑定时允许`require_current_source=False`；修改后的新builder必须另绑执行时current source manifest，绝不能要求它等于历史值。上游artifact commit为`612ff5a7cd67347bd0c1ecacaa1453358073e0f7`，scanner source freeze commit为`c703428bad23afc6214723de2a50025a5091cac4`；旧artifact不得改写。
+
+exact prompt template必须中性说明：变量完整域、DSL/`OLD`/`CONTEXT`含义、child需合法且binary、与D0一致、使用context一次，并选择在固定四轮验证预算下最有希望区分unknown classifier的action；真假两臂文字逐字相同，不提K4或答案身份。每个task恰一个physical request，无内容重试。收到有效provider响应但不是“唯一一个JSON object、唯一key为`expression`、value为本题opaque ID”时，该task保留在固定分母并按K1=K2=K3=K4=0；bare choice ID和额外key同样无效，不得用修复prompt补答。transport失败或缺少response则整个joint attempt标记`non_evaluable_incomplete_attempt`，不补抽task或world。
+
+正式plan仍须绑定三条canonical arm IDs `deepseek-flash`、`deepseek-pro`、`glm-5.2`，另将request aliases `deepseek-v4-flash`、`deepseek-v4-pro`、`glm-5.2`绑定到route contract；temperature、token limit、thinking状态、response contract和prompt bytes三路相同。每route 64 calls，共192 calls。旧action grammar canary不能授权新opaque-choice grammar；science calls前必须在retired target-free worlds上运行一个小型新canary，它只验证exact JSON/choice解析与route contract，不读取任何knowledge endpoint。
+
+### 23.3 对称重放、shortcut基线与预注册判定
+
+真假两臂必须在各自motif下独立重放模型实际选择的action，并用完全同一确定性代码计算K1、K2、K3和`K4_full_pool`。不能用factual的endpoint给sham打分，也不能只检查某个预先指定的sham frame。paired usefulness主端点为K2；在这个cohort中parent均不闭合，因此K3应与K2相同，但仍逐项报告并验证。强事实端点`F_T`为factual arm实际选择达到`K4_full_pool`。选择不同opaque ID、选择同一semantic frame但motif导致不同child、以及两臂都选择同一frame，均原样保留，不做事后解释性改写。
+
+在任何模型调用以前，固定以下target-blind structural baseline family：uniform-over-ten；raw action 0--9的十个fixed-semantic政策；display position 0--9的十个fixed-label政策；display order中最早的K1-supported action；K1 children中分别按node count最小、完整域positive count最少、相对parent行为变化最大选择的三个政策。后四类只在K1-supported actions内选，无K1时回退到display position 0；三个数值heuristics的同分依各自primary score、node count、canonical hash、raw index封闭。K1 heuristics会使用target-free evidence-point locations，而这些位置不在provider prompt中，因此它们是故意信息占优的保守结构基线，不称prompt-visible政策。用private factual K4 labels预先选其中命中最多的deterministic policy为`B*`，同分按冻结policy ID；这不是模型证据，也不得在看到模型输出后增删policy。uniform按每world `|K4 actions|/10`形成精确Poisson-binomial null；fixed-semantic/fixed-label、各heuristic的真假K2 discordance及constant/nonconstant分层都完整报告。
+
+完整32-pair离线重建已在无模型输出条件下复现：factual K4 qualifying actions总数53，因此uniform期望`53/(32*10)=5.3/32`，exact单侧5%最小critical为10；最佳fixed-semantic policy是raw action 0，命中14/32；冻结24个deterministic baselines中`public-k1-min-positive-node-hash`最强，命中19/32，故固定为`B*`。这些数是pre-model benchmark audit，不是模型结果；后续route即使达到uniform的10个命中，也不能绕过与19/32 `B*`的paired superiority gate。
+
+每route必须同时通过以下闭集gate才标记`paired_strong_K4_effect_observed`：
+
+- 对32个pairs，以`U_T/U_S = selected action reaches K2`形成discordances；`b=#(1,0)`严格大于`c=#(0,1)`，且one-sided exact McNemar/sign tail不超过0.05；
+- 以`F_T`对`B*`逐world比较，model-only discordances严格多于baseline-only discordances，且同一one-sided exact tail不超过0.05；
+- factual K4 hit总数的exact uniform Poisson-binomial上尾`p<=0.05`，等价于达到或超过最小可达critical count；
+- factual K4 hits覆盖至少2个construction strata、至少2个child behavior hashes，并含至少1个完整域behavior同时出现0与1的nonconstant child。
+
+exact one-sided McNemar/sign tail固定为`sum_{k=b}^{b+c} choose(b+c,k)/2^(b+c)`；零discordance时`p=1`，不得替换成mid-p或two-sided。三route分别从raw `p_paired`和raw `p_shortcut`取`p_route=max(...)`，再在family-wise alpha 0.05下对三个`p_route`作Holm校正；paired与shortcut的方向门、uniform门和diversity门仍须分别满足。不能分别把两个raw p称为“已校正”，也不能把未校正`p<=0.05`、某个固定命中数或多数模型表决替代该规则。首个模型结果后不得调alpha、baseline、sham或breadth threshold。route有factual K4但任一gate失败为`strong_hits_shortcut_compatible`；没有factual K4为`effect_not_observed`；收到的输出全部无效另报`model_dsl_interface_failure`。joint label仅编码通过的route集合：三路`all_routes_effect_observed`；GLM加任一DeepSeek为`cross_family_effect_observed`；仅两条DeepSeek为`deepseek_family_only_effect_observed`；恰一路为`single_route_effect_observed`；零路为`effect_not_observed_under_frozen_protocol`。任一路固定64 calls未完成或route contract漂移时，joint直接为`non_evaluable_incomplete_attempt`，不得缩小三route family后继续检验。
+
+### 23.4 可支持与不可支持的结论
+
+若至少一条route通过，最窄结论是：在这个预先富集、可精确评分的有限DSL子集中，给定factual context比公开结构匹配的blind sham更可能引导该模型产生有用child，并且模型选择的强K4 action不能由已冻结的target-blind structural baseline family充分解释。这是一个可追踪spark lineage和prompt-level matched-context的存在性/机制信号；跨家族通过才增加有限的model robustness。
+
+它仍不证明高entropy一般提高spark概率，不证明该context是现实世界未知信息，不证明模型创造了训练外发明，也不估计自然world中的发现率。第22节cohort按factual K4机会事后富集，因此本benchmark只能估计`P(model选择强action | factual机会已存在)`及matched pair差异，不能与旧32-world自然grid的命中率直接比较。若不通过，只能说这三条route和当前64-call paired design未越过预注册paired-context与shortcut门槛，不能外推为spark机制普遍不存在。

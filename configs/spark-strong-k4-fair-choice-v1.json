@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "kind": "spark-strong-k4-fair-choice-config",
+  "protocol_id": "spark-strong-k4-fair-choice-v1",
+  "evidence_scope": "outcome_conditioned_finite_dsl_prompt_level_matched_sham_mechanism_test",
+  "sealed_input": {
+    "relative_path": "artifacts/spark-strong-k4-feasibility-v2-20260822/result.json",
+    "file_sha256": "1ec8f0262fd1c27024e9c6d25702b1f1d799c8693cc7f082805ea434cf855c1a",
+    "plan_relative_path": "artifacts/spark-strong-k4-feasibility-v2-20260822/plan.json",
+    "plan_file_sha256": "e99ceee07a8472c8694516fc537dd04c40b00efe0a4e8d950e3dbe0390c0fb98",
+    "config_file_sha256": "78dd0bf573f38cf55aa1812a19ee3778e8bb2ea22783244a86c88099bd532ac0",
+    "protocol_id": "spark-strong-k4-feasibility-v2",
+    "plan_sha256": "9f00e5811ae19cf6337988781aa4e4b094b44477e19d688745e66b51eb5b09bc",
+    "scan_sha256": "e5e69e46fecbf9a6bea1a540281b4579f2b7f1902697352007e6153a2360ab91",
+    "historical_source_manifest_sha256": "f1af9c04ab97307e42a9bfae0a4a1618b0db1af3d677340e420b9564dc303a0c",
+    "artifact_commit": "612ff5a7cd67347bd0c1ecacaa1453358073e0f7",
+    "source_freeze_commit": "c703428bad23afc6214723de2a50025a5091cac4",
+    "required_classification": "full_32_balanced_feasible",
+    "required_world_count": 32
+  },
+  "paired_design": {
+    "independent_unit": "unique selected world",
+    "pairs": 32,
+    "prompts_per_pair": 2,
+    "conditions": [
+      "factual_motif",
+      "matched_sham_motif"
+    ],
+    "present_only_construction_witness_slot": true,
+    "pair_invariants": [
+      "D0",
+      "parent",
+      "ten semantic action frames",
+      "opaque option IDs",
+      "option-to-action permutation",
+      "prompt wording and response contract"
+    ],
+    "only_pair_difference": "rendered motif expression",
+    "pair_ordinal_rule": "sort all 32 selected assignments by candidate_index ascending and use the zero-based position",
+    "within_stratum_rank_rule": "within each construction stratum sort its eight candidate indices ascending and use the zero-based position",
+    "condition_order_rule": "even within-stratum rank has factual in phase 1 and sham in phase 2; odd rank has sham in phase 1 and factual in phase 2",
+    "public_task_sequence": "phase 1 in pair-ordinal order followed by phase 2 in pair-ordinal order; each phase has four factual and four sham tasks per construction stratum",
+    "provider_calls_are_stateless": true
+  },
+  "matched_sham": {
+    "candidate_pool": "all frozen motif-library members with the factual motif's stratum and complexity bucket, excluding every motif with the factual motif's complete-domain behavior",
+    "semantic_alias_handling": "group candidates by complete-domain motif behavior, choose one target-blind hash representative per behavior, then rank behavior groups so syntax-rich aliases receive no extra weight",
+    "public_support_mask": "ten K1/control-ready bits computed only from target-independent D0, parent, domain and evidence-point locations",
+    "target_free_world_reconstruction": "call the existing cached _world_structure(world_seed), label D0 with hypotheses[0] from the shared training-signature bank, use inert zero labels for evidence/test because K1 reads only their point locations, set no derived target, and verify D0/parent against the sealed public identity",
+    "primary_rank": "minimum Hamming distance from the factual motif's ten-bit public support mask",
+    "tie_break_namespace": "spark-strong-k4-fair-choice-v1:matched-sham",
+    "public_pair_anchor": "SHA-256 of canonical JSON {upstream_public_identity_sha256, witness_slot_id}; these fields are target-free construction identities and never enter the provider-facing manifest",
+    "canonical_json": "UTF-8 JSON with sorted keys, separators comma and colon, ensure_ascii=false, allow_nan=false",
+    "alias_representative_rule": "within each behavior group choose ascending SHA-256 of canonical JSON {namespace, phase='alias-representative', pair_anchor_sha256, motif_behavior_hash, motif_canonical_hash}; motif_id is the final deterministic tie-break",
+    "behavior_tie_break_rule": "after computing the representative's support-mask distance, choose ascending tuple (Hamming distance, SHA-256 of canonical JSON {namespace, phase='behavior-tie', pair_anchor_sha256, motif_behavior_hash, representative_canonical_hash}, motif_behavior_hash, representative motif_id)",
+    "expected_pre_model_audit": {
+      "minimum_hamming_distance_histogram": {
+        "0": 20,
+        "1": 6,
+        "2": 4,
+        "3": 2
+      },
+      "factual_K4_frame_count": 53,
+      "same_frame_sham_K1_supported_count": 50,
+      "worlds_with_all_factual_K4_frames_sham_K1_supported": 29,
+      "same_frame_sham_K2_failure_among_K1_supported": 34,
+      "same_frame_sham_K2_failure_with_K1_invalid_counted_as_miss": 37,
+      "worlds_with_all_factual_K4_frames_sham_K2_failure": 19,
+      "interpretation": "the three K1-invalid frames are misses, not valid matched replacements that failed closure"
+    },
+    "forbidden_selection_inputs": [
+      "target seed or index",
+      "target labels outside D0",
+      "K2, K3 or K4_full_pool",
+      "compressor trajectory or N_T",
+      "model output",
+      "whether the sham has zero K4 opportunities"
+    ],
+    "score_all_ten_sham_actions_symmetrically": true
+  },
+  "choice_masking": {
+    "raw_action_count": 10,
+    "base_permutation_rule": "sort raw action indices by SHA-256(protocol_id + ':base-option-permutation:' + decimal raw index)",
+    "pair_permutation_rule": "left-cyclically rotate the frozen base permutation by pair ordinal modulo 10",
+    "global_position_balance": "each semantic action occurs in each display position three or four times across 32 pairs",
+    "opaque_id_namespace": "spark-strong-k4-fair-choice-v1:opaque-option-id",
+    "opaque_id_rule": "for each pair and display position use Q plus the first eight uppercase hex characters of SHA-256 canonical JSON {namespace, pair_anchor_sha256, display_position}; reject any within-pair collision",
+    "opaque_task_namespace": "spark-strong-k4-fair-choice-v1:opaque-id",
+    "opaque_task_id_rule": "SHA-256 of ASCII opaque_task_namespace + ':' + lowercase kind ('task' or 'pair') + ':' followed by canonical JSON {pair_anchor_sha256, arm}; base32 without padding, first 14 characters, output prefix TASK- or PAIR-; pair payload is {pair_anchor_sha256}",
+    "same_ids_and_mapping_within_pair": true,
+    "answer_example_in_prompt": false
+  },
+  "provider_facing_public_manifest": {
+    "allowed_task_fields": [
+      "task_id",
+      "rendered_prompt",
+      "prompt_sha256"
+    ],
+    "prompt_contains_only": [
+      "D0",
+      "parent",
+      "motif expression",
+      "ten equally formatted opaque choices",
+      "neutral response schema"
+    ],
+    "recursively_forbidden": [
+      "candidate index",
+      "world seed or hash",
+      "slot index or ID",
+      "construction stratum",
+      "motif ID or hash",
+      "factual, sham, true, control or witness labels",
+      "option-to-raw-action mapping",
+      "target identity or labels outside D0",
+      "endpoint flags, trajectories, N_T or control outcomes"
+    ],
+    "private_scoring_key_is_separate_file": true,
+    "generation_may_read_private_key": false,
+    "cross_binding": "public manifest carries a recomputable private-design commitment; private key carries the public-manifest digest; the later sealed plan binds both file digests and their exact 64-task bijection",
+    "new_current_source_manifest_bound_separately_from_historical_source": true
+  },
+  "response_contract": {
+    "outer_format": "one JSON object",
+    "only_key": "expression",
+    "value": "exactly one opaque option ID listed in that prompt",
+    "prose_or_extra_keys_valid": false,
+    "bare_choice_id_without_the_JSON_object_valid": false,
+    "valid_provider_response_with_invalid_choice": "retain fixed denominator as K1=K2=K3=K4_full_pool=0; no retry",
+    "transport_or_missing_response": "joint attempt is non-evaluable; no replacement call"
+  },
+  "target_blind_structural_baselines": {
+    "family": [
+      "uniform_over_ten",
+      "fixed_raw_action_0_through_9",
+      "fixed_display_position_0_through_9",
+      "first_public_K1_else_first_displayed",
+      "minimum_child_node_count_then_canonical_hash_else_first_displayed",
+      "minimum_child_positive_count_then_node_count_then_canonical_hash_else_first_displayed",
+      "maximum_parent_behavior_novelty_then_node_count_then_canonical_hash_else_first_displayed"
+    ],
+    "deterministic_policy_ids": [
+      "fixed-semantic-00",
+      "fixed-semantic-01",
+      "fixed-semantic-02",
+      "fixed-semantic-03",
+      "fixed-semantic-04",
+      "fixed-semantic-05",
+      "fixed-semantic-06",
+      "fixed-semantic-07",
+      "fixed-semantic-08",
+      "fixed-semantic-09",
+      "fixed-display-position-00",
+      "fixed-display-position-01",
+      "fixed-display-position-02",
+      "fixed-display-position-03",
+      "fixed-display-position-04",
+      "fixed-display-position-05",
+      "fixed-display-position-06",
+      "fixed-display-position-07",
+      "fixed-display-position-08",
+      "fixed-display-position-09",
+      "first-public-K1-else-first-displayed",
+      "public-k1-min-node-hash",
+      "public-k1-min-positive-node-hash",
+      "public-k1-max-parent-novelty-node-hash"
+    ],
+    "heuristic_domain": "select only K1-supported actions; first-public-K1 uses the earliest supported display position; if none exist choose display position 0",
+    "heuristic_final_tie_break": "after each named primary score, use node count where not already primary, child canonical hash, then raw action index",
+    "strongest_deterministic_baseline": "before any model call, select the deterministic non-uniform policy with the most factual-arm K4_full_pool hits; break ties by ascending frozen policy ID",
+    "selection_uses_model_outputs": false,
+    "information_boundary": "K1 heuristics may use target-free evidence-point locations not shown in the provider prompt, so they are deliberately information-advantaged structural baselines, not strictly prompt-visible policies",
+    "interpretation": "B* is an outcome-aware but pre-model adversarial shortcut hurdle; it cannot count as model evidence",
+    "expected_pre_model_audit": {
+      "uniform_expected_factual_K4_hits": "53/10 = 5.3",
+      "uniform_exact_upper_tail_critical_count_at_alpha_0_05": 10,
+      "best_fixed_semantic_policy_id": "fixed-semantic-00",
+      "best_fixed_semantic_factual_K4_count": 14,
+      "B_star_policy_id": "public-k1-min-positive-node-hash",
+      "B_star_factual_K4_count": 19
+    }
+  },
+  "analysis": {
+    "usefulness_endpoint": {
+      "name": "K2",
+      "K3_reported_separately": true,
+      "K3_expected_identical_in_parent_open_cohort": true
+    },
+    "strong_factual_endpoint": "factual-arm K4_full_pool",
+    "paired_test": "one-sided exact McNemar/sign test on factual-versus-sham K2 discordances",
+    "shortcut_test": "one-sided exact McNemar/sign test on factual K4_full_pool model hits versus the frozen strongest deterministic baseline",
+    "uniform_test": "exact Poisson-binomial upper tail with per-world probability equal to factual K4 action count divided by ten",
+    "exact_mcnemar_formula": "for b favorable and c unfavorable discordances, sum choose(b+c,k)/2^(b+c) for k=b..b+c; zero discordances gives p=1; no mid-p or two-sided substitution",
+    "uniform_gate": "observed factual K4 count has exact Poisson-binomial upper-tail p at most alpha, equivalently reaches or exceeds the minimum attainable critical count",
+    "alpha": 0.05,
+    "route_multiplicity": "for three frozen routes define p_route=max(paired_p, shortcut_p), then apply Holm family-wise correction at alpha=0.05",
+    "route_gates": {
+      "paired_direction": "factual-only K2 discordances exceed sham-only discordances",
+      "paired_raw_p_enters_p_route": true,
+      "shortcut_direction": "model-only K4 discordances exceed baseline-only discordances",
+      "shortcut_raw_p_enters_p_route": true,
+      "p_route": "maximum of paired raw p and shortcut raw p",
+      "holm_adjusted_p_route_at_most": 0.05,
+      "uniform_upper_tail_p_at_most": 0.05,
+      "minimum_construction_strata_among_factual_K4_hits": 2,
+      "minimum_child_behavior_hashes_among_factual_K4_hits": 2,
+      "minimum_nonconstant_child_behaviors_among_factual_K4_hits": 1,
+      "nonconstant_child_definition": "the selected child complete-domain behavior contains both 0 and 1"
+    },
+    "invalid_received_responses_are_misses": true,
+    "no_threshold_or_baseline_changes_after_first_model_call": true
+  },
+  "planned_routes": {
+    "route_ids": [
+      "deepseek-flash",
+      "deepseek-pro",
+      "glm-5.2"
+    ],
+    "request_model_aliases": {
+      "deepseek-flash": "deepseek-v4-flash",
+      "deepseek-pro": "deepseek-v4-pro",
+      "glm-5.2": "glm-5.2"
+    },
+    "route_count": 3,
+    "same_public_prompt_bytes_required": true,
+    "logical_calls_per_route": 64,
+    "total_logical_calls": 192,
+    "temperature": 0.2,
+    "max_output_tokens": 256,
+    "thinking": "disabled",
+    "live_routes_must_be_bound_and_canaried_in_a_later_sealed_plan": true
+  },
+  "new_format_canary": {
+    "required_before_science_calls": true,
+    "uses_only_retired_target_free_worlds": true,
+    "purpose": "JSON-object and opaque-choice parsing plus exact route contract only",
+    "old_action_grammar_canary_is_sufficient": false,
+    "knowledge_endpoints_may_be_read": false
+  },
+  "later_sealed_plan_barrier": {
+    "must_bind_exact_file_sha256": [
+      "fair-choice config",
+      "provider-facing public manifest",
+      "private scoring key"
+    ],
+    "must_bind_current_source_manifest_sha256": true,
+    "must_verify_public_private_64_task_bijection": true,
+    "live_runner_may_read": "public manifest only",
+    "provider_message_may_contain": "rendered_prompt bytes only; do not send task_id or provider metadata derived from pair/arm",
+    "private_key_load_time": "only after all three complete 64-response generation artifacts are sealed",
+    "pre_and_post_execution_source_and_config_check": true,
+    "formal_plan_or_science_artifact_generated_during_this_code_change": false
+  },
+  "classification": {
+    "route_positive": "paired_strong_K4_effect_observed",
+    "strong_hits_but_gate_failed": "strong_hits_shortcut_compatible",
+    "no_factual_K4_hit": "effect_not_observed",
+    "all_received_outputs_invalid": "model_dsl_interface_failure",
+    "incomplete_attempt": "non_evaluable_incomplete_attempt",
+    "joint_labels": [
+      "all_routes_effect_observed",
+      "cross_family_effect_observed",
+      "deepseek_family_only_effect_observed",
+      "single_route_effect_observed",
+      "effect_not_observed_under_frozen_protocol",
+      "non_evaluable_incomplete_attempt"
+    ]
+  },
+  "interpretation_limits": [
+    "The 32 worlds are an outcome-conditioned finite-DSL challenge set, not a natural-world sample.",
+    "A positive route supports a prompt-level matched-context mechanism in this benchmark, not human-unknown discovery or a universal entropy law.",
+    "K4_full_pool is complete only over the frozen same-frame motif replacement library.",
+    "A failed route does not prove that useful spark-guided discovery is impossible in other tasks, prompts or models."
+  ]
+}

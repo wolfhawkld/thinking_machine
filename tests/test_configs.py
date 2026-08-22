@@ -114,6 +114,122 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertEqual(retired["status"], "retired-pre-plan-implementation-smoke")
         self.assertIn("candidate index 0", retired["retirement_reason"])
 
+    def test_strong_k4_fair_choice_protocol_is_symmetric_and_masked(self) -> None:
+        config = self.load_json("configs/spark-strong-k4-fair-choice-v1.json")
+
+        self.assertEqual(config["protocol_id"], "spark-strong-k4-fair-choice-v1")
+        sealed = config["sealed_input"]
+        for field in (
+            "file_sha256",
+            "plan_file_sha256",
+            "config_file_sha256",
+            "plan_sha256",
+            "scan_sha256",
+            "historical_source_manifest_sha256",
+        ):
+            self.assertEqual(len(sealed[field]), 64)
+        self.assertEqual(
+            hashlib.sha256((ROOT / sealed["relative_path"]).read_bytes()).hexdigest(),
+            sealed["file_sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(
+                (ROOT / sealed["plan_relative_path"]).read_bytes()
+            ).hexdigest(),
+            sealed["plan_file_sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(
+                (ROOT / "configs/spark-strong-k4-feasibility-v2.json").read_bytes()
+            ).hexdigest(),
+            sealed["config_file_sha256"],
+        )
+        self.assertEqual(len(sealed["artifact_commit"]), 40)
+        self.assertEqual(len(sealed["source_freeze_commit"]), 40)
+
+        self.assertEqual(config["paired_design"]["pairs"], 32)
+        self.assertEqual(config["paired_design"]["prompts_per_pair"], 2)
+        self.assertEqual(32 * 2, config["planned_routes"]["logical_calls_per_route"])
+        self.assertIn("candidate_index ascending", config["paired_design"]["pair_ordinal_rule"])
+        self.assertIn("even", config["paired_design"]["condition_order_rule"])
+        self.assertIn("phase 1", config["paired_design"]["public_task_sequence"])
+        self.assertEqual(
+            config["paired_design"]["only_pair_difference"],
+            "rendered motif expression",
+        )
+        self.assertTrue(
+            config["matched_sham"]["score_all_ten_sham_actions_symmetrically"]
+        )
+        self.assertIn(
+            "K2, K3 or K4_full_pool",
+            config["matched_sham"]["forbidden_selection_inputs"],
+        )
+        self.assertEqual(
+            config["matched_sham"]["expected_pre_model_audit"]
+            ["minimum_hamming_distance_histogram"],
+            {"0": 20, "1": 6, "2": 4, "3": 2},
+        )
+        self.assertIn("canonical JSON", config["matched_sham"]["alias_representative_rule"])
+        self.assertIn("Hamming distance", config["matched_sham"]["behavior_tie_break_rule"])
+        self.assertFalse(config["choice_masking"]["answer_example_in_prompt"])
+        self.assertIn("three or four", config["choice_masking"]["global_position_balance"])
+        self.assertEqual(
+            len(config["target_blind_structural_baselines"]["deterministic_policy_ids"]),
+            24,
+        )
+        baseline_audit = config["target_blind_structural_baselines"][
+            "expected_pre_model_audit"
+        ]
+        self.assertEqual(baseline_audit["B_star_factual_K4_count"], 19)
+        self.assertEqual(baseline_audit["best_fixed_semantic_factual_K4_count"], 14)
+        self.assertEqual(
+            baseline_audit["uniform_exact_upper_tail_critical_count_at_alpha_0_05"],
+            10,
+        )
+        self.assertTrue(
+            config["provider_facing_public_manifest"]
+            ["private_scoring_key_is_separate_file"]
+        )
+        self.assertFalse(
+            config["provider_facing_public_manifest"]
+            ["generation_may_read_private_key"]
+        )
+        self.assertIn(
+            "private-design commitment",
+            config["provider_facing_public_manifest"]["cross_binding"],
+        )
+        self.assertFalse(config["response_contract"]["prose_or_extra_keys_valid"])
+        self.assertFalse(
+            config["response_contract"]["bare_choice_id_without_the_JSON_object_valid"]
+        )
+        self.assertEqual(config["analysis"]["usefulness_endpoint"]["name"], "K2")
+        self.assertEqual(config["analysis"]["alpha"], 0.05)
+        self.assertIn("zero discordances gives p=1", config["analysis"]["exact_mcnemar_formula"])
+        self.assertEqual(
+            config["analysis"]["route_gates"]["p_route"],
+            "maximum of paired raw p and shortcut raw p",
+        )
+        self.assertEqual(
+            config["analysis"]["route_gates"]["holm_adjusted_p_route_at_most"],
+            0.05,
+        )
+        self.assertEqual(config["planned_routes"]["route_count"], 3)
+        self.assertEqual(
+            config["planned_routes"]["route_ids"],
+            ["deepseek-flash", "deepseek-pro", "glm-5.2"],
+        )
+        self.assertEqual(config["planned_routes"]["total_logical_calls"], 192)
+        self.assertFalse(
+            config["new_format_canary"]["old_action_grammar_canary_is_sufficient"]
+        )
+        barrier = config["later_sealed_plan_barrier"]
+        self.assertTrue(barrier["must_bind_current_source_manifest_sha256"])
+        self.assertTrue(barrier["must_verify_public_private_64_task_bijection"])
+        self.assertEqual(barrier["live_runner_may_read"], "public manifest only")
+        self.assertFalse(
+            barrier["formal_plan_or_science_artifact_generated_during_this_code_change"]
+        )
+
     def test_v3_development_template_is_frozen_except_model_bindings(self) -> None:
         config = self.load_json("configs/v3-development.template.json")
         registry = self.load_json("configs/development-seed-registry.json")
