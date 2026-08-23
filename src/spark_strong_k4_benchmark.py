@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import base64
 from collections import Counter
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from fractions import Fraction
 import hashlib
@@ -31,6 +31,7 @@ from .spark_compressor import SparkCompressor
 from .spark_lineage import ArithmeticMotif, EditAction, LineageRecord
 from .spark_world import SparkWorld, _world_structure
 from .provenance import PROJECT_ROOT, source_manifest
+from .runner import CANDIDATE_FORMATS
 from .world_generator import Example
 
 
@@ -38,6 +39,7 @@ SCHEMA_VERSION = 1
 PROTOCOL_ID = "spark-strong-k4-fair-choice-v1"
 PUBLIC_MANIFEST_KIND = "spark-strong-k4-fair-choice-public-manifest"
 PRIVATE_KEY_KIND = "spark-strong-k4-fair-choice-private-key"
+RESPONSE_ARTIFACT_KIND = "spark-strong-k4-fair-choice-response-artifact"
 OFFLINE_SCORE_KIND = "spark-strong-k4-fair-choice-offline-score"
 PAIR_COUNT = 32
 TASK_COUNT = 64
@@ -1337,6 +1339,7 @@ def classify_joint_routes(
             or score.get("kind") != OFFLINE_SCORE_KIND
             or score.get("protocol_id") != PROTOCOL_ID
             or score.get("model_id") != route_id
+            or not _is_sha256(score.get("response_artifact_sha256"))
             or score.get("received_response_count") != TASK_COUNT
             or any(not _is_sha256(value) for value in identity)
             or score.get("score_sha256") != _sha256_json(unsigned_score)
@@ -2023,6 +2026,61 @@ def validate_public_manifest(manifest: Mapping[str, Any]) -> None:
         raise FairChoiceError("public task ids must be unique")
 
 
+def dispatch_blind_public_task(
+    public_manifest: Mapping[str, Any],
+    task_id: str,
+    send_prompt: Callable[[str], object],
+) -> object:
+    """Send exactly one verified prompt string across the provider boundary."""
+
+    validate_public_manifest(public_manifest)
+    if not callable(send_prompt):
+        raise FairChoiceError("blind dispatch requires a prompt-only callback")
+    matches = [
+        task for task in public_manifest["tasks"] if task["task_id"] == task_id
+    ]
+    if len(matches) != 1:
+        raise FairChoiceError("blind dispatch task id is absent or non-unique")
+    task = matches[0]
+    prompt = task["rendered_prompt"]
+    if _sha256_text(prompt) != task["prompt_sha256"]:
+        raise FairChoiceError("blind dispatch prompt bytes drifted")
+    return send_prompt(prompt)
+
+
+def collect_blind_route_response_artifact(
+    public_manifest: Mapping[str, Any],
+    *,
+    route_id: str,
+    send_prompt: Callable[[str], object],
+) -> dict[str, Any]:
+    """Collect one stateless 64-call route and seal it only when complete.
+
+    Provider/transport exceptions deliberately propagate.  Therefore an
+    incomplete route cannot be converted into a scoreable response artifact,
+    and this coordinator performs no content or transport retry.
+    """
+
+    validate_public_manifest(public_manifest)
+    if route_id not in CANONICAL_ROUTE_IDS:
+        raise FairChoiceError("blind collection route is not preregistered")
+    received: dict[str, object] = {}
+    for task in public_manifest["tasks"]:
+        task_id = task["task_id"]
+        response = dispatch_blind_public_task(
+            public_manifest,
+            task_id,
+            send_prompt,
+        )
+        _received_response_payload(response)
+        received[task_id] = response
+    return build_response_artifact(
+        public_manifest,
+        received,
+        route_id=route_id,
+    )
+
+
 def _validate_action_rows(actions: Any) -> None:
     if not isinstance(actions, list) or len(actions) != RAW_ACTION_COUNT:
         raise FairChoiceError("private arm must contain ten action outcomes")
@@ -2333,6 +2391,158 @@ def validate_private_key(
         raise FairChoiceError("public/private design commitment drifted")
 
 
+def _received_response_payload(value: object) -> dict[str, object]:
+    if isinstance(value, Mapping):
+        if set(value) != {"candidate_format", "expression"}:
+            raise FairChoiceError("received response payload has unexpected fields")
+        candidate_format = value["candidate_format"]
+        expression = value["expression"]
+    else:
+        candidate_format = getattr(value, "candidate_format", None)
+        expression = getattr(value, "expression", None)
+    if candidate_format not in CANDIDATE_FORMATS:
+        raise FairChoiceError("received response format is outside the closed set")
+    if candidate_format == "json_expression" and not isinstance(expression, str):
+        raise FairChoiceError("json_expression response must contain a string")
+    _canonical_json_bytes(expression)
+    return {"candidate_format": candidate_format, "expression": expression}
+
+
+def build_response_artifact(
+    public_manifest: Mapping[str, Any],
+    responses: Mapping[str, object],
+    *,
+    route_id: str,
+) -> dict[str, Any]:
+    """Seal one complete route's classified 2xx responses without private data."""
+
+    validate_public_manifest(public_manifest)
+    if route_id not in CANONICAL_ROUTE_IDS:
+        raise FairChoiceError("response artifact route is not preregistered")
+    if not isinstance(responses, Mapping):
+        raise FairChoiceError("responses must map task ids to received values")
+    public_tasks = public_manifest["tasks"]
+    task_ids = {task["task_id"] for task in public_tasks}
+    if set(responses) != task_ids:
+        raise FairChoiceError(
+            "response artifact requires every task and no transport failures"
+        )
+    task_rows = [
+        {
+            "task_id": task["task_id"],
+            "prompt_sha256": task["prompt_sha256"],
+            **_received_response_payload(responses[task["task_id"]]),
+        }
+        for task in public_tasks
+    ]
+    unsigned = {
+        "schema_version": SCHEMA_VERSION,
+        "kind": RESPONSE_ARTIFACT_KIND,
+        "protocol_id": PROTOCOL_ID,
+        "route_id": route_id,
+        "public_manifest_sha256": public_manifest["public_manifest_sha256"],
+        "current_source_manifest_sha256": public_manifest[
+            "current_source_manifest_sha256"
+        ],
+        "fair_config_file_sha256": public_manifest["fair_config_file_sha256"],
+        "task_count": len(task_rows),
+        "transport_failure_count": 0,
+        "tasks": task_rows,
+    }
+    artifact = {
+        **unsigned,
+        "response_artifact_sha256": _sha256_json(unsigned),
+    }
+    validate_response_artifact(artifact, public_manifest)
+    return artifact
+
+
+def validate_response_artifact(
+    artifact: Mapping[str, Any],
+    public_manifest: Mapping[str, Any],
+) -> None:
+    """Verify route, benchmark, prompt, completeness, and self-digest bindings."""
+
+    validate_public_manifest(public_manifest)
+    expected_fields = {
+        "schema_version",
+        "kind",
+        "protocol_id",
+        "route_id",
+        "public_manifest_sha256",
+        "current_source_manifest_sha256",
+        "fair_config_file_sha256",
+        "task_count",
+        "transport_failure_count",
+        "tasks",
+        "response_artifact_sha256",
+    }
+    if not isinstance(artifact, Mapping) or set(artifact) != expected_fields:
+        raise FairChoiceError("response artifact fields are malformed")
+    unsigned = {
+        key: value
+        for key, value in artifact.items()
+        if key != "response_artifact_sha256"
+    }
+    if (
+        artifact["schema_version"] != SCHEMA_VERSION
+        or artifact["kind"] != RESPONSE_ARTIFACT_KIND
+        or artifact["protocol_id"] != PROTOCOL_ID
+        or artifact["route_id"] not in CANONICAL_ROUTE_IDS
+        or artifact["public_manifest_sha256"]
+        != public_manifest["public_manifest_sha256"]
+        or artifact["current_source_manifest_sha256"]
+        != public_manifest["current_source_manifest_sha256"]
+        or artifact["fair_config_file_sha256"]
+        != public_manifest["fair_config_file_sha256"]
+        or artifact["transport_failure_count"] != 0
+        or artifact["response_artifact_sha256"] != _sha256_json(unsigned)
+    ):
+        raise FairChoiceError("response artifact identity is malformed")
+    rows = artifact["tasks"]
+    public_tasks = public_manifest["tasks"]
+    if (
+        not isinstance(rows, list)
+        or artifact["task_count"] != len(rows)
+        or len(rows) != len(public_tasks)
+    ):
+        raise FairChoiceError("response artifact is incomplete")
+    for row, task in zip(rows, public_tasks, strict=True):
+        if (
+            not isinstance(row, Mapping)
+            or set(row)
+            != {"task_id", "prompt_sha256", "candidate_format", "expression"}
+            or row["task_id"] != task["task_id"]
+            or row["prompt_sha256"] != task["prompt_sha256"]
+        ):
+            raise FairChoiceError("response task/prompt binding is malformed")
+        _received_response_payload(
+            {
+                "candidate_format": row["candidate_format"],
+                "expression": row["expression"],
+            }
+        )
+
+
+def responses_from_artifact(
+    artifact: Mapping[str, Any],
+    public_manifest: Mapping[str, Any],
+) -> dict[str, object]:
+    """Restore the strict scientific response view after JSON persistence."""
+
+    validate_response_artifact(artifact, public_manifest)
+    restored: dict[str, object] = {}
+    for row in artifact["tasks"]:
+        if row["candidate_format"] == "json_expression":
+            restored[row["task_id"]] = {"expression": row["expression"]}
+        else:
+            restored[row["task_id"]] = {
+                "candidate_format": row["candidate_format"],
+                "expression": row["expression"],
+            }
+    return restored
+
+
 def _response_expression(value: object) -> object:
     if isinstance(value, Mapping):
         return value.get("expression") if set(value) == {"expression"} else None
@@ -2356,6 +2566,15 @@ def score_model_responses(
         raise FairChoiceError("model_id must be non-empty")
     if not isinstance(responses, Mapping):
         raise FairChoiceError("responses must map opaque task ids to received values")
+    response_artifact_sha256: str | None = None
+    if responses.get("kind") == RESPONSE_ARTIFACT_KIND:
+        validate_response_artifact(responses, public_manifest)
+        if responses["route_id"] != model_id:
+            raise FairChoiceError("response artifact route differs from model_id")
+        response_artifact_sha256 = str(responses["response_artifact_sha256"])
+        responses = responses_from_artifact(responses, public_manifest)
+    elif model_id in CANONICAL_ROUTE_IDS:
+        raise FairChoiceError("canonical routes require a sealed response artifact")
     task_ids = {task["task_id"] for task in public_manifest["tasks"]}
     if set(responses) != task_ids:
         raise FairChoiceError("scoring requires exactly one received response per task")
@@ -2493,6 +2712,7 @@ def score_model_responses(
         "kind": OFFLINE_SCORE_KIND,
         "protocol_id": PROTOCOL_ID,
         "model_id": model_id,
+        "response_artifact_sha256": response_artifact_sha256,
         "public_manifest_sha256": public_manifest["public_manifest_sha256"],
         "private_key_sha256": private_key["private_key_sha256"],
         "current_source_manifest_sha256": public_manifest[
@@ -2544,6 +2764,7 @@ __all__ = [
     "PROTOCOL_ID",
     "PUBLIC_K1_POLICY_IDS",
     "RAW_ACTION_COUNT",
+    "RESPONSE_ARTIFACT_KIND",
     "SEALED_SCAN_FILE_SHA256",
     "SEALED_SCAN_PATH",
     "SEALED_SCAN_SHA256",
@@ -2551,8 +2772,11 @@ __all__ = [
     "action_order_for_pair",
     "build_baseline_report",
     "build_fair_choice_benchmark",
+    "build_response_artifact",
     "build_target_free_k1_profiles",
     "classify_joint_routes",
+    "collect_blind_route_response_artifact",
+    "dispatch_blind_public_task",
     "exact_one_sided_mcnemar",
     "fair_config_file_sha256",
     "holm_adjusted_route_decisions",
@@ -2563,9 +2787,11 @@ __all__ = [
     "poisson_binomial_critical_value",
     "poisson_binomial_tail",
     "render_fair_choice_prompt",
+    "responses_from_artifact",
     "score_model_responses",
     "select_matched_sham",
     "validate_private_key",
     "validate_public_manifest",
+    "validate_response_artifact",
     "validate_sealed_scan_result",
 ]

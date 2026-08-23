@@ -126,6 +126,7 @@ def _joint_score(route_id: str, *, identity_suffix: str = "shared") -> dict[str,
         "kind": benchmark.OFFLINE_SCORE_KIND,
         "protocol_id": benchmark.PROTOCOL_ID,
         "model_id": route_id,
+        "response_artifact_sha256": _digest(f"response-{route_id}"),
         "public_manifest_sha256": _digest(f"public-{identity_suffix}"),
         "private_key_sha256": _digest(f"private-{identity_suffix}"),
         "current_source_manifest_sha256": _digest(f"source-{identity_suffix}"),
@@ -241,6 +242,142 @@ class FairMaskingTests(unittest.TestCase):
             "endpoint_flags",
         ):
             self.assertNotIn(private_key, encoded)
+
+    def test_blind_dispatch_sends_only_the_verified_prompt_string(self) -> None:
+        anchor = _digest("blind-dispatch-pair")
+        prompt = benchmark.render_fair_choice_prompt(
+            _context(),
+            "(add x1 1)",
+            benchmark.action_order_for_pair(0),
+            benchmark.option_ids_for_pair(anchor),
+        )
+        tasks = [
+            benchmark._task_record(f"TASK-{index:014d}", prompt)
+            for index in range(64)
+        ]
+        manifest = benchmark._public_manifest(
+            tasks,
+            _digest("blind-design"),
+            _digest("blind-source"),
+            _digest("blind-config"),
+        )
+        calls: list[tuple[tuple[object, ...], dict[str, object]]] = []
+
+        def provider_spy(*args: object, **kwargs: object) -> str:
+            calls.append((args, kwargs))
+            return "provider-response"
+
+        result = benchmark.dispatch_blind_public_task(
+            manifest,
+            tasks[7]["task_id"],
+            provider_spy,
+        )
+
+        self.assertEqual(result, "provider-response")
+        self.assertEqual(calls, [((prompt,), {})])
+        self.assertNotIn(tasks[7]["task_id"], calls[0][0][0])
+
+    def test_blind_dispatch_rejects_unknown_local_task_without_calling_provider(self) -> None:
+        anchor = _digest("blind-dispatch-unknown")
+        prompt = benchmark.render_fair_choice_prompt(
+            _context(),
+            "(add x1 1)",
+            benchmark.action_order_for_pair(0),
+            benchmark.option_ids_for_pair(anchor),
+        )
+        tasks = [
+            benchmark._task_record(f"TASK-{index:014d}", prompt)
+            for index in range(64)
+        ]
+        manifest = benchmark._public_manifest(
+            tasks,
+            _digest("unknown-design"),
+            _digest("unknown-source"),
+            _digest("unknown-config"),
+        )
+        called = False
+
+        def provider_spy(prompt_text: str) -> None:
+            nonlocal called
+            called = True
+
+        with self.assertRaisesRegex(benchmark.FairChoiceError, "absent"):
+            benchmark.dispatch_blind_public_task(
+                manifest,
+                "TASK-NOT-IN-MANIFEST",
+                provider_spy,
+            )
+        self.assertFalse(called)
+
+    def test_blind_route_collection_calls_all_tasks_once_then_seals(self) -> None:
+        anchor = _digest("blind-route-complete")
+        prompt = benchmark.render_fair_choice_prompt(
+            _context(),
+            "(add x1 1)",
+            benchmark.action_order_for_pair(0),
+            benchmark.option_ids_for_pair(anchor),
+        )
+        tasks = [
+            benchmark._task_record(f"TASK-{index:014d}", prompt)
+            for index in range(64)
+        ]
+        manifest = benchmark._public_manifest(
+            tasks,
+            _digest("complete-design"),
+            _digest("complete-source"),
+            _digest("complete-config"),
+        )
+        received_prompts: list[str] = []
+
+        def provider_spy(prompt_text: str) -> dict[str, object]:
+            received_prompts.append(prompt_text)
+            return {"candidate_format": "invalid_json", "expression": None}
+
+        artifact = benchmark.collect_blind_route_response_artifact(
+            manifest,
+            route_id="deepseek-flash",
+            send_prompt=provider_spy,
+        )
+
+        self.assertEqual(received_prompts, [prompt] * 64)
+        self.assertEqual(artifact["task_count"], 64)
+        self.assertEqual(artifact["route_id"], "deepseek-flash")
+        self.assertEqual(artifact["transport_failure_count"], 0)
+
+    def test_blind_route_transport_failure_propagates_without_retry(self) -> None:
+        anchor = _digest("blind-route-failure")
+        prompt = benchmark.render_fair_choice_prompt(
+            _context(),
+            "(add x1 1)",
+            benchmark.action_order_for_pair(0),
+            benchmark.option_ids_for_pair(anchor),
+        )
+        tasks = [
+            benchmark._task_record(f"TASK-{index:014d}", prompt)
+            for index in range(64)
+        ]
+        manifest = benchmark._public_manifest(
+            tasks,
+            _digest("failure-design"),
+            _digest("failure-source"),
+            _digest("failure-config"),
+        )
+        attempt_count = 0
+
+        def failing_provider(prompt_text: str) -> dict[str, object]:
+            nonlocal attempt_count
+            attempt_count += 1
+            if attempt_count == 5:
+                raise TimeoutError("synthetic transport failure")
+            return {"candidate_format": "invalid_json", "expression": None}
+
+        with self.assertRaisesRegex(TimeoutError, "transport"):
+            benchmark.collect_blind_route_response_artifact(
+                manifest,
+                route_id="deepseek-flash",
+                send_prompt=failing_provider,
+            )
+        self.assertEqual(attempt_count, 5)
 
 
 class ShamSelectionTests(unittest.TestCase):

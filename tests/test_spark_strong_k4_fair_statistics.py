@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import unittest
 from fractions import Fraction
 from unittest import mock
@@ -85,6 +86,7 @@ def _route_score(
         "kind": "spark-strong-k4-fair-choice-offline-score",
         "protocol_id": "spark-strong-k4-fair-choice-v1",
         "model_id": route_id,
+        "response_artifact_sha256": (route_id.encode("utf-8").hex() + "0" * 64)[:64],
         "public_manifest_sha256": "a" * 64,
         "private_key_sha256": "b" * 64,
         "current_source_manifest_sha256": "c" * 64,
@@ -115,9 +117,10 @@ def _minimal_scoring_fixture() -> tuple[dict[str, object], dict[str, object]]:
     public_manifest: dict[str, object] = {
         "public_manifest_sha256": "a" * 64,
         "current_source_manifest_sha256": "c" * 64,
+        "fair_config_file_sha256": "d" * 64,
         "tasks": [
-            {"task_id": factual_task},
-            {"task_id": sham_task},
+            {"task_id": factual_task, "prompt_sha256": "1" * 64},
+            {"task_id": sham_task, "prompt_sha256": "2" * 64},
         ],
     }
     private_key: dict[str, object] = {
@@ -373,6 +376,150 @@ class HolmAndJointClassificationTests(unittest.TestCase):
 
 
 class StrictResponseContractTests(unittest.TestCase):
+    def test_response_artifact_survives_json_round_trip_with_prompt_binding(self) -> None:
+        public_manifest, _ = _minimal_scoring_fixture()
+        responses = {
+            "TASK-FACTUAL": {
+                "candidate_format": "json_expression",
+                "expression": "QVALID000",
+            },
+            "TASK-SHAM": {
+                "candidate_format": "invalid_json",
+                "expression": None,
+            },
+        }
+        with mock.patch.object(benchmark, "validate_public_manifest"):
+            artifact = benchmark.build_response_artifact(
+                public_manifest,
+                responses,
+                route_id="deepseek-flash",
+            )
+            reloaded = json.loads(json.dumps(artifact))
+            restored = benchmark.responses_from_artifact(
+                reloaded,
+                public_manifest,
+            )
+
+        self.assertEqual(restored["TASK-FACTUAL"], {"expression": "QVALID000"})
+        self.assertIsNone(benchmark._response_expression(restored["TASK-SHAM"]))
+        self.assertEqual(
+            reloaded["tasks"][0]["prompt_sha256"],
+            public_manifest["tasks"][0]["prompt_sha256"],
+        )
+
+    def test_complete_invalid_artifact_scores_but_missing_transport_does_not(self) -> None:
+        public_manifest, private_key = _minimal_scoring_fixture()
+        invalid = {
+            task["task_id"]: {
+                "candidate_format": "invalid_json",
+                "expression": None,
+            }
+            for task in public_manifest["tasks"]
+        }
+        with mock.patch.object(benchmark, "validate_public_manifest"):
+            artifact = benchmark.build_response_artifact(
+                public_manifest,
+                invalid,
+                route_id="deepseek-flash",
+            )
+            with mock.patch.object(benchmark, "validate_private_key"):
+                result = benchmark.score_model_responses(
+                    public_manifest,
+                    private_key,
+                    json.loads(json.dumps(artifact)),
+                    model_id="deepseek-flash",
+                )
+            missing = dict(invalid)
+            missing.pop("TASK-SHAM")
+            with self.assertRaisesRegex(benchmark.FairChoiceError, "transport"):
+                benchmark.build_response_artifact(
+                    public_manifest,
+                    missing,
+                    route_id="deepseek-flash",
+                )
+
+        self.assertEqual(result["invalid_response_count"], 2)
+        self.assertEqual(
+            result["response_artifact_sha256"],
+            artifact["response_artifact_sha256"],
+        )
+
+    def test_rehashed_prompt_binding_tamper_is_rejected(self) -> None:
+        public_manifest, _ = _minimal_scoring_fixture()
+        responses = {
+            task["task_id"]: {
+                "candidate_format": "invalid_json",
+                "expression": None,
+            }
+            for task in public_manifest["tasks"]
+        }
+        with mock.patch.object(benchmark, "validate_public_manifest"):
+            artifact = benchmark.build_response_artifact(
+                public_manifest,
+                responses,
+                route_id="deepseek-flash",
+            )
+            tampered = json.loads(json.dumps(artifact))
+            tampered["tasks"][0]["prompt_sha256"] = "9" * 64
+            unsigned = {
+                key: value
+                for key, value in tampered.items()
+                if key != "response_artifact_sha256"
+            }
+            tampered["response_artifact_sha256"] = benchmark._sha256_json(unsigned)
+            with self.assertRaisesRegex(benchmark.FairChoiceError, "prompt"):
+                benchmark.validate_response_artifact(tampered, public_manifest)
+
+    def test_route_relabel_and_transport_pseudoresponse_are_rejected(self) -> None:
+        public_manifest, private_key = _minimal_scoring_fixture()
+        responses = {
+            task["task_id"]: {
+                "candidate_format": "invalid_json",
+                "expression": None,
+            }
+            for task in public_manifest["tasks"]
+        }
+        with mock.patch.object(benchmark, "validate_public_manifest"):
+            artifact = benchmark.build_response_artifact(
+                public_manifest,
+                responses,
+                route_id="deepseek-flash",
+            )
+            with mock.patch.object(benchmark, "validate_private_key"):
+                with self.assertRaisesRegex(benchmark.FairChoiceError, "route"):
+                    benchmark.score_model_responses(
+                        public_manifest,
+                        private_key,
+                        artifact,
+                        model_id="deepseek-pro",
+                    )
+
+            responses["TASK-FACTUAL"] = {
+                "candidate_format": "transport_error",
+                "expression": None,
+            }
+            with self.assertRaisesRegex(benchmark.FairChoiceError, "closed set"):
+                benchmark.build_response_artifact(
+                    public_manifest,
+                    responses,
+                    route_id="deepseek-flash",
+                )
+
+    def test_canonical_route_cannot_score_an_unsealed_response_mapping(self) -> None:
+        public_manifest, private_key = _minimal_scoring_fixture()
+        responses = {
+            "TASK-FACTUAL": {"expression": "QVALID000"},
+            "TASK-SHAM": {"expression": "QVALID000"},
+        }
+        with mock.patch.object(benchmark, "validate_private_key"):
+            with self.assertRaisesRegex(benchmark.FairChoiceError, "sealed"):
+                benchmark.score_model_responses(
+                    public_manifest,
+                    private_key,
+                    responses,
+                    model_id="deepseek-flash",
+                )
+
     def test_extra_key_and_bare_option_id_are_received_invalid_misses(self) -> None:
         public_manifest, private_key = _minimal_scoring_fixture()
         responses = {
