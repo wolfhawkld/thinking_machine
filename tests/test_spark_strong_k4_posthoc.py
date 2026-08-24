@@ -418,6 +418,55 @@ class FairChoicePosthocTests(unittest.TestCase):
                         },
                     )
 
+    def test_paired_selected_K2_decomposition_and_partitions(self) -> None:
+        decomposition = self.artifact[
+            "paired_selected_endpoint_decomposition"
+        ]
+        self.assertEqual(
+            decomposition["interpretation"],
+            posthoc.PAIRED_SELECTION_INTERPRETATION,
+        )
+        expected = {
+            "deepseek-flash": {
+                "factual_only": (6, 5, 1),
+                "sham_only": (0, 0, 0),
+            },
+            "deepseek-pro": {
+                "factual_only": (5, 4, 1),
+                "sham_only": (2, 0, 2),
+            },
+            "glm-5.2": {
+                "factual_only": (6, 2, 4),
+                "sham_only": (2, 0, 2),
+            },
+        }
+        for route_id, cells in expected.items():
+            endpoint = decomposition["routes"][route_id]["K2"]
+            for name, (total, same, different) in cells.items():
+                self.assertEqual(endpoint[name]["count"], total)
+                self.assertEqual(
+                    endpoint[name]["same_raw_action"]["count"], same
+                )
+                self.assertEqual(
+                    endpoint[name]["different_raw_action"]["count"],
+                    different,
+                )
+        for route in decomposition["routes"].values():
+            for endpoint in route.values():
+                self.assertEqual(endpoint["invalid"]["count"], 0)
+                self.assertEqual(
+                    sum(
+                        endpoint[name]["count"]
+                        for name in (
+                            "both_hit",
+                            "factual_only",
+                            "sham_only",
+                            "neither",
+                        )
+                    ),
+                    32,
+                )
+
     def test_all_five_external_file_hashes_are_exact_allowlists(self) -> None:
         hash_fields = (
             "expected_plan_file_sha256",

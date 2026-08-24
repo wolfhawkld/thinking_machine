@@ -36,6 +36,10 @@ INTERPRETATION_LIMIT = (
     "attribution, natural opportunity prevalence, model ranking, an entropy-causal "
     "claim, or discovery of human-unknown knowledge."
 )
+PAIRED_SELECTION_INTERPRETATION = (
+    "same_raw_action means only that the selected semantic frame did not change "
+    "between the factual and sham prompts; it does not establish identical reasoning."
+)
 
 _FORMAL_JOINT_LABELS = {
     "all_routes_effect_observed",
@@ -692,6 +696,62 @@ def _opportunity_landscape(
     }
 
 
+def _paired_selected_endpoint_decomposition(
+    selections: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> dict[str, Any]:
+    routes: dict[str, Any] = {}
+    for route_id in ROUTES:
+        endpoint_rows: dict[str, Any] = {}
+        for endpoint in ENDPOINTS:
+            cells = {
+                name: {"same_raw_action": [], "different_raw_action": []}
+                for name in ("both_hit", "factual_only", "sham_only", "neither")
+            }
+            invalid: list[int] = []
+            for pair in selections[route_id]:
+                factual = pair["arms"]["factual"]
+                sham = pair["arms"]["sham"]
+                ordinal = pair["pair_ordinal"]
+                if not factual["valid"] or not sham["valid"]:
+                    invalid.append(ordinal)
+                    continue
+                factual_hit = bool(factual["action"]["endpoint_flags"][endpoint])
+                sham_hit = bool(sham["action"]["endpoint_flags"][endpoint])
+                if factual_hit and sham_hit:
+                    cell = "both_hit"
+                elif factual_hit:
+                    cell = "factual_only"
+                elif sham_hit:
+                    cell = "sham_only"
+                else:
+                    cell = "neither"
+                raw_relation = (
+                    "same_raw_action"
+                    if factual["raw_action_index"] == sham["raw_action_index"]
+                    else "different_raw_action"
+                )
+                cells[cell][raw_relation].append(ordinal)
+            endpoint_rows[endpoint] = {
+                name: {
+                    "count": sum(len(rows) for rows in split.values()),
+                    **{
+                        relation: {
+                            "count": len(ordinals),
+                            "pair_ordinals": ordinals,
+                        }
+                        for relation, ordinals in split.items()
+                    },
+                }
+                for name, split in cells.items()
+            }
+            endpoint_rows[endpoint]["invalid"] = {
+                "count": len(invalid),
+                "pair_ordinals": invalid,
+            }
+        routes[route_id] = endpoint_rows
+    return {"interpretation": PAIRED_SELECTION_INTERPRETATION, "routes": routes}
+
+
 def build_fair_choice_posthoc_diagnostic(
     *,
     plan_path: str | Path,
@@ -809,6 +869,9 @@ def build_fair_choice_posthoc_diagnostic(
         private_key, selections
     )
     opportunity_landscape = _opportunity_landscape(private_key, selections)
+    paired_selected_endpoint_decomposition = (
+        _paired_selected_endpoint_decomposition(selections)
+    )
     diagnostic_source_sha256 = source_manifest(PROJECT_ROOT)[
         "source_manifest_sha256"
     ]
@@ -857,6 +920,9 @@ def build_fair_choice_posthoc_diagnostic(
         "baseline_overlaps": baseline_overlaps,
         "strong_hit_concentration": strong_hit_concentration,
         "opportunity_landscape": opportunity_landscape,
+        "paired_selected_endpoint_decomposition": (
+            paired_selected_endpoint_decomposition
+        ),
     }
     artifact = {
         **unsigned,
@@ -1111,6 +1177,62 @@ def _validate_opportunity_landscape(value: object) -> None:
                 raise FairChoicePosthocError(
                     "selected-opportunity partition drifted"
                 )
+
+
+def _validate_paired_selected_endpoint_decomposition(value: object) -> None:
+    routes = value.get("routes") if isinstance(value, Mapping) else None
+    if (
+        value.get("interpretation") != PAIRED_SELECTION_INTERPRETATION
+        or not isinstance(routes, Mapping)
+        or set(routes) != set(ROUTES)
+    ):
+        raise FairChoicePosthocError("paired endpoint decomposition is incomplete")
+    cell_names = {"both_hit", "factual_only", "sham_only", "neither"}
+    for route in routes.values():
+        if not isinstance(route, Mapping) or set(route) != set(ENDPOINTS):
+            raise FairChoicePosthocError("paired endpoint routes are incomplete")
+        for endpoint in route.values():
+            if not isinstance(endpoint, Mapping) or set(endpoint) != {
+                *cell_names,
+                "invalid",
+            }:
+                raise FairChoicePosthocError("paired endpoint cells are incomplete")
+            covered: set[int] = set()
+            for name in cell_names:
+                cell = endpoint[name]
+                split_ordinals: set[int] = set()
+                for relation in ("same_raw_action", "different_raw_action"):
+                    payload = cell.get(relation, {})
+                    ordinals = payload.get("pair_ordinals", [])
+                    if (
+                        not _valid_ordinals(ordinals)
+                        or payload.get("count") != len(ordinals)
+                        or split_ordinals.intersection(ordinals)
+                    ):
+                        raise FairChoicePosthocError(
+                            "paired endpoint raw-action split drifted"
+                        )
+                    split_ordinals.update(ordinals)
+                if cell.get("count") != len(split_ordinals) or covered.intersection(
+                    split_ordinals
+                ):
+                    raise FairChoicePosthocError("paired endpoint cell drifted")
+                covered.update(split_ordinals)
+            invalid = endpoint["invalid"]
+            invalid_ordinals = invalid.get("pair_ordinals", [])
+            if (
+                not _valid_ordinals(invalid_ordinals)
+                or invalid.get("count") != len(invalid_ordinals)
+                or covered.intersection(invalid_ordinals)
+            ):
+                raise FairChoicePosthocError("paired endpoint invalid cell drifted")
+            covered.update(invalid_ordinals)
+            if covered != _PAIR_ORDINALS:
+                raise FairChoicePosthocError(
+                    "paired endpoint cells do not partition all pairs"
+                )
+
+
 def validate_fair_choice_posthoc_diagnostic(artifact: Mapping[str, Any]) -> None:
     """Validate the closed descriptive artifact schema and self-digest."""
 
@@ -1136,6 +1258,7 @@ def validate_fair_choice_posthoc_diagnostic(artifact: Mapping[str, Any]) -> None
         "baseline_overlaps",
         "strong_hit_concentration",
         "opportunity_landscape",
+        "paired_selected_endpoint_decomposition",
         "posthoc_diagnostic_sha256",
     }
     if not isinstance(artifact, Mapping) or set(artifact) != expected_fields:
@@ -1221,6 +1344,9 @@ def validate_fair_choice_posthoc_diagnostic(artifact: Mapping[str, Any]) -> None
     baselines = artifact.get("baseline_overlaps")
     concentration = artifact.get("strong_hit_concentration")
     opportunities = artifact.get("opportunity_landscape")
+    paired_decomposition = artifact.get(
+        "paired_selected_endpoint_decomposition"
+    )
     if (
         not isinstance(preferences, Mapping)
         or set(preferences.get("routes", {})) != set(ROUTES)
@@ -1240,6 +1366,8 @@ def validate_fair_choice_posthoc_diagnostic(artifact: Mapping[str, Any]) -> None
         != set(ENDPOINTS)
         or set(opportunities.get("route_selected_opportunity_overlay", {}))
         != set(ROUTES)
+        or not isinstance(paired_decomposition, Mapping)
+        or set(paired_decomposition.get("routes", {})) != set(ROUTES)
     ):
         raise FairChoicePosthocError("post-hoc diagnostic sections are malformed")
     for route_id in ROUTES:
@@ -1255,6 +1383,7 @@ def validate_fair_choice_posthoc_diagnostic(artifact: Mapping[str, Any]) -> None
     _validate_baseline_overlaps(baselines)
     _validate_strong_hit_concentration(concentration)
     _validate_opportunity_landscape(opportunities)
+    _validate_paired_selected_endpoint_decomposition(paired_decomposition)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -1319,6 +1448,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 __all__ = [
     "FairChoicePosthocError",
     "INTERPRETATION_LIMIT",
+    "PAIRED_SELECTION_INTERPRETATION",
     "POSTHOC_KIND",
     "POSTHOC_STATUS",
     "build_fair_choice_posthoc_diagnostic",
