@@ -622,6 +622,10 @@ class FailureTests(unittest.TestCase):
                 "extra_fields",
             ),
             (
+                '{"expression":"first","expression":"second"}',
+                "extra_fields",
+            ),
+            (
                 json.dumps({"expression": [SECRET]}),
                 "non_string_expression",
             ),

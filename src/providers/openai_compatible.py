@@ -452,6 +452,19 @@ def _response_string(container: Mapping[str, Any], field: str, path: str) -> str
     return value
 
 
+class _DuplicateJSONKey(ValueError):
+    """Internal marker for an object that repeats a JSON member name."""
+
+
+def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise _DuplicateJSONKey
+        result[key] = value
+    return result
+
+
 def _classify_candidate_content(content: Any) -> tuple[str, str]:
     """Return a safe expression/sentinel and a closed format classification.
 
@@ -467,7 +480,9 @@ def _classify_candidate_content(content: Any) -> tuple[str, str]:
     if not content.strip():
         return _INVALID_CANDIDATE_SENTINEL, "empty_content"
     try:
-        candidate = json.loads(content)
+        candidate = json.loads(content, object_pairs_hook=_unique_json_object)
+    except _DuplicateJSONKey:
+        return _INVALID_CANDIDATE_SENTINEL, "extra_fields"
     except json.JSONDecodeError:
         return _INVALID_CANDIDATE_SENTINEL, "invalid_json"
     if not isinstance(candidate, Mapping):

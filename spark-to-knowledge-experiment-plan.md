@@ -1010,3 +1010,15 @@ exact one-sided McNemar/sign tail固定为`sum_{k=b}^{b+c} choose(b+c,k)/2^(b+c)
 若至少一条route通过，最窄结论是：在这个预先富集、可精确评分的有限DSL子集中，给定factual context比公开结构匹配的blind sham更可能引导该模型产生有用child，并且模型选择的强K4 action不能由已冻结的target-blind structural baseline family充分解释。这是一个可追踪spark lineage和prompt-level matched-context的存在性/机制信号；跨家族通过才增加有限的model robustness。
 
 它仍不证明高entropy一般提高spark概率，不证明该context是现实世界未知信息，不证明模型创造了训练外发明，也不估计自然world中的发现率。第22节cohort按factual K4机会事后富集，因此本benchmark只能估计`P(model选择强action | factual机会已存在)`及matched pair差异，不能与旧32-world自然grid的命中率直接比较。若不通过，只能说这三条route和当前64-call paired design未越过预注册paired-context与shortcut门槛，不能外推为spark机制普遍不存在。
+
+## 24. 正式执行闭环预注册实现（live calls前，2026-08-24）
+
+新target-free opaque-choice canary只使用已退役seed `1000`构造一个world，在四个motif strata各生成一个prompt；每条route固定4 calls，三条route共12 calls。它只校验严格JSON opaque choice解析和当前route contract，不计算knowledge endpoint，也不进入科学证据。旧action canary仅作为provenance，不能授权本轮choice接口。有效provider响应若内容无效，canary仍视为completed但标记failed，保留该次完成记录且不重试；transport或outer-envelope失败则立即中止，不生成完整artifact。
+
+后续formal plan将绑定canary plan与artifact的exact file SHA，并要求三份canary均为passed；该SHA约束只用于明确本次科研执行的可复现版本身份，不构成面向人为篡改的安全或对抗体系。正式层还将绑定byte-sealed fair-choice config、public manifest、private key、current source manifest、64-task bijection及三份passed canary。live runner只能按public manifest读取冻结的prompt bytes，不能读取private key或接受任何private scoring信息。
+
+64个public tasks的跨route schedule按确定且output-independent的六种排列`ABC, ACB, BAC, BCA, CAB, CBA`执行，其multiplicities依次为`10, 11, 11, 11, 11, 10`。任意两条route的先后次数严格为`32/32`；三个位置上的计数分别为`A=21/22/21`、`B=22/20/22`、`C=21/22/21`。这是64不能被3整除、同时要求pairwise顺序严格平衡时的最接近位置平衡折中；执行顺序在结果产生前冻结，不能根据输出调整。
+
+三条route各执行64 calls，共192 calls。只有三份generation全部完整封存后才能加载private key并运行分析；执行前后均检查source与config未漂移。正式运行不重试、不补调用、不partial resume，任一route不完整都使整个joint attempt为`non_evaluable_incomplete_attempt`。
+
+截至本节写入时，新的canary plan/artifact、formal plan及science generation/analysis artifacts均尚未生成，live calls计数为0。只有相关代码、tests与本节共同commit后才允许生成这些文件，以避免formal source manifest在执行前漂移。
