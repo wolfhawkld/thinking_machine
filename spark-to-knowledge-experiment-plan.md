@@ -1022,3 +1022,11 @@ exact one-sided McNemar/sign tail固定为`sum_{k=b}^{b+c} choose(b+c,k)/2^(b+c)
 三条route各执行64 calls，共192 calls。只有三份generation全部完整封存后才能加载private key并运行分析；执行前后均检查source与config未漂移。正式运行不重试、不补调用、不partial resume，任一route不完整都使整个joint attempt为`non_evaluable_incomplete_attempt`。
 
 截至本节写入时，新的canary plan/artifact、formal plan及science generation/analysis artifacts均尚未生成，live calls计数为0。只有相关代码、tests与本节共同commit后才允许生成这些文件，以避免formal source manifest在执行前漂移。
+
+## 25. 正式结果与post-outcome解释性诊断（2026-08-25）
+
+第24节预注册闭环已完整执行：三条route各64 calls，共192 calls；没有transport failure、retry、invalid response或route-contract漂移。冻结联合分类为`effect_not_observed_under_frozen_protocol`。Flash、Pro、GLM的paired K2 factual/sham命中分别为`10/4`、`7/4`、`9/5`，其中Flash的原始paired `p=1/64`；但factual strong-K4命中仅为`7/4/7`，三路均未达到uniform临界值10，也未胜过预先冻结的`B*=19/32`，所以三路均保持`strong_hits_shortcut_compatible`。这表示现有强命中不能排除结构政策解释，不表示已证明模型实际使用了shortcut；Flash的component-level K2信号也不能越过预注册闭集门升级为positive。
+
+下一步只进行一次明确标记为post-hoc、`evidence=false`的纯离线诊断，不增加provider调用，也不修改formal analyzer、alpha、Holm family、baseline、gate或任何正式artifact。诊断固定描述四组现象：各route在raw semantic action与display position上的选择偏好；与全部24个冻结结构政策的选择及factual-K4命中重合；factual strong hits在constant/nonconstant child、behavior、stratum和action frame上的集中；以及factual/sham两臂在K1--K4上的完整机会landscape与“有机会但未选中”分解。该诊断不得产生新的显著性结论、筛选新的最佳baseline或改写正式classification，只用于设计fresh-world后续实验。
+
+新增诊断源码会自然改变current source manifest，因此旧formal analysis仍只在其冻结source版本下有效，既有live/analysis barrier不作放宽。post-hoc工具只允许读取已提交的exact formal plan、public/private、generation bundle和analysis文件，另绑定新的diagnostic source manifest；诊断产物独立落盘，不能覆盖或命名为新版formal analysis。
