@@ -1,0 +1,1563 @@
+{
+  "analysis_barrier": {
+    "all_three_complete_route_artifacts_required": true,
+    "generation_may_read_private_key": false,
+    "holm_family_is_all_three_canonical_routes": true,
+    "invalid_completed_content_is_miss_without_retry": true,
+    "private_key_read_only_after_complete_bundle_validation": true,
+    "transport_failure_makes_attempt_incomplete": true
+  },
+  "benchmark_binding": {
+    "pair_count": 32,
+    "private_design_commitment_sha256": "ef8ad7d835b1d2bbfa486d014ff4130709ce15556c5ea2228e3ff1680b16b49d",
+    "public_private_task_bijection_sha256": "4f6136a4a588000b1966913cda50f5b39f2978f9ce5a0de8b4b9b793d7a2748c",
+    "public_task_sequence_sha256": "26076ad4b44c9fbbfe18b7ee85b38b59e7488b9871d669f5dbd28972613bd496",
+    "task_count": 64
+  },
+  "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+  "evidence_scope": "outcome_conditioned_finite_dsl_prompt_level_matched_sham_mechanism_test",
+  "execution": {
+    "balance_audit": {
+      "maximum_route_position_count_spread": 2,
+      "pairwise_order_counts": {
+        "deepseek-flash_before_deepseek-pro": 32,
+        "deepseek-flash_before_glm-5.2": 32,
+        "deepseek-pro_before_deepseek-flash": 32,
+        "deepseek-pro_before_glm-5.2": 32,
+        "glm-5.2_before_deepseek-flash": 32,
+        "glm-5.2_before_deepseek-pro": 32
+      },
+      "pairwise_orders_are_exactly_balanced_32_32": true,
+      "permutation_counts": {
+        "deepseek-flash>deepseek-pro>glm-5.2": 10,
+        "deepseek-flash>glm-5.2>deepseek-pro": 11,
+        "deepseek-pro>deepseek-flash>glm-5.2": 11,
+        "deepseek-pro>glm-5.2>deepseek-flash": 11,
+        "glm-5.2>deepseek-flash>deepseek-pro": 11,
+        "glm-5.2>deepseek-pro>deepseek-flash": 10
+      },
+      "route_position_counts": {
+        "deepseek-flash": [
+          21,
+          22,
+          21
+        ],
+        "deepseek-pro": [
+          22,
+          20,
+          22
+        ],
+        "glm-5.2": [
+          21,
+          22,
+          21
+        ]
+      },
+      "tradeoff": "exact pairwise 32/32; route-position counts have the minimum frozen spread accepted for this schedule (maximum two)"
+    },
+    "logical_calls_per_route": 64,
+    "max_output_tokens": 256,
+    "physical_attempts_per_task_route": 1,
+    "provider_message": "rendered_prompt_only",
+    "request_model_aliases": {
+      "deepseek-flash": "deepseek-v4-flash",
+      "deepseek-pro": "deepseek-v4-pro",
+      "glm-5.2": "glm-5.2"
+    },
+    "retry_or_resume": false,
+    "route_ids": [
+      "deepseek-flash",
+      "deepseek-pro",
+      "glm-5.2"
+    ],
+    "route_permutation_multiplicities": [
+      10,
+      11,
+      11,
+      11,
+      11,
+      10
+    ],
+    "schedule": [
+      {
+        "call_index": 0,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-USGGW67EZVCUDL",
+        "task_ordinal": 0
+      },
+      {
+        "call_index": 1,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-USGGW67EZVCUDL",
+        "task_ordinal": 0
+      },
+      {
+        "call_index": 2,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-USGGW67EZVCUDL",
+        "task_ordinal": 0
+      },
+      {
+        "call_index": 3,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-5ZD3I3VTUHAYJZ",
+        "task_ordinal": 1
+      },
+      {
+        "call_index": 4,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-5ZD3I3VTUHAYJZ",
+        "task_ordinal": 1
+      },
+      {
+        "call_index": 5,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-5ZD3I3VTUHAYJZ",
+        "task_ordinal": 1
+      },
+      {
+        "call_index": 6,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-TKGXSUO4FRMYOJ",
+        "task_ordinal": 2
+      },
+      {
+        "call_index": 7,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-TKGXSUO4FRMYOJ",
+        "task_ordinal": 2
+      },
+      {
+        "call_index": 8,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-TKGXSUO4FRMYOJ",
+        "task_ordinal": 2
+      },
+      {
+        "call_index": 9,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-CX5BVWM7RJAIEP",
+        "task_ordinal": 3
+      },
+      {
+        "call_index": 10,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-CX5BVWM7RJAIEP",
+        "task_ordinal": 3
+      },
+      {
+        "call_index": 11,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-CX5BVWM7RJAIEP",
+        "task_ordinal": 3
+      },
+      {
+        "call_index": 12,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-D5SCKLBY7Z6NEJ",
+        "task_ordinal": 4
+      },
+      {
+        "call_index": 13,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-D5SCKLBY7Z6NEJ",
+        "task_ordinal": 4
+      },
+      {
+        "call_index": 14,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-D5SCKLBY7Z6NEJ",
+        "task_ordinal": 4
+      },
+      {
+        "call_index": 15,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-7T34C5LG2Z2IPR",
+        "task_ordinal": 5
+      },
+      {
+        "call_index": 16,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-7T34C5LG2Z2IPR",
+        "task_ordinal": 5
+      },
+      {
+        "call_index": 17,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-7T34C5LG2Z2IPR",
+        "task_ordinal": 5
+      },
+      {
+        "call_index": 18,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-52WLN2BZI7FN32",
+        "task_ordinal": 6
+      },
+      {
+        "call_index": 19,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-52WLN2BZI7FN32",
+        "task_ordinal": 6
+      },
+      {
+        "call_index": 20,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-52WLN2BZI7FN32",
+        "task_ordinal": 6
+      },
+      {
+        "call_index": 21,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-VAVMA7GK5YMB2Y",
+        "task_ordinal": 7
+      },
+      {
+        "call_index": 22,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-VAVMA7GK5YMB2Y",
+        "task_ordinal": 7
+      },
+      {
+        "call_index": 23,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-VAVMA7GK5YMB2Y",
+        "task_ordinal": 7
+      },
+      {
+        "call_index": 24,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-OVHTHI2HP2ZRIU",
+        "task_ordinal": 8
+      },
+      {
+        "call_index": 25,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-OVHTHI2HP2ZRIU",
+        "task_ordinal": 8
+      },
+      {
+        "call_index": 26,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-OVHTHI2HP2ZRIU",
+        "task_ordinal": 8
+      },
+      {
+        "call_index": 27,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-3G44TGCQWTJYOP",
+        "task_ordinal": 9
+      },
+      {
+        "call_index": 28,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-3G44TGCQWTJYOP",
+        "task_ordinal": 9
+      },
+      {
+        "call_index": 29,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-3G44TGCQWTJYOP",
+        "task_ordinal": 9
+      },
+      {
+        "call_index": 30,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-W5T4TSGDJ67MDT",
+        "task_ordinal": 10
+      },
+      {
+        "call_index": 31,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-W5T4TSGDJ67MDT",
+        "task_ordinal": 10
+      },
+      {
+        "call_index": 32,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-W5T4TSGDJ67MDT",
+        "task_ordinal": 10
+      },
+      {
+        "call_index": 33,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-4GR2UGOFCCRDFT",
+        "task_ordinal": 11
+      },
+      {
+        "call_index": 34,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-4GR2UGOFCCRDFT",
+        "task_ordinal": 11
+      },
+      {
+        "call_index": 35,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-4GR2UGOFCCRDFT",
+        "task_ordinal": 11
+      },
+      {
+        "call_index": 36,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-UF5U7FLCNQFAXB",
+        "task_ordinal": 12
+      },
+      {
+        "call_index": 37,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-UF5U7FLCNQFAXB",
+        "task_ordinal": 12
+      },
+      {
+        "call_index": 38,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-UF5U7FLCNQFAXB",
+        "task_ordinal": 12
+      },
+      {
+        "call_index": 39,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-3LMNTQK376VOF7",
+        "task_ordinal": 13
+      },
+      {
+        "call_index": 40,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-3LMNTQK376VOF7",
+        "task_ordinal": 13
+      },
+      {
+        "call_index": 41,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-3LMNTQK376VOF7",
+        "task_ordinal": 13
+      },
+      {
+        "call_index": 42,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-RUHXD63FEO6D4N",
+        "task_ordinal": 14
+      },
+      {
+        "call_index": 43,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-RUHXD63FEO6D4N",
+        "task_ordinal": 14
+      },
+      {
+        "call_index": 44,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-RUHXD63FEO6D4N",
+        "task_ordinal": 14
+      },
+      {
+        "call_index": 45,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-KMHOPLUYSAM7HZ",
+        "task_ordinal": 15
+      },
+      {
+        "call_index": 46,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-KMHOPLUYSAM7HZ",
+        "task_ordinal": 15
+      },
+      {
+        "call_index": 47,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-KMHOPLUYSAM7HZ",
+        "task_ordinal": 15
+      },
+      {
+        "call_index": 48,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-APDAAJKEC3XZWH",
+        "task_ordinal": 16
+      },
+      {
+        "call_index": 49,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-APDAAJKEC3XZWH",
+        "task_ordinal": 16
+      },
+      {
+        "call_index": 50,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-APDAAJKEC3XZWH",
+        "task_ordinal": 16
+      },
+      {
+        "call_index": 51,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-5H35QBUALKPL26",
+        "task_ordinal": 17
+      },
+      {
+        "call_index": 52,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-5H35QBUALKPL26",
+        "task_ordinal": 17
+      },
+      {
+        "call_index": 53,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-5H35QBUALKPL26",
+        "task_ordinal": 17
+      },
+      {
+        "call_index": 54,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-Q5E2X6KZSCAFVZ",
+        "task_ordinal": 18
+      },
+      {
+        "call_index": 55,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-Q5E2X6KZSCAFVZ",
+        "task_ordinal": 18
+      },
+      {
+        "call_index": 56,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-Q5E2X6KZSCAFVZ",
+        "task_ordinal": 18
+      },
+      {
+        "call_index": 57,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-NHAKRN3GIK5P4U",
+        "task_ordinal": 19
+      },
+      {
+        "call_index": 58,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-NHAKRN3GIK5P4U",
+        "task_ordinal": 19
+      },
+      {
+        "call_index": 59,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-NHAKRN3GIK5P4U",
+        "task_ordinal": 19
+      },
+      {
+        "call_index": 60,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-4RBPGKSVF4TMP4",
+        "task_ordinal": 20
+      },
+      {
+        "call_index": 61,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-4RBPGKSVF4TMP4",
+        "task_ordinal": 20
+      },
+      {
+        "call_index": 62,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-4RBPGKSVF4TMP4",
+        "task_ordinal": 20
+      },
+      {
+        "call_index": 63,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-CRPSOJVWNQYA6N",
+        "task_ordinal": 21
+      },
+      {
+        "call_index": 64,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-CRPSOJVWNQYA6N",
+        "task_ordinal": 21
+      },
+      {
+        "call_index": 65,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-CRPSOJVWNQYA6N",
+        "task_ordinal": 21
+      },
+      {
+        "call_index": 66,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-XQHMO4AVKHSY6R",
+        "task_ordinal": 22
+      },
+      {
+        "call_index": 67,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-XQHMO4AVKHSY6R",
+        "task_ordinal": 22
+      },
+      {
+        "call_index": 68,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-XQHMO4AVKHSY6R",
+        "task_ordinal": 22
+      },
+      {
+        "call_index": 69,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-64O64XIR7XPZZW",
+        "task_ordinal": 23
+      },
+      {
+        "call_index": 70,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-64O64XIR7XPZZW",
+        "task_ordinal": 23
+      },
+      {
+        "call_index": 71,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-64O64XIR7XPZZW",
+        "task_ordinal": 23
+      },
+      {
+        "call_index": 72,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-ZIV5HFS5PYI72B",
+        "task_ordinal": 24
+      },
+      {
+        "call_index": 73,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-ZIV5HFS5PYI72B",
+        "task_ordinal": 24
+      },
+      {
+        "call_index": 74,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-ZIV5HFS5PYI72B",
+        "task_ordinal": 24
+      },
+      {
+        "call_index": 75,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-LI7SOAH7PRLPAA",
+        "task_ordinal": 25
+      },
+      {
+        "call_index": 76,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-LI7SOAH7PRLPAA",
+        "task_ordinal": 25
+      },
+      {
+        "call_index": 77,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-LI7SOAH7PRLPAA",
+        "task_ordinal": 25
+      },
+      {
+        "call_index": 78,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-AU5HQ2MK3F3NJR",
+        "task_ordinal": 26
+      },
+      {
+        "call_index": 79,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-AU5HQ2MK3F3NJR",
+        "task_ordinal": 26
+      },
+      {
+        "call_index": 80,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-AU5HQ2MK3F3NJR",
+        "task_ordinal": 26
+      },
+      {
+        "call_index": 81,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-UBE4HZZGNKA4OJ",
+        "task_ordinal": 27
+      },
+      {
+        "call_index": 82,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-UBE4HZZGNKA4OJ",
+        "task_ordinal": 27
+      },
+      {
+        "call_index": 83,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-UBE4HZZGNKA4OJ",
+        "task_ordinal": 27
+      },
+      {
+        "call_index": 84,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-PDIKVZ4GCARQ3R",
+        "task_ordinal": 28
+      },
+      {
+        "call_index": 85,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-PDIKVZ4GCARQ3R",
+        "task_ordinal": 28
+      },
+      {
+        "call_index": 86,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-PDIKVZ4GCARQ3R",
+        "task_ordinal": 28
+      },
+      {
+        "call_index": 87,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-R2PERMKTTCHDZ5",
+        "task_ordinal": 29
+      },
+      {
+        "call_index": 88,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-R2PERMKTTCHDZ5",
+        "task_ordinal": 29
+      },
+      {
+        "call_index": 89,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-R2PERMKTTCHDZ5",
+        "task_ordinal": 29
+      },
+      {
+        "call_index": 90,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-XL73SMVH2PWTXC",
+        "task_ordinal": 30
+      },
+      {
+        "call_index": 91,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-XL73SMVH2PWTXC",
+        "task_ordinal": 30
+      },
+      {
+        "call_index": 92,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-XL73SMVH2PWTXC",
+        "task_ordinal": 30
+      },
+      {
+        "call_index": 93,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-RRM7GFMD3MN3YL",
+        "task_ordinal": 31
+      },
+      {
+        "call_index": 94,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-RRM7GFMD3MN3YL",
+        "task_ordinal": 31
+      },
+      {
+        "call_index": 95,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-RRM7GFMD3MN3YL",
+        "task_ordinal": 31
+      },
+      {
+        "call_index": 96,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-XEJQZKRRNEJ2FN",
+        "task_ordinal": 32
+      },
+      {
+        "call_index": 97,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-XEJQZKRRNEJ2FN",
+        "task_ordinal": 32
+      },
+      {
+        "call_index": 98,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-XEJQZKRRNEJ2FN",
+        "task_ordinal": 32
+      },
+      {
+        "call_index": 99,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-6RB7ZH36BSV3XM",
+        "task_ordinal": 33
+      },
+      {
+        "call_index": 100,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-6RB7ZH36BSV3XM",
+        "task_ordinal": 33
+      },
+      {
+        "call_index": 101,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-6RB7ZH36BSV3XM",
+        "task_ordinal": 33
+      },
+      {
+        "call_index": 102,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-QV4WMYH5SHZIS6",
+        "task_ordinal": 34
+      },
+      {
+        "call_index": 103,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-QV4WMYH5SHZIS6",
+        "task_ordinal": 34
+      },
+      {
+        "call_index": 104,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-QV4WMYH5SHZIS6",
+        "task_ordinal": 34
+      },
+      {
+        "call_index": 105,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-UJ6DAVLDLJNEVV",
+        "task_ordinal": 35
+      },
+      {
+        "call_index": 106,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-UJ6DAVLDLJNEVV",
+        "task_ordinal": 35
+      },
+      {
+        "call_index": 107,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-UJ6DAVLDLJNEVV",
+        "task_ordinal": 35
+      },
+      {
+        "call_index": 108,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-SHAJ5UPZYFEH2L",
+        "task_ordinal": 36
+      },
+      {
+        "call_index": 109,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-SHAJ5UPZYFEH2L",
+        "task_ordinal": 36
+      },
+      {
+        "call_index": 110,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-SHAJ5UPZYFEH2L",
+        "task_ordinal": 36
+      },
+      {
+        "call_index": 111,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-7G5RS5J3333R4R",
+        "task_ordinal": 37
+      },
+      {
+        "call_index": 112,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-7G5RS5J3333R4R",
+        "task_ordinal": 37
+      },
+      {
+        "call_index": 113,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-7G5RS5J3333R4R",
+        "task_ordinal": 37
+      },
+      {
+        "call_index": 114,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-C4IL6DYWDOM4KA",
+        "task_ordinal": 38
+      },
+      {
+        "call_index": 115,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-C4IL6DYWDOM4KA",
+        "task_ordinal": 38
+      },
+      {
+        "call_index": 116,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-C4IL6DYWDOM4KA",
+        "task_ordinal": 38
+      },
+      {
+        "call_index": 117,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-E5WJO52HD3DXIM",
+        "task_ordinal": 39
+      },
+      {
+        "call_index": 118,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-E5WJO52HD3DXIM",
+        "task_ordinal": 39
+      },
+      {
+        "call_index": 119,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-E5WJO52HD3DXIM",
+        "task_ordinal": 39
+      },
+      {
+        "call_index": 120,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-3HJ3ZG2QSQUKBM",
+        "task_ordinal": 40
+      },
+      {
+        "call_index": 121,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-3HJ3ZG2QSQUKBM",
+        "task_ordinal": 40
+      },
+      {
+        "call_index": 122,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-3HJ3ZG2QSQUKBM",
+        "task_ordinal": 40
+      },
+      {
+        "call_index": 123,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-Z76DYYOML4OAL4",
+        "task_ordinal": 41
+      },
+      {
+        "call_index": 124,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-Z76DYYOML4OAL4",
+        "task_ordinal": 41
+      },
+      {
+        "call_index": 125,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-Z76DYYOML4OAL4",
+        "task_ordinal": 41
+      },
+      {
+        "call_index": 126,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-PWF2BZYG6HO3LU",
+        "task_ordinal": 42
+      },
+      {
+        "call_index": 127,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-PWF2BZYG6HO3LU",
+        "task_ordinal": 42
+      },
+      {
+        "call_index": 128,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-PWF2BZYG6HO3LU",
+        "task_ordinal": 42
+      },
+      {
+        "call_index": 129,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-LP7XAYZJ74JHJJ",
+        "task_ordinal": 43
+      },
+      {
+        "call_index": 130,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-LP7XAYZJ74JHJJ",
+        "task_ordinal": 43
+      },
+      {
+        "call_index": 131,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-LP7XAYZJ74JHJJ",
+        "task_ordinal": 43
+      },
+      {
+        "call_index": 132,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-TEGAPJ6ZPRBXK6",
+        "task_ordinal": 44
+      },
+      {
+        "call_index": 133,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-TEGAPJ6ZPRBXK6",
+        "task_ordinal": 44
+      },
+      {
+        "call_index": 134,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-TEGAPJ6ZPRBXK6",
+        "task_ordinal": 44
+      },
+      {
+        "call_index": 135,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-QBDMSJ4G257VLF",
+        "task_ordinal": 45
+      },
+      {
+        "call_index": 136,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-QBDMSJ4G257VLF",
+        "task_ordinal": 45
+      },
+      {
+        "call_index": 137,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-QBDMSJ4G257VLF",
+        "task_ordinal": 45
+      },
+      {
+        "call_index": 138,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-3D6S7TY7RB552I",
+        "task_ordinal": 46
+      },
+      {
+        "call_index": 139,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-3D6S7TY7RB552I",
+        "task_ordinal": 46
+      },
+      {
+        "call_index": 140,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-3D6S7TY7RB552I",
+        "task_ordinal": 46
+      },
+      {
+        "call_index": 141,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-E3ZSGSBHOPMXLR",
+        "task_ordinal": 47
+      },
+      {
+        "call_index": 142,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-E3ZSGSBHOPMXLR",
+        "task_ordinal": 47
+      },
+      {
+        "call_index": 143,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-E3ZSGSBHOPMXLR",
+        "task_ordinal": 47
+      },
+      {
+        "call_index": 144,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-RFXV7NQIMR4HHZ",
+        "task_ordinal": 48
+      },
+      {
+        "call_index": 145,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-RFXV7NQIMR4HHZ",
+        "task_ordinal": 48
+      },
+      {
+        "call_index": 146,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-RFXV7NQIMR4HHZ",
+        "task_ordinal": 48
+      },
+      {
+        "call_index": 147,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-4USUHXPHJXEYJP",
+        "task_ordinal": 49
+      },
+      {
+        "call_index": 148,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-4USUHXPHJXEYJP",
+        "task_ordinal": 49
+      },
+      {
+        "call_index": 149,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-4USUHXPHJXEYJP",
+        "task_ordinal": 49
+      },
+      {
+        "call_index": 150,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-U646NITAVOSTS2",
+        "task_ordinal": 50
+      },
+      {
+        "call_index": 151,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-U646NITAVOSTS2",
+        "task_ordinal": 50
+      },
+      {
+        "call_index": 152,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-U646NITAVOSTS2",
+        "task_ordinal": 50
+      },
+      {
+        "call_index": 153,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-2JK7R4M5PSWWJW",
+        "task_ordinal": 51
+      },
+      {
+        "call_index": 154,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-2JK7R4M5PSWWJW",
+        "task_ordinal": 51
+      },
+      {
+        "call_index": 155,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-2JK7R4M5PSWWJW",
+        "task_ordinal": 51
+      },
+      {
+        "call_index": 156,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-NFVQMQCCPFY4Z2",
+        "task_ordinal": 52
+      },
+      {
+        "call_index": 157,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-NFVQMQCCPFY4Z2",
+        "task_ordinal": 52
+      },
+      {
+        "call_index": 158,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-NFVQMQCCPFY4Z2",
+        "task_ordinal": 52
+      },
+      {
+        "call_index": 159,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-L5ILK6WKGQ77LQ",
+        "task_ordinal": 53
+      },
+      {
+        "call_index": 160,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-L5ILK6WKGQ77LQ",
+        "task_ordinal": 53
+      },
+      {
+        "call_index": 161,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-L5ILK6WKGQ77LQ",
+        "task_ordinal": 53
+      },
+      {
+        "call_index": 162,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-NOHHN7AYRXZLID",
+        "task_ordinal": 54
+      },
+      {
+        "call_index": 163,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-NOHHN7AYRXZLID",
+        "task_ordinal": 54
+      },
+      {
+        "call_index": 164,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-NOHHN7AYRXZLID",
+        "task_ordinal": 54
+      },
+      {
+        "call_index": 165,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-NF55H3O2Z75GTH",
+        "task_ordinal": 55
+      },
+      {
+        "call_index": 166,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-NF55H3O2Z75GTH",
+        "task_ordinal": 55
+      },
+      {
+        "call_index": 167,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-NF55H3O2Z75GTH",
+        "task_ordinal": 55
+      },
+      {
+        "call_index": 168,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-T5BHEDYCPRBV4R",
+        "task_ordinal": 56
+      },
+      {
+        "call_index": 169,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-T5BHEDYCPRBV4R",
+        "task_ordinal": 56
+      },
+      {
+        "call_index": 170,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-T5BHEDYCPRBV4R",
+        "task_ordinal": 56
+      },
+      {
+        "call_index": 171,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-B5T6NGHOSCLRYW",
+        "task_ordinal": 57
+      },
+      {
+        "call_index": 172,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-B5T6NGHOSCLRYW",
+        "task_ordinal": 57
+      },
+      {
+        "call_index": 173,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-B5T6NGHOSCLRYW",
+        "task_ordinal": 57
+      },
+      {
+        "call_index": 174,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-VCRGHNQ76EYSRI",
+        "task_ordinal": 58
+      },
+      {
+        "call_index": 175,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-VCRGHNQ76EYSRI",
+        "task_ordinal": 58
+      },
+      {
+        "call_index": 176,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-VCRGHNQ76EYSRI",
+        "task_ordinal": 58
+      },
+      {
+        "call_index": 177,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-2Z56HBHCIUSAEX",
+        "task_ordinal": 59
+      },
+      {
+        "call_index": 178,
+        "route_id": "deepseek-pro",
+        "route_position": 1,
+        "task_id": "TASK-2Z56HBHCIUSAEX",
+        "task_ordinal": 59
+      },
+      {
+        "call_index": 179,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-2Z56HBHCIUSAEX",
+        "task_ordinal": 59
+      },
+      {
+        "call_index": 180,
+        "route_id": "deepseek-flash",
+        "route_position": 0,
+        "task_id": "TASK-WP4MPOXUU7AH2X",
+        "task_ordinal": 60
+      },
+      {
+        "call_index": 181,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-WP4MPOXUU7AH2X",
+        "task_ordinal": 60
+      },
+      {
+        "call_index": 182,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-WP4MPOXUU7AH2X",
+        "task_ordinal": 60
+      },
+      {
+        "call_index": 183,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-PJTYJ7A4SCEXKY",
+        "task_ordinal": 61
+      },
+      {
+        "call_index": 184,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-PJTYJ7A4SCEXKY",
+        "task_ordinal": 61
+      },
+      {
+        "call_index": 185,
+        "route_id": "glm-5.2",
+        "route_position": 2,
+        "task_id": "TASK-PJTYJ7A4SCEXKY",
+        "task_ordinal": 61
+      },
+      {
+        "call_index": 186,
+        "route_id": "deepseek-pro",
+        "route_position": 0,
+        "task_id": "TASK-R4US3EYUGGYVPT",
+        "task_ordinal": 62
+      },
+      {
+        "call_index": 187,
+        "route_id": "glm-5.2",
+        "route_position": 1,
+        "task_id": "TASK-R4US3EYUGGYVPT",
+        "task_ordinal": 62
+      },
+      {
+        "call_index": 188,
+        "route_id": "deepseek-flash",
+        "route_position": 2,
+        "task_id": "TASK-R4US3EYUGGYVPT",
+        "task_ordinal": 62
+      },
+      {
+        "call_index": 189,
+        "route_id": "glm-5.2",
+        "route_position": 0,
+        "task_id": "TASK-XC7QW2TILVO2IJ",
+        "task_ordinal": 63
+      },
+      {
+        "call_index": 190,
+        "route_id": "deepseek-flash",
+        "route_position": 1,
+        "task_id": "TASK-XC7QW2TILVO2IJ",
+        "task_ordinal": 63
+      },
+      {
+        "call_index": 191,
+        "route_id": "deepseek-pro",
+        "route_position": 2,
+        "task_id": "TASK-XC7QW2TILVO2IJ",
+        "task_ordinal": 63
+      }
+    ],
+    "schedule_rule": "centered-quantile merge of ABC,ACB,BAC,BCA,CAB,CBA multiplicities 10,11,11,11,11,10 over public task order",
+    "schedule_sha256": "2cb47d8617e858ca1013439a04d9275668bbba05913978498ea26d53773f2963",
+    "temperature": 0.2,
+    "thinking": "disabled",
+    "total_logical_calls": 192
+  },
+  "file_bindings": {
+    "canary_plan": {
+      "canary_id": "spark-strong-k4-fair-choice-opaque-canary-v1",
+      "file_sha256": "b23bd9e7b9e35436e400e409159267827bc98b00a3143ab4c1e209b30857c915",
+      "inner_sha256": "6e7516abe3aa8d50050cbb2c6b52f08d90309300e1ae8daacb7a1098859651a0",
+      "prompt_set_sha256": "6a93d814ef6b944ab7719cbd3ab68f21f2506429d2416fb2da8b999b5c3a9eeb"
+    },
+    "fair_config": {
+      "file_sha256": "b40679c6be18f6c3bb3f54a360e554af75567fa84aec64a5593513d3384173d9",
+      "relative_path": "configs/spark-strong-k4-fair-choice-v1.json"
+    },
+    "private_key": {
+      "file_name": "private.json",
+      "file_sha256": "d5b6961ac911a2f90d979c3de12d2e51847fdca9e087752385a7e8895b3ae9bb",
+      "inner_sha256": "51cf72c9059636c798534ee9ede2c1d3cee41c41eff1bf4410f1d0fcbd0a31b8"
+    },
+    "public_manifest": {
+      "file_name": "public.json",
+      "file_sha256": "9084061dffa75f2b013c2d78af036bba5f444ee130315457c35a74b4aad6314e",
+      "inner_sha256": "03e0f24d2a112e80eb728489c4be452a94acd4db228b389574639c624c80018b"
+    }
+  },
+  "formal_plan_sha256": "18d11b30cebf94f37449e553a1d98f5d019ef064f1f6f76ff87eb62f8b61297e",
+  "kind": "spark-strong-k4-fair-choice-formal-plan",
+  "protocol_id": "spark-strong-k4-fair-choice-v1",
+  "route_qualifications": [
+    {
+      "accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "complete",
+        "provider_fingerprint_mode": "exact_sha256",
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_models": [
+          "deepseek-v4-flash"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "canary_artifact_file_sha256": "cfdbc8beb621a6e35236e835ca23f2f3194809e1df182cf3afc35e337697ae8b",
+      "canary_artifact_sha256": "4f3806de71ef617260d7425e875bddf2984c2ad2ed61e65354196323f5abcb03",
+      "passed": true,
+      "request_model": "deepseek-v4-flash",
+      "response_model": "deepseek-v4-flash",
+      "route_binding_sha256": "0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa",
+      "route_id": "deepseek-flash",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+        "request_model": "deepseek-v4-flash",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    },
+    {
+      "accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "complete",
+        "provider_fingerprint_mode": "exact_sha256",
+        "provider_fingerprint_sha256": "a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787",
+        "provider_models": [
+          "deepseek-v4-pro"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "canary_artifact_file_sha256": "70521f17aa3ea5651f28887d0f2541cf2388f66abdaaef3d98149ee41cfadb44",
+      "canary_artifact_sha256": "68249335074754d2cc813ac30774afefeb319878a47552762c5b25dcc4be1054",
+      "passed": true,
+      "request_model": "deepseek-v4-pro",
+      "response_model": "deepseek-v4-pro",
+      "route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+      "route_id": "deepseek-pro",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+        "request_model": "deepseek-v4-pro",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    },
+    {
+      "accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "absent",
+        "provider_fingerprint_mode": "absent",
+        "provider_fingerprint_sha256": null,
+        "provider_models": [
+          "glm-5.2"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "canary_artifact_file_sha256": "7f559c17f73bff00945b86b6ac908d35c01e1063eb8cf47a2b038dbc0ba23b4b",
+      "canary_artifact_sha256": "a8ccbdb30ae59475ff04c681618c4a755bb27a492c3e957603adfc6046ce109a",
+      "passed": true,
+      "request_model": "glm-5.2",
+      "response_model": "glm-5.2",
+      "route_binding_sha256": "02243ec1c415c25c9938f4d4a209b8e3864212ce3952ae3715d8140e4c13a6e9",
+      "route_id": "glm-5.2",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "2095d8a5425aaf2ce7b1c8a4b63baecdc0ffc4851ac92810b191ee3b9194840c",
+        "request_model": "glm-5.2",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    }
+  ],
+  "schema_version": 1
+}

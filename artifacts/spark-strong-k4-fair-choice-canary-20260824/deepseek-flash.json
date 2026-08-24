@@ -1,0 +1,157 @@
+{
+  "accepted_response_contract": {
+    "finish_reasons": [
+      "stop",
+      "length"
+    ],
+    "max_output_tokens": 256,
+    "prompt_cache_mode": "complete",
+    "provider_fingerprint_mode": "exact_sha256",
+    "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+    "provider_models": [
+      "deepseek-v4-flash"
+    ],
+    "require_zero_reasoning_tokens": true,
+    "seed_supported": false
+  },
+  "benchmark_protocol_id": "spark-strong-k4-fair-choice-v1",
+  "call_count": 4,
+  "canary_artifact_sha256": "4f3806de71ef617260d7425e875bddf2984c2ad2ed61e65354196323f5abcb03",
+  "canary_id": "spark-strong-k4-fair-choice-opaque-canary-v1",
+  "canary_plan_sha256": "6e7516abe3aa8d50050cbb2c6b52f08d90309300e1ae8daacb7a1098859651a0",
+  "candidate_format_counts": {
+    "json_expression": 4
+  },
+  "contract_satisfied": true,
+  "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+  "evidence": false,
+  "evidence_scope": "target_free_opaque_format_and_current_route_contract_calibration_only",
+  "fair_config_file_sha256": "b40679c6be18f6c3bb3f54a360e554af75567fa84aec64a5593513d3384173d9",
+  "invalid_choice_count": 0,
+  "kind": "spark-strong-k4-fair-choice-canary-artifact",
+  "knowledge_endpoint_read": false,
+  "passed": true,
+  "prior_action_canary_artifact_sha256": "0516ffd54692097ec06f2278951aae20c0835a86bacdef9af80699508a7e4f6a",
+  "prior_route_binding_sha256": "0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa",
+  "prompt_set_sha256": "6a93d814ef6b944ab7719cbd3ab68f21f2506429d2416fb2da8b999b5c3a9eeb",
+  "records": [
+    {
+      "invalid_reason": null,
+      "motif_stratum": "affine_commutative",
+      "opaque_choice_valid": true,
+      "prompt_sha256": "7fb6d164dc4adb25492f9c2166980086737db3164af424bc9c791f9f8f055bd4",
+      "response": {
+        "accepted_provider_request_count": 1,
+        "candidate_expression": "QD312C123",
+        "candidate_format": "json_expression",
+        "candidate_parse_status": "valid_opaque_option",
+        "finish_reason": "stop",
+        "input_tokens": 668,
+        "latency_ms": 75421.53602399958,
+        "output_tokens": 8,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 668,
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_model": "deepseek-v4-flash",
+        "reasoning_tokens": null,
+        "seed_supported": false
+      },
+      "selected_option_id": "QD312C123",
+      "serial_index": 0,
+      "task_id": "CANARY-83B65E0231F40E9D"
+    },
+    {
+      "invalid_reason": null,
+      "motif_stratum": "affine_directional",
+      "opaque_choice_valid": true,
+      "prompt_sha256": "9a0eeff0e0aec5f16f222306ad2b55305bf7b16c305a6489b12db88e44e8a915",
+      "response": {
+        "accepted_provider_request_count": 1,
+        "candidate_expression": "Q97B2207D",
+        "candidate_format": "json_expression",
+        "candidate_parse_status": "valid_opaque_option",
+        "finish_reason": "stop",
+        "input_tokens": 664,
+        "latency_ms": 2608.1824559996676,
+        "output_tokens": 10,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 664,
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_model": "deepseek-v4-flash",
+        "reasoning_tokens": null,
+        "seed_supported": false
+      },
+      "selected_option_id": "Q97B2207D",
+      "serial_index": 1,
+      "task_id": "CANARY-6F8AAC0B11CA0501"
+    },
+    {
+      "invalid_reason": null,
+      "motif_stratum": "affine_multiplicative",
+      "opaque_choice_valid": true,
+      "prompt_sha256": "45523af0439192985d6b4d8e137b73e12b917a2b649feaae34db00b61c919148",
+      "response": {
+        "accepted_provider_request_count": 1,
+        "candidate_expression": "QCB7A30C8",
+        "candidate_format": "json_expression",
+        "candidate_parse_status": "valid_opaque_option",
+        "finish_reason": "stop",
+        "input_tokens": 670,
+        "latency_ms": 2594.6634410001934,
+        "output_tokens": 11,
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 414,
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_model": "deepseek-v4-flash",
+        "reasoning_tokens": null,
+        "seed_supported": false
+      },
+      "selected_option_id": "QCB7A30C8",
+      "serial_index": 2,
+      "task_id": "CANARY-4C378D319DA8FD9C"
+    },
+    {
+      "invalid_reason": null,
+      "motif_stratum": "pairwise_variable",
+      "opaque_choice_valid": true,
+      "prompt_sha256": "c63763eeec9a66af866aa435eaf6f4b17fe35d5c3e38c04f511cb76a365e42f4",
+      "response": {
+        "accepted_provider_request_count": 1,
+        "candidate_expression": "Q535403B5",
+        "candidate_format": "json_expression",
+        "candidate_parse_status": "valid_opaque_option",
+        "finish_reason": "stop",
+        "input_tokens": 669,
+        "latency_ms": 5472.2395520002465,
+        "output_tokens": 9,
+        "prompt_cache_hit_tokens": 256,
+        "prompt_cache_miss_tokens": 413,
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_model": "deepseek-v4-flash",
+        "reasoning_tokens": null,
+        "seed_supported": false
+      },
+      "selected_option_id": "Q535403B5",
+      "serial_index": 3,
+      "task_id": "CANARY-E512CBE96E289723"
+    }
+  ],
+  "request_model": "deepseek-v4-flash",
+  "response_model": "deepseek-v4-flash",
+  "retry_performed": false,
+  "route_binding_sha256": "0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa",
+  "route_id": "deepseek-flash",
+  "sanitized_request_contract": {
+    "adapter": "openai-compatible-chat-completions-v1",
+    "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+    "request_model": "deepseek-v4-flash",
+    "response_format": "json_object",
+    "seed_supported": false,
+    "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+    "timeout_seconds": 120.0,
+    "transport_profile": "stdlib-urllib-one-shot-v1"
+  },
+  "schema_version": 1,
+  "transport_failure_count": 0,
+  "valid_choice_count": 4
+}

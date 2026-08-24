@@ -1,0 +1,422 @@
+{
+  "benchmark_protocol_id": "spark-strong-k4-fair-choice-v1",
+  "canary_id": "spark-strong-k4-fair-choice-opaque-canary-v1",
+  "canary_plan_sha256": "6e7516abe3aa8d50050cbb2c6b52f08d90309300e1ae8daacb7a1098859651a0",
+  "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+  "evidence": false,
+  "evidence_scope": "target_free_opaque_format_and_current_route_contract_calibration_only",
+  "fair_config_file_sha256": "b40679c6be18f6c3bb3f54a360e554af75567fa84aec64a5593513d3384173d9",
+  "kind": "spark-strong-k4-fair-choice-canary-plan",
+  "prompt_set_sha256": "6a93d814ef6b944ab7719cbd3ab68f21f2506429d2416fb2da8b999b5c3a9eeb",
+  "protocol": {
+    "K1_K2_K3_K4_evaluated": false,
+    "compressor_run": false,
+    "content_rule": "valid_iff_json_expression_exactly_matches_one_task_opaque_id",
+    "hidden_target_derived": false,
+    "invalid_content_completes_without_retry": true,
+    "logical_calls_per_route": 4,
+    "max_output_tokens": 256,
+    "motif_strata": [
+      "affine_commutative",
+      "affine_directional",
+      "affine_multiplicative",
+      "pairwise_variable"
+    ],
+    "old_action_canary_sufficient": false,
+    "one_prompt_per_motif_stratum": true,
+    "physical_attempts_per_task": 1,
+    "provider_message": "rendered_prompt_only",
+    "retry_performed": false,
+    "route_count": 3,
+    "temperature": 0.2,
+    "thinking": "disabled",
+    "total_logical_calls": 12,
+    "world_count": 1,
+    "world_is_retired_from_formal_evidence": true
+  },
+  "public_world": {
+    "D0": [
+      {
+        "label": 0,
+        "point": [
+          -2,
+          0,
+          -2
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          0,
+          -1
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          2,
+          2
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          2,
+          0
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          -2,
+          -1
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          -2,
+          0
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          -1,
+          0
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          1,
+          -1
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          1,
+          2
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          2,
+          -2
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          -2,
+          1
+        ]
+      },
+      {
+        "label": 0,
+        "point": [
+          -2,
+          2,
+          1
+        ]
+      }
+    ],
+    "allowed_paths": [
+      {
+        "expected_old_subtree_hash": "9751e25ab898e5c1f4b6fb358c3254d5090da5e3c91083fb6a0afd31e971e024",
+        "old_subtree": "(const -1)",
+        "path": [
+          1,
+          1
+        ]
+      },
+      {
+        "expected_old_subtree_hash": "c1d01b0fd73d0d5b07397178418ad6a2991195b6fab6c55cb28a130384e7cab0",
+        "old_subtree": "(var x1)",
+        "path": [
+          1,
+          2
+        ]
+      }
+    ],
+    "parent": "(ite (eq (const -1) (var x1)) (const 1) (const 0))",
+    "parent_canonical_hash": "2dcf0c0657943d5453570e6aad800361c6ecd6df896f93527a2e030d1c4e9600",
+    "world_index": 0,
+    "world_seed": 1000
+  },
+  "public_world_sha256": "d29866a721eb02af924c223559a8aa101a5164f4f4f12218e118c9fffad4c9bb",
+  "route_expectations": [
+    {
+      "model_stratum": "official-deepseek-v4",
+      "prior_accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "complete",
+        "provider_fingerprint_mode": "exact_sha256",
+        "provider_fingerprint_sha256": "c4414aeeb35e200f6ba45110ee8d3ef7e846d1228830d9bf3306ed1ddb3f3859",
+        "provider_models": [
+          "deepseek-v4-flash"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "prior_action_canary_artifact_sha256": "0516ffd54692097ec06f2278951aae20c0835a86bacdef9af80699508a7e4f6a",
+      "prior_action_canary_plan_sha256": "5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc",
+      "prior_action_canary_prompt_set_sha256": "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094",
+      "prior_route_binding_sha256": "0f9971ca63a7ff619b163bb31baf763da652eab5642d8d3d9208646fb20c03fa",
+      "provider_profile": "deepseek-official-openai-compatible",
+      "request_model": "deepseek-v4-flash",
+      "response_model": "deepseek-v4-flash",
+      "route_id": "deepseek-flash",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+        "request_model": "deepseek-v4-flash",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    },
+    {
+      "model_stratum": "official-deepseek-v4-pro",
+      "prior_accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "complete",
+        "provider_fingerprint_mode": "exact_sha256",
+        "provider_fingerprint_sha256": "a2cd55bf7e17b1daa413c2d3ce931256a1d0d5e65084859059777e2bbb546787",
+        "provider_models": [
+          "deepseek-v4-pro"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "prior_action_canary_artifact_sha256": "1f7b92dabcc8c4c562d89328dd6cb9c4119b8cbec6e287926728c96ce8c0fce6",
+      "prior_action_canary_plan_sha256": "8ede1082eb9f3a70a46020c19af1d3dac01529e69e161066f16ed9764df09bc7",
+      "prior_action_canary_prompt_set_sha256": "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094",
+      "prior_route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+      "provider_profile": "deepseek-official-openai-compatible",
+      "request_model": "deepseek-v4-pro",
+      "response_model": "deepseek-v4-pro",
+      "route_id": "deepseek-pro",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+        "request_model": "deepseek-v4-pro",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    },
+    {
+      "model_stratum": "tencent-tokenhub-glm-5.2",
+      "prior_accepted_response_contract": {
+        "finish_reasons": [
+          "stop",
+          "length"
+        ],
+        "max_output_tokens": 256,
+        "prompt_cache_mode": "absent",
+        "provider_fingerprint_mode": "absent",
+        "provider_fingerprint_sha256": null,
+        "provider_models": [
+          "glm-5.2"
+        ],
+        "require_zero_reasoning_tokens": true,
+        "seed_supported": false
+      },
+      "prior_action_canary_artifact_sha256": "9523e9422ca67bea9ece8a0358a4a06bf6080d38656fbfedce9b84c899178210",
+      "prior_action_canary_plan_sha256": "5f96e79b61c6edd8b87fac2837d3ee1b71bd4ad90655eb6983b6c12dcc3531bc",
+      "prior_action_canary_prompt_set_sha256": "41d3d8878f6da9c1c7543ee3e82f01910a1558448a1364f94ab7e278a67e5094",
+      "prior_route_binding_sha256": "02243ec1c415c25c9938f4d4a209b8e3864212ce3952ae3715d8140e4c13a6e9",
+      "provider_profile": "tencent-tokenhub-openai-compatible",
+      "request_model": "glm-5.2",
+      "response_model": "glm-5.2",
+      "route_id": "glm-5.2",
+      "sanitized_request_contract": {
+        "adapter": "openai-compatible-chat-completions-v1",
+        "endpoint_sha256": "2095d8a5425aaf2ce7b1c8a4b63baecdc0ffc4851ac92810b191ee3b9194840c",
+        "request_model": "glm-5.2",
+        "response_format": "json_object",
+        "seed_supported": false,
+        "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+        "timeout_seconds": 120.0,
+        "transport_profile": "stdlib-urllib-one-shot-v1"
+      }
+    }
+  ],
+  "schema_version": 1,
+  "tasks": [
+    {
+      "action_order": [
+        4,
+        7,
+        8,
+        9,
+        6,
+        3,
+        0,
+        2,
+        5,
+        1
+      ],
+      "motif_id": "affine_commutative:b5a0085e7a405d4b",
+      "motif_selection_sha256": "c9a554489193b06fe570f025a3e7f959184f38f95a770106b6f4209093e2057a",
+      "motif_sexpr": "(add (const -2) (var x1))",
+      "motif_stratum": "affine_commutative",
+      "opaque_option_ids": [
+        "QF9DD90AC",
+        "Q87A6A4A7",
+        "Q8A702A37",
+        "QD292AA40",
+        "QBBEC2C8F",
+        "Q83761579",
+        "QD312C123",
+        "Q935D0AAD",
+        "Q5CB2031E",
+        "Q39F0D436"
+      ],
+      "prompt_sha256": "7fb6d164dc4adb25492f9c2166980086737db3164af424bc9c791f9f8f055bd4",
+      "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, -2) -> 0\n  (-2, 0, -1) -> 0\n  (-2, 2, 2) -> 0\n  (-2, 2, 0) -> 0\n  (-2, -2, -1) -> 0\n  (-2, -2, 0) -> 0\n  (-2, -1, 0) -> 0\n  (-2, 1, -1) -> 0\n  (-2, 1, 2) -> 0\n  (-2, 2, -2) -> 0\n  (-2, -2, 1) -> 0\n  (-2, 2, 1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (const -1) (var x1)) (const 1) (const 0))\n\nContext fragment:\n(add (const -2) (var x1))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  QF9DD90AC: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  Q87A6A4A7: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q8A702A37: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QD292AA40: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  QBBEC2C8F: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q83761579: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QD312C123: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q935D0AAD: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  Q5CB2031E: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  Q39F0D436: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+      "serial_index": 0,
+      "slot_index": 1,
+      "task_id": "CANARY-83B65E0231F40E9D",
+      "world_index": 0,
+      "world_seed": 1000
+    },
+    {
+      "action_order": [
+        7,
+        8,
+        9,
+        6,
+        3,
+        0,
+        2,
+        5,
+        1,
+        4
+      ],
+      "motif_id": "affine_directional:daef39a3aab950ae",
+      "motif_selection_sha256": "302307a93ec70e944c0a6f454375b0e50376b913fd240f62647ef38909436260",
+      "motif_sexpr": "(sub (const -3) (var x2))",
+      "motif_stratum": "affine_directional",
+      "opaque_option_ids": [
+        "Q84F2A885",
+        "Q8B025670",
+        "Q51438B3D",
+        "Q67B66A7B",
+        "Q0284FD89",
+        "Q97B2207D",
+        "Q79572A08",
+        "QB05BB240",
+        "Q0C576EB1",
+        "QE4356717"
+      ],
+      "prompt_sha256": "9a0eeff0e0aec5f16f222306ad2b55305bf7b16c305a6489b12db88e44e8a915",
+      "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, -2) -> 0\n  (-2, 0, -1) -> 0\n  (-2, 2, 2) -> 0\n  (-2, 2, 0) -> 0\n  (-2, -2, -1) -> 0\n  (-2, -2, 0) -> 0\n  (-2, -1, 0) -> 0\n  (-2, 1, -1) -> 0\n  (-2, 1, 2) -> 0\n  (-2, 2, -2) -> 0\n  (-2, -2, 1) -> 0\n  (-2, 2, 1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (const -1) (var x1)) (const 1) (const 0))\n\nContext fragment:\n(sub (const -3) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q84F2A885: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q8B025670: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  Q51438B3D: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q67B66A7B: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q0284FD89: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  Q97B2207D: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q79572A08: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QB05BB240: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  Q0C576EB1: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  QE4356717: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+      "serial_index": 1,
+      "slot_index": 2,
+      "task_id": "CANARY-6F8AAC0B11CA0501",
+      "world_index": 0,
+      "world_seed": 1000
+    },
+    {
+      "action_order": [
+        8,
+        9,
+        6,
+        3,
+        0,
+        2,
+        5,
+        1,
+        4,
+        7
+      ],
+      "motif_id": "affine_multiplicative:7ae68b6f797162b5",
+      "motif_selection_sha256": "455145c5537b6eaf52b529a905f7bc76a2ad7e82e1fc5387e51adfb4378ba462",
+      "motif_sexpr": "(mul (const -1) (var x1))",
+      "motif_stratum": "affine_multiplicative",
+      "opaque_option_ids": [
+        "Q984F0278",
+        "QF07A432B",
+        "QD35DE8A2",
+        "Q2B135BE1",
+        "QE090AFD3",
+        "QAEA061BC",
+        "QCB7A30C8",
+        "QF07C9EB0",
+        "Q94951DD8",
+        "QE1C3C102"
+      ],
+      "prompt_sha256": "45523af0439192985d6b4d8e137b73e12b917a2b649feaae34db00b61c919148",
+      "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, -2) -> 0\n  (-2, 0, -1) -> 0\n  (-2, 2, 2) -> 0\n  (-2, 2, 0) -> 0\n  (-2, -2, -1) -> 0\n  (-2, -2, 0) -> 0\n  (-2, -1, 0) -> 0\n  (-2, 1, -1) -> 0\n  (-2, 1, 2) -> 0\n  (-2, 2, -2) -> 0\n  (-2, -2, 1) -> 0\n  (-2, 2, 1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (const -1) (var x1)) (const 1) (const 0))\n\nContext fragment:\n(mul (const -1) (var x1))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q984F0278: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QF07A432B: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  QD35DE8A2: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q2B135BE1: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QE090AFD3: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QAEA061BC: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QCB7A30C8: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QF07C9EB0: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q94951DD8: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QE1C3C102: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+      "serial_index": 2,
+      "slot_index": 3,
+      "task_id": "CANARY-4C378D319DA8FD9C",
+      "world_index": 0,
+      "world_seed": 1000
+    },
+    {
+      "action_order": [
+        9,
+        6,
+        3,
+        0,
+        2,
+        5,
+        1,
+        4,
+        7,
+        8
+      ],
+      "motif_id": "pairwise_variable:ef18894f07ad907a",
+      "motif_selection_sha256": "b9675b8b6a137667c57fb05a7f1763b8e62755853eff35c79cc7e61e7cc486e7",
+      "motif_sexpr": "(sub (var x3) (var x2))",
+      "motif_stratum": "pairwise_variable",
+      "opaque_option_ids": [
+        "Q7529C99A",
+        "Q8C48C99B",
+        "Q6EDF1D4F",
+        "QDBBC04C7",
+        "QBE6F185D",
+        "Q535403B5",
+        "Q06977659",
+        "Q3B125A06",
+        "Q85C27D60",
+        "QB1DEAC5F"
+      ],
+      "prompt_sha256": "c63763eeec9a66af866aa435eaf6f4b17fe35d5c3e38c04f511cb76a365e42f4",
+      "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, -2) -> 0\n  (-2, 0, -1) -> 0\n  (-2, 2, 2) -> 0\n  (-2, 2, 0) -> 0\n  (-2, -2, -1) -> 0\n  (-2, -2, 0) -> 0\n  (-2, -1, 0) -> 0\n  (-2, 1, -1) -> 0\n  (-2, 1, 2) -> 0\n  (-2, 2, -2) -> 0\n  (-2, -2, 1) -> 0\n  (-2, 2, 1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (const -1) (var x1)) (const 1) (const 0))\n\nContext fragment:\n(sub (var x3) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q7529C99A: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q8C48C99B: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q6EDF1D4F: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QDBBC04C7: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QBE6F185D: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  Q535403B5: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  Q06977659: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q3B125A06: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  Q85C27D60: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  QB1DEAC5F: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+      "serial_index": 3,
+      "slot_index": 4,
+      "task_id": "CANARY-E512CBE96E289723",
+      "world_index": 0,
+      "world_seed": 1000
+    }
+  ],
+  "world_seed": 1000
+}
