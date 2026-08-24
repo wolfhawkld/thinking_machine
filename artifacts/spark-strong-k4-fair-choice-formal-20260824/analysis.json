@@ -1,0 +1,4778 @@
+{
+  "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+  "formal_plan_file_sha256": "98476cd5bb77bf015dfb75b8caad25763042e2c7b47a1dc2fa7884c400a81d7b",
+  "formal_plan_sha256": "18d11b30cebf94f37449e553a1d98f5d019ef064f1f6f76ff87eb62f8b61297e",
+  "generation_bundle_file_sha256": "8d386109efcebb9a71185c6162aa8599b3f88f691727e5d838ed66234eb2edd9",
+  "generation_bundle_sha256": "b606d58b4720e655ce6a65fd1f507dc037b07c90ce0c3a2b9f440e56455479f1",
+  "joint_analysis_sha256": "28bf97a264d28399ddd154a4ccef182772a59440ea3d3f399c43609eaf6bf6e3",
+  "joint_result": {
+    "holm": {
+      "deepseek-flash": {
+        "adjusted_p_value": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "raw_p_value": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "rejected": false
+      },
+      "deepseek-pro": {
+        "adjusted_p_value": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "raw_p_value": {
+          "denominator": 131072,
+          "numerator": 131071,
+          "value": 0.9999923706054688
+        },
+        "rejected": false
+      },
+      "glm-5.2": {
+        "adjusted_p_value": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "raw_p_value": {
+          "denominator": 16384,
+          "numerator": 16383,
+          "value": 0.99993896484375
+        },
+        "rejected": false
+      }
+    },
+    "joint_classification": "effect_not_observed_under_frozen_protocol",
+    "route_classifications": {
+      "deepseek-flash": {
+        "classification": "strong_hits_shortcut_compatible",
+        "gates": {
+          "holm_adjusted_p_route_at_most_alpha": false,
+          "minimum_one_nonconstant_child_behavior": false,
+          "minimum_two_child_behavior_hashes": false,
+          "minimum_two_construction_strata": true,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        },
+        "holm_adjusted_p_route": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_pair": {
+          "denominator": 64,
+          "numerator": 1,
+          "value": 0.015625
+        },
+        "p_route": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_shortcut": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_uniform": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "positive": false
+      },
+      "deepseek-pro": {
+        "classification": "strong_hits_shortcut_compatible",
+        "gates": {
+          "holm_adjusted_p_route_at_most_alpha": false,
+          "minimum_one_nonconstant_child_behavior": true,
+          "minimum_two_child_behavior_hashes": true,
+          "minimum_two_construction_strata": true,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        },
+        "holm_adjusted_p_route": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_pair": {
+          "denominator": 128,
+          "numerator": 29,
+          "value": 0.2265625
+        },
+        "p_route": {
+          "denominator": 131072,
+          "numerator": 131071,
+          "value": 0.9999923706054688
+        },
+        "p_shortcut": {
+          "denominator": 131072,
+          "numerator": 131071,
+          "value": 0.9999923706054688
+        },
+        "p_uniform": {
+          "denominator": 37252902984619140625000,
+          "numerator": 30086917928561679829879,
+          "value": 0.807639553378803
+        },
+        "positive": false
+      },
+      "glm-5.2": {
+        "classification": "strong_hits_shortcut_compatible",
+        "gates": {
+          "holm_adjusted_p_route_at_most_alpha": false,
+          "minimum_one_nonconstant_child_behavior": true,
+          "minimum_two_child_behavior_hashes": true,
+          "minimum_two_construction_strata": true,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        },
+        "holm_adjusted_p_route": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_pair": {
+          "denominator": 256,
+          "numerator": 37,
+          "value": 0.14453125
+        },
+        "p_route": {
+          "denominator": 16384,
+          "numerator": 16383,
+          "value": 0.99993896484375
+        },
+        "p_shortcut": {
+          "denominator": 16384,
+          "numerator": 16383,
+          "value": 0.99993896484375
+        },
+        "p_uniform": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "positive": false
+      }
+    }
+  },
+  "kind": "spark-strong-k4-fair-choice-joint-analysis",
+  "private_key_loaded_after_complete_generation_barrier": true,
+  "private_key_sha256": "51cf72c9059636c798534ee9ede2c1d3cee41c41eff1bf4410f1d0fcbd0a31b8",
+  "protocol_id": "spark-strong-k4-fair-choice-v1",
+  "public_manifest_sha256": "03e0f24d2a112e80eb728489c4be452a94acd4db228b389574639c624c80018b",
+  "route_scores": {
+    "deepseek-flash": {
+      "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+      "factual_strong_F_by_pair": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "factual_strong_F_count": 7,
+      "factual_strong_breadth": {
+        "child_behavior_hashes": [
+          "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308"
+        ],
+        "construction_strata": [
+          "affine_commutative",
+          "affine_directional",
+          "affine_multiplicative",
+          "pairwise_variable"
+        ],
+        "construction_stratum_count": 4,
+        "nonconstant_child_definition": "complete-domain behavior contains both binary outputs",
+        "nonconstant_child_hit_count": 0,
+        "unique_child_behavior_count": 1
+      },
+      "invalid_received_response_is_miss": true,
+      "invalid_response_count": 0,
+      "kind": "spark-strong-k4-fair-choice-offline-score",
+      "model_id": "deepseek-flash",
+      "pair_primary_U": {
+        "alternative": "left_greater_than_right",
+        "discordant_pair_count": 6,
+        "exact_one_sided_p_value": {
+          "denominator": 64,
+          "numerator": 1,
+          "value": 0.015625
+        },
+        "left_only_count": 6,
+        "left_success_count": 10,
+        "pair_count": 32,
+        "right_only_count": 0,
+        "right_success_count": 4
+      },
+      "pairs": [
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-USGGW67EZVCUDL"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-XEJQZKRRNEJ2FN"
+            }
+          },
+          "pair_id": "PAIR-RMAA6CX456UAW7"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-6RB7ZH36BSV3XM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-5ZD3I3VTUHAYJZ"
+            }
+          },
+          "pair_id": "PAIR-7OZRDO6VX6FKI4"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-TKGXSUO4FRMYOJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-QV4WMYH5SHZIS6"
+            }
+          },
+          "pair_id": "PAIR-R2S3MZRCW2WSS2"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-CX5BVWM7RJAIEP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-UJ6DAVLDLJNEVV"
+            }
+          },
+          "pair_id": "PAIR-M7DFIVA5QBI46V"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-SHAJ5UPZYFEH2L"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-D5SCKLBY7Z6NEJ"
+            }
+          },
+          "pair_id": "PAIR-ZTP2DUTWGODJX3"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-7G5RS5J3333R4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-7T34C5LG2Z2IPR"
+            }
+          },
+          "pair_id": "PAIR-WXEWUCPKDYAUYR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-52WLN2BZI7FN32"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-C4IL6DYWDOM4KA"
+            }
+          },
+          "pair_id": "PAIR-PTXRKCQZBXDJIC"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-VAVMA7GK5YMB2Y"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-E5WJO52HD3DXIM"
+            }
+          },
+          "pair_id": "PAIR-RKP35UQY7TNVGX"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3HJ3ZG2QSQUKBM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-OVHTHI2HP2ZRIU"
+            }
+          },
+          "pair_id": "PAIR-3BDIH65SH6CZMJ"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-Z76DYYOML4OAL4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-3G44TGCQWTJYOP"
+            }
+          },
+          "pair_id": "PAIR-D4H72FBVDZ6J4Z"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-W5T4TSGDJ67MDT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-PWF2BZYG6HO3LU"
+            }
+          },
+          "pair_id": "PAIR-Q7A4KLHRDRSXA5"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-LP7XAYZJ74JHJJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-4GR2UGOFCCRDFT"
+            }
+          },
+          "pair_id": "PAIR-7TTGGJZCV6IELW"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-UF5U7FLCNQFAXB"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-TEGAPJ6ZPRBXK6"
+            }
+          },
+          "pair_id": "PAIR-DLEETCVPVHOSUQ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-QBDMSJ4G257VLF"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3LMNTQK376VOF7"
+            }
+          },
+          "pair_id": "PAIR-YJPB6GUZYHKW6J"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-RUHXD63FEO6D4N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3D6S7TY7RB552I"
+            }
+          },
+          "pair_id": "PAIR-2S4ABN3SQDBIQR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-KMHOPLUYSAM7HZ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-E3ZSGSBHOPMXLR"
+            }
+          },
+          "pair_id": "PAIR-NHITVZO6WOB7YA"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-APDAAJKEC3XZWH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-RFXV7NQIMR4HHZ"
+            }
+          },
+          "pair_id": "PAIR-7V5INZSXGU7CQX"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-4USUHXPHJXEYJP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-5H35QBUALKPL26"
+            }
+          },
+          "pair_id": "PAIR-2ZJ6A7DFOWX67C"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-U646NITAVOSTS2"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-Q5E2X6KZSCAFVZ"
+            }
+          },
+          "pair_id": "PAIR-K6SL3RFVWU7EVW"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-2JK7R4M5PSWWJW"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NHAKRN3GIK5P4U"
+            }
+          },
+          "pair_id": "PAIR-YF3O5WRRN7AOEE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-4RBPGKSVF4TMP4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-NFVQMQCCPFY4Z2"
+            }
+          },
+          "pair_id": "PAIR-ZFQBFHEMKHBDC7"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-CRPSOJVWNQYA6N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-L5ILK6WKGQ77LQ"
+            }
+          },
+          "pair_id": "PAIR-3HEUR4GHPI4NY4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-XQHMO4AVKHSY6R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NOHHN7AYRXZLID"
+            }
+          },
+          "pair_id": "PAIR-5M7BLEHX2WZ2D4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NF55H3O2Z75GTH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-64O64XIR7XPZZW"
+            }
+          },
+          "pair_id": "PAIR-KBCJ3OKS74D54N"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-T5BHEDYCPRBV4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-ZIV5HFS5PYI72B"
+            }
+          },
+          "pair_id": "PAIR-OS5ORHCYBZMPGB"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-LI7SOAH7PRLPAA"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-B5T6NGHOSCLRYW"
+            }
+          },
+          "pair_id": "PAIR-BOQP2KPSEW3JBR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-VCRGHNQ76EYSRI"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-AU5HQ2MK3F3NJR"
+            }
+          },
+          "pair_id": "PAIR-JTP3DEUYUGUG5Z"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-2Z56HBHCIUSAEX"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-UBE4HZZGNKA4OJ"
+            }
+          },
+          "pair_id": "PAIR-TKZGOH5GSOQW5W"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-PDIKVZ4GCARQ3R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-WP4MPOXUU7AH2X"
+            }
+          },
+          "pair_id": "PAIR-Q7TPYXN63EP2QE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-R2PERMKTTCHDZ5"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 1,
+              "task_id": "TASK-PJTYJ7A4SCEXKY"
+            }
+          },
+          "pair_id": "PAIR-JBMOUAY7RAUBCZ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-R4US3EYUGGYVPT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-XL73SMVH2PWTXC"
+            }
+          },
+          "pair_id": "PAIR-33QEFJ6OTXS4ZU"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-XC7QW2TILVO2IJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-RRM7GFMD3MN3YL"
+            }
+          },
+          "pair_id": "PAIR-NVFTRS76IBBW43"
+        }
+      ],
+      "private_key_sha256": "51cf72c9059636c798534ee9ede2c1d3cee41c41eff1bf4410f1d0fcbd0a31b8",
+      "protocol_id": "spark-strong-k4-fair-choice-v1",
+      "public_manifest_sha256": "03e0f24d2a112e80eb728489c4be452a94acd4db228b389574639c624c80018b",
+      "received_response_count": 64,
+      "response_artifact_sha256": "8262cf4495139f9a3798afd1b9268672b3a790d76e3e26864f096bb5d5708ba8",
+      "retry_performed": false,
+      "route_gate_inputs": {
+        "Holm_pending_across_three_frozen_routes": true,
+        "p_pair": {
+          "denominator": 64,
+          "numerator": 1,
+          "value": 0.015625
+        },
+        "p_route": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_route_definition": "max(p_pair,p_shortcut)",
+        "p_shortcut": {
+          "denominator": 1,
+          "numerator": 1,
+          "value": 1.0
+        },
+        "p_uniform": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "unadjusted_route_gates": {
+          "minimum_one_nonconstant_child_behavior": false,
+          "minimum_two_child_behavior_hashes": false,
+          "minimum_two_construction_strata": true,
+          "p_route_at_most_alpha_before_holm": false,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        }
+      },
+      "schema_version": 1,
+      "score_sha256": "1d3f3028f5bef9a451f25b719fc46748ddb74a7f1ede35619cc3cc6f85864356",
+      "selected_endpoint_summary": {
+        "factual": {
+          "K1": {
+            "by_pair": [
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            "count": 20
+          },
+          "K2": {
+            "by_pair": [
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 10
+          },
+          "K3": {
+            "by_pair": [
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 10
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 7
+          }
+        },
+        "sham": {
+          "K1": {
+            "by_pair": [
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            "count": 20
+          },
+          "K2": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 4
+          },
+          "K3": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 4
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 3
+          }
+        }
+      },
+      "versus_frozen_B_star": {
+        "B_star_factual_F_count": 19,
+        "B_star_policy_id": "public-k1-min-positive-node-hash",
+        "paired_test_model_greater_B_star": {
+          "alternative": "left_greater_than_right",
+          "discordant_pair_count": 12,
+          "exact_one_sided_p_value": {
+            "denominator": 1,
+            "numerator": 1,
+            "value": 1.0
+          },
+          "left_only_count": 0,
+          "left_success_count": 7,
+          "pair_count": 32,
+          "right_only_count": 12,
+          "right_success_count": 19
+        }
+      },
+      "versus_uniform_choice": {
+        "critical_factual_F_count": 10,
+        "exact_Poisson_binomial_upper_tail": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "exceeds_or_meets_critical_value": false,
+        "observed_factual_F_count": 7
+      }
+    },
+    "deepseek-pro": {
+      "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+      "factual_strong_F_by_pair": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "factual_strong_F_count": 4,
+      "factual_strong_breadth": {
+        "child_behavior_hashes": [
+          "65f959b9684c92ce07f11f4d09793af90f1463814c85063d43232220e9822097",
+          "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308"
+        ],
+        "construction_strata": [
+          "affine_commutative",
+          "affine_multiplicative",
+          "pairwise_variable"
+        ],
+        "construction_stratum_count": 3,
+        "nonconstant_child_definition": "complete-domain behavior contains both binary outputs",
+        "nonconstant_child_hit_count": 1,
+        "unique_child_behavior_count": 2
+      },
+      "invalid_received_response_is_miss": true,
+      "invalid_response_count": 0,
+      "kind": "spark-strong-k4-fair-choice-offline-score",
+      "model_id": "deepseek-pro",
+      "pair_primary_U": {
+        "alternative": "left_greater_than_right",
+        "discordant_pair_count": 7,
+        "exact_one_sided_p_value": {
+          "denominator": 128,
+          "numerator": 29,
+          "value": 0.2265625
+        },
+        "left_only_count": 5,
+        "left_success_count": 7,
+        "pair_count": 32,
+        "right_only_count": 2,
+        "right_success_count": 4
+      },
+      "pairs": [
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-USGGW67EZVCUDL"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-XEJQZKRRNEJ2FN"
+            }
+          },
+          "pair_id": "PAIR-RMAA6CX456UAW7"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-6RB7ZH36BSV3XM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-5ZD3I3VTUHAYJZ"
+            }
+          },
+          "pair_id": "PAIR-7OZRDO6VX6FKI4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-TKGXSUO4FRMYOJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-QV4WMYH5SHZIS6"
+            }
+          },
+          "pair_id": "PAIR-R2S3MZRCW2WSS2"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-CX5BVWM7RJAIEP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-UJ6DAVLDLJNEVV"
+            }
+          },
+          "pair_id": "PAIR-M7DFIVA5QBI46V"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-SHAJ5UPZYFEH2L"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-D5SCKLBY7Z6NEJ"
+            }
+          },
+          "pair_id": "PAIR-ZTP2DUTWGODJX3"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 1,
+              "task_id": "TASK-7G5RS5J3333R4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 1,
+              "task_id": "TASK-7T34C5LG2Z2IPR"
+            }
+          },
+          "pair_id": "PAIR-WXEWUCPKDYAUYR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-52WLN2BZI7FN32"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-C4IL6DYWDOM4KA"
+            }
+          },
+          "pair_id": "PAIR-PTXRKCQZBXDJIC"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-VAVMA7GK5YMB2Y"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-E5WJO52HD3DXIM"
+            }
+          },
+          "pair_id": "PAIR-RKP35UQY7TNVGX"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3HJ3ZG2QSQUKBM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-OVHTHI2HP2ZRIU"
+            }
+          },
+          "pair_id": "PAIR-3BDIH65SH6CZMJ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-Z76DYYOML4OAL4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-3G44TGCQWTJYOP"
+            }
+          },
+          "pair_id": "PAIR-D4H72FBVDZ6J4Z"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-W5T4TSGDJ67MDT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-PWF2BZYG6HO3LU"
+            }
+          },
+          "pair_id": "PAIR-Q7A4KLHRDRSXA5"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-LP7XAYZJ74JHJJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-4GR2UGOFCCRDFT"
+            }
+          },
+          "pair_id": "PAIR-7TTGGJZCV6IELW"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-UF5U7FLCNQFAXB"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-TEGAPJ6ZPRBXK6"
+            }
+          },
+          "pair_id": "PAIR-DLEETCVPVHOSUQ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-QBDMSJ4G257VLF"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-3LMNTQK376VOF7"
+            }
+          },
+          "pair_id": "PAIR-YJPB6GUZYHKW6J"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-RUHXD63FEO6D4N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3D6S7TY7RB552I"
+            }
+          },
+          "pair_id": "PAIR-2S4ABN3SQDBIQR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-KMHOPLUYSAM7HZ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-E3ZSGSBHOPMXLR"
+            }
+          },
+          "pair_id": "PAIR-NHITVZO6WOB7YA"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-APDAAJKEC3XZWH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-RFXV7NQIMR4HHZ"
+            }
+          },
+          "pair_id": "PAIR-7V5INZSXGU7CQX"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-4USUHXPHJXEYJP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-5H35QBUALKPL26"
+            }
+          },
+          "pair_id": "PAIR-2ZJ6A7DFOWX67C"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-U646NITAVOSTS2"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-Q5E2X6KZSCAFVZ"
+            }
+          },
+          "pair_id": "PAIR-K6SL3RFVWU7EVW"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-2JK7R4M5PSWWJW"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NHAKRN3GIK5P4U"
+            }
+          },
+          "pair_id": "PAIR-YF3O5WRRN7AOEE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-4RBPGKSVF4TMP4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-NFVQMQCCPFY4Z2"
+            }
+          },
+          "pair_id": "PAIR-ZFQBFHEMKHBDC7"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-CRPSOJVWNQYA6N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-L5ILK6WKGQ77LQ"
+            }
+          },
+          "pair_id": "PAIR-3HEUR4GHPI4NY4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 9,
+              "task_id": "TASK-XQHMO4AVKHSY6R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-NOHHN7AYRXZLID"
+            }
+          },
+          "pair_id": "PAIR-5M7BLEHX2WZ2D4"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 9,
+              "task_id": "TASK-NF55H3O2Z75GTH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 9,
+              "task_id": "TASK-64O64XIR7XPZZW"
+            }
+          },
+          "pair_id": "PAIR-KBCJ3OKS74D54N"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-T5BHEDYCPRBV4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-ZIV5HFS5PYI72B"
+            }
+          },
+          "pair_id": "PAIR-OS5ORHCYBZMPGB"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-LI7SOAH7PRLPAA"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-B5T6NGHOSCLRYW"
+            }
+          },
+          "pair_id": "PAIR-BOQP2KPSEW3JBR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-VCRGHNQ76EYSRI"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-AU5HQ2MK3F3NJR"
+            }
+          },
+          "pair_id": "PAIR-JTP3DEUYUGUG5Z"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-2Z56HBHCIUSAEX"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-UBE4HZZGNKA4OJ"
+            }
+          },
+          "pair_id": "PAIR-TKZGOH5GSOQW5W"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-PDIKVZ4GCARQ3R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-WP4MPOXUU7AH2X"
+            }
+          },
+          "pair_id": "PAIR-Q7TPYXN63EP2QE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-R2PERMKTTCHDZ5"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-PJTYJ7A4SCEXKY"
+            }
+          },
+          "pair_id": "PAIR-JBMOUAY7RAUBCZ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-R4US3EYUGGYVPT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-XL73SMVH2PWTXC"
+            }
+          },
+          "pair_id": "PAIR-33QEFJ6OTXS4ZU"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-XC7QW2TILVO2IJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-RRM7GFMD3MN3YL"
+            }
+          },
+          "pair_id": "PAIR-NVFTRS76IBBW43"
+        }
+      ],
+      "private_key_sha256": "51cf72c9059636c798534ee9ede2c1d3cee41c41eff1bf4410f1d0fcbd0a31b8",
+      "protocol_id": "spark-strong-k4-fair-choice-v1",
+      "public_manifest_sha256": "03e0f24d2a112e80eb728489c4be452a94acd4db228b389574639c624c80018b",
+      "received_response_count": 64,
+      "response_artifact_sha256": "ddf503f85f767e91ad54bc614eac4e35d4cf36c4abd922ad0c0253b0172cae2d",
+      "retry_performed": false,
+      "route_gate_inputs": {
+        "Holm_pending_across_three_frozen_routes": true,
+        "p_pair": {
+          "denominator": 128,
+          "numerator": 29,
+          "value": 0.2265625
+        },
+        "p_route": {
+          "denominator": 131072,
+          "numerator": 131071,
+          "value": 0.9999923706054688
+        },
+        "p_route_definition": "max(p_pair,p_shortcut)",
+        "p_shortcut": {
+          "denominator": 131072,
+          "numerator": 131071,
+          "value": 0.9999923706054688
+        },
+        "p_uniform": {
+          "denominator": 37252902984619140625000,
+          "numerator": 30086917928561679829879,
+          "value": 0.807639553378803
+        },
+        "unadjusted_route_gates": {
+          "minimum_one_nonconstant_child_behavior": true,
+          "minimum_two_child_behavior_hashes": true,
+          "minimum_two_construction_strata": true,
+          "p_route_at_most_alpha_before_holm": false,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        }
+      },
+      "schema_version": 1,
+      "score_sha256": "1cacca8bc972187c4e7a6b72afa0f2af2b5dca54bd25fdbd118adb2d1c8bb5c0",
+      "selected_endpoint_summary": {
+        "factual": {
+          "K1": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              false
+            ],
+            "count": 19
+          },
+          "K2": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 7
+          },
+          "K3": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 7
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 4
+          }
+        },
+        "sham": {
+          "K1": {
+            "by_pair": [
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            "count": 17
+          },
+          "K2": {
+            "by_pair": [
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 4
+          },
+          "K3": {
+            "by_pair": [
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 4
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 1
+          }
+        }
+      },
+      "versus_frozen_B_star": {
+        "B_star_factual_F_count": 19,
+        "B_star_policy_id": "public-k1-min-positive-node-hash",
+        "paired_test_model_greater_B_star": {
+          "alternative": "left_greater_than_right",
+          "discordant_pair_count": 17,
+          "exact_one_sided_p_value": {
+            "denominator": 131072,
+            "numerator": 131071,
+            "value": 0.9999923706054688
+          },
+          "left_only_count": 1,
+          "left_success_count": 4,
+          "pair_count": 32,
+          "right_only_count": 16,
+          "right_success_count": 19
+        }
+      },
+      "versus_uniform_choice": {
+        "critical_factual_F_count": 10,
+        "exact_Poisson_binomial_upper_tail": {
+          "denominator": 37252902984619140625000,
+          "numerator": 30086917928561679829879,
+          "value": 0.807639553378803
+        },
+        "exceeds_or_meets_critical_value": false,
+        "observed_factual_F_count": 4
+      }
+    },
+    "glm-5.2": {
+      "current_source_manifest_sha256": "b1e9575b6c51c1fdc16f1008698d173a00c2f38b95bad13f41b72ce0bdd9ac95",
+      "factual_strong_F_by_pair": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "factual_strong_F_count": 7,
+      "factual_strong_breadth": {
+        "child_behavior_hashes": [
+          "7aeee51e4bb6d7345b3e6dcce33ff93703f3559988068262d87267ca5668a3a8",
+          "eafa25aa9bd345ecab777c6511ec6be742084474f8b379b5e0bd0cd2d410c308"
+        ],
+        "construction_strata": [
+          "affine_commutative",
+          "affine_directional",
+          "affine_multiplicative"
+        ],
+        "construction_stratum_count": 3,
+        "nonconstant_child_definition": "complete-domain behavior contains both binary outputs",
+        "nonconstant_child_hit_count": 1,
+        "unique_child_behavior_count": 2
+      },
+      "invalid_received_response_is_miss": true,
+      "invalid_response_count": 0,
+      "kind": "spark-strong-k4-fair-choice-offline-score",
+      "model_id": "glm-5.2",
+      "pair_primary_U": {
+        "alternative": "left_greater_than_right",
+        "discordant_pair_count": 8,
+        "exact_one_sided_p_value": {
+          "denominator": 256,
+          "numerator": 37,
+          "value": 0.14453125
+        },
+        "left_only_count": 6,
+        "left_success_count": 9,
+        "pair_count": 32,
+        "right_only_count": 2,
+        "right_success_count": 5
+      },
+      "pairs": [
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-USGGW67EZVCUDL"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-XEJQZKRRNEJ2FN"
+            }
+          },
+          "pair_id": "PAIR-RMAA6CX456UAW7"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-6RB7ZH36BSV3XM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-5ZD3I3VTUHAYJZ"
+            }
+          },
+          "pair_id": "PAIR-7OZRDO6VX6FKI4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-TKGXSUO4FRMYOJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-QV4WMYH5SHZIS6"
+            }
+          },
+          "pair_id": "PAIR-R2S3MZRCW2WSS2"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-CX5BVWM7RJAIEP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-UJ6DAVLDLJNEVV"
+            }
+          },
+          "pair_id": "PAIR-M7DFIVA5QBI46V"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-SHAJ5UPZYFEH2L"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-D5SCKLBY7Z6NEJ"
+            }
+          },
+          "pair_id": "PAIR-ZTP2DUTWGODJX3"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-7G5RS5J3333R4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-7T34C5LG2Z2IPR"
+            }
+          },
+          "pair_id": "PAIR-WXEWUCPKDYAUYR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-52WLN2BZI7FN32"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-C4IL6DYWDOM4KA"
+            }
+          },
+          "pair_id": "PAIR-PTXRKCQZBXDJIC"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-VAVMA7GK5YMB2Y"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-E5WJO52HD3DXIM"
+            }
+          },
+          "pair_id": "PAIR-RKP35UQY7TNVGX"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-3HJ3ZG2QSQUKBM"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-OVHTHI2HP2ZRIU"
+            }
+          },
+          "pair_id": "PAIR-3BDIH65SH6CZMJ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-Z76DYYOML4OAL4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-3G44TGCQWTJYOP"
+            }
+          },
+          "pair_id": "PAIR-D4H72FBVDZ6J4Z"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-W5T4TSGDJ67MDT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-PWF2BZYG6HO3LU"
+            }
+          },
+          "pair_id": "PAIR-Q7A4KLHRDRSXA5"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-LP7XAYZJ74JHJJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-4GR2UGOFCCRDFT"
+            }
+          },
+          "pair_id": "PAIR-7TTGGJZCV6IELW"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-UF5U7FLCNQFAXB"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-TEGAPJ6ZPRBXK6"
+            }
+          },
+          "pair_id": "PAIR-DLEETCVPVHOSUQ"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-QBDMSJ4G257VLF"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-3LMNTQK376VOF7"
+            }
+          },
+          "pair_id": "PAIR-YJPB6GUZYHKW6J"
+        },
+        {
+          "F_factual": false,
+          "U_factual": true,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-RUHXD63FEO6D4N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-3D6S7TY7RB552I"
+            }
+          },
+          "pair_id": "PAIR-2S4ABN3SQDBIQR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-KMHOPLUYSAM7HZ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-E3ZSGSBHOPMXLR"
+            }
+          },
+          "pair_id": "PAIR-NHITVZO6WOB7YA"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-APDAAJKEC3XZWH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 7,
+              "task_id": "TASK-RFXV7NQIMR4HHZ"
+            }
+          },
+          "pair_id": "PAIR-7V5INZSXGU7CQX"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-4USUHXPHJXEYJP"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-5H35QBUALKPL26"
+            }
+          },
+          "pair_id": "PAIR-2ZJ6A7DFOWX67C"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-U646NITAVOSTS2"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-Q5E2X6KZSCAFVZ"
+            }
+          },
+          "pair_id": "PAIR-K6SL3RFVWU7EVW"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-2JK7R4M5PSWWJW"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NHAKRN3GIK5P4U"
+            }
+          },
+          "pair_id": "PAIR-YF3O5WRRN7AOEE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-4RBPGKSVF4TMP4"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-NFVQMQCCPFY4Z2"
+            }
+          },
+          "pair_id": "PAIR-ZFQBFHEMKHBDC7"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": true,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 8,
+              "task_id": "TASK-CRPSOJVWNQYA6N"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-L5ILK6WKGQ77LQ"
+            }
+          },
+          "pair_id": "PAIR-3HEUR4GHPI4NY4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 9,
+              "task_id": "TASK-XQHMO4AVKHSY6R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 6,
+              "task_id": "TASK-NOHHN7AYRXZLID"
+            }
+          },
+          "pair_id": "PAIR-5M7BLEHX2WZ2D4"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-NF55H3O2Z75GTH"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-64O64XIR7XPZZW"
+            }
+          },
+          "pair_id": "PAIR-KBCJ3OKS74D54N"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-T5BHEDYCPRBV4R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-ZIV5HFS5PYI72B"
+            }
+          },
+          "pair_id": "PAIR-OS5ORHCYBZMPGB"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-LI7SOAH7PRLPAA"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-B5T6NGHOSCLRYW"
+            }
+          },
+          "pair_id": "PAIR-BOQP2KPSEW3JBR"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-VCRGHNQ76EYSRI"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-AU5HQ2MK3F3NJR"
+            }
+          },
+          "pair_id": "PAIR-JTP3DEUYUGUG5Z"
+        },
+        {
+          "F_factual": true,
+          "U_factual": true,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": true,
+                "K3": true,
+                "K4_full_pool": true
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-2Z56HBHCIUSAEX"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 2,
+              "task_id": "TASK-UBE4HZZGNKA4OJ"
+            }
+          },
+          "pair_id": "PAIR-TKZGOH5GSOQW5W"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 5,
+              "task_id": "TASK-PDIKVZ4GCARQ3R"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-WP4MPOXUU7AH2X"
+            }
+          },
+          "pair_id": "PAIR-Q7TPYXN63EP2QE"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-R2PERMKTTCHDZ5"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 4,
+              "task_id": "TASK-PJTYJ7A4SCEXKY"
+            }
+          },
+          "pair_id": "PAIR-JBMOUAY7RAUBCZ"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-R4US3EYUGGYVPT"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": true,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 0,
+              "task_id": "TASK-XL73SMVH2PWTXC"
+            }
+          },
+          "pair_id": "PAIR-33QEFJ6OTXS4ZU"
+        },
+        {
+          "F_factual": false,
+          "U_factual": false,
+          "U_sham": false,
+          "arms": {
+            "factual": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-XC7QW2TILVO2IJ"
+            },
+            "sham": {
+              "endpoint_flags": {
+                "K1": false,
+                "K2": false,
+                "K3": false,
+                "K4_full_pool": false
+              },
+              "invalid_is_miss": false,
+              "received_option_valid": true,
+              "retry_performed": false,
+              "selected_raw_action_index": 3,
+              "task_id": "TASK-RRM7GFMD3MN3YL"
+            }
+          },
+          "pair_id": "PAIR-NVFTRS76IBBW43"
+        }
+      ],
+      "private_key_sha256": "51cf72c9059636c798534ee9ede2c1d3cee41c41eff1bf4410f1d0fcbd0a31b8",
+      "protocol_id": "spark-strong-k4-fair-choice-v1",
+      "public_manifest_sha256": "03e0f24d2a112e80eb728489c4be452a94acd4db228b389574639c624c80018b",
+      "received_response_count": 64,
+      "response_artifact_sha256": "9432691fad1eaa8e4fe48c0155ef376648f7bed3d696ab517584e9769eec28e6",
+      "retry_performed": false,
+      "route_gate_inputs": {
+        "Holm_pending_across_three_frozen_routes": true,
+        "p_pair": {
+          "denominator": 256,
+          "numerator": 37,
+          "value": 0.14453125
+        },
+        "p_route": {
+          "denominator": 16384,
+          "numerator": 16383,
+          "value": 0.99993896484375
+        },
+        "p_route_definition": "max(p_pair,p_shortcut)",
+        "p_shortcut": {
+          "denominator": 16384,
+          "numerator": 16383,
+          "value": 0.99993896484375
+        },
+        "p_uniform": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "unadjusted_route_gates": {
+          "minimum_one_nonconstant_child_behavior": true,
+          "minimum_two_child_behavior_hashes": true,
+          "minimum_two_construction_strata": true,
+          "p_route_at_most_alpha_before_holm": false,
+          "paired_direction": true,
+          "shortcut_direction": false,
+          "uniform_critical_count_reached": false,
+          "uniform_upper_tail_p_at_most_alpha": false
+        }
+      },
+      "schema_version": 1,
+      "score_sha256": "52b50c8c620db5b8a898eecb878cbaf3cf0c330df2ed4fd8280319ee43492e9e",
+      "selected_endpoint_summary": {
+        "factual": {
+          "K1": {
+            "by_pair": [
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              false
+            ],
+            "count": 22
+          },
+          "K2": {
+            "by_pair": [
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 9
+          },
+          "K3": {
+            "by_pair": [
+              true,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 9
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 7
+          }
+        },
+        "sham": {
+          "K1": {
+            "by_pair": [
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              true,
+              false,
+              true,
+              true,
+              true,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false,
+              true,
+              false
+            ],
+            "count": 19
+          },
+          "K2": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 5
+          },
+          "K3": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              true,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 5
+          },
+          "K4_full_pool": {
+            "by_pair": [
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true,
+              true,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "count": 3
+          }
+        }
+      },
+      "versus_frozen_B_star": {
+        "B_star_factual_F_count": 19,
+        "B_star_policy_id": "public-k1-min-positive-node-hash",
+        "paired_test_model_greater_B_star": {
+          "alternative": "left_greater_than_right",
+          "discordant_pair_count": 14,
+          "exact_one_sided_p_value": {
+            "denominator": 16384,
+            "numerator": 16383,
+            "value": 0.99993896484375
+          },
+          "left_only_count": 1,
+          "left_success_count": 7,
+          "pair_count": 32,
+          "right_only_count": 13,
+          "right_success_count": 19
+        }
+      },
+      "versus_uniform_choice": {
+        "critical_factual_F_count": 10,
+        "exact_Poisson_binomial_upper_tail": {
+          "denominator": 5960464477539062500000000,
+          "numerator": 1597077912983408586430633,
+          "value": 0.2679452111495185
+        },
+        "exceeds_or_meets_critical_value": false,
+        "observed_factual_F_count": 7
+      }
+    }
+  },
+  "schema_version": 1
+}
