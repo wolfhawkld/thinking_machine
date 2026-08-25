@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "kind": "spark-strong-k4-utilization-feasibility-config",
+  "protocol_id": "spark-strong-k4-utilization-feasibility-v2",
+  "evidence_scope": "offline_outcome_conditioned_development_opportunity_census_and_utilization_construction_only",
+  "upstream_calibration": {
+    "interpretation": "post-outcome development input only; these immutable inputs motivate the new design but are not reclassified or reused as fresh evidence",
+    "sealed_files": [
+      {
+        "relative_path": "configs/spark-strong-k4-feasibility-v2.json",
+        "file_sha256": "78dd0bf573f38cf55aa1812a19ee3778e8bb2ea22783244a86c88099bd532ac0"
+      },
+      {
+        "relative_path": "configs/spark-strong-k4-fair-choice-v1.json",
+        "file_sha256": "b40679c6be18f6c3bb3f54a360e554af75567fa84aec64a5593513d3384173d9"
+      },
+      {
+        "relative_path": "artifacts/spark-strong-k4-feasibility-v2-20260822/result.json",
+        "file_sha256": "1ec8f0262fd1c27024e9c6d25702b1f1d799c8693cc7f082805ea434cf855c1a"
+      },
+      {
+        "relative_path": "artifacts/spark-strong-k4-fair-choice-formal-20260824/analysis.json",
+        "file_sha256": "89d6edae10314ccda36ea0d50d5b0acceb648adc6163680eccaaa17074605b31"
+      },
+      {
+        "relative_path": "artifacts/spark-strong-k4-fair-choice-formal-20260824/posthoc-design-implications-v1.md",
+        "file_sha256": "08092c3717ddf3cec0b810a6a9cd023dc557a331e0eb3f6230549b0487f6841a"
+      }
+    ],
+    "old_protocols_and_artifacts_immutable": true,
+    "old_development_worlds_eligible_for_new_cohort": false
+  },
+  "candidate_stream": {
+    "candidate_index_start": 0,
+    "candidate_world_count_cap": 1024,
+    "fixed_full_scan_required": true,
+    "outcome_dependent_early_stop_allowed": false,
+    "stage_world_count": 8,
+    "world_seed_namespace": "spark-strong-k4-utilization-feasibility-v2:world-seed",
+    "world_seed_rule": "sha256(world_seed_namespace + ':' + decimal_candidate_index), first 8 bytes big-endian, mask to 63 bits",
+    "candidate_seed_vector_sha256": "788388743614ac780bf0e81791c98989f24fb090f02d419196fa21133f1ae00e",
+    "collision_exclusions": "all seeds in the bound historical registry and the fully retired utilization-feasibility-v1 namespace; zero collisions in the frozen v2 0..1023 vector",
+    "complete_range": {
+      "start": 0,
+      "count": 1024,
+      "end_exclusive": 1024
+    },
+    "incomplete_classification": "scan_incomplete_not_infeasible"
+  },
+  "seed_reservation": {
+    "relative_path": "configs/spark-strong-k4-utilization-feasibility-v2-seeds.json",
+    "kind": "spark-development-seed-reservation",
+    "base_registry_relative_path": "configs/development-seed-registry.json",
+    "base_registry_file_sha256": "120bc5f3e9745f5edcc7d1d5d404daaedb8d524105dad12bde02011a52de4da4",
+    "retired_namespace_binding": {
+      "protocol_id": "spark-strong-k4-utilization-feasibility-v1",
+      "world_seed_namespace": "spark-strong-k4-utilization-feasibility-v1:world-seed",
+      "candidate_seed_vector_sha256": "58abdd2e86f1fd7bdcbcde2b67280b433a13044ed3035866d9cc2548b510ea38",
+      "candidate_world_count": 1024,
+      "status": "retired_pre_plan_implementation_smoke",
+      "entire_namespace_retired": true
+    },
+    "reservation_must_match_candidate_vector": true,
+    "reserved_worlds_are_development_only_forever": true
+  },
+  "target_free_plan_barrier": {
+    "must_bind_exact_config_file_sha256": true,
+    "must_bind_exact_seed_reservation_file_sha256": true,
+    "must_bind_current_source_manifest_sha256": true,
+    "must_be_generated_after_source_freeze_commit": true,
+    "target_materialized": false,
+    "compressor_run": false,
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "scan_authorized_before_independent_plan_review": false,
+    "post_review_scan_authorization": "scan CLI and build_scan_shard require the exact independently reviewed plan_sha256 as a separate explicit argument",
+    "lower_level_materialization_requires_internal_authorization_capability": true,
+    "plan_artifact_generated_during_this_code_change": false
+  },
+  "development_target_materialization": {
+    "target_seed_namespace": "spark-strong-k4-utilization-feasibility-v2",
+    "target_seed_rule": "sha256(target_seed_namespace + ':target:' + decimal_world_seed), full 32-byte digest interpreted as one big-endian integer",
+    "target_selection_rule": "after the reviewed plan barrier, call existing generate_spark_world(world_seed, target_seed) exactly once; its existing random.Random(target_seed).randrange(256) selects the sole target",
+    "target_draws_per_world": 1,
+    "target_redraws": 0,
+    "candidate_replacement_on_construction_outcome": false,
+    "all_materialized_worlds_status": "development_only_never_confirmatory"
+  },
+  "context_universe": {
+    "candidate_rule": "every member of the frozen target-independent motif library in ascending motif_id order",
+    "candidates_per_world": 105,
+    "motif_library_sha256": "a73800bb8350e2ad202d3f1dea9dce437c6b8fb232d2cc33899bfe1f7fb84e80",
+    "motif_strata_in_frozen_order": [
+      "affine_commutative",
+      "affine_directional",
+      "affine_multiplicative",
+      "pairwise_variable"
+    ],
+    "motif_counts_by_stratum": {
+      "affine_commutative": 21,
+      "affine_directional": 42,
+      "affine_multiplicative": 21,
+      "pairwise_variable": 21
+    },
+    "complexity_bucket": [2, 3],
+    "motif_selection_reads_target_or_outcome": false,
+    "motif_redraws_per_world": 0,
+    "unscanned_motifs_may_be_treated_as_no_opportunity": false
+  },
+  "action_universe": {
+    "raw_actions_per_context": 10,
+    "action_paths": [
+      [1, 1],
+      [1, 2]
+    ],
+    "action_frames_per_path_in_raw_order": [
+      "replace",
+      "add-right",
+      "sub-right",
+      "sub-left",
+      "mul-right"
+    ],
+    "raw_action_index_rule": "five frames in frozen order for path [1,1], followed by the same five frames for path [1,2]",
+    "all_actions_scored_symmetrically": true
+  },
+  "endpoint": {
+    "name": "K4_full_pool",
+    "historical_endpoints_reclassified": false,
+    "closure_max_rounds": 4,
+    "requires_K3": true,
+    "replacement_pool": "all structurally valid same-parent, same-frame, same-stratum, same-complexity matched replacements from the frozen motif library whose complete-domain behavior differs from the focal child",
+    "control_deduplication": "complete-domain child_behavior_hash",
+    "minimum_unique_control_behaviors": 3,
+    "all_unique_controls_must_fail_exact_identification": true,
+    "behavior_equivalent_controls_must_have_identical_endpoint": true,
+    "nonconstant_child_definition": "the complete-domain binary behavior contains both 0 and 1",
+    "constant_K4_excluded_from_every_utilization_tier": true
+  },
+  "opportunity_creation_census": {
+    "question": "within one fixed world and action universe, how does changing only the candidate context change reachable K2 and nonconstant K4 raw-action sets",
+    "context_pair_universe": "all unordered behavior-distinct motif pairs with the same stratum and complexity bucket",
+    "opportunity_count_unit": "raw syntactic action",
+    "pair_change_outputs": [
+      "K1 raw-action-set equality and symmetric-difference size",
+      "K2 raw-action-set equality and symmetric-difference size",
+      "nonconstant K4 raw-action-set equality and symmetric-difference size",
+      "constant K4 counts reported separately"
+    ],
+    "directional_factual_or_sham_label_assigned": false,
+    "p_values_or_hypothesis_classification_produced": false,
+    "natural_world_prevalence_estimated": false,
+    "interpretation": "a deterministic census of the constructed finite DSL landscape, not model discovery and not confirmatory evidence"
+  },
+  "utilization_pair_tiers": {
+    "evaluation_order": [
+      "strict_unique_nonconstant_switch",
+      "degraded_two_choice_disjoint_switch"
+    ],
+    "tier_mixing_allowed": false,
+    "selection_after_partial_scan_allowed": false,
+    "K2_opportunity_count_unit": "raw syntactic action",
+    "shared_requirements": {
+      "same_world_D0_parent_and_action_universe": true,
+      "same_motif_stratum": true,
+      "same_complexity_bucket": true,
+      "distinct_motif_id": true,
+      "distinct_complete_domain_motif_behavior": true,
+      "K2_opportunity_counts_equal": true,
+      "constant_K4_count_each_arm": 0,
+      "world_capacity": 1
+    },
+    "tiers": [
+      {
+        "tier_id": "strict_unique_nonconstant_switch",
+        "priority": 1,
+        "nonconstant_K4_raw_action_count_each_arm": 1,
+        "correct_raw_action_sets_must_be_disjoint": true,
+        "correct_raw_actions_must_differ": true,
+        "feasible_classification": "strict_unique_switch_geometry_feasible",
+        "infeasible_classification": "strict_unique_switch_geometry_infeasible_under_cap",
+        "future_claim_limit": "may support context-responsive unique-action switching only after a separately frozen masked model experiment"
+      },
+      {
+        "tier_id": "degraded_two_choice_disjoint_switch",
+        "priority": 2,
+        "nonconstant_K4_raw_action_count_each_arm": 2,
+        "correct_raw_action_sets_must_be_disjoint": true,
+        "correct_raw_actions_must_differ": true,
+        "feasible_classification": "degraded_equal_two_choice_switch_geometry_feasible",
+        "infeasible_classification": "degraded_equal_two_choice_switch_geometry_infeasible_under_cap",
+        "future_claim_limit": "at most context-responsive disjoint-set utilization; it cannot inherit the unique-action switching label"
+      }
+    ]
+  },
+  "cohort_feasibility": {
+    "independent_unit": "unique development world",
+    "one_pair_and_one_construction_stratum_assignment_per_world": true,
+    "target_pairs_per_stratum_for_geometry": 8,
+    "target_total_pairs_for_geometry": 32,
+    "fallback_pairs_per_stratum_for_geometry": 4,
+    "fallback_total_pairs_for_geometry": 16,
+    "matching_graph": "one bipartite graph from eligible worlds to pair motif strata; each world has capacity 1 and each selected stratum has exact capacity q",
+    "world_assignment_tie_break": "for each motif stratum in frozen order sort assigned candidate indices ascending, concatenate the four lists, and choose the lexicographically smallest jointly feasible vector",
+    "within_world_pair_order": "ascending canonical tuple of tier priority, stratum, context A motif_id, context B motif_id, and correct raw-action lists",
+    "selection_forbidden_fields": [
+      "model output",
+      "provider route",
+      "compressor N_T magnitude after endpoint classification",
+      "control-pool size above the frozen minimum",
+      "manual scientific attractiveness"
+    ],
+    "geometry_outputs": [
+      "maximum exact stratum-balanced q under the cap",
+      "target-q feasibility, fallback-q feasibility, and selected q reported separately",
+      "candidate capacity by tier, stratum and unordered correct-raw set pair",
+      "correct raw, path and frame marginals",
+      "child behavior and full-pool bundle diversity"
+    ],
+    "display_position_and_condition_order": "not assigned by this feasibility scan; they must be hard-counterbalanced in the later masked benchmark after prospective power",
+    "final_pair_count_set_by_this_scan": false,
+    "final_benchmark_minted_by_this_scan": false
+  },
+  "scan_and_merge_contract": {
+    "evaluation_order": "candidate_index, then motif_id, then raw_action_index, all ascending",
+    "shards_must_be_aligned_contiguous_and_nonoverlapping": true,
+    "merge_requires_complete_fixed_range": true,
+    "gap_overlap_duplicate_or_digest_drift": "construction_error_fail_closed",
+    "strict_and_degraded_tiers_evaluated_independently_after_complete_merge": true,
+    "no_result_based_seed_motif_or_tier_replacement": true
+  },
+  "artifact_contract": {
+    "evidence": false,
+    "confirmatory": false,
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "all_scanned_worlds_development_only": true,
+    "new_artifact_root": "artifacts/spark-strong-k4-utilization-feasibility-v2-YYYYMMDD",
+    "exclusive_create_no_overwrite": true,
+    "private_outputs_mode": "0600",
+    "future_public_projection_excludes": [
+      "target seed or index",
+      "world or target hash",
+      "compressor trajectory or N_T",
+      "endpoint flags or correct-action identity",
+      "eligible pair identity",
+      "control outcomes"
+    ],
+    "interpretation_limit": "constructs and audits an outcome-conditioned finite-DSL development geometry; it does not test model utilization, estimate natural-world creation prevalence, alter prior formal results, establish a model ranking, or imply human-unknown discovery"
+  }
+}

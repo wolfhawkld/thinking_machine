@@ -114,6 +114,96 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertEqual(retired["status"], "retired-pre-plan-implementation-smoke")
         self.assertIn("candidate index 0", retired["retirement_reason"])
 
+    def test_utilization_feasibility_stream_is_fresh_reserved_and_offline(self) -> None:
+        config = self.load_json(
+            "configs/spark-strong-k4-utilization-feasibility-v2.json"
+        )
+        reservation_path = (
+            ROOT / "configs/spark-strong-k4-utilization-feasibility-v2-seeds.json"
+        )
+        reservation = json.loads(reservation_path.read_text(encoding="utf-8"))
+        registry_path = ROOT / "configs/development-seed-registry.json"
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        stream = config["candidate_stream"]
+        namespace = stream["world_seed_namespace"]
+        count = stream["candidate_world_count_cap"]
+        expected = [
+            int.from_bytes(
+                hashlib.sha256(f"{namespace}:{index}".encode("ascii")).digest()[:8],
+                "big",
+            )
+            & ((1 << 63) - 1)
+            for index in range(count)
+        ]
+
+        self.assertEqual(config["protocol_id"], reservation["protocol_id"])
+        self.assertEqual(count, 1024)
+        self.assertEqual(stream["stage_world_count"], 8)
+        self.assertIs(stream["fixed_full_scan_required"], True)
+        self.assertIs(stream["outcome_dependent_early_stop_allowed"], False)
+        self.assertEqual(reservation["seeds"], expected)
+        self.assertEqual(len(expected), len(set(expected)))
+        self.assertFalse(set(registry["seeds"]).intersection(expected))
+        vector_sha = hashlib.sha256(
+            json.dumps(expected, separators=(",", ":")).encode("ascii")
+        ).hexdigest()
+        self.assertEqual(vector_sha, stream["candidate_seed_vector_sha256"])
+        self.assertEqual(vector_sha, reservation["candidate_seed_vector_sha256"])
+        retired = reservation["retired_namespaces"]
+        self.assertEqual(len(retired), 1)
+        self.assertEqual(
+            retired[0]["status"],
+            "retired_pre_plan_implementation_smoke",
+        )
+        self.assertIs(retired[0]["entire_namespace_retired"], True)
+        self.assertEqual(
+            retired[0]["materialized_before_reviewed_plan"],
+            [
+                {
+                    "candidate_index": 0,
+                    "world_seed": 3092638349656038141,
+                    "target_materialization_count": 1,
+                    "compressor_run": True,
+                    "context_count": 105,
+                    "raw_action_evaluation_count": 1050,
+                    "artifact_persisted": False,
+                    "model_or_provider_calls": 0,
+                }
+            ],
+        )
+        self.assertEqual(
+            reservation["active_vector_targets_materialized_before_reviewed_plan"],
+            0,
+        )
+        self.assertEqual(
+            hashlib.sha256(registry_path.read_bytes()).hexdigest(),
+            config["seed_reservation"]["base_registry_file_sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(registry_path.read_bytes()).hexdigest(),
+            reservation["base_registry"]["file_sha256"],
+        )
+        self.assertEqual(config["context_universe"]["candidates_per_world"], 105)
+        self.assertEqual(
+            sum(config["context_universe"]["motif_counts_by_stratum"].values()),
+            105,
+        )
+        self.assertEqual(config["action_universe"]["raw_actions_per_context"], 10)
+        self.assertEqual(
+            config["utilization_pair_tiers"]["evaluation_order"],
+            [
+                "strict_unique_nonconstant_switch",
+                "degraded_two_choice_disjoint_switch",
+            ],
+        )
+        self.assertIs(
+            config["target_free_plan_barrier"]["target_materialized"], False
+        )
+        self.assertIs(config["artifact_contract"]["evidence"], False)
+        self.assertIs(config["artifact_contract"]["confirmatory"], False)
+        self.assertEqual(config["artifact_contract"]["provider_calls_made"], 0)
+        self.assertIs(config["artifact_contract"]["model_outputs_read"], False)
+
     def test_strong_k4_fair_choice_protocol_is_symmetric_and_masked(self) -> None:
         config = self.load_json("configs/spark-strong-k4-fair-choice-v1.json")
 

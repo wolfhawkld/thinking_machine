@@ -1030,3 +1030,46 @@ exact one-sided McNemar/sign tail固定为`sum_{k=b}^{b+c} choose(b+c,k)/2^(b+c)
 下一步只进行一次明确标记为post-hoc、`evidence=false`的纯离线诊断，不增加provider调用，也不修改formal analyzer、alpha、Holm family、baseline、gate或任何正式artifact。诊断固定描述四组现象：各route在raw semantic action与display position上的选择偏好；与全部24个冻结结构政策的选择及factual-K4命中重合；factual strong hits在constant/nonconstant child、behavior、stratum和action frame上的集中；以及factual/sham两臂在K1--K4上的完整机会landscape与“有机会但未选中”分解。该诊断不得产生新的显著性结论、筛选新的最佳baseline或改写正式classification，只用于设计fresh-world后续实验。
 
 新增诊断源码会自然改变current source manifest，因此旧formal analysis仍只在其冻结source版本下有效，既有live/analysis barrier不作放宽。post-hoc工具只允许读取已提交的exact formal plan、public/private、generation bundle和analysis文件，另绑定新的diagnostic source manifest；诊断产物独立落盘，不能覆盖或命名为新版formal analysis。
+
+## 26. Opportunity creation 与 utilization construction feasibility（设计冻结，2026-08-25）
+
+第25节的正式non-positive result保持不变。其post-hoc诊断显示，旧pair中两臂机会总量不等，18个route-level factual K4 hits里16个产生constant-zero child，而且Flash/Pro的多数正discordance来自同一raw action在不同context下改变endpoint，而不是模型明确切换到另一个action。因此下一轮不能继续把“context改变可达结构”与“模型利用context改变选择”压成一个联合label。
+
+实现过程中曾建立`spark-strong-k4-utilization-feasibility-v1`候选namespace，但在独立review SHA门禁前，one-world implementation smoke绕过`build_scan_shard`直接materialize了candidate 0，并运行compressor完成105 contexts×10 actions。该运行没有模型/provider调用、没有写出plan/shard/result artifact，也不构成科学结果；但它已经使v1不能再声称unopened。沿用第22节的同一处理原则：不得只删除或替换candidate 0修补，因此v1整套1024-seed namespace永久标为`retired_pre_plan_implementation_smoke`，全部排除于后续construction、benchmark与confirmation。
+
+唯一active协议改为全新`spark-strong-k4-utilization-feasibility-v2`，配置为`configs/spark-strong-k4-utilization-feasibility-v2.json`，独立seed reservation为`configs/spark-strong-k4-utilization-feasibility-v2-seeds.json`。reservation同时绑定并披露已退休v1 vector。active v2只做纯离线、outcome-conditioned development construction；不读取模型输出、不调用provider、不改写旧strong-K4 v2/fair-choice/formal/post-hoc源码、配置或artifact，也不把任何旧development worlds换标签复用。旧正式联合分类仍是`effect_not_observed_under_frozen_protocol`。
+
+### 26.1 两个问题使用不同分母与结论边界
+
+**Opportunity creation**是确定性landscape census：在同一world、D0、parent、hidden target、四轮预算和10-action universe下，只改变candidate context，穷举所有raw actions并比较K1、K2及nonconstant `K4_full_pool`机会集合是否改变。comparison universe固定为同stratum、同complexity bucket且完整域motif behavior不同的unordered context pairs；计数单位固定为raw syntactic action。它报告集合是否相同及symmetric-difference大小，并把constant K4另列。canonical context顺序不产生factual/sham方向，结果不包含p值或hypothesis label，只描述当前有限DSL中context与可达descendants的确定性关系，不估计自然world发生率。
+
+**Opportunity utilization**才是后续模型问题：在development hidden target已按冻结规则materialize以后，确定性代码按结果构造机会强度相等的两个contexts，并在任何模型调用前封存；随后模型是否选择各自context-appropriate、彼此不同的action。这里的“相等”是pre-model但outcome-conditioned的benchmark construction，不是target-free随机分配，也不是自然总体中的ex-ante equality。当前协议只构造并审计这种pair geometry；没有模型响应就不能产生utilization结果。只有construction feasibility与prospective power均通过后，才能另行冻结provider-facing public manifest、private scoring key、display/condition schedule、route baselines、统计检验和live calls。
+
+### 26.2 完整context census与事前pair tiers
+
+每个world不再只看旧设计预分配的3个motifs，而是按`motif_id`升序完整扫描冻结motif library的105个target-independent contexts；四strata数量固定为`21/42/21/21`，complexity bucket均为`(2,3)`。每个context对两个paths乘五个semantic frames完整评分10个raw actions，因此每world固定1050个action evaluations。没有扫描的motif不得当作“无机会”。K1--K3和`K4_full_pool`逐字保持第22节定义；nonconstant child固定指完整125点域binary behavior同时含0和1，任何constant K4均从所有utilization tiers排除，但仍单独报告。
+
+pair先按同world、同stratum、同complexity、不同motif ID和不同完整域motif behavior过滤；两臂K2 raw-action opportunity count必须相等，world容量为1。两个tier在完整固定扫描后独立评估，不能混合填数：
+
+- primary `strict_unique_nonconstant_switch`：两臂各自总K4 raw-action数恰为1，该唯一child必须nonconstant，且两个正确raw action不同；若满足预定geometry capacity，label仅为`strict_unique_switch_geometry_feasible`；
+- 事前降级`degraded_two_choice_disjoint_switch`：两臂各自总K4 raw-action数恰为2，四个qualifying children均nonconstant，且两臂正确raw-action sets不相交；其label只能是`degraded_equal_two_choice_switch_geometry_feasible`，不能继承unique-action switching措辞。
+
+若strict不够，必须原样报告`strict_unique_switch_geometry_infeasible_under_cap`；不得因degraded可行而把strict改写为可行。degraded也不可行则另报其infeasible label。禁止在扫描后放宽K2 equality、允许constant child、允许相同raw、混合strata/buckets、增加新tier或扩大seed cap。
+
+### 26.3 全新1024-world fixed cap与target-free plan barrier
+
+active候选index固定为`0..1023`，world seed按`SHA256("spark-strong-k4-utilization-feasibility-v2:world-seed:" + decimal_index)`前8 bytes大端整数并mask至63 bits；完整vector SHA-256为`788388743614ac780bf0e81791c98989f24fb090f02d419196fa21133f1ae00e`，与已绑定的历史development registry及完整退休v1 vector均无collision。单独seed reservation文件保存active完整vector、registry file SHA、退休v1 binding与永久development-only状态；它是新协议的registry extension，不改变旧strong-K4 v2要求其vector保持历史registry suffix的sealed实现约束。
+
+active target namespace固定为`spark-strong-k4-utilization-feasibility-v2`。只有reviewed target-free plan才能授权后续development scan；scan CLI与底层`build_scan_shard`必须把独立复核后的exact `plan_sha256`作为plan文件以外的第二个显式参数并逐字核对，缺失或不等时必须在任何target draw前停止。candidate scanner与target materializer不再是public API，并且必须收到`build_scan_shard`在上述核对之后才mint的内部authorization capability；这用于防止再次通过底层便利函数误绕门禁。每个world届时只允许按完整SHA-256 target-seed规则调用一次`generate_spark_world`并接受其唯一target draw，无target redraw、bank search或按outcome补seed。所有实际materialized worlds无论是否含pair都永久排除于任何natural-population或confirmatory cohort。
+
+在本节源码、tests、两个新config files共同commit并push以前，不得生成或落盘可供扫描授权的正式plan artifact；unit tests与只读审计可以构建无authorization效力、无target/compressor的内存对象。正式plan必须绑定config bytes SHA、seed reservation bytes SHA、current source manifest、1024-seed vector与105-motif ordered-library digest；plan自身必须明确`target_materialized=false`、`compressor_run=false`、`model_outputs_read=false`、`provider_calls_made=0`。独立复核正式plan artifact后才可决定是否打开fresh development targets。
+
+若获授权，完整scan分成128个连续8-world shards。merge必须覆盖精确`0..1023`，拒绝gap、overlap、duplicate、range/config/plan/source/self-digest drift。不得找到足够pairs后提前停，也不得把partial scan称为infeasible；未完成只能标`scan_incomplete_not_infeasible`。evaluation顺序固定为candidate index、motif ID、raw action index各自升序，并行执行不能改变canonical merge结果。
+
+### 26.4 Geometry classification 与后续实验边界
+
+每个tier分别建立world到pair-stratum的联合b-matching：world容量1，四个strata容量均为`q`。冻结feasibility landmarks为每stratum 8 pairs（32 worlds）及fallback每stratum 4 pairs（16 worlds）；它们只描述是否存在足够geometry，不预先宣称最终模型实验的样本量。world assignment按四strata冻结顺序分别列升序candidate indices并拼接，在所有jointly feasible assignments中取字典序最小vector；同world同stratum的pairs按context motif IDs及correct raw sets的canonical tuple排序。不得按模型输出、route、超过endpoint门槛后的`N_T`幅度、control pool额外大小或人工吸引力选pair。
+
+merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`、`fallback_q_feasible`、`selected_q`、tier/stratum/unordered-correct-raw-pair capacity、correct raw/path/frame marginals，以及child behavior与full-pool bundle diversity。fallback q=4通过时，generic tier feasibility label只表示16-world fallback geometry，绝不能读成q=8/32-world landmark通过。该geometry audit不会生成provider-facing task，也不会在当前阶段分配display position或condition order。若geometry通过，下一步先做prospective power；然后在另一份事前sealed benchmark config中，根据可达geometry硬配平correct raw、path/frame、display position、condition order和route schedule。任何construction worlds进入后续masked challenge set时仍只能支持条件化的`P(model选择正确action | 已知存在配平机会)`，不能支持自然机会率、一般模型排名、entropy因果、人类未知发现或现实世界外推。
+
+截至本节与新配置写入时：退休v1发生过1次target materialization与1次compressor smoke，未持久化artifact；active v2正式target-free plan artifact尚未生成或落盘（测试与审计只构建过无authorization效力的内存对象）、targets opened为0、compressor runs为0；两个namespace合计model/provider calls为0，新的utilization evidence为0。
