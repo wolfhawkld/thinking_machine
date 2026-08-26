@@ -1073,3 +1073,18 @@ active target namespace固定为`spark-strong-k4-utilization-feasibility-v2`。�
 merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`、`fallback_q_feasible`、`selected_q`、tier/stratum/unordered-correct-raw-pair capacity、correct raw/path/frame marginals，以及child behavior与full-pool bundle diversity。fallback q=4通过时，generic tier feasibility label只表示16-world fallback geometry，绝不能读成q=8/32-world landmark通过。该geometry audit不会生成provider-facing task，也不会在当前阶段分配display position或condition order。若geometry通过，下一步先做prospective power；然后在另一份事前sealed benchmark config中，根据可达geometry硬配平correct raw、path/frame、display position、condition order和route schedule。任何construction worlds进入后续masked challenge set时仍只能支持条件化的`P(model选择正确action | 已知存在配平机会)`，不能支持自然机会率、一般模型排名、entropy因果、人类未知发现或现实世界外推。
 
 截至本节与新配置写入时：退休v1发生过1次target materialization与1次compressor smoke，未持久化artifact；active v2正式target-free plan artifact尚未生成或落盘（测试与审计只构建过无authorization效力的内存对象）、targets opened为0、compressor runs为0；两个namespace合计model/provider calls为0，新的utilization evidence为0。
+
+### 26.5 正式plan、execution recovery与完整离线结果（2026-08-25--26）
+
+上段状态是设计写入时的预执行快照。源码冻结commit `d283690464c23411af15fcf1420582f515bbe767`推送后，正式target-free plan在任何active-v2 target打开前生成于`artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/plan.json`，并以commit `ee90c9f92d4bcf8d94ecfee61e3fcb0137fb86c3`单独封存。其canonical `plan_sha256`为`10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84`，文件SHA-256为`b7f3fce8152a5aa2e3f462dedc31bfb560f73fe56cdb1bd6512e5786e4103e68`，绑定source manifest `bf8120c789b9e87ff1d13d70d0789f8f86be53298213ba6598c171b614144e84`。
+
+正式scan完整覆盖128个连续8-world shards和candidate `0..1023`；不存在gap、overlap、seed/motif replacement或outcome-based early stop。执行在已完成shard 053后应人工要求暂停，当时shards 054--061可能已在内存中进行了部分确定性计算，但未持久化artifact。恢复时在同一plan、config、source和seed vector下从shard 054精确重放；这是同一确定target assignment的replay，不是target redraw，也没有换seed或根据已观察outcome重试。
+
+合并结果位于本机私有`artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/result.json`；文件SHA-256为`d8534e4c7e0e230e7d33fe33a24144f0e9d81d862c5a3a49dcffe5f00380c61b`，canonical `scan_sha256`为`f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf`。它报告1024 worlds、1,520,640个事前固定context pairs；其中1,497,903 pairs的nonconstant-K4 raw-action set相同，22,737 pairs不同。各stratum的不同计数为`4,423/10,247/3,668/4,399`（affine commutative/directional/multiplicative/pairwise variable）。这只是当前有限DSL development worlds中的确定性Opportunity creation census，不是自然机会率估计。
+
+两个utilization-construction tiers必须分开解读：
+
+- `strict_unique_nonconstant_switch`的通用classification为`strict_unique_switch_geometry_feasible`，但只通过fallback `q=4`（16 worlds）；target `q=8`不可行，固定cap内maximum exact balanced `q=6`。因此不得称strict 32-world landmark通过。
+- `degraded_two_choice_disjoint_switch`的classification为`degraded_equal_two_choice_switch_geometry_feasible`，target `q=8`可行，固定选32 worlds，四strata各8。它仍只支持disjoint two-choice geometry，不得继承unique-action switching措辞。
+
+可跟踪、不含private target/world/pair identity的摘要与128-shard raw-byte hash manifest位于`artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json`；其canonical `manifest_sha256`为`8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77`，文件SHA-256为`ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6`。raw result、128 shards及可解压回exact result bytes的本机gzip因含private construction fields继续被Git忽略；模型输出读取为false、provider calls为0、`final_benchmark_minted=false`。因此本结果尚不支持Opportunity utilization、模型排名、confirmatory、因果或现实世界外推结论。

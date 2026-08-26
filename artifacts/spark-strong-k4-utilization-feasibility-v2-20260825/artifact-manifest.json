@@ -1,0 +1,1935 @@
+{
+  "artifacts": {
+    "plan": {
+      "file_sha256": "b7f3fce8152a5aa2e3f462dedc31bfb560f73fe56cdb1bd6512e5786e4103e68",
+      "git_storage": "tracked",
+      "plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+      "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/plan.json",
+      "size_bytes": 86910
+    },
+    "result_gzip_private_transfer_copy": {
+      "compression": {
+        "arguments": [
+          "-n",
+          "-9",
+          "-k"
+        ],
+        "tool": "gzip 1.12"
+      },
+      "decompressed_file_sha256": "d8534e4c7e0e230e7d33fe33a24144f0e9d81d862c5a3a49dcffe5f00380c61b",
+      "file_sha256": "b51b91ed176d15c8241d8ff88f7c4eafe49f562530fa89fe1215e5013979ab8c",
+      "git_storage": "ignored_private_local_payload",
+      "local_mode": "0600",
+      "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/result.json.gz",
+      "size_bytes": 85578051
+    },
+    "result_raw_private": {
+      "file_sha256": "d8534e4c7e0e230e7d33fe33a24144f0e9d81d862c5a3a49dcffe5f00380c61b",
+      "git_storage": "ignored_private_local_payload",
+      "local_mode": "0600",
+      "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/result.json",
+      "scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf",
+      "size_bytes": 967374548
+    },
+    "shards_private": {
+      "candidate_range": {
+        "count": 1024,
+        "end_exclusive": 1024,
+        "start": 0
+      },
+      "count": 128,
+      "files": [
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 8,
+            "start": 0
+          },
+          "file_sha256": "415598d0b4a0590a7cce71611ee4341b74542da53c9a06d49cf3f78396d511dd",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-000.json",
+          "shard_sha256": "573ca17679f6d39469da2d2bdb1f2568353d734f04da6f55735ce3bfd6897d58",
+          "size_bytes": 7588793
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 16,
+            "start": 8
+          },
+          "file_sha256": "2a17dbd0a558e3de84de6a0d1b9399dee24821fff554f6d47dd1ebda189be8b6",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-001.json",
+          "shard_sha256": "1ba5d73c6495b7fc88951b5c1d8aad6290e2f1daf88e9b1029984076b4a8fae5",
+          "size_bytes": 7642836
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 24,
+            "start": 16
+          },
+          "file_sha256": "eedfffd0670be46a1c2c3d7498ae9ed0cfc4826cad4d97506a41da1546719969",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-002.json",
+          "shard_sha256": "ddc942294cfa180745a4eb5e21c887f5d998f17a7c2644993c21b6c274b33038",
+          "size_bytes": 7554939
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 32,
+            "start": 24
+          },
+          "file_sha256": "0c5fed86548abdb614a33cbb5d556fe2f75cf6afb6d446a8d3908d8d43e88ea5",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-003.json",
+          "shard_sha256": "837a4f17093976aaf049bbcf9130f910fe04e7160da9f55344899ad24c3c051d",
+          "size_bytes": 7575328
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 40,
+            "start": 32
+          },
+          "file_sha256": "2ba0df60e39d88238f9ba9d0ed10631d4b6cb86b85fad50295c4c59da6479271",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-004.json",
+          "shard_sha256": "978f5b280ac36eaef570931c72c571ba4081567255dd1b5ab55017ad9fedae83",
+          "size_bytes": 7587262
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 48,
+            "start": 40
+          },
+          "file_sha256": "572108b0410ec6ce8b75212e2e049a0f521f7235c2572be89f3126a645aa7cca",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-005.json",
+          "shard_sha256": "f7ad6598c24917d4d94a1f0461a7a4e0326a90c73b3802dd0324eb22836be21a",
+          "size_bytes": 7652851
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 56,
+            "start": 48
+          },
+          "file_sha256": "b46e41dc915697f21756ddad73dc462354006e7fb116701d989970f852b12064",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-006.json",
+          "shard_sha256": "47bd877e994153d6f55a0d6a57be1f726339a7e320aa67fb46789f98578ce7c0",
+          "size_bytes": 7493670
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 64,
+            "start": 56
+          },
+          "file_sha256": "65a9bc3299bc687a3e74a675d83fb6ca532901f64586bf6e06f630b574599a8d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-007.json",
+          "shard_sha256": "35fe88f108867b06e88d7141871da2617b3f03f64a121d8ce11b41f0e0233985",
+          "size_bytes": 7519082
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 72,
+            "start": 64
+          },
+          "file_sha256": "65eda70e7fa7b028e78030ef6e85d1fa0f688e755bfef1e2f31426ebcc8b4329",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-008.json",
+          "shard_sha256": "e532411c162bb817f27e9811e52d52bf491351148bb9c04758363699a7a3deb1",
+          "size_bytes": 7652466
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 80,
+            "start": 72
+          },
+          "file_sha256": "f2077bdc674e94e9d83a02959069edae3b5571b6b761b331fc62bd51d7072035",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-009.json",
+          "shard_sha256": "15f6a7c9757f3e204b0329321d722c7a66dfc451bac4d10290d7994ba7d68cbd",
+          "size_bytes": 7663213
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 88,
+            "start": 80
+          },
+          "file_sha256": "94c00a7dbe8f657e9454f75a2ee1b50f7002f5994930aa48fdfc92478edd50c6",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-010.json",
+          "shard_sha256": "175ad78e2894deee73d8ec9074621e50c3676a37210426369fc7ea8d469ffd80",
+          "size_bytes": 7494184
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 96,
+            "start": 88
+          },
+          "file_sha256": "899a480353ce99e9cf1a90defb4f98f763d433a4f65d19e303abf3cdf1d7bab4",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-011.json",
+          "shard_sha256": "a711577c1136e70999facbeb81311772d38366967def4d91105df62902b01d52",
+          "size_bytes": 7599179
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 104,
+            "start": 96
+          },
+          "file_sha256": "955c069a1a2a8e951053fb468ed8231f12cb5e14faffabbac4d93799a726dc74",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-012.json",
+          "shard_sha256": "91ffc6c97c97401874b48555f6b8045e879becd7cd7f75ad1040d0e88a777edf",
+          "size_bytes": 7534442
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 112,
+            "start": 104
+          },
+          "file_sha256": "a6c0c9d04e4670e53d14b95101ae19226f9b3f0fbbe8dc1b52b314d7efe6732f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-013.json",
+          "shard_sha256": "49d364f89368d9e72177081a7b7169568ba64c4158648c8cbaa0556b01ed6e3e",
+          "size_bytes": 7592901
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 120,
+            "start": 112
+          },
+          "file_sha256": "7e481cd12a579c881b975abfb5ad11b637af056f96054e8c56ae57edd5e1be5c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-014.json",
+          "shard_sha256": "a48d4d2710fad9acd4958cdef5fa71d47548dbdc11fef24019607151cd608a8d",
+          "size_bytes": 7652279
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 128,
+            "start": 120
+          },
+          "file_sha256": "8e29fef7a3484ea565eec670a982608c8735a0a02442ca01f10604523d8e556b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-015.json",
+          "shard_sha256": "0c1710cfed13674c44124ba50f6790ccb15db411943aaa888ea3f489268d0b08",
+          "size_bytes": 7539558
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 136,
+            "start": 128
+          },
+          "file_sha256": "1b18026c71466ebb1337b1fb0895bd12ba3cfe2164f998df98d701292e5307a0",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-016.json",
+          "shard_sha256": "cc45aaa931b0e85b958565de7285ac80f2613567e990ef81deadb9fdf36f3cea",
+          "size_bytes": 7488050
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 144,
+            "start": 136
+          },
+          "file_sha256": "670f6df4c02b28bc5f7545663e4d6fdb5f7a8e30d08b678f1880af33578d63f1",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-017.json",
+          "shard_sha256": "71988d91873b795a08a9888e8be8d913e218bbbe891b43f6f8aacd1497fb93d6",
+          "size_bytes": 7640228
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 152,
+            "start": 144
+          },
+          "file_sha256": "89a9f37057b0e1272711f5985a2435c2b87efe021b395b8ca0ecc8cebe947aff",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-018.json",
+          "shard_sha256": "bbc1535536865af3a3e0a2bdec6bf4d1ffc57d68a85d67d958ace4ffa390cf29",
+          "size_bytes": 7596978
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 160,
+            "start": 152
+          },
+          "file_sha256": "d1b2748ca061998159fbb2d92be0cd56581158f1ec6f181fc5d625c5f55aeb9c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-019.json",
+          "shard_sha256": "47acb7f2faf7350cf6ffbb55352d5c46c947fbe1203f4cc9f65edb33a31aaa70",
+          "size_bytes": 7597789
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 168,
+            "start": 160
+          },
+          "file_sha256": "79507ebb31564e08c0d0424c8899019067c6361da788bc566cac909d948ff6fa",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-020.json",
+          "shard_sha256": "384ce30e3c451f50996ed738c4d0e126499411c5bb8223e93d862a8214ecb55f",
+          "size_bytes": 7530510
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 176,
+            "start": 168
+          },
+          "file_sha256": "45cb7073124282286e877f95b356cf3f5025b0620df09bbdbda73cf61c54c295",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-021.json",
+          "shard_sha256": "1263ee50e78324b248065365d1ffe24a31dcce3108c0e6bdd5489a28c7c25e05",
+          "size_bytes": 7484046
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 184,
+            "start": 176
+          },
+          "file_sha256": "5d81add975b8cdac6844bf490cd94dd2fca0f0a71335c3e6ddbb54bac55d9743",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-022.json",
+          "shard_sha256": "d7d984c55a1d705a26d11666e5d861d46ae858246396af56a914a0e306cf8e95",
+          "size_bytes": 7558597
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 192,
+            "start": 184
+          },
+          "file_sha256": "bdce83110bcfd9aa389a01bb15c7bfe511201584f65a45891778674b370b4b4e",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-023.json",
+          "shard_sha256": "81336930b06a7c7624ed95da564cbd02623121784c79a8ed2982d2992452f033",
+          "size_bytes": 7601892
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 200,
+            "start": 192
+          },
+          "file_sha256": "6c2824c25fa1ebe7a8ce8fb57e0258464cf524390c4cbfcbfe0bc95f578e09bb",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-024.json",
+          "shard_sha256": "0a2595015b6ab99c13cccb4c5083d65a2f1c8b9087d76a52ddee59d0d2b592dd",
+          "size_bytes": 7636746
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 208,
+            "start": 200
+          },
+          "file_sha256": "5e6bb779c9c278e46aba685455e57d5af611dc9c1664482f973563b44e2f475f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-025.json",
+          "shard_sha256": "60e84ab7740285cad5f8dfa00e0009f77ec315006605167e8eb5fcf357cadbae",
+          "size_bytes": 7538003
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 216,
+            "start": 208
+          },
+          "file_sha256": "c212f545148a06bfd14e9b072642281f487d454b5e5bb7a778d8faeb88d353dd",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-026.json",
+          "shard_sha256": "46bbfde61872600235ffe19669688145e58e3da9ba2910a3a93adfb8d6fdcb4d",
+          "size_bytes": 7464311
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 224,
+            "start": 216
+          },
+          "file_sha256": "dd84861f15ac232bbc23708f0845a261e93d9462d38c8053c49595d1449b2547",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-027.json",
+          "shard_sha256": "9bbe164898d333a47c5e4e90945141b01028996c7ec9f5040b3d772330b6fd80",
+          "size_bytes": 7520260
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 232,
+            "start": 224
+          },
+          "file_sha256": "aef5c403850832c8848a6ebc9b7c7a6cb48de88d668c351873157e5ac2e0ece4",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-028.json",
+          "shard_sha256": "93f8be0ba9a2465e84b95f88d4d86597456da8bc56bf9e4084607def8439783f",
+          "size_bytes": 7545946
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 240,
+            "start": 232
+          },
+          "file_sha256": "b463b0612ebe9e422ad2d643000a6ab74d3f3cca6f3e9faacc7bb229318c9919",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-029.json",
+          "shard_sha256": "53ed013c256fb96dce26dfb77be49326f2cb4b43e977d0535ad6e9409b571bdb",
+          "size_bytes": 7501134
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 248,
+            "start": 240
+          },
+          "file_sha256": "a225d165918ca74cad2e8c2013f4d294e098f4b33b0f45e90631f9637ffb5b4b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-030.json",
+          "shard_sha256": "ec1a5b70a8f1c958b7e0034b5fbad6f3a782132ca9d5e84cc70a1df3f25d59a2",
+          "size_bytes": 7467636
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 256,
+            "start": 248
+          },
+          "file_sha256": "15a6ab98b53112ea78cef2aae120ec7d4a47f1a1407233229df8df3c16e7182a",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-031.json",
+          "shard_sha256": "7b5ef08e7177fd81b839801a96b22cb8dea8ace8094519a9f7feb43a53e53163",
+          "size_bytes": 7605465
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 264,
+            "start": 256
+          },
+          "file_sha256": "89f0880f919ac8a420d32897910c64d3d8071b179aed116cd178e987bfacfe7b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-032.json",
+          "shard_sha256": "2eea2d1ef5af6d6de472f528fb20a9a04026e544563c59cc53026909e46facf0",
+          "size_bytes": 7548492
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 272,
+            "start": 264
+          },
+          "file_sha256": "f9dcb5a182f099ff6ea3f734a0ab701f44e6908377298c220f3d56d2e01f4bdf",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-033.json",
+          "shard_sha256": "347f8890e10cb7a5f03c0b6fea12da20c259dc51dc4b41e581c5fb469d766800",
+          "size_bytes": 7606773
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 280,
+            "start": 272
+          },
+          "file_sha256": "9b3555009a80c6940bfca8931eec1302c94aac0375a9474c5cb2fde683974ca8",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-034.json",
+          "shard_sha256": "b65af8d999c9e27c81f1c08b33563ca0d4dfd2b7ecfde7b67a488145ad4f6113",
+          "size_bytes": 7587366
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 288,
+            "start": 280
+          },
+          "file_sha256": "4862fb4e5be9fc9f5efb0a627a6f79b046f0ff9a1f4eca2e8db625eeeb407ca8",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-035.json",
+          "shard_sha256": "a73c33e95cd33533951d4f85e4584d3cbb81c19d379a37a32791a7b81220c22a",
+          "size_bytes": 7496102
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 296,
+            "start": 288
+          },
+          "file_sha256": "23015f34b39e11ee6a5d2b230eac5dd8b8cef513968c47ba30be491960d7cbaf",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-036.json",
+          "shard_sha256": "a908f15274dd525b9d421cd585169373987e0e2b425e8155ecc9e8027c75ea12",
+          "size_bytes": 7645424
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 304,
+            "start": 296
+          },
+          "file_sha256": "c020d47cd805f946d15221ba37a6f4d1c44bcedd3491931531aa165fcfe7005e",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-037.json",
+          "shard_sha256": "83edc9bf1c506ab9dbcbc8981264687f6008d7805725b1d34fc2fdf8ddc98265",
+          "size_bytes": 7588955
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 312,
+            "start": 304
+          },
+          "file_sha256": "d9ce7ec1a08947263e262e6331d45883ccd85c12b0bbd723c710013409aea648",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-038.json",
+          "shard_sha256": "4e8ef24598c1ebe5d992b8e9efec6a08aa0d027a2895e2b56363c2c0e3dd9555",
+          "size_bytes": 7512972
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 320,
+            "start": 312
+          },
+          "file_sha256": "e44478a3e31597797f217c3be0d266a0ce29a1ab222c1ce53bb8e6a1e0203191",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-039.json",
+          "shard_sha256": "3c74e5957573b3288594e5cff0e9325cc9b30efecff30a598c6a737e4e0f5578",
+          "size_bytes": 7595681
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 328,
+            "start": 320
+          },
+          "file_sha256": "bb719fc2398b3166df7d811c524c1aeb8aba5c31123392834d2d09efe94e8a79",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-040.json",
+          "shard_sha256": "f145925c0572e6ff30bc4b244432f62a69165a367223b29bbfce6fa8bafc469a",
+          "size_bytes": 7560934
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 336,
+            "start": 328
+          },
+          "file_sha256": "ad2a4b9b2456e8d51e493c58bc52605e88239247f174a4ef67fe73eb1784a4d1",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-041.json",
+          "shard_sha256": "970fda54b8a5e007db071ba070a165f1e45253a18d9df15729ab289985cea561",
+          "size_bytes": 7464233
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 344,
+            "start": 336
+          },
+          "file_sha256": "26be404e9153fd98181a49c8519d62df6520975ef0d45ac9659246dc064077cf",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-042.json",
+          "shard_sha256": "7a724c8faca452e8d27b022e7a5a8efe14e1a4b6cecaf7eb3c980d8579a4425a",
+          "size_bytes": 7479425
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 352,
+            "start": 344
+          },
+          "file_sha256": "5fc6c3808de2390ba7b95eff5d7fed52501ba165e606f6c386bfd7cdbb048b90",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-043.json",
+          "shard_sha256": "806bbb33997acb1373c54d0a2894671e5e3ff23dadbd669b3ad46c9e25cbf489",
+          "size_bytes": 7595912
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 360,
+            "start": 352
+          },
+          "file_sha256": "6bf0810fe3548ac951bc7b8ee48bc56ccb75436c93a70ce7b2aaff2ec7f0da6f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-044.json",
+          "shard_sha256": "151ac69cf805f03b84d103c3d28437a3cbc19ae210dc820f47fb8698e7c7559b",
+          "size_bytes": 7579426
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 368,
+            "start": 360
+          },
+          "file_sha256": "ba465be14fa737d0d68c18ae8426c5831a1e9ac7b03088b6c339f4c3e7e9c528",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-045.json",
+          "shard_sha256": "9bdd3ac7fc2cc5b44c466d9958e4fb6344466c91bc91bacc79c66b20d7e2b917",
+          "size_bytes": 7618715
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 376,
+            "start": 368
+          },
+          "file_sha256": "21e79351281c14f3dd98475d03cd71485c7bc6f8918f6341dd59c2793f725c20",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-046.json",
+          "shard_sha256": "ebfe01fcdf0903980a0ffd9429c877312c76c1ae7511de82356a10d486de72e8",
+          "size_bytes": 7419117
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 384,
+            "start": 376
+          },
+          "file_sha256": "ba1e58a5cb4060f3672877f62a7dbe37cb614b5fb3a9279556c91a3244083bff",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-047.json",
+          "shard_sha256": "21b5dd1478f41eddcc3dcd6f72cca2ab237019dcb2a7f9fdf5158260842fb437",
+          "size_bytes": 7522384
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 392,
+            "start": 384
+          },
+          "file_sha256": "b67c3c99892bd420d9ec7dacc66f60aaa452159a5dddbbbfb11d6bb51f018c7f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-048.json",
+          "shard_sha256": "b5badf9895a8dfda834cfd73a3223d0126a35a64052977f6e8cf8ea3d3229378",
+          "size_bytes": 7706337
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 400,
+            "start": 392
+          },
+          "file_sha256": "570cda4c05dbaff1328d8ba76377a4359ca5a4914a2397c8ace81b7fb880f04b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-049.json",
+          "shard_sha256": "9b7ae80406dc57013a1b6093f4b540fe4417cd2a714d74195de2d0543e070e0e",
+          "size_bytes": 7584902
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 408,
+            "start": 400
+          },
+          "file_sha256": "5160c0c0ef1c71dbedccffb5383aa86a1b4e9ef3c3098ba1bdde5d83131a7ed1",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-050.json",
+          "shard_sha256": "a207819887442a068cd7b37c57144760c6626436c6c76c9e482e5ae6b5ececdc",
+          "size_bytes": 7521266
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 416,
+            "start": 408
+          },
+          "file_sha256": "446aa1af5962bd06b91ae34bbf0a72b6e316e13a4d42dfcdacf0fcd279de5422",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-051.json",
+          "shard_sha256": "b220611252c5a751e3982e721f3ca334f978793324f8f54faa1e56fce0df6d4a",
+          "size_bytes": 7575857
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 424,
+            "start": 416
+          },
+          "file_sha256": "b6e0c76c4d37ca207250e09db5ba32906d0460514193e355fc2f1e44cc7738b0",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-052.json",
+          "shard_sha256": "43be3a0d75e0b7a670221131332815131a865bb4302c92956bc7d9e40198299d",
+          "size_bytes": 7569500
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 432,
+            "start": 424
+          },
+          "file_sha256": "a8b27effac1053afa19f4bd3cb92687a52968ecb81715f1a4aec41c616177d3d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-053.json",
+          "shard_sha256": "1332469cb3bda91238482bb0559d69241d8343fa819719c295c711e8ce4aef74",
+          "size_bytes": 7624935
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 440,
+            "start": 432
+          },
+          "file_sha256": "9c210fa983dca7c34535c83de9cee5434bf70de2d5c1e37829e0b27c56ce7ab3",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-054.json",
+          "shard_sha256": "36b1272feba8c027acad9806dd056d158e0cb7ffeba7a6a6b4ffcb967a325f4a",
+          "size_bytes": 7641960
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 448,
+            "start": 440
+          },
+          "file_sha256": "3a9e3f6acbcb4cf5c950dd150c70678cfbee7686076b42ff7269d976f79ccdf5",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-055.json",
+          "shard_sha256": "15a765e1046ffb689966765d5d7a754cadd01528c39edcccf68ab951ce84337a",
+          "size_bytes": 7569772
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 456,
+            "start": 448
+          },
+          "file_sha256": "c20bc9f327b8c4d63a87087c6e617b3687bbc72ba6075afdf1d2cddc65ca3cbf",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-056.json",
+          "shard_sha256": "090729d23c045190c7c73f4e92383fdcc89a1d8792116c737882ef54420892b2",
+          "size_bytes": 7597425
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 464,
+            "start": 456
+          },
+          "file_sha256": "2a115481659b111c80e9cdfebc2b42cd0a047708d2f876a43f1916a8c67273cb",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-057.json",
+          "shard_sha256": "44d948b5bd7741a8c66b1ec2d2cffc0172eb7f13e7e47e20b795aec9aa7d08a3",
+          "size_bytes": 7583181
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 472,
+            "start": 464
+          },
+          "file_sha256": "646c15fd1ebaf7aeb96c05cd52175c148b29c86a9b3a1054664923f8037b9212",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-058.json",
+          "shard_sha256": "ca82a7e4c0067151c817a3862e645b9b952cda75b284a1f9d860d64f937f338e",
+          "size_bytes": 7547503
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 480,
+            "start": 472
+          },
+          "file_sha256": "c26bb70ce910c84d1a0246038ced2ebd3dc2d8d54401c3006201af5effda0a23",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-059.json",
+          "shard_sha256": "4fd278fcb3d2369d23dc365216620567ecc6151085f7b27c6b6e2481cea877a2",
+          "size_bytes": 7520281
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 488,
+            "start": 480
+          },
+          "file_sha256": "4d2cd09eeb0effa1d0ea6b202e45d4bbc22de1152eb63c6194230b005196e448",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-060.json",
+          "shard_sha256": "0106b9234e318d6d8c63876478a7e81591e92b50fd212c168c1a3e707b64a295",
+          "size_bytes": 7622380
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 496,
+            "start": 488
+          },
+          "file_sha256": "e6fb5e9b1d82122d145203f25698b03f4902b57d3b434377d5e12958388eb55f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-061.json",
+          "shard_sha256": "0955cf0a4970ad23edb3ebe445f12ffed33326a6c1473a4aae5255a7f283c1a8",
+          "size_bytes": 7569535
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 504,
+            "start": 496
+          },
+          "file_sha256": "1acf2f728df4677852084347ed3c5e22b8916fb1405df6805da1b431e3b355b1",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-062.json",
+          "shard_sha256": "fbbbe539ae65b0b5dce2ad6d279ee1d6ea6cf61d9ec435d7545b280ca3e91879",
+          "size_bytes": 7468102
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 512,
+            "start": 504
+          },
+          "file_sha256": "1bcf10c8ec62f7d05f1d127f251d58069c4912343eb62497913ac71989004568",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-063.json",
+          "shard_sha256": "8d1ee93549aa5d8a236d33f295cad2a6c37025150f9872a407e83f7fb2137963",
+          "size_bytes": 7535314
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 520,
+            "start": 512
+          },
+          "file_sha256": "0fcb03414b054f09fe26514aa72681b24403e50f60f5ce9014352567ebf42f8a",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-064.json",
+          "shard_sha256": "d5258a3f0f90854cfb60d893383b5759b422086ea50b4e1ae8b40276946f03f9",
+          "size_bytes": 7623978
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 528,
+            "start": 520
+          },
+          "file_sha256": "0dbdd9c6605cded8f9686ad7886ef01f408b1dc3aa12a479dcdff5b3fa35a617",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-065.json",
+          "shard_sha256": "b66de65edf0c699c9e81e78dab9ae87d8d9391dfc1eb2cc7967c766e3893986e",
+          "size_bytes": 7533202
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 536,
+            "start": 528
+          },
+          "file_sha256": "7eb71cf629b71e2a6f60a3c20b52f3c1e0fa736b4ea68df8c60ba558e9e59b99",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-066.json",
+          "shard_sha256": "d1d0a7a593a0c0ee7b1d53ea956d9bc0f8c8ba50f8988e0e21975484bf863036",
+          "size_bytes": 7482246
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 544,
+            "start": 536
+          },
+          "file_sha256": "68e1b6f04f4d7958da52510b4ef4f9ece3fd3d6814cc1705b14d890a015e0161",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-067.json",
+          "shard_sha256": "e015b690744f0061b2cb7c8524f27841e00d7b8942379c486a60d303bc2c8bdf",
+          "size_bytes": 7566200
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 552,
+            "start": 544
+          },
+          "file_sha256": "f08d09581924d90f22b9f724ba428b48ea180def9f6765b7fabb331328de9ddf",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-068.json",
+          "shard_sha256": "50dd0b76f714a201a9cd2435970b63fe49622e28a854a363de68eda62a02c476",
+          "size_bytes": 7467172
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 560,
+            "start": 552
+          },
+          "file_sha256": "94dccfc0882b2cf772ca8937b48abc669b8dde595f7aebb2b88764bc478f1996",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-069.json",
+          "shard_sha256": "c3b0823cb8a84ff356c2a6246854d9584ee6b46a248e957ccf9c12b5e5a5952b",
+          "size_bytes": 7457903
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 568,
+            "start": 560
+          },
+          "file_sha256": "4152ffa92b6907f448c043d4e2da4164587e3a6e83785c2a7c22a934d02b883b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-070.json",
+          "shard_sha256": "1c49b7df472de0f0236439d01647eb9cc57573886c180ae6a5b2839099e99ce6",
+          "size_bytes": 7635785
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 576,
+            "start": 568
+          },
+          "file_sha256": "89a3639d5b1db6a892401a0508f3ef2bdabab11f38c635ca769a8d6e2bcfde6b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-071.json",
+          "shard_sha256": "7a63961e31d6b46c2a0790ffa5490342707dd9bf7468327a1a3c8a0688f57b88",
+          "size_bytes": 7471358
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 584,
+            "start": 576
+          },
+          "file_sha256": "08e0f8ba65bbeaa99df4f7deda4df29d63049d803fdda5eeb227d9e5541c8ae2",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-072.json",
+          "shard_sha256": "13c47e11ec57fc3ecfcc92ba8f8d1e57b20841b166bfb5203a6e37bd1abca5cd",
+          "size_bytes": 7594684
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 592,
+            "start": 584
+          },
+          "file_sha256": "4e67c2e9db75a85bec76aefac280e4b182c966b53fc052351f589c76e6d2f882",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-073.json",
+          "shard_sha256": "59de0f6873b093c4b8daf30e7093855077c7d4595064f5b82045957f58667ffa",
+          "size_bytes": 7594723
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 600,
+            "start": 592
+          },
+          "file_sha256": "58607a4d3685debc2a0c3f25947e9778845700396c7b10a9e3195fd7344c04d1",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-074.json",
+          "shard_sha256": "cd879cdce50edbe292595caf7bd872a8ee2e2e5e98b852ea823eed06ddcb49db",
+          "size_bytes": 7636166
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 608,
+            "start": 600
+          },
+          "file_sha256": "9156d10b1c396d50159d4fed1364688e7b365f55c3adf4fef470ab2454d00b5a",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-075.json",
+          "shard_sha256": "5b512bba2f2ec023584ec439a212d0a599b3d1ed5dfa422b6f74853b9b5be136",
+          "size_bytes": 7630483
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 616,
+            "start": 608
+          },
+          "file_sha256": "a88abbd42cdc7180c9b6243caa4320a09b96b8991c8a00ef947dbf80a43d2e3b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-076.json",
+          "shard_sha256": "89df1838b1cb9f1b4f4507af446d71a230f9332fb8e552d207d42bb7985cf11a",
+          "size_bytes": 7545763
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 624,
+            "start": 616
+          },
+          "file_sha256": "9105e1d4e56b8ee700c84cdc6ce12a0b2e24f633f1ed3004321d4ae32769845b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-077.json",
+          "shard_sha256": "b047c0e32e72896083ecc5f6a10314f951f02bf4c92fec5530d597086dc1ee7d",
+          "size_bytes": 7577611
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 632,
+            "start": 624
+          },
+          "file_sha256": "9dc1728f0abcfea4adf88712e956011f2c87e69e828cf20cd6cb3ddd0d70455d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-078.json",
+          "shard_sha256": "5a49e1f6a438505bee47846755ae39a6b8bf85096219b144cbcffb5dcbbd77df",
+          "size_bytes": 7545435
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 640,
+            "start": 632
+          },
+          "file_sha256": "0f907a973efd89a12fbb0b7dae7878fd7f073a758dae6abb3c6bf347dcc5267c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-079.json",
+          "shard_sha256": "e70a00f442a367e595b8ec25db292cbd8640dd4348d0522c77479bb840f93939",
+          "size_bytes": 7658675
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 648,
+            "start": 640
+          },
+          "file_sha256": "a07d634b5dee199abd0b8dc18d1084148494238393b6906ea28df9b424b17bf6",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-080.json",
+          "shard_sha256": "3470c9d5088cad5a0f9a3e0e19fc7b3f70404a20154c26941a7e97d5a490a97f",
+          "size_bytes": 7582888
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 656,
+            "start": 648
+          },
+          "file_sha256": "e8304fd3b063736acf85ff44be7c123c198040e945335839c029ef51b102734d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-081.json",
+          "shard_sha256": "c224c1a6c4d6965fda2c3a6788d9f76e8997d9458b00fd2858f490388246a35b",
+          "size_bytes": 7514209
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 664,
+            "start": 656
+          },
+          "file_sha256": "3d2797057002ccf6b3854b848504370aaec6280b21bcdeb4a00938eec0e961b5",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-082.json",
+          "shard_sha256": "4f6e446d2c5ce63c0570e78b1d2d5cb511cd91bf7e1251524703c0207d0405f7",
+          "size_bytes": 7521562
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 672,
+            "start": 664
+          },
+          "file_sha256": "ebb5e030f65491c9c046d70a2297af2a4fa20ee7de60b0b11b1b91e4754f751b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-083.json",
+          "shard_sha256": "da66c80106dd6b7eb38b7654e03f53e4067842547b1d1294185c7eaa92a2c203",
+          "size_bytes": 7513790
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 680,
+            "start": 672
+          },
+          "file_sha256": "235f23afd871778288cfd44f7938de73b4eed8436e26b914a87688c351f13201",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-084.json",
+          "shard_sha256": "b8c318416a623ea3127cef8d76b0533d410afd36431c05a9b463e0b399df36ea",
+          "size_bytes": 7514709
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 688,
+            "start": 680
+          },
+          "file_sha256": "41fc5d624acc55ff6af7d12883553e24180b27de52f1dc7d08523a77d251595c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-085.json",
+          "shard_sha256": "449c6560f062c4c39c1b0f1e6dae4a38ced841b20c036f435d0caad55f2a1951",
+          "size_bytes": 7589652
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 696,
+            "start": 688
+          },
+          "file_sha256": "6f52ff7ae867f37b72d019eda2d1de1065bb4b99b5322d72454c761b31e6ef14",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-086.json",
+          "shard_sha256": "fa04bd84bbc8370705b54efcc9efd95fc6c46b1593bc159e9e377619da6fcb75",
+          "size_bytes": 7607449
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 704,
+            "start": 696
+          },
+          "file_sha256": "5b7a66c18e0cb5d52b18b5c2c5ce923d639473dfae8aff448e1c7b5a75436866",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-087.json",
+          "shard_sha256": "27bc36afc596f8bea8731eaf00d9910a7bb97220805c8cc191e19d7a98f6bc0e",
+          "size_bytes": 7621108
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 712,
+            "start": 704
+          },
+          "file_sha256": "9e4ed4786e8be74794348aca2813c1682161df235b0c88471ac2ae1cbf17f683",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-088.json",
+          "shard_sha256": "e50002938342592a6eb4bf602857e7ef9f6b39356025014230615325bdf9c3e3",
+          "size_bytes": 7428647
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 720,
+            "start": 712
+          },
+          "file_sha256": "a1dfdbc78edf1bb4c3dc5af026ef6355480feac0e4d973302b4d0d2475fb6371",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-089.json",
+          "shard_sha256": "5beea790ec08bd50d64ee4a17f0fb3389e6fc8a796f6ce0084c795e2ffe7802a",
+          "size_bytes": 7633616
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 728,
+            "start": 720
+          },
+          "file_sha256": "c33c842f2d69ac268f647a4ebafaf7d4352afb3c5d2e1178503d0311ae563506",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-090.json",
+          "shard_sha256": "3bebc883d28d1d70cc7fbdbd6cfec4ccee93335af3460cf295d3507b2394ab45",
+          "size_bytes": 7482059
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 736,
+            "start": 728
+          },
+          "file_sha256": "b5295840e9bf2b1c40b6bda7fc850433282c22427d71e8259d3277a58df39891",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-091.json",
+          "shard_sha256": "7c5aab6892ccf8c3f83ef6aa99541f6ea1fbe0f0210e009536a5320df24edff1",
+          "size_bytes": 7625436
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 744,
+            "start": 736
+          },
+          "file_sha256": "61306a7dde0bbd56f5261ef647e1460affc028d3cec5add1829fe94cc526af9d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-092.json",
+          "shard_sha256": "0353d6139694c35113a0b92b992200fca027f4427763b4375337c5be72e10a0d",
+          "size_bytes": 7552524
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 752,
+            "start": 744
+          },
+          "file_sha256": "c2fc276d92df334fd0bdb92ab7cbe31c41324c32b78b8c1de14e192ddbb6423f",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-093.json",
+          "shard_sha256": "4fdbd058c57cb234b65ba6329660e0e3cf0473adced70afe5af2f606fc686d4d",
+          "size_bytes": 7576923
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 760,
+            "start": 752
+          },
+          "file_sha256": "1e7683308fc76cfb864b6f395b263e847b527a07e198716db28c0110e110fc89",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-094.json",
+          "shard_sha256": "19f03d4dab61fe85c7aca82871b7fdcbb797e8555741946762230c35cd0363f2",
+          "size_bytes": 7602397
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 768,
+            "start": 760
+          },
+          "file_sha256": "3971e9a5e0416045d599db69dfae461b4ec84e9919139a6ba913e61bdf7413db",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-095.json",
+          "shard_sha256": "b0980c1ea3234e6f9ef3eb07b08cf8a353d1af2836414b59ffd188eb26ab59be",
+          "size_bytes": 7573894
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 776,
+            "start": 768
+          },
+          "file_sha256": "196273aa2d36ccec6e6ad1033e73f726352c34229ff58d7ea65ea5c4270bd854",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-096.json",
+          "shard_sha256": "c133e81a8053d3ccad0efc7279baf014180b8b3490a118137642fa0012f075d1",
+          "size_bytes": 7494665
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 784,
+            "start": 776
+          },
+          "file_sha256": "45913c206ac3041a6f404f29fcdedc8bebdac4dd37a5242a64d01ce1b8009aa5",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-097.json",
+          "shard_sha256": "711e730fd51da8452a774bc541e722deab73d3221a9147dfebd54b663430a153",
+          "size_bytes": 7573016
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 792,
+            "start": 784
+          },
+          "file_sha256": "3c7f8838db783a4bbc8b09c7235762f8fdd6e9261e8bf2458652451cd175154b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-098.json",
+          "shard_sha256": "da3c41e723764d388f8a783d1ee2599e8db413677831910c6bb6ff9ec050f122",
+          "size_bytes": 7621782
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 800,
+            "start": 792
+          },
+          "file_sha256": "5be17cb5aad85d9fca3550f441fd5995220fc9518d7e2b0e13ba44f18c04231b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-099.json",
+          "shard_sha256": "067e15265bdd09430bc8527ef672c001e347cdaa406ff8302ab0ec675a898fc9",
+          "size_bytes": 7510131
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 808,
+            "start": 800
+          },
+          "file_sha256": "f63e6186e948b13304a464d537b836ffbc69f90eeef96645e863af5ec527ebd4",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-100.json",
+          "shard_sha256": "4b52ede702d40bc510465a214090d38bfd69cd3df9b088e93ee00a630b527132",
+          "size_bytes": 7480955
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 816,
+            "start": 808
+          },
+          "file_sha256": "a31567fe450ee41fff6ac2ae3f3ec488d7e1ea8c5643439f62e6b5b30bb9c01b",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-101.json",
+          "shard_sha256": "c72ce14c503e5e544168ad293fb37cb8535422c1c40b7034c089eaebe800448b",
+          "size_bytes": 7575965
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 824,
+            "start": 816
+          },
+          "file_sha256": "f6f69e56d70da6c39021b285b71acba41fd8fcea2d0e3850761f7ad5bf2e93f6",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-102.json",
+          "shard_sha256": "2dc1079b58c33462ffee128396a382ebe5b9f643dcd1a60445aff1cf5432de36",
+          "size_bytes": 7551475
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 832,
+            "start": 824
+          },
+          "file_sha256": "1cf1cbdf6335e0136d901cea33e89a26f5d39f29232125a570cf0a890c85496e",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-103.json",
+          "shard_sha256": "8f2493bc551b3996bf5cdabb8faff39db90b7c6048e46a9711cf148bde75d426",
+          "size_bytes": 7613966
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 840,
+            "start": 832
+          },
+          "file_sha256": "1a271f8938acb5392a02339a9357fee4595b4bdb9196045fd85daf3f008aaeab",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-104.json",
+          "shard_sha256": "e934c61b374a983b791a02e487eff1d5a3167f1eb906c8c3c8a8ab213a7d20b6",
+          "size_bytes": 7553180
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 848,
+            "start": 840
+          },
+          "file_sha256": "92e3a465159438e849caf4c3084b60f9152370feef83b94371f187194deb9a6c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-105.json",
+          "shard_sha256": "019d0a348ce2959e29e03979600558e47ceacbdb83ed7cc98f7344cd6076cc43",
+          "size_bytes": 7438039
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 856,
+            "start": 848
+          },
+          "file_sha256": "516096fff366b16c818a3d8468df32e28d919322522812ee9872c9460b694572",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-106.json",
+          "shard_sha256": "671d8183d0a2017570bc8822c46f4d6bb7c8ef1f7e668c1bf394ad9268df8dfe",
+          "size_bytes": 7543258
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 864,
+            "start": 856
+          },
+          "file_sha256": "d3c065a822d1184dcac29de73f64496207f2e469431d31c86d4876bc9e53c2ae",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-107.json",
+          "shard_sha256": "2ee477381f437b974dae667e146f88ab47d5f6181f68ed32c15b06a01230e869",
+          "size_bytes": 7543420
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 872,
+            "start": 864
+          },
+          "file_sha256": "23d6b0ee0292e356936ac664fecb43d557af7574f363ee541eb799f10803a4de",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-108.json",
+          "shard_sha256": "c1968e42774fcad699b3cb9501fef5805994ad9ae7022cd6ebff244974449647",
+          "size_bytes": 7510897
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 880,
+            "start": 872
+          },
+          "file_sha256": "eda66993f2373d3e4bbec95ff400bc69218164ba7402880d186fa2e1b60bf260",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-109.json",
+          "shard_sha256": "8a9e86800c5af77b4f01af2f324c037213f20996ad3f64c790b4ee20759c2491",
+          "size_bytes": 7521502
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 888,
+            "start": 880
+          },
+          "file_sha256": "9e063035debafecb247ff404d44669fe67d2e53525550681d7a010f9ec2e4e97",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-110.json",
+          "shard_sha256": "7d336fca94db68772a2a0827583a992d89b78629fbdcb2ed2e294abb4eda40eb",
+          "size_bytes": 7660607
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 896,
+            "start": 888
+          },
+          "file_sha256": "d8a25d23cc4e4fb00963bde275a39d3e9a47918b1d1dd605d11ee59c8dd7ec19",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-111.json",
+          "shard_sha256": "eb2667850df3d0113bcd5aafb95fdb2a7edc888ca1d5b26054bf47f72d984e99",
+          "size_bytes": 7476665
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 904,
+            "start": 896
+          },
+          "file_sha256": "ad99926807bf046dedeccb13a0dd7415daaff563685c76e86a75c68d4eeb0da2",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-112.json",
+          "shard_sha256": "3189700453b072e56d053c22b96f209ef355b6b5d66cd70cc8e5dd4f977824be",
+          "size_bytes": 7536814
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 912,
+            "start": 904
+          },
+          "file_sha256": "aaecc192298011f0db0ed8161e0721ed2169323044e75cdef54467447a39d21e",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-113.json",
+          "shard_sha256": "4f0f65e19d91cd57a10f8d39ee94df4d0001c671fbcf72da55c01d548052d6a5",
+          "size_bytes": 7599846
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 920,
+            "start": 912
+          },
+          "file_sha256": "8af418e6a42744fed9d2cdc1dbd9dbba00bef361f519f83a36390d6ffc0db702",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-114.json",
+          "shard_sha256": "982ea00313e07fe5a343a62d7993352c09350a76fd22423a546c7aa6d1bb9f96",
+          "size_bytes": 7555759
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 928,
+            "start": 920
+          },
+          "file_sha256": "1b6079c0a28305ba3e5c7b7f13ccf1f44d695230819df9c222262d64d3dbebfc",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-115.json",
+          "shard_sha256": "ab33dfba9c55c8d47dc87ef8a6fd3d1f617750bf9f0c9b07559f66c47c9b1b09",
+          "size_bytes": 7583926
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 936,
+            "start": 928
+          },
+          "file_sha256": "23ce400d2e3da8e4db951ff1f5a4ff4453f9e8a3ae62c9b1091c876654a0d65d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-116.json",
+          "shard_sha256": "d3d4357718c7f5082158742edf0f645209db5ec2aaa7e916590831fc2723f382",
+          "size_bytes": 7561626
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 944,
+            "start": 936
+          },
+          "file_sha256": "6ae497af4a1388664ee304ea2a00c4b85038424849a6cf00d84773113a725a5d",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-117.json",
+          "shard_sha256": "76fa98d2f49002795f70b14113aaf57ae1b9437dec5b9303c820e847ffdbdf5b",
+          "size_bytes": 7587382
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 952,
+            "start": 944
+          },
+          "file_sha256": "785cc457477610d5605a1d7b7005aeba749dad90e39ca25c780da1f223fcef39",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-118.json",
+          "shard_sha256": "151a59a716d7ef6d7eb6ee715c2997bf6cbe3d3f0b1f3a912db9c45369477783",
+          "size_bytes": 7578918
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 960,
+            "start": 952
+          },
+          "file_sha256": "a0bff9b6aea071a03bdc3b4e0e53272f552fbf60fc46bb9a54ad04e1d4931ab8",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-119.json",
+          "shard_sha256": "3571481bb32255ef7146b514b86a5c88d30708aa5241b5bf4c46e5f6379511a7",
+          "size_bytes": 7605703
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 968,
+            "start": 960
+          },
+          "file_sha256": "a3c28a69820a939237d3fdace5f6f4cde85978b8d76c491faf79a565a8c45bdd",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-120.json",
+          "shard_sha256": "06349c15d338c65d5a8e51584548bc4366c636fb50ca014184b0b48df2dc5680",
+          "size_bytes": 7567936
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 976,
+            "start": 968
+          },
+          "file_sha256": "d389d74073ba47beb0f085dee0e03e02e8c142a134d9fefc52b4e68978a9f304",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-121.json",
+          "shard_sha256": "10f64583f01b7463925f671600a0836484323b3872b8ab6f1cd49a3b9848c2da",
+          "size_bytes": 7544130
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 984,
+            "start": 976
+          },
+          "file_sha256": "294ebbe92dcef3a165e42b954a46744275160184676410cd36c1265595f82c82",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-122.json",
+          "shard_sha256": "b5c46cec2ecd411e7fc8e43218a83254a844ee6cca77f0bc678eae61411a3f9b",
+          "size_bytes": 7612886
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 992,
+            "start": 984
+          },
+          "file_sha256": "de8b9d06a6f98e1e1bf4742d186d790fee508686250d7bbe79d76b1365445ff9",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-123.json",
+          "shard_sha256": "fc3695c5b8a1275c7780c02ed928fb3b03aa990c29f97a0ee1dca0c96dc36dea",
+          "size_bytes": 7486595
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 1000,
+            "start": 992
+          },
+          "file_sha256": "bb3e387c1473415d60fd621da56f0fb4cbc62fd343207e86bfc1bc3ba6358eff",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-124.json",
+          "shard_sha256": "6b8b7a81389a3aa99c5cbbf601e320381dd0b55d687d471662445a54c3212b80",
+          "size_bytes": 7577425
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 1008,
+            "start": 1000
+          },
+          "file_sha256": "107eb0c3b9229fd7810d0210b9f37aac53da2c9e1256bc7a31ded5651290859c",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-125.json",
+          "shard_sha256": "07083cc45c9825265c0f9dc98fb6cbe62f88fa99099dfedeac1740b725da6fc5",
+          "size_bytes": 7526147
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 1016,
+            "start": 1008
+          },
+          "file_sha256": "1dae5dc450fb06a0519061df5791cb54ee98f9aa8d2568b4596cbf4e1c702d29",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-126.json",
+          "shard_sha256": "43361d61b0930038fe1ecb8644de86135356c09475e2cadf99ee0a85779b1903",
+          "size_bytes": 7464303
+        },
+        {
+          "candidate_range": {
+            "count": 8,
+            "end_exclusive": 1024,
+            "start": 1016
+          },
+          "file_sha256": "238bd45d47b931f017b7e4a436db3643cef24aec35b3c13792df9ddc192c9c48",
+          "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/shard-127.json",
+          "shard_sha256": "8c59957197a915b2e27bfbd6ff570c60d463f4c0ce5aa93fa809309de2707043",
+          "size_bytes": 7662419
+        }
+      ],
+      "files_manifest_sha256": "d12005ff193143d3d6e510ff4350dd06a56f83dca2c7440e8fb60c5c38676dac",
+      "git_storage": "ignored_private_local_payloads",
+      "local_mode": "0600",
+      "total_size_bytes": 967864320
+    }
+  },
+  "bindings": {
+    "config_file_sha256": "15a2021058900b83f6f2c306c1bd60c41dfc266f265849ecaeeb6ad465edab86",
+    "plan_commit": "ee90c9f92d4bcf8d94ecfee61e3fcb0137fb86c3",
+    "plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+    "scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf",
+    "source_freeze_commit": "d283690464c23411af15fcf1420582f515bbe767",
+    "source_manifest_sha256": "bf8120c789b9e87ff1d13d70d0789f8f86be53298213ba6598c171b614144e84"
+  },
+  "claim_boundary": "This finite-DSL development artifact supports only deterministic opportunity creation census and outcome-conditioned utilization geometry feasibility under the frozen cap. It does not test model utilization, estimate natural-world prevalence, provide confirmatory evidence, or establish a model ranking.",
+  "evidence_scope": "offline_outcome_conditioned_development_opportunity_census_and_utilization_construction_only",
+  "execution_recovery": {
+    "in_progress_artifacts_persisted": false,
+    "in_progress_shard_indices_at_interruption": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "interrupted_after_completed_shard_index": 53,
+    "note": "Some deterministic computations in interrupted shards may have run in memory before termination; exact shard indices were replayed with the same target assignment, not redrawn.",
+    "outcome_based_retry_or_early_stop": false,
+    "resume_end_shard_index_inclusive": 127,
+    "resume_start_shard_index": 54,
+    "same_plan_config_source_and_seed_vector": true,
+    "seed_or_candidate_replacement": false,
+    "target_assignment_changed_on_replay": false
+  },
+  "kind": "spark-strong-k4-utilization-feasibility-artifact-manifest",
+  "manifest_sha256": "8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77",
+  "protocol_id": "spark-strong-k4-utilization-feasibility-v2",
+  "recorded_at_utc": "2026-08-26T03:27:39.492980+00:00",
+  "safe_summary": {
+    "aggregate": {
+      "creation_census": {
+        "by_stratum": {
+          "affine_commutative": {
+            "constant_k4_count_histogram": {
+              "0": 203967,
+              "1": 5307,
+              "10": 35,
+              "12": 6,
+              "2": 3145,
+              "3": 940,
+              "4": 632,
+              "5": 505,
+              "6": 328,
+              "7": 83,
+              "8": 49,
+              "9": 43
+            },
+            "k1_raw_action_indices_equal_count": 19823,
+            "k1_raw_action_indices_symmetric_difference_histogram": {
+              "0": 19823,
+              "1": 11193,
+              "10": 2389,
+              "2": 27791,
+              "3": 23763,
+              "4": 26104,
+              "5": 27078,
+              "6": 23118,
+              "7": 24384,
+              "8": 14497,
+              "9": 14900
+            },
+            "k2_raw_action_indices_equal_count": 42082,
+            "k2_raw_action_indices_symmetric_difference_histogram": {
+              "0": 42082,
+              "1": 15657,
+              "10": 2268,
+              "2": 26072,
+              "3": 21511,
+              "4": 21710,
+              "5": 24038,
+              "6": 18805,
+              "7": 19778,
+              "8": 12979,
+              "9": 10140
+            },
+            "nonconstant_k4_raw_action_indices_equal_count": 210617,
+            "nonconstant_k4_raw_action_indices_symmetric_difference_histogram": {
+              "0": 210617,
+              "1": 1937,
+              "2": 1969,
+              "3": 265,
+              "4": 61,
+              "5": 181,
+              "6": 5,
+              "7": 5
+            },
+            "pair_count": 215040
+          },
+          "affine_directional": {
+            "constant_k4_count_histogram": {
+              "0": 826321,
+              "1": 37076,
+              "10": 8,
+              "2": 13378,
+              "3": 2258,
+              "4": 1093,
+              "5": 740,
+              "6": 423,
+              "7": 246,
+              "8": 98,
+              "9": 23
+            },
+            "k1_raw_action_indices_equal_count": 98492,
+            "k1_raw_action_indices_symmetric_difference_histogram": {
+              "0": 98492,
+              "1": 43650,
+              "10": 8591,
+              "2": 114411,
+              "3": 87778,
+              "4": 100101,
+              "5": 112083,
+              "6": 90216,
+              "7": 108036,
+              "8": 50366,
+              "9": 67940
+            },
+            "k2_raw_action_indices_equal_count": 179796,
+            "k2_raw_action_indices_symmetric_difference_histogram": {
+              "0": 179796,
+              "1": 61927,
+              "10": 8617,
+              "2": 111259,
+              "3": 83374,
+              "4": 87036,
+              "5": 96869,
+              "6": 75879,
+              "7": 84339,
+              "8": 48694,
+              "9": 43874
+            },
+            "nonconstant_k4_raw_action_indices_equal_count": 871417,
+            "nonconstant_k4_raw_action_indices_symmetric_difference_histogram": {
+              "0": 871417,
+              "1": 6613,
+              "2": 3086,
+              "3": 388,
+              "4": 63,
+              "5": 91,
+              "6": 4,
+              "7": 2
+            },
+            "pair_count": 881664
+          },
+          "affine_multiplicative": {
+            "constant_k4_count_histogram": {
+              "0": 206542,
+              "1": 1930,
+              "10": 10,
+              "11": 2,
+              "12": 12,
+              "13": 6,
+              "14": 6,
+              "2": 2277,
+              "3": 455,
+              "4": 411,
+              "5": 49,
+              "6": 128,
+              "7": 50,
+              "8": 86,
+              "9": 4
+            },
+            "k1_raw_action_indices_equal_count": 54694,
+            "k1_raw_action_indices_symmetric_difference_histogram": {
+              "0": 54694,
+              "1": 10587,
+              "10": 53,
+              "2": 27645,
+              "3": 18668,
+              "4": 31938,
+              "5": 11541,
+              "6": 25794,
+              "7": 18712,
+              "8": 12018,
+              "9": 318
+            },
+            "k2_raw_action_indices_equal_count": 75166,
+            "k2_raw_action_indices_symmetric_difference_histogram": {
+              "0": 75166,
+              "1": 13757,
+              "10": 74,
+              "2": 29033,
+              "3": 14792,
+              "4": 26761,
+              "5": 10723,
+              "6": 19132,
+              "7": 14952,
+              "8": 7078,
+              "9": 500
+            },
+            "nonconstant_k4_raw_action_indices_equal_count": 208300,
+            "nonconstant_k4_raw_action_indices_symmetric_difference_histogram": {
+              "0": 208300,
+              "1": 574,
+              "2": 2669,
+              "3": 224,
+              "4": 142,
+              "5": 44,
+              "6": 13,
+              "7": 2
+            },
+            "pair_count": 211968
+          },
+          "pairwise_variable": {
+            "constant_k4_count_histogram": {
+              "0": 206333,
+              "1": 3729,
+              "2": 1382,
+              "3": 237,
+              "4": 208,
+              "5": 34,
+              "6": 36,
+              "7": 7,
+              "8": 1,
+              "9": 1
+            },
+            "k1_raw_action_indices_equal_count": 39889,
+            "k1_raw_action_indices_symmetric_difference_histogram": {
+              "0": 39889,
+              "1": 8335,
+              "10": 323,
+              "2": 31791,
+              "3": 25477,
+              "4": 26464,
+              "5": 32695,
+              "6": 15216,
+              "7": 20028,
+              "8": 6585,
+              "9": 5165
+            },
+            "k2_raw_action_indices_equal_count": 68196,
+            "k2_raw_action_indices_symmetric_difference_histogram": {
+              "0": 68196,
+              "1": 16005,
+              "10": 220,
+              "2": 31262,
+              "3": 21483,
+              "4": 21083,
+              "5": 22287,
+              "6": 11069,
+              "7": 13165,
+              "8": 4516,
+              "9": 2682
+            },
+            "nonconstant_k4_raw_action_indices_equal_count": 207569,
+            "nonconstant_k4_raw_action_indices_symmetric_difference_histogram": {
+              "0": 207569,
+              "1": 1822,
+              "2": 2264,
+              "3": 142,
+              "4": 97,
+              "5": 73,
+              "7": 1
+            },
+            "pair_count": 211968
+          }
+        },
+        "pair_count": 1520640
+      },
+      "world_count": 1024
+    },
+    "complete_candidate_range": {
+      "count": 1024,
+      "end_exclusive": 1024,
+      "start": 0
+    },
+    "shard_count": 128,
+    "tiers": {
+      "degraded_two_choice_disjoint_switch": {
+        "candidate_capacity_by_stratum": {
+          "affine_commutative": 25,
+          "affine_directional": 23,
+          "affine_multiplicative": 36,
+          "pairwise_variable": 11
+        },
+        "candidate_geometry": {
+          "by_stratum": {
+            "affine_commutative": {
+              "eligible_world_count": 25,
+              "pair_candidate_count": 46,
+              "unique_correct_child_behavior_count": 31,
+              "unique_correct_full_pool_bundle_count": 118
+            },
+            "affine_directional": {
+              "eligible_world_count": 23,
+              "pair_candidate_count": 49,
+              "unique_correct_child_behavior_count": 18,
+              "unique_correct_full_pool_bundle_count": 112
+            },
+            "affine_multiplicative": {
+              "eligible_world_count": 36,
+              "pair_candidate_count": 97,
+              "unique_correct_child_behavior_count": 30,
+              "unique_correct_full_pool_bundle_count": 150
+            },
+            "pairwise_variable": {
+              "eligible_world_count": 11,
+              "pair_candidate_count": 33,
+              "unique_correct_child_behavior_count": 14,
+              "unique_correct_full_pool_bundle_count": 44
+            }
+          },
+          "eligible_world_count": 59,
+          "pair_candidate_count": 225,
+          "unique_correct_child_behavior_count": 66,
+          "unique_correct_full_pool_bundle_count": 424
+        },
+        "capacity_per_stratum": 8,
+        "classification": "degraded_equal_two_choice_switch_geometry_feasible",
+        "complete": true,
+        "counts_by_construction_stratum": {
+          "affine_commutative": 8,
+          "affine_directional": 8,
+          "affine_multiplicative": 8,
+          "pairwise_variable": 8
+        },
+        "fallback_q": 4,
+        "fallback_q_feasible": true,
+        "matched_world_count": 32,
+        "maximum_exact_stratum_balanced_q_up_to_target": 8,
+        "required_world_count": 32,
+        "selected_matching_geometry": {
+          "by_stratum": {
+            "affine_commutative": {
+              "eligible_world_count": 8,
+              "pair_candidate_count": 8,
+              "unique_correct_child_behavior_count": 12,
+              "unique_correct_full_pool_bundle_count": 32
+            },
+            "affine_directional": {
+              "eligible_world_count": 8,
+              "pair_candidate_count": 8,
+              "unique_correct_child_behavior_count": 7,
+              "unique_correct_full_pool_bundle_count": 32
+            },
+            "affine_multiplicative": {
+              "eligible_world_count": 8,
+              "pair_candidate_count": 8,
+              "unique_correct_child_behavior_count": 10,
+              "unique_correct_full_pool_bundle_count": 32
+            },
+            "pairwise_variable": {
+              "eligible_world_count": 8,
+              "pair_candidate_count": 8,
+              "unique_correct_child_behavior_count": 12,
+              "unique_correct_full_pool_bundle_count": 30
+            }
+          },
+          "eligible_world_count": 32,
+          "pair_candidate_count": 32,
+          "unique_correct_child_behavior_count": 39,
+          "unique_correct_full_pool_bundle_count": 126
+        },
+        "selected_q": 8,
+        "selection_mode": "target_q",
+        "target_q": 8,
+        "target_q_feasible": true,
+        "tier_id": "degraded_two_choice_disjoint_switch",
+        "tier_mixing_allowed": false
+      },
+      "strict_unique_nonconstant_switch": {
+        "candidate_capacity_by_stratum": {
+          "affine_commutative": 12,
+          "affine_directional": 11,
+          "affine_multiplicative": 6,
+          "pairwise_variable": 6
+        },
+        "candidate_geometry": {
+          "by_stratum": {
+            "affine_commutative": {
+              "eligible_world_count": 12,
+              "pair_candidate_count": 18,
+              "unique_correct_child_behavior_count": 18,
+              "unique_correct_full_pool_bundle_count": 22
+            },
+            "affine_directional": {
+              "eligible_world_count": 11,
+              "pair_candidate_count": 22,
+              "unique_correct_child_behavior_count": 11,
+              "unique_correct_full_pool_bundle_count": 20
+            },
+            "affine_multiplicative": {
+              "eligible_world_count": 6,
+              "pair_candidate_count": 6,
+              "unique_correct_child_behavior_count": 5,
+              "unique_correct_full_pool_bundle_count": 10
+            },
+            "pairwise_variable": {
+              "eligible_world_count": 6,
+              "pair_candidate_count": 11,
+              "unique_correct_child_behavior_count": 12,
+              "unique_correct_full_pool_bundle_count": 13
+            }
+          },
+          "eligible_world_count": 24,
+          "pair_candidate_count": 57,
+          "unique_correct_child_behavior_count": 39,
+          "unique_correct_full_pool_bundle_count": 65
+        },
+        "capacity_per_stratum": 4,
+        "classification": "strict_unique_switch_geometry_feasible",
+        "complete": true,
+        "counts_by_construction_stratum": {
+          "affine_commutative": 4,
+          "affine_directional": 4,
+          "affine_multiplicative": 4,
+          "pairwise_variable": 4
+        },
+        "fallback_q": 4,
+        "fallback_q_feasible": true,
+        "matched_world_count": 16,
+        "maximum_exact_stratum_balanced_q_up_to_target": 6,
+        "required_world_count": 16,
+        "selected_matching_geometry": {
+          "by_stratum": {
+            "affine_commutative": {
+              "eligible_world_count": 4,
+              "pair_candidate_count": 4,
+              "unique_correct_child_behavior_count": 6,
+              "unique_correct_full_pool_bundle_count": 6
+            },
+            "affine_directional": {
+              "eligible_world_count": 4,
+              "pair_candidate_count": 4,
+              "unique_correct_child_behavior_count": 5,
+              "unique_correct_full_pool_bundle_count": 8
+            },
+            "affine_multiplicative": {
+              "eligible_world_count": 4,
+              "pair_candidate_count": 4,
+              "unique_correct_child_behavior_count": 4,
+              "unique_correct_full_pool_bundle_count": 8
+            },
+            "pairwise_variable": {
+              "eligible_world_count": 4,
+              "pair_candidate_count": 4,
+              "unique_correct_child_behavior_count": 8,
+              "unique_correct_full_pool_bundle_count": 8
+            }
+          },
+          "eligible_world_count": 16,
+          "pair_candidate_count": 16,
+          "unique_correct_child_behavior_count": 22,
+          "unique_correct_full_pool_bundle_count": 30
+        },
+        "selected_q": 4,
+        "selection_mode": "fallback_q",
+        "target_q": 8,
+        "target_q_feasible": false,
+        "tier_id": "strict_unique_nonconstant_switch",
+        "tier_mixing_allowed": false
+      }
+    }
+  },
+  "safety": {
+    "confirmatory": false,
+    "development_only": true,
+    "final_benchmark_minted": false,
+    "model_outputs_read": false,
+    "outcome_conditioned_benchmark_construction": true,
+    "private_fields_excluded_from_this_manifest": [
+      "target seed or index",
+      "world or target hash",
+      "compressor trajectory or N_T",
+      "endpoint flags or correct-action identity",
+      "eligible pair identity",
+      "control outcomes"
+    ],
+    "provider_calls_made": 0
+  },
+  "schema_version": 1,
+  "status": "complete_outcome_conditioned_development_scan"
+}
