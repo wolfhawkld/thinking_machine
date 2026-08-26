@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "kind": "spark-strong-k4-utilization-power-config",
+  "protocol_id": "spark-strong-k4-utilization-power-v1",
+  "evidence_scope": "offline_prospective_power_design_for_outcome_conditioned_development_challenge_only",
+  "upstream_geometry": {
+    "artifact_manifest_relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json",
+    "artifact_manifest_file_sha256": "ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6",
+    "artifact_manifest_sha256": "8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77",
+    "upstream_plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+    "upstream_scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf",
+    "upstream_world_count": 1024,
+    "upstream_status": "complete_outcome_conditioned_development_scan",
+    "private_pair_or_target_identity_read_by_power_stage": false,
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "final_benchmark_minted": false
+  },
+  "candidate_designs": [
+    {
+      "design_id": "strict-fallback-q4",
+      "tier_id": "strict_unique_nonconstant_switch",
+      "balanced_q": 4,
+      "world_count": 16,
+      "geometry_status": "selected_fallback_geometry",
+      "correct_set_size_each_arm": 1,
+      "claim_limit": "paired net evidence of context-responsive unique-action utilization in the selected finite-DSL challenge only; complete two-arm switching is secondary",
+      "later_sealed_matching_required": false
+    },
+    {
+      "design_id": "strict-maximum-q6",
+      "tier_id": "strict_unique_nonconstant_switch",
+      "balanced_q": 6,
+      "world_count": 24,
+      "geometry_status": "maximum_exact_balanced_capacity_not_selected_by_the_feasibility_fallback_rule",
+      "correct_set_size_each_arm": 1,
+      "claim_limit": "paired net evidence of context-responsive unique-action utilization in a separately sealed q6 finite-DSL challenge only; complete two-arm switching is secondary",
+      "later_sealed_matching_required": true
+    },
+    {
+      "design_id": "degraded-target-q8",
+      "tier_id": "degraded_two_choice_disjoint_switch",
+      "balanced_q": 8,
+      "world_count": 32,
+      "geometry_status": "selected_target_geometry",
+      "correct_set_size_each_arm": 2,
+      "claim_limit": "paired net evidence of context-responsive disjoint-two-choice-set utilization only; never unique-action switching; complete two-arm switching is secondary",
+      "later_sealed_matching_required": false
+    }
+  ],
+  "primary_estimand": {
+    "independent_unit": "unique development world and its two-context pair",
+    "calls_are_not_independent_units": true,
+    "routes_may_not_be_pooled_as_independent_worlds": true,
+    "arm_score": "one iff the chosen raw action belongs to that arm's frozen nonconstant-K4 correct set; otherwise zero",
+    "cross_score": "rescore each arm's chosen raw action against the other arm's frozen disjoint correct set",
+    "world_signed_score": "sum of the two own-context arm scores minus the sum of the two cross-context scores",
+    "favorable_world": "world_signed_score > 0",
+    "adverse_world": "world_signed_score < 0",
+    "tie_world": "world_signed_score = 0",
+    "primary_test": "one-sided exact sign test conditional on non-tie worlds",
+    "null": "under no context utilization, the joint two-arm observable outcomes, including received and validity status plus parsed choice when valid, are exchangeable under swapping the arm labels after conditioning on the frozen pair design and schedule; therefore, conditional on a non-tie, favorable probability is at most one half",
+    "null_exchangeability_assumption": "the two arm observable outcomes, including received and validity status plus parsed choice when valid, are jointly exchangeable under arm-label swap within each world under the null; independent identically distributed arm outcomes are sufficient but not necessary",
+    "choice_bias_control": "under the explicit joint-exchangeability assumption and frozen pair-shared action order, a fixed arm-invariant raw-action or display-position bias is sign-symmetric; equality of expected own and cross scores or hard balance alone does not establish the exact sign-test null",
+    "required_execution_controls": [
+      "pair-shared opaque option IDs and raw-action order",
+      "stateless one-shot calls",
+      "arm-order and display schedules sealed independently of world content, target identities and model outcomes",
+      "same prompt wording and response contract apart from the rendered context",
+      "pre-live justification and canary of joint arm-exchangeability for received status, validity and parsed choice; if it is not defensible, the sign-test gate is not valid"
+    ],
+    "invalid_received_response": "if either arm has a received but invalid response, classify the entire world as a primary tie and a complete-switch miss; keep it in the fixed denominator",
+    "transport_or_missing_response": "the affected complete route attempt is non-evaluable; no retry, replacement world, or partial denominator",
+    "tier_mixing_allowed": false
+  },
+  "route_family": {
+    "planned_route_hypothesis_count": 3,
+    "route_identities_frozen_by_this_power_stage": false,
+    "family_alpha": {
+      "numerator": 1,
+      "denominator": 20
+    },
+    "future_multiplicity_method": "Holm step-down across the three frozen route hypotheses within one selected tier",
+    "conservative_design_alpha": {
+      "numerator": 1,
+      "denominator": 60
+    },
+    "conservative_design_alpha_interpretation": "a route reaching this raw threshold survives the first Holm step regardless of the other two route p-values",
+    "joint_route_power_estimated": false,
+    "joint_route_power_reason": "cross-route dependence on the same worlds is unknown and routes are not pooled"
+  },
+  "power_model": {
+    "method": "exact finite binomial enumeration under the frozen homogeneous independent-world working model with rational arithmetic; no Monte Carlo and no normal approximation",
+    "working_model": "independent worlds with one common p_favorable and p_adverse within the selected tier; this is a prospective sensitivity model, not a guarantee under stratum heterogeneity",
+    "stratum_heterogeneity_modeled": false,
+    "interpretation": "power is exact only under the frozen homogeneous working alternative; a later benchmark must report stratum-wise outcomes and may require a separately sealed stratified or Poisson-binomial sensitivity analysis",
+    "parameterization": {
+      "p_favorable": "unconditional probability that a world has positive own-minus-cross score",
+      "p_adverse": "unconditional probability that a world has negative own-minus-cross score",
+      "p_tie": "one minus p_favorable minus p_adverse",
+      "conditional_favorable_probability": "p_favorable divided by p_favorable plus p_adverse"
+    },
+    "frozen_sesoi": {
+      "name": "mechanism_scale_context_utilization",
+      "p_favorable": {
+        "numerator": 3,
+        "denominator": 5
+      },
+      "p_adverse": {
+        "numerator": 1,
+        "denominator": 10
+      },
+      "p_tie": {
+        "numerator": 3,
+        "denominator": 10
+      },
+      "conditional_favorable_probability": {
+        "numerator": 6,
+        "denominator": 7
+      },
+      "net_favorable_minus_adverse": {
+        "numerator": 1,
+        "denominator": 2
+      },
+      "rationale": "on a deliberately opportunity-enriched mechanism challenge, a live experiment is worthwhile only if it can detect at least a fifty-percentage-point net world-level direction signal"
+    },
+    "sensitivity_scenarios": [
+      {
+        "scenario_id": "weak",
+        "p_favorable": {
+          "numerator": 2,
+          "denominator": 5
+        },
+        "p_adverse": {
+          "numerator": 1,
+          "denominator": 5
+        }
+      },
+      {
+        "scenario_id": "moderate",
+        "p_favorable": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "p_adverse": {
+          "numerator": 3,
+          "denominator": 20
+        }
+      },
+      {
+        "scenario_id": "frozen-sesoi",
+        "p_favorable": {
+          "numerator": 3,
+          "denominator": 5
+        },
+        "p_adverse": {
+          "numerator": 1,
+          "denominator": 10
+        }
+      },
+      {
+        "scenario_id": "strong",
+        "p_favorable": {
+          "numerator": 7,
+          "denominator": 10
+        },
+        "p_adverse": {
+          "numerator": 1,
+          "denominator": 20
+        }
+      },
+      {
+        "scenario_id": "near-ideal",
+        "p_favorable": {
+          "numerator": 4,
+          "denominator": 5
+        },
+        "p_adverse": {
+          "numerator": 0,
+          "denominator": 1
+        }
+      }
+    ],
+    "target_power": {
+      "numerator": 9,
+      "denominator": 10
+    },
+    "minimum_sample_search": {
+      "minimum_world_count": 1,
+      "maximum_world_count": 128,
+      "balanced_stratum_count": 4
+    },
+    "gate_uses_conservative_design_alpha": true,
+    "gate_uses_only_frozen_sesoi": true
+  },
+  "secondary_endpoints": {
+    "complete_context_concordant_switch": "both arms choose an action in their own correct set; necessarily different because the sets are disjoint",
+    "strict_uniform_independent_calibration_probability": {
+      "numerator": 1,
+      "denominator": 100
+    },
+    "degraded_uniform_independent_calibration_probability": {
+      "numerator": 1,
+      "denominator": 25
+    },
+    "uniform_calibration_is_primary_inference": false,
+    "route_specific_choice_baseline_power_identifiable_from_safe_manifest": false,
+    "baseline_rule": "freeze a target-blind structural policy or multiplicity-adjusted policy family on the later exact cohort; do not reuse the old fair-choice B-star and do not select a new inferential baseline after live outcomes",
+    "baseline_hurdle_role": "secondary non-inferential shortcut sensitivity unless separately powered and multiplicity-adjusted before live calls"
+  },
+  "go_no_go": {
+    "per_design_pass_rule": "exact primary power at the frozen SESOI and conservative design alpha is at least target_power",
+    "strict_and_degraded_classified_separately": true,
+    "degraded_pass_may_relabel_strict_failure": false,
+    "passing_power_mints_final_benchmark": false,
+    "later_benchmark_requirements": [
+      "separately sealed tier, q, pair matching and cohort",
+      "hard balance of correct raw action, path/frame, child behavior and control-bundle diversity",
+      "opaque display permutation, context order and route schedule",
+      "public manifest and private scoring key exact-byte bindings",
+      "route identities and response contract canaries",
+      "target-blind baseline family and all inferential labels",
+      "source/config drift barriers and complete-attempt failure policy"
+    ],
+    "human_decision_after_degraded_only_pass": "either accept the narrower degraded question or create a wholly new larger strict construction protocol; never silently promote degraded evidence to strict"
+  },
+  "artifact_contract": {
+    "evidence": false,
+    "confirmatory": false,
+    "development_only": true,
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "private_geometry_read": false,
+    "final_benchmark_minted": false,
+    "exclusive_create_no_overwrite": true,
+    "output_mode": "0600",
+    "plan_requires_source_freeze_commit": true,
+    "result_requires_operator_reviewed_plan_semantic_and_file_sha256": true,
+    "interpretation_limit": "prospective operating-characteristic calculation only; it does not observe utilization, rank models, estimate natural-world opportunity rates, establish causality, or authorize live calls"
+  }
+}

@@ -204,6 +204,82 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertEqual(config["artifact_contract"]["provider_calls_made"], 0)
         self.assertIs(config["artifact_contract"]["model_outputs_read"], False)
 
+    def test_utilization_power_protocol_is_paired_exact_and_offline(self) -> None:
+        config = self.load_json("configs/spark-strong-k4-utilization-power-v1.json")
+
+        self.assertEqual(
+            config["protocol_id"],
+            "spark-strong-k4-utilization-power-v1",
+        )
+        self.assertEqual(
+            [
+                (item["tier_id"], item["balanced_q"], item["world_count"])
+                for item in config["candidate_designs"]
+            ],
+            [
+                ("strict_unique_nonconstant_switch", 4, 16),
+                ("strict_unique_nonconstant_switch", 6, 24),
+                ("degraded_two_choice_disjoint_switch", 8, 32),
+            ],
+        )
+        self.assertTrue(
+            all(
+                "paired net evidence" in item["claim_limit"]
+                for item in config["candidate_designs"]
+            )
+        )
+        self.assertIn(
+            "never unique-action switching",
+            config["candidate_designs"][2]["claim_limit"],
+        )
+        primary = config["primary_estimand"]
+        self.assertEqual(
+            primary["primary_test"],
+            "one-sided exact sign test conditional on non-tie worlds",
+        )
+        self.assertIs(primary["calls_are_not_independent_units"], True)
+        self.assertIs(primary["routes_may_not_be_pooled_as_independent_worlds"], True)
+        self.assertIs(primary["tier_mixing_allowed"], False)
+        self.assertIn("jointly exchangeable", primary["null_exchangeability_assumption"])
+        self.assertIn("hard balance alone", primary["choice_bias_control"])
+        self.assertEqual(
+            config["route_family"]["family_alpha"],
+            {"numerator": 1, "denominator": 20},
+        )
+        self.assertEqual(
+            config["route_family"]["conservative_design_alpha"],
+            {"numerator": 1, "denominator": 60},
+        )
+        self.assertEqual(
+            config["power_model"]["target_power"],
+            {"numerator": 9, "denominator": 10},
+        )
+        self.assertEqual(
+            config["power_model"]["frozen_sesoi"]["p_favorable"],
+            {"numerator": 3, "denominator": 5},
+        )
+        self.assertEqual(
+            config["power_model"]["frozen_sesoi"]["p_adverse"],
+            {"numerator": 1, "denominator": 10},
+        )
+        self.assertIs(config["power_model"]["stratum_heterogeneity_modeled"], False)
+        self.assertIn("prospective sensitivity model", config["power_model"]["working_model"])
+        secondary = config["secondary_endpoints"]
+        self.assertIs(secondary["uniform_calibration_is_primary_inference"], False)
+        self.assertIs(
+            secondary[
+                "route_specific_choice_baseline_power_identifiable_from_safe_manifest"
+            ],
+            False,
+        )
+        artifact = config["artifact_contract"]
+        self.assertIs(artifact["evidence"], False)
+        self.assertIs(artifact["confirmatory"], False)
+        self.assertIs(artifact["private_geometry_read"], False)
+        self.assertIs(artifact["final_benchmark_minted"], False)
+        self.assertEqual(artifact["provider_calls_made"], 0)
+        self.assertIs(artifact["model_outputs_read"], False)
+
     def test_strong_k4_fair_choice_protocol_is_symmetric_and_masked(self) -> None:
         config = self.load_json("configs/spark-strong-k4-fair-choice-v1.json")
 

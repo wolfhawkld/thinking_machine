@@ -1088,3 +1088,23 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 - `degraded_two_choice_disjoint_switch`的classification为`degraded_equal_two_choice_switch_geometry_feasible`，target `q=8`可行，固定选32 worlds，四strata各8。它仍只支持disjoint two-choice geometry，不得继承unique-action switching措辞。
 
 可跟踪、不含private target/world/pair identity的摘要与128-shard raw-byte hash manifest位于`artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json`；其canonical `manifest_sha256`为`8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77`，文件SHA-256为`ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6`。raw result、128 shards及可解压回exact result bytes的本机gzip因含private construction fields继续被Git忽略；模型输出读取为false、provider calls为0、`final_benchmark_minted=false`。因此本结果尚不支持Opportunity utilization、模型排名、confirmatory、因果或现实世界外推结论。
+
+## 27. Opportunity utilization prospective power（设计冻结，2026-08-26）
+
+第26节只确认了可构造的pair geometry，没有观察模型是否利用context。下一步因此仍是纯离线的prospective operating-characteristic calculation，而不是live pilot。独立单位固定为一个unique development world及其两个context arms；两次call不能当作两个IID样本，三条route在相同world上的结果也不能池化成`3n`。
+
+### 27.1 Primary paired estimand与choice-bias null
+
+每个arm的own score在模型所选raw action属于该arm冻结的nonconstant-K4 correct set时为1，否则为0；同一个选择再用另一arm的disjoint correct set进行cross scoring。一个world的signed score定义为两个own scores之和减去两个cross scores之和；正、负、零分别记为favorable、adverse和tie。primary test固定为条件于non-ties的单侧exact sign test，零假设为conditional favorable probability不超过`1/2`。
+
+这个exact sign null有一个必须显式保留的识别条件：在“不利用context”的null下，给定冻结的pair design与schedule，两臂联合observable outcomes（received/validity status，以及valid时的parsed choice）必须在交换arm labels后保持exchangeable；两臂IID outcomes是充分条件而非必要条件。于是若写`h(x)=1{x属于arm A correct set}-1{x属于arm B correct set}`，world score可写成`D=h(X_A)-h(X_B)`，交换两臂会把`D`变成`-D`，non-ties中的正负号才具有`1/2`对称性。pair-shared option order可在此前提下消去固定raw-action或display-position bias，但“own/cross期望相等”、stateless calls或aggregate hard balance本身都不能证明这个条件；later benchmark必须让arm/display schedule独立于world content、private targets和model outcomes，并在live前对received status、validity与parsed choice共同完成exchangeability justification及canary，若该条件不可辩护就不能使用这个sign-test gate。
+
+任一arm收到但无法解析的响应使整个world在primary中记tie、在完整switch中记miss并保留固定分母；transport或missing response则使完整route attempt不可评估，不重试或补world。primary rejection只表示paired net utilization方向，不等同于每个world都完成双臂switch；完整双臂context-concordant switch率仍是secondary。uniform独立选择下strict的`1/100`和degraded的`1/25`只作描述性校准；旧fair-choice的`B*`不能迁移到新cohort，新structural baseline必须在later exact cohort上target-blind冻结，除非另行完成multiplicity-adjusted power，否则只作non-inferential shortcut sensitivity。
+
+### 27.2 Frozen power model与go/no-go
+
+计划仍保留三条route hypotheses，family alpha固定为`1/20`并在未来使用Holm；为不假定route间独立性，每条route的prospective gate使用保守首步阈值`1/60`。功效以Fraction做finite exact enumeration，不用Monte Carlo、正态近似或浮点值通过门槛。frozen SESOI定义为world-level `P(favorable)=3/5`、`P(adverse)=1/10`、`P(tie)=3/10`，即non-ties中favorable概率`6/7`且净方向差为`1/2`；在这个事前富集的机制challenge上，目标power固定为`9/10`。该enumeration只在selected tier内world独立且共享同一`p_favorable/p_adverse`的homogeneous planning working model下精确；它不是四个strata存在异质性时的power保证。later benchmark必须逐stratum报告结果，并视需要事前冻结stratified或Poisson-binomial sensitivity analysis。
+
+三个候选设计独立计算且绝不混tier：strict frozen fallback `q=4/n=16`；strict在当前cap下的maximum exact capacity `q=6/n=24`，若未来采用必须在新benchmark config中另行冻结matching；以及degraded target `q=8/n=32`。per-design gate只由frozen SESOI、`1/60`和exact power决定。degraded通过不能改写strict结果；若只有degraded通过，后续只能在人为确认接受更窄的disjoint-two-choice问题后另行mint benchmark，或者新建更大且完全独立的strict construction协议。
+
+本节对应配置为`configs/spark-strong-k4-utilization-power-v1.json`。在源码、配置、测试与本节共同commit并push之前不得生成正式power plan；plan独立复核后才可计算result。截至本段写入时，power plan/result均未生成，private geometry与model outputs均未读取，provider calls为0，public/private live benchmark仍未mint。
