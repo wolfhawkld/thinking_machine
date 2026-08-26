@@ -1,89 +1,56 @@
-# Spark-to-Knowledge 研究交接（2026-08-25）
+# Spark-to-Knowledge 研究交接（2026-08-26）
 
 ## 当前状态
 
 - 分支：`main`。
-- 正式 fair-choice 实验已经完成，192/192 calls 有效；联合分类为
-  `effect_not_observed_under_frozen_protocol`。
-- 结果不是“总体假设被证伪”：三个模型都出现过 factual K4 命中，但没有越过
-  shortcut、uniform 和 breadth gates。
-- 事后诊断已经封存。最重要的发现是：18 个 factual K4 命中里 16 个是
-  constant-zero behavior；Flash/Pro 的大部分正 discordance 还是两臂选择同一个
-  raw action 后由 context 改变 endpoint，尚不足以证明模型主动切换了探索方向。
-- 正式结果及事后诊断位于
-  `artifacts/spark-strong-k4-fair-choice-formal-20260824/`；研究说明主要在
-  `spark-to-knowledge-experiment-plan.md` 第 23--25 节。
+- Opportunity creation / utilization construction feasibility 已完成：strict unique-action tier 在当前 cap 下最高为四 strata 各 `q=6`、共24 worlds，冻结 fallback 为 `q=4/n=16`；degraded disjoint-two-choice tier 可达 `q=8/n=32`。
+- Opportunity utilization prospective power 已完成并封存。这仍是纯离线 operating-characteristic calculation，不是模型实验，也没有观察 utilization。
+- 本阶段没有读取967MB private feasibility result、没有读取model outputs、没有调用provider/model、没有mint新的public/private benchmark。
 
-## 刚完成的只读可行性审计
+## 正式power结论
 
-这次审计只复用了已经打开的 `spark-strong-k4-feasibility-v2` 1024 个
-development worlds；没有调用模型/provider，没有打开新 target namespace，也没有把
-结果当作 confirmatory evidence。
+冻结参数为：单侧exact sign test、三条未来route hypotheses、family alpha `1/20`、保守首步设计阈值 `1/60`、目标power `0.90`；SESOI为`P(favorable)=0.60`、`P(adverse)=0.10`、`P(tie)=0.30`。
 
-- 原 3072 个 factual slots 中共有 190 个 K4 raw actions。
-- 其中 nonconstant K4 为 48 个，分布在 32 个 slots、28 个 worlds。
-- 要求一个 factual slot“恰好一个 K4，且该 child nonconstant”后，只剩 16 个
-  worlds；四个 strata 的容量为 `7 / 3 / 2 / 4`。
-- 按旧的 target-blind sham selector 对这 16 个 worlds 对称 replay 后，只有
-  candidate 950 同时满足：两臂各恰好一个 nonconstant K4、K2 数量相等、两臂正确
-  raw action 不同。
-- 因而旧 development grid 连四 strata 各取 1 个的 cohort 都构不出来，更不能直接
-  改标签后复用为下一轮实验。
-- 对 candidate 376 做了一次完整 105-motif 抽查，找到了一个同 stratum、K2 数量
-  相等且正确 raw 不同的严格 pair。这说明目标结构并非逻辑上不存在，但需要专门的
-  construction scan；当前朴素 full-library evaluator 在该 world 约耗时 80 秒，不应
-  未经设计就直接扫完 1024 worlds。
+| design | tier | n | exact power | gate |
+|---|---|---:|---:|---|
+| strict fallback q4 | unique-action | 16 | 0.5195276335337472 | fail |
+| strict maximum q6 | unique-action | 24 | 0.7898078702451884 | fail |
+| degraded target q8 | disjoint-two-choice | 32 | 0.9161773022953812 | pass |
 
-这些数字是 post-hoc development calibration，只用于设计下一轮协议。
+首个任意样本量达标值为`n=31`；要求四strata平衡时为`n=32`。因此冻结分类为：
 
-## 下一轮研究问题
+- strict：`strict_unique_switch_power_inadequate_under_available_geometry`
+- degraded：`degraded_two_choice_power_adequate_at_frozen_sesoi`
+- overall：`degraded_only_power_gate_passed`
 
-将原问题拆成两个互不共用结论标签的部分：
+不得把degraded pass升级成unique-action switching证据。primary rejection将来最多表示paired net utilization方向，不等于每个world都完成双臂switch；complete context-concordant switch仍是secondary。
 
-1. **Opportunity creation**：完全由确定性代码统计 context 是否创造新的可达
-   nonconstant K4 机会。
-2. **Opportunity utilization**：在两臂机会强度相等时，盲测模型能否根据不同
-   context 选择各自正确、且彼此不同的 action。
+## 统计成立条件
 
-首选 utilization pair 的严格条件是：
+- 在“不利用context”的null下，两臂joint observable outcomes必须在交换arm labels后保持exchangeable；这包含received/validity status以及valid时的parsed choice。IID arms是充分条件，但stateless calls、期望相等或aggregate hard balance本身都不是证明。
+- 当前exact power只对selected tier内independent worlds、共同`p_favorable/p_adverse`的homogeneous planning model精确，不保证四个strata存在异质性时仍有相同power。
+- later benchmark必须在live前冻结并检查arm/display schedule、exchangeability canary和逐stratum报告；条件不可辩护时不能使用当前sign-test gate。
 
-- 两臂各恰好一个 `K4_full_pool` raw action，且 child 必须 nonconstant；
-- 两个正确 raw actions 必须不同，否则不能检验 context-responsive switching；
-- 两臂 K2 opportunity count 相等，并保持同 stratum、同 complexity bucket；
-- cohort 层面配平 stratum、正确 raw、path/frame、display position、condition order，
-  并审计 child behavior 与 control-bundle 多样性；
-- constant K4 不进入 primary；
-- 严格 cohort 不可行就明确报告 infeasible。任何降级条件必须事前另行冻结，并使用
-  更窄的结论标签，不能扫描后静默放宽。
+## Artifacts与provenance
 
-不要采用“两臂逐 raw 的 K4 opportunity vector 完全相同”作为这个 switching
-问题的主条件：那会让两臂正确 action 相同，无法证明模型使用 context 改变了方向。
+- 源码冻结commit：`cd2de1d11aa430f41d2d4446ee62911f6d24176f`
+- source manifest：`c37cecb5cb5e56d1b229a907d67f36309045df23128ec1166569a4b1fefbc0f0`
+- plan commit：`3c51ef4ff7099837bdaf41b5d9e5e33f9db6929d`
+- plan：`artifacts/spark-strong-k4-utilization-power-v1-20260826/plan.json`
+  - canonical SHA：`726aaaffa21c1f95e11a13054bccbe521db855f1a7db52210d2f05e579b21949`
+  - file SHA：`58912fc3d6ac7ec577aac24445da83262d8cf7ffe589cce33efba6b8eae051c8`
+- result commit：`0d0e4e760f831113d58f8aed3cb0aab05eecb497`
+- result：`artifacts/spark-strong-k4-utilization-power-v1-20260826/result.json`
+  - canonical SHA：`b6b08bfb3d5de03a241aff36a48ae749b176de1bd0cd13bf1decd8544b46bd32`
+  - file SHA：`f2a4be8997f485152fd6781c2fc6aca7493478c086c85f34c881ca4821b97db3`
 
-## 明天从这里继续
+两路`luna_worker`分别完成统计与provenance只读复核，均为PASS。power相关21项unittest、compileall与diff check通过。本步骤没有把当前502项repository-wide suite完整重跑到底；额外单独运行`test_layered_v1_sealed_artifacts_replay_exactly`时复现了历史closure replay mismatch，本次未修改对应源码或artifact。
 
-1. 在打开任何 fresh target 前，冻结独立的新 protocol/config：namespace、固定 scan
-   cap、每 world 的 target-free motif 候选规则、严格/降级层级、完整扫描停止规则及
-   deterministic matching/tie-break。
-2. 新建独立的 offline-only feasibility 模块和测试；不得修改旧 v2、fair-choice-v1
-   或其 artifacts。
-3. 先提交并 push 源码冻结，再生成并复核 target-free plan barrier。
-4. 只有 plan 通过独立检查后，才决定是否打开 fresh development targets。该阶段仍然
-   不调用任何模型。
-5. construction feasibility 和 prospective power 都通过以后，才设计新的 masked
-   public/private benchmark 与 provider calls。
+## 下一步必须先做的人类选择
 
-建议先查看：
+当前不要直接调用模型。研究者需要先明确二选一：
 
-- `artifacts/spark-strong-k4-fair-choice-formal-20260824/posthoc-design-implications-v1.md`
-- `src/spark_strong_k4_scan.py`
-- `src/spark_strong_k4_benchmark.py`
-- `src/spark_strong_k4_posthoc.py`
-- `configs/spark-strong-k4-feasibility-v2.json`
+1. 接受更窄的degraded disjoint-two-choice研究问题，以新的sealed benchmark config冻结q8/n32 cohort、pair matching、public/private manifests、opaque options、display/context order、route schedule、exchangeability canary、failure policy与inferential labels；或
+2. 保留strict unique-action目标，新建更大且独立的construction protocol，取得至少四strata各8个strict worlds后重新做matching与power，不复用当前degraded pass。
 
-## 工作原则
-
-- 这是论文实验代码：优先科学公平、masking、确定性评分、可复现和结论边界，不做不必要
-  的生产安全加固或恶意篡改防御。
-- 新 scan 是 outcome-conditioned benchmark construction，不估计自然 world 的发现率。
-- development worlds 永久不能进入未来 confirmatory cohort。
-- 下一阶段不需要 provider 凭据；仓库中也不要写入任何 API key。
+无论选择哪条，都不能从本power result直接mint benchmark或开始provider calls。模型/API凭据只在新的masked benchmark、route identities和canaries全部事前封存之后才需要。

@@ -1108,3 +1108,15 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 三个候选设计独立计算且绝不混tier：strict frozen fallback `q=4/n=16`；strict在当前cap下的maximum exact capacity `q=6/n=24`，若未来采用必须在新benchmark config中另行冻结matching；以及degraded target `q=8/n=32`。per-design gate只由frozen SESOI、`1/60`和exact power决定。degraded通过不能改写strict结果；若只有degraded通过，后续只能在人为确认接受更窄的disjoint-two-choice问题后另行mint benchmark，或者新建更大且完全独立的strict construction协议。
 
 本节对应配置为`configs/spark-strong-k4-utilization-power-v1.json`。在源码、配置、测试与本节共同commit并push之前不得生成正式power plan；plan独立复核后才可计算result。截至本段写入时，power plan/result均未生成，private geometry与model outputs均未读取，provider calls为0，public/private live benchmark仍未mint。
+
+### 27.3 正式power plan与result（2026-08-26）
+
+源码与配置先以commit `cd2de1d11aa430f41d2d4446ee62911f6d24176f`冻结并推送；其source manifest为`c37cecb5cb5e56d1b229a907d67f36309045df23128ec1166569a4b1fefbc0f0`。随后才生成正式plan，并在两路独立复核通过后以commit `3c51ef4ff7099837bdaf41b5d9e5e33f9db6929d`单独封存。plan位于`artifacts/spark-strong-k4-utilization-power-v1-20260826/plan.json`，canonical `plan_sha256`为`726aaaffa21c1f95e11a13054bccbe521db855f1a7db52210d2f05e579b21949`，文件SHA-256为`58912fc3d6ac7ec577aac24445da83262d8cf7ffe589cce33efba6b8eae051c8`。
+
+正式result在上述reviewed semantic/file hashes同时匹配后生成，并以commit `0d0e4e760f831113d58f8aed3cb0aab05eecb497`封存于`artifacts/spark-strong-k4-utilization-power-v1-20260826/result.json`。其canonical `result_sha256`为`b6b08bfb3d5de03a241aff36a48ae749b176de1bd0cd13bf1decd8544b46bd32`，文件SHA-256为`f2a4be8997f485152fd6781c2fc6aca7493478c086c85f34c881ca4821b97db3`。plan/result生成时均为mode `0600`；两个canonical digest、raw file hashes与完整source/config/upstream chain均由两路只读审计独立重算通过。
+
+在frozen SESOI与保守`alpha=1/60`下，exact prospective powers为：strict fallback `q=4/n=16`，`1268378011557/2441406250000 = 0.5195276335337472`；strict maximum `q=6/n=24`，`771296748286316783823/976562500000000000000 = 0.7898078702451884`；degraded target `q=8/n=32`，`5591902479830207388083090529/6103515625000000000000000000 = 0.9161773022953812`。首个达到`0.90`的任意world count为31；要求四strata平衡时首个可用值为32。因此strict tier在当前可达geometry下为`strict_unique_switch_power_inadequate_under_available_geometry`，degraded tier为`degraded_two_choice_power_adequate_at_frozen_sesoi`，总体只可写`degraded_only_power_gate_passed`，且不得混tier。
+
+这个pass仍然只是条件于joint observable-outcome exchangeability与homogeneous independent-world working model的prospective operating-characteristic结果，不是模型已经利用context的证据；primary只支持paired net direction，完整双臂switch仍是secondary。它没有读取967MB private feasibility result或model outputs，没有调用provider，`final_benchmark_minted=false`，也不授权live calls。下一步必须由研究者二选一：接受更窄的degraded disjoint-two-choice问题并另行冻结masked benchmark，或新建能够提供至少四strata各8个strict worlds的更大construction协议。
+
+正式result在追加本小节之前已用`require_current_source=True`完成验证；本小节作为新的研究记录会按预期改变之后的current source manifest。result的历史解释继续绑定上述source-freeze commit与manifest，不能因文档后写而迁移到新源码或改写结论。
