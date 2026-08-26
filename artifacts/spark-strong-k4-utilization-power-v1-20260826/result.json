@@ -1,0 +1,428 @@
+{
+  "candidate_designs": [
+    {
+      "balanced_q": 4,
+      "claim_limit": "paired net evidence of context-responsive unique-action utilization in the selected finite-DSL challenge only; complete two-arm switching is secondary",
+      "conservative_design_alpha": {
+        "denominator": 60,
+        "numerator": 1,
+        "value": 0.016666666666666666
+      },
+      "correct_set_size_each_arm": 1,
+      "design_id": "strict-fallback-q4",
+      "frozen_sesoi_exact_power": {
+        "denominator": 2441406250000,
+        "numerator": 1268378011557,
+        "value": 0.5195276335337472
+      },
+      "geometry_status": "selected_fallback_geometry",
+      "later_sealed_matching_required": false,
+      "passes_target_power": false,
+      "sensitivity_scenarios": [
+        {
+          "exact_power": {
+            "denominator": 152587890625,
+            "numerator": 9988538368,
+            "value": 0.0654608850485248
+          },
+          "p_adverse": {
+            "denominator": 5,
+            "numerator": 1,
+            "value": 0.2
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          },
+          "scenario_id": "weak"
+        },
+        {
+          "exact_power": {
+            "denominator": 10240000000000,
+            "numerator": 2278657509403,
+            "value": 0.2225251474026367
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 3,
+            "value": 0.15
+          },
+          "p_favorable": {
+            "denominator": 2,
+            "numerator": 1,
+            "value": 0.5
+          },
+          "scenario_id": "moderate"
+        },
+        {
+          "exact_power": {
+            "denominator": 2441406250000,
+            "numerator": 1268378011557,
+            "value": 0.5195276335337472
+          },
+          "p_adverse": {
+            "denominator": 10,
+            "numerator": 1,
+            "value": 0.1
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 3,
+            "value": 0.6
+          },
+          "scenario_id": "frozen-sesoi"
+        },
+        {
+          "exact_power": {
+            "denominator": 256000000000000,
+            "numerator": 218614087190569,
+            "value": 0.8539612780881601
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 1,
+            "value": 0.05
+          },
+          "p_favorable": {
+            "denominator": 10,
+            "numerator": 7,
+            "value": 0.7
+          },
+          "scenario_id": "strong"
+        },
+        {
+          "exact_power": {
+            "denominator": 152587890625,
+            "numerator": 152582914048,
+            "value": 0.9999673855049728
+          },
+          "p_adverse": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 4,
+            "value": 0.8
+          },
+          "scenario_id": "near-ideal"
+        }
+      ],
+      "target_power": {
+        "denominator": 10,
+        "numerator": 9,
+        "value": 0.9
+      },
+      "tier_id": "strict_unique_nonconstant_switch",
+      "world_count": 16
+    },
+    {
+      "balanced_q": 6,
+      "claim_limit": "paired net evidence of context-responsive unique-action utilization in a separately sealed q6 finite-DSL challenge only; complete two-arm switching is secondary",
+      "conservative_design_alpha": {
+        "denominator": 60,
+        "numerator": 1,
+        "value": 0.016666666666666666
+      },
+      "correct_set_size_each_arm": 1,
+      "design_id": "strict-maximum-q6",
+      "frozen_sesoi_exact_power": {
+        "denominator": 976562500000000000000,
+        "numerator": 771296748286316783823,
+        "value": 0.7898078702451884
+      },
+      "geometry_status": "maximum_exact_balanced_capacity_not_selected_by_the_feasibility_fallback_rule",
+      "later_sealed_matching_required": true,
+      "passes_target_power": false,
+      "sensitivity_scenarios": [
+        {
+          "exact_power": {
+            "denominator": 59604644775390625,
+            "numerator": 7033654359359488,
+            "value": 0.11800513845631576
+          },
+          "p_adverse": {
+            "denominator": 5,
+            "numerator": 1,
+            "value": 0.2
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          },
+          "scenario_id": "weak"
+        },
+        {
+          "exact_power": {
+            "denominator": 1048576000000000000000000,
+            "numerator": 428770688951754140430499,
+            "value": 0.40890759368110097
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 3,
+            "value": 0.15
+          },
+          "p_favorable": {
+            "denominator": 2,
+            "numerator": 1,
+            "value": 0.5
+          },
+          "scenario_id": "moderate"
+        },
+        {
+          "exact_power": {
+            "denominator": 976562500000000000000,
+            "numerator": 771296748286316783823,
+            "value": 0.7898078702451884
+          },
+          "p_adverse": {
+            "denominator": 10,
+            "numerator": 1,
+            "value": 0.1
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 3,
+            "value": 0.6
+          },
+          "scenario_id": "frozen-sesoi"
+        },
+        {
+          "exact_power": {
+            "denominator": 16384000000000000000000000000,
+            "numerator": 16081230023095677979854952903,
+            "value": 0.9815203871518358
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 1,
+            "value": 0.05
+          },
+          "p_favorable": {
+            "denominator": 10,
+            "numerator": 7,
+            "value": 0.7
+          },
+          "scenario_id": "strong"
+        },
+        {
+          "exact_power": {
+            "denominator": 59604644775390625,
+            "numerator": 59604644729012224,
+            "value": 0.9999999992218995
+          },
+          "p_adverse": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 4,
+            "value": 0.8
+          },
+          "scenario_id": "near-ideal"
+        }
+      ],
+      "target_power": {
+        "denominator": 10,
+        "numerator": 9,
+        "value": 0.9
+      },
+      "tier_id": "strict_unique_nonconstant_switch",
+      "world_count": 24
+    },
+    {
+      "balanced_q": 8,
+      "claim_limit": "paired net evidence of context-responsive disjoint-two-choice-set utilization only; never unique-action switching; complete two-arm switching is secondary",
+      "conservative_design_alpha": {
+        "denominator": 60,
+        "numerator": 1,
+        "value": 0.016666666666666666
+      },
+      "correct_set_size_each_arm": 2,
+      "design_id": "degraded-target-q8",
+      "frozen_sesoi_exact_power": {
+        "denominator": 6103515625000000000000000000,
+        "numerator": 5591902479830207388083090529,
+        "value": 0.9161773022953812
+      },
+      "geometry_status": "selected_target_geometry",
+      "later_sealed_matching_required": false,
+      "passes_target_power": true,
+      "sensitivity_scenarios": [
+        {
+          "exact_power": {
+            "denominator": 23283064365386962890625,
+            "numerator": 4284203634440575909888,
+            "value": 0.18400514499326612
+          },
+          "p_adverse": {
+            "denominator": 5,
+            "numerator": 1,
+            "value": 0.2
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 2,
+            "value": 0.4
+          },
+          "scenario_id": "weak"
+        },
+        {
+          "exact_power": {
+            "denominator": 419430400000000000000000000000000,
+            "numerator": 241050159866804413290039561809147,
+            "value": 0.5747083660764799
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 3,
+            "value": 0.15
+          },
+          "p_favorable": {
+            "denominator": 2,
+            "numerator": 1,
+            "value": 0.5
+          },
+          "scenario_id": "moderate"
+        },
+        {
+          "exact_power": {
+            "denominator": 6103515625000000000000000000,
+            "numerator": 5591902479830207388083090529,
+            "value": 0.9161773022953812
+          },
+          "p_adverse": {
+            "denominator": 10,
+            "numerator": 1,
+            "value": 0.1
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 3,
+            "value": 0.6
+          },
+          "scenario_id": "frozen-sesoi"
+        },
+        {
+          "exact_power": {
+            "denominator": 1048576000000000000000000000000000000,
+            "numerator": 1046504981802435758650317052491475123,
+            "value": 0.998024923136173
+          },
+          "p_adverse": {
+            "denominator": 20,
+            "numerator": 1,
+            "value": 0.05
+          },
+          "p_favorable": {
+            "denominator": 10,
+            "numerator": 7,
+            "value": 0.7
+          },
+          "scenario_id": "strong"
+        },
+        {
+          "exact_power": {
+            "denominator": 23283064365386962890625,
+            "numerator": 23283064365386747150336,
+            "value": 0.9999999999999908
+          },
+          "p_adverse": {
+            "denominator": 1,
+            "numerator": 0,
+            "value": 0.0
+          },
+          "p_favorable": {
+            "denominator": 5,
+            "numerator": 4,
+            "value": 0.8
+          },
+          "scenario_id": "near-ideal"
+        }
+      ],
+      "target_power": {
+        "denominator": 10,
+        "numerator": 9,
+        "value": 0.9
+      },
+      "tier_id": "degraded_two_choice_disjoint_switch",
+      "world_count": 32
+    }
+  ],
+  "classification": {
+    "degraded": "degraded_two_choice_power_adequate_at_frozen_sesoi",
+    "overall": "degraded_only_power_gate_passed",
+    "strict": "strict_unique_switch_power_inadequate_under_available_geometry",
+    "tier_mixing_allowed": false
+  },
+  "evidence_scope": "offline_prospective_power_design_for_outcome_conditioned_development_challenge_only",
+  "exact_rational_gates": {
+    "conservative_design_alpha": {
+      "denominator": 60,
+      "numerator": 1,
+      "value": 0.016666666666666666
+    },
+    "target_power": {
+      "denominator": 10,
+      "numerator": 9,
+      "value": 0.9
+    }
+  },
+  "file_bindings": {
+    "config": {
+      "file_sha256": "a549ab44c727983d7651d27238a30d7751030f1c98236971114b60a67c8f64e2",
+      "relative_path": "configs/spark-strong-k4-utilization-power-v1.json"
+    },
+    "upstream_artifact_manifest": {
+      "artifact_manifest_file_sha256": "ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6",
+      "artifact_manifest_sha256": "8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77",
+      "relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json",
+      "upstream_plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+      "upstream_scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf"
+    }
+  },
+  "final_benchmark_minted": false,
+  "kind": "spark-strong-k4-utilization-power-result",
+  "minimum_world_count_four_stratum_balanced": 32,
+  "minimum_world_count_unbalanced": 31,
+  "model_outputs_read": false,
+  "protocol_id": "spark-strong-k4-utilization-power-v1",
+  "provider_calls_made": 0,
+  "result_sha256": "b6b08bfb3d5de03a241aff36a48ae749b176de1bd0cd13bf1decd8544b46bd32",
+  "reviewed_plan_file_sha256": "58912fc3d6ac7ec577aac24445da83262d8cf7ffe589cce33efba6b8eae051c8",
+  "reviewed_plan_sha256": "726aaaffa21c1f95e11a13054bccbe521db855f1a7db52210d2f05e579b21949",
+  "schema_version": 1,
+  "source_freeze_git_head": "cd2de1d11aa430f41d2d4446ee62911f6d24176f",
+  "source_manifest_sha256": "c37cecb5cb5e56d1b229a907d67f36309045df23128ec1166569a4b1fefbc0f0",
+  "tier_results": [
+    {
+      "at_least_one_design_meets_target_power": false,
+      "classification": "strict_unique_switch_power_inadequate_under_available_geometry",
+      "design_ids": [
+        "strict-fallback-q4",
+        "strict-maximum-q6"
+      ],
+      "passing_design_ids": [],
+      "tier_id": "strict_unique_nonconstant_switch",
+      "tier_mixing_allowed": false
+    },
+    {
+      "at_least_one_design_meets_target_power": true,
+      "classification": "degraded_two_choice_power_adequate_at_frozen_sesoi",
+      "design_ids": [
+        "degraded-target-q8"
+      ],
+      "passing_design_ids": [
+        "degraded-target-q8"
+      ],
+      "tier_id": "degraded_two_choice_disjoint_switch",
+      "tier_mixing_allowed": false
+    }
+  ]
+}
