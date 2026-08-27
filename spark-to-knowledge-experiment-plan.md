@@ -1162,3 +1162,42 @@ action tier保持`strict_unique_nonconstant_switch`：两臂各恰有一个nonco
 formal result仅在上述reviewed plan semantic/file hashes与source/config/upstream bindings均匹配后生成，并以commit `b828ec8d3a65a0fad2c4aba876a965ebf832d47c`封存于`artifacts/spark-strong-k4-utilization-primary-route-power-v1-20260827/result.json`。其canonical `result_sha256`为`091b665907018a16d93816888d7ac4fe5ecd93bad065d21448c3683cda6437e6`，文件SHA-256为`db8b6c68390ee624558cd7cb6d317d105e9631dff9bf45decdcd863fe79710c5`，并绑定reviewed plan canonical/file SHA `9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d` / `734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e`。两件artifact同时绑定upstream safe manifest的file/canonical SHA `ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6` / `8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77`，以及upstream plan/scan SHA `10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84` / `f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf`。plan/result生成时均为mode `0600`；统计与provenance两路`luna_worker`对exact powers、minimum n、canonical/file hashes、source manifest、config与upstream safe-manifest chain的独立重算均为PASS。
 
 正式tier classification为`strict_unique_switch_power_adequate_at_q6`，overall classification为`q6_confirmatory_primary_power_pass_q4_fail`。formal result在追加本小节前已用`require_current_source=True`验证通过。这只是纯离线prospective power gate：本power阶段没有读取private scan shards或model outputs，没有调用provider，也没有mint final benchmark；因此它不是Opportunity utilization的模型证据。本小节在formal result之后追加，会按预期改变后续current source manifest；该result的历史解释仍严格绑定上述source-freeze commit与manifest。
+
+## 29. Strict single-primary-route benchmark config（设计冻结，2026-08-27）
+
+第28节的single-primary power gate通过后，当前阶段从“算清需要多大样本”进入“制作真正给模型的匿名试卷”。本节只冻结benchmark construction的config契约：规定24-world cohort从既有128个private feasibility-v2 shard中如何被选出、masking与schedule如何配平、`deepseek-pro` primary route与分析规则如何绑定、以及最终构造artifact必须满足的provenance/模式/不覆盖要求。它不生成plan/result、不选择具体world、不读取shard payload、不调用provider。
+
+### 29.1 冻结config与其provenance绑定
+
+新增`configs/spark-strong-k4-utilization-primary-benchmark-v1.json`，文件SHA-256为`7564fd5881608091eb55f78e21913f47204dcce9af6888de31ca3e6550ac0470`。config内声明的upstream绑定已与仓库内实际文件逐一核对一致：
+
+- feasibility-v2 safe manifest：`artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json`，file SHA `ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6`、manifest canonical SHA `8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77`；feasibility config file SHA `15a2021058900b83f6f2c306c1bd60c41dfc266f265849ecaeeb6ad465edab86`；upstream plan/scan SHA `10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84` / `f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf`；128 shards、每shard 8 worlds、总大小967,864,320B。
+- primary-route power v1：config file SHA `7f6b07777f94a113ea8d5d06a3f32c15f2b4cde361446b98deb6dc64f1ce4fa1`；plan canonical/file `9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d` / `734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e`；result canonical/file `091b665907018a16d93816888d7ac4fe5ecd93bad065d21448c3683cda6437e6` / `db8b6c68390ee624558cd7cb6d317d105e9631dff9bf45decdcd863fe79710c5`。config要求upstream classification为`strict_unique_switch_power_adequate_at_q6` / `q6_confirmatory_primary_power_pass_q4_fail`、passing design为`strict-maximum-q6`，并声明`power_is_model_evidence=false`。
+
+冻结的关键契约（与第27/28节一致且不放松action）：
+
+- cohort selection：`strict_unique_nonconstant_switch` tier，四strata各6、共24 worlds、48次formal task；从全部1024个通过校验的world只保留compact strict eligibility，按冻结的`deterministic_tier_matching`与“lexicographically first jointly feasible ascending candidate-index vector”选择；禁止从q4 cohort追加、禁止按route/输出/人工吸引力/display position选择；selected worlds remain development-only。
+- strict pair contract：同一world的D0 parent与action universe、同一stratum与complexity、motif与完整domain行为不同、K2机会数相等、每臂constant-K4数为0、nonconstant-K4正确raw action各1且不同且disjoint、action universe为10。
+- masking/prompt：opaque option id为`Q`+8位大写hex、opaque task id为`TASK-`+14位大写base32；public manifest排除candidate/world seed、target、motif/stratum/arm、正确raw action、pair identity、private mapping、compressor trajectory与control outcomes；private key只在完整构造artifact封存后加载；prompt不含answer example。
+- schedule：构造stratum顺序+stratum内升序candidate index；base action permutation由`action_order_namespace`的SHA-256确定、pair内按pair ordinal循环旋转；全局display position配平（每个raw action在每个位置出现2或3次）；context顺序按rank交替、每phase每stratum各3A/3B；schedule在读取private shard前冻结、模型输出后不可改。
+- primary route：`deepseek-pro`（`deepseek-v4-pro` request/response，route binding `d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936`）为唯一confirmatory primary，48次formal calls；fallback route forbidden；exploratory route是否运行必须在later live plan中冻结。
+- analysis binding：条件于non-ties的单侧exact sign test，alpha=1/20；world signed score为two own minus two cross indicators；received-invalid记整world tie+complete-switch miss；transport/missing令整个primary attempt non-evaluable、不重试不补world不缩分母；complete two-arm concordant switch为secondary；joint observable-outcome arm exchangeability required，hard balance单独不成立。
+- target-blind structural baselines：只在24-world cohort不可撤销选定后计算；不得改变cohort/pair选择；10个semantic policy与10个display-position policy全部target-free；policy不得读取target/K2/K3/K4/model output；报告各policy的favorable/adverse/tie/complete-switch/signed total；无B*选择与posthoc thresholding。
+- artifact contract：plan.json/public.json/private.json/result.json；public/private交叉绑定；48-task exact bijection；exclusive create不覆盖；输出mode 0600；private scoring key不入Git；只有128个shard全部校验后才允许mint final benchmark。
+
+config同时把`provider_calls_made=0`、`model_outputs_read=false`、`final_benchmark_minted=false`固化进artifact contract，并声明`passing_construction_directly_authorizes_provider_calls=false`。
+
+### 29.2 截至冻结时的只读审计状态（2026-08-27）
+
+- 第28节power plan/result的两路只读复核（统计与provenance，`luna_worker`）恢复后均PASS，与第28.4节记录一致。
+- feasibility-v2 shard元数据审计PASS：128个shard覆盖连续candidate index 0..1023、每shard 8 worlds、实际总大小967,864,320B，全部存在、大小匹配、权限0600；safe manifest raw/canonical SHA与`files_manifest_sha256`独立核对一致；未加载967MB aggregate result、未提取target/world identity。审计同时指出：`validate_scan_plan()`会读取旧sealed private result（88.6MB），后续compact extraction必须逐shard单独校验并只保留strata eligibility，不能盲调。
+- primary_power_code_audit在quota中断前未给出最终复核；其此前指出的两项修复（safe-manifest相对路径与真实读取路径一致、移除非科学需要的hostile-input hardening）已包含在source freeze commit `a46d35929ef75b79f11a9b0a3b29acc6aa6dbf43`，恢复后可重跑该窄范围复核。
+- 本阶段没有读取shard payload/private result/model outputs，没有调用provider；新增内容只有本config与本节/交接记录。
+
+### 29.3 冻结后仍必须处理的项目（live前屏障）
+
+1. 审计标记的关键blocker：feasibility-v2 config将全部materialized worlds标记为`development_only_never_confirmatory`（`all_materialized_worlds_status`、`reserved_worlds_are_development_only_forever=true`），而§28.3计划从同一128 shards选q6用于confirmatory primary。本config保留`selected_worlds_remain_development_only=true`且route role为`confirmatory_primary`；两者在最终构造前必须由人类明确决议并写进sealed config，不能默默混用。
+2. `remaining_live_barriers`全部为required但尚未产出artifact：target-free route canary、joint-exchangeability canary与justification、response contract/failure policy、exploratory route执行决定、analysis contract对public/private file hashes的绑定。
+3. exact 24-pair identity尚未冻结：需实现compact shard验证与`deterministic_tier_matching`，再另行封存plan/public/private manifests后才允许48次primary calls。
+
+本节的config冻结只授权后续离线构造，不授权provider calls。
