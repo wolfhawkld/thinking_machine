@@ -1120,3 +1120,13 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 这个pass仍然只是条件于joint observable-outcome exchangeability与homogeneous independent-world working model的prospective operating-characteristic结果，不是模型已经利用context的证据；primary只支持paired net direction，完整双臂switch仍是secondary。它没有读取967MB private feasibility result或model outputs，没有调用provider，`final_benchmark_minted=false`，也不授权live calls。下一步必须由研究者二选一：接受更窄的degraded disjoint-two-choice问题并另行冻结masked benchmark，或新建能够提供至少四strata各8个strict worlds的更大construction协议。
 
 正式result在追加本小节之前已用`require_current_source=True`完成验证；本小节作为新的研究记录会按预期改变之后的current source manifest。result的历史解释继续绑定上述source-freeze commit与manifest，不能因文档后写而迁移到新源码或改写结论。
+
+### 27.4 人类解释决议与后续策略边界（2026-08-26）
+
+本小节记录正式power result之后的人类研究判断，不修改第27.1--27.3节的冻结检验、数值、gate或classification，也不授权benchmark minting或provider calls。研究目标不应被误写成“AI必须以接近确定的频率发现新知”：科学发现允许大量未成功尝试，稀疏但受控的成功仍可具有存在性价值。相应地，prospective power只能解释为“冻结SESOI为真时拒绝null的概率”，不能解释为假设为真的概率；`n=16/24`未达到`0.90`确认性gate说明漏检风险较高，不说明这些设计必然无结果或没有描述性价值。
+
+后续报告采用分层证据语言。确定性Opportunity creation census只确认当前有限DSL内存在可达K2/K4机会。若事前冻结的live cohort出现context-concordant正向选择，即使aggregate未显著，也可如实报告为方向一致、提示性或受控存在性证据，并同时报告全部favorable/adverse/tie及不确定性；它不能支持稳定总体倾向。只有预注册primary exact test在其识别条件下拒绝null，才支持paired net Opportunity utilization的确认性表述；complete switch、shortcut sensitivity、独立重复与跨route/模型一致性分别提供更强但不同层次的证据，不能相互替代。
+
+该行为链可作为“context增加可探索可能性，随后选择收束并形成task-local新结论”的操作化预测，与“增熵 -> 降熵 -> 新知形成”的解释一致。final action本身不能识别隐藏内部过程，故不得写成entropy因果已被直接证明，也不得外推到训练外发明、自然机会率、人类未知发现或现实世界普遍能力。排除公开action、display、结构政策及其他shortcut仍是任何正向解释的必要条件，而不是为了保证高成功率追加的条件。
+
+明日继续前须先选择claim而不是先调用模型：若坚持`0.90`确认性power目标，则在degraded q8/n32与更大独立strict construction之间选择；若优先短小机制challenge，则可为strict q4/n16或另行匹配的q6/n24冻结探索性/描述性协议，并明确不继承确认性power-pass标签；若并行保留两类研究问题，必须事前分开cohort、claim、primary/secondary身份和multiplicity，禁止观察模型结果后择优升级。strict与degraded截至本记录仍未发生正式主路线切换，`final_benchmark_minted=false`且provider/model calls仍为0。

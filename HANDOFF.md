@@ -31,6 +31,14 @@
 - 当前exact power只对selected tier内independent worlds、共同`p_favorable/p_adverse`的homogeneous planning model精确，不保证四个strata存在异质性时仍有相同power。
 - later benchmark必须在live前冻结并检查arm/display schedule、exchangeability canary和逐stratum报告；条件不可辩护时不能使用当前sign-test gate。
 
+## 2026-08-26 解释与策略讨论记录
+
+- `power`是“假定冻结SESOI真实存在时，当前设计得到显著结果的概率”，不是“假设为真的概率”。在检验、效应分布和独立性假设不变时，样本量增加会提高检出概率；`n=16/24`未通过事前`0.90` gate不表示它们没有科学信息，只表示其漏检风险高于本次确认性标准。
+- 本研究不以“AI在每个world都必然发现新知”为假设。发现型过程本来可以稀疏失败、偶尔成功；一个事前冻结、盲测且经shortcut检查的context-concordant正向案例，可以支持“该行为在受控条件下能够发生”的存在性/描述性结论。要声称模型存在稳定的总体utilization倾向，仍需预注册的成组检验与相应不确定性报告。
+- 证据强度分层记录如下：确定性代码确认Opportunity creation，只支持实验前提；模型正向但aggregate不显著时属于方向一致或提示性证据；预注册primary在相应识别条件下显著时，仅对所选finite-DSL challenge支持paired net Opportunity utilization；再通过shortcut sensitivity、重复实验或独立模型复现后证据更强。所有失败、tie和adverse结果必须同时报告，不得只选成功案例。
+- 受控行为结果可以支持“增熵 -> 降熵 -> 形成task-local新知”所预测的行为链，并与该机制解释一致；仅凭最终action不能直接识别模型内部是否真实经历了这些阶段，也不能升级为训练外发明、自然机会率或现实世界未知发现。
+- strict与degraded的正式结论没有因本次讨论改变。strict unique-action仍是更强、更干净但当前低功效的问题；degraded disjoint-two-choice是可达`n=32`且通过冻结power gate的更窄问题，尚未被正式选为live主实验。
+
 ## Artifacts与provenance
 
 - 源码冻结commit：`cd2de1d11aa430f41d2d4446ee62911f6d24176f`
@@ -46,11 +54,12 @@
 
 两路`luna_worker`分别完成统计与provenance只读复核，均为PASS。power相关21项unittest、compileall与diff check通过。本步骤没有把当前502项repository-wide suite完整重跑到底；额外单独运行`test_layered_v1_sealed_artifacts_replay_exactly`时复现了历史closure replay mismatch，本次未修改对应源码或artifact。
 
-## 下一步必须先做的人类选择
+## 明日恢复点
 
-当前不要直接调用模型。研究者需要先明确二选一：
+当前不要直接调用模型。先把下一阶段想回答的claim和证据等级写清，再冻结benchmark。可讨论的路线为：
 
-1. 接受更窄的degraded disjoint-two-choice研究问题，以新的sealed benchmark config冻结q8/n32 cohort、pair matching、public/private manifests、opaque options、display/context order、route schedule、exchangeability canary、failure policy与inferential labels；或
-2. 保留strict unique-action目标，新建更大且独立的construction protocol，取得至少四strata各8个strict worlds后重新做matching与power，不复用当前degraded pass。
+1. 若目标仍是达到`0.90`功效的确认性检验：接受更窄的degraded disjoint-two-choice问题并冻结q8/n32 benchmark，或新建更大且独立的strict construction protocol；
+2. 若目标调整为短小、受控的存在性/机制challenge：可重新设计strict `n=16`或另行冻结strict `n=24`为探索性/描述性研究，完整报告正负tie、effect estimate与不确定性，但不能沿用“通过确认性power gate”的标签；
+3. 若两类问题都保留，必须事前分开各自的claim、cohort、primary/secondary身份和multiplicity处理，不能在看到模型输出后选择较好的一条升级为主结论。
 
-无论选择哪条，都不能从本power result直接mint benchmark或开始provider calls。模型/API凭据只在新的masked benchmark、route identities和canaries全部事前封存之后才需要。
+无论选择哪条，都不能从本power result直接mint benchmark或开始provider calls。明天先完成上述研究目标选择，再决定是否调整样本和action tier；模型/API凭据只在新的masked benchmark、route identities和canaries全部事前封存之后才需要。
