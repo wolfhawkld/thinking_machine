@@ -1109,7 +1109,7 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 
 本节对应配置为`configs/spark-strong-k4-utilization-power-v1.json`。在源码、配置、测试与本节共同commit并push之前不得生成正式power plan；plan独立复核后才可计算result。截至本段写入时，power plan/result均未生成，private geometry与model outputs均未读取，provider calls为0，public/private live benchmark仍未mint。
 
-### 27.3 正式power plan与result（2026-08-26）
+### 27.3 旧三route协议的正式power plan与result（2026-08-26）
 
 源码与配置先以commit `cd2de1d11aa430f41d2d4446ee62911f6d24176f`冻结并推送；其source manifest为`c37cecb5cb5e56d1b229a907d67f36309045df23128ec1166569a4b1fefbc0f0`。随后才生成正式plan，并在两路独立复核通过后以commit `3c51ef4ff7099837bdaf41b5d9e5e33f9db6929d`单独封存。plan位于`artifacts/spark-strong-k4-utilization-power-v1-20260826/plan.json`，canonical `plan_sha256`为`726aaaffa21c1f95e11a13054bccbe521db855f1a7db52210d2f05e579b21949`，文件SHA-256为`58912fc3d6ac7ec577aac24445da83262d8cf7ffe589cce33efba6b8eae051c8`。
 
@@ -1117,7 +1117,7 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 
 在frozen SESOI与保守`alpha=1/60`下，exact prospective powers为：strict fallback `q=4/n=16`，`1268378011557/2441406250000 = 0.5195276335337472`；strict maximum `q=6/n=24`，`771296748286316783823/976562500000000000000 = 0.7898078702451884`；degraded target `q=8/n=32`，`5591902479830207388083090529/6103515625000000000000000000 = 0.9161773022953812`。首个达到`0.90`的任意world count为31；要求四strata平衡时首个可用值为32。因此strict tier在当前可达geometry下为`strict_unique_switch_power_inadequate_under_available_geometry`，degraded tier为`degraded_two_choice_power_adequate_at_frozen_sesoi`，总体只可写`degraded_only_power_gate_passed`，且不得混tier。
 
-这个pass仍然只是条件于joint observable-outcome exchangeability与homogeneous independent-world working model的prospective operating-characteristic结果，不是模型已经利用context的证据；primary只支持paired net direction，完整双臂switch仍是secondary。它没有读取967MB private feasibility result或model outputs，没有调用provider，`final_benchmark_minted=false`，也不授权live calls。下一步必须由研究者二选一：接受更窄的degraded disjoint-two-choice问题并另行冻结masked benchmark，或新建能够提供至少四strata各8个strict worlds的更大construction协议。
+这个pass仍然只是条件于joint observable-outcome exchangeability与homogeneous independent-world working model的prospective operating-characteristic结果，不是模型已经利用context的证据；primary只支持paired net direction，完整双臂switch仍是secondary。它没有读取967MB private feasibility result或model outputs，没有调用provider，`final_benchmark_minted=false`，也不授权live calls。在当时的三route claim下，下一步需要在degraded disjoint-two-choice与更大strict construction之间选择；此历史选项后由第28节的独立单primary协议取代，但不改写本result。
 
 正式result在追加本小节之前已用`require_current_source=True`完成验证；本小节作为新的研究记录会按预期改变之后的current source manifest。result的历史解释继续绑定上述source-freeze commit与manifest，不能因文档后写而迁移到新源码或改写结论。
 
@@ -1129,11 +1129,11 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 
 该行为链可作为“context增加可探索可能性，随后选择收束并形成task-local新结论”的操作化预测，与“增熵 -> 降熵 -> 新知形成”的解释一致。final action本身不能识别隐藏内部过程，故不得写成entropy因果已被直接证明，也不得外推到训练外发明、自然机会率、人类未知发现或现实世界普遍能力。排除公开action、display、结构政策及其他shortcut仍是任何正向解释的必要条件，而不是为了保证高成功率追加的条件。
 
-明日继续前须先选择claim而不是先调用模型：若坚持`0.90`确认性power目标，则在degraded q8/n32与更大独立strict construction之间选择；若优先短小机制challenge，则可为strict q4/n16或另行匹配的q6/n24冻结探索性/描述性协议，并明确不继承确认性power-pass标签；若并行保留两类研究问题，必须事前分开cohort、claim、primary/secondary身份和multiplicity，禁止观察模型结果后择优升级。strict与degraded截至本记录仍未发生正式主路线切换，`final_benchmark_minted=false`且provider/model calls仍为0。
+本节记录当时的决策分叉：若坚持`0.90`确认性power目标，则在degraded q8/n32与更大独立strict construction之间选择；若优先短小机制challenge，则可为strict q4/n16或另行匹配的q6/n24冻结新协议。后续已在未观察新模型结果的前提下选定第28节的strict q6/n24单primary路线，并另行完成power冻结；本历史小节不被回写为power pass。`final_benchmark_minted=false`且provider/model calls仍为0。
 
 ## 28. Strict single-primary-route utilization power（设计选择，2026-08-27）
 
-第27.4节的人类判断现具体化为一个不放宽action、同时保持较小规模的候选策略。旧`spark-strong-k4-utilization-power-v1`的source、config、plan与result全部保持immutable，不覆盖、不重生、不改标签；新计算使用独立协议`spark-strong-k4-utilization-primary-route-power-v1`。新源码、config与tests已经实现并完成目标测试和独立只读审计，但尚未形成source-freeze commit，正式plan/result也尚未生成；private geometry、既有model outputs和provider均未由本阶段读取，`final_benchmark_minted=false`。
+第27.4节的人类判断现具体化为一个不放宽action、同时保持较小规模的策略。旧`spark-strong-k4-utilization-power-v1`的source、config、plan与result全部保持immutable，不覆盖、不重生、不改标签；新计算使用独立协议`spark-strong-k4-utilization-primary-route-power-v1`。新源码、config、tests、formal plan与result现已按顺序分别冻结并通过独立只读审计；具体provenance见第28.4节。private geometry、既有model outputs和provider均未由本power阶段读取，`final_benchmark_minted=false`。
 
 ### 28.1 唯一confirmatory primary与route选择
 
@@ -1145,7 +1145,7 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 
 action tier保持`strict_unique_nonconstant_switch`：两臂各恰有一个nonconstant-K4正确raw action，且两者不同；K2机会数相等，world仍是独立单位。q6/n24使用当前scan证明的maximum exact four-stratum-balanced capacity，但它不是q4 assignment的扩展，必须在新的benchmark config中对完整strict eligibility重新执行冻结matcher。primary signed own-minus-cross score、conditional-on-non-ties单侧exact sign test、joint observable-outcome arm-exchangeability条件、received-invalid记整world tie/complete-switch miss、transport/missing令整个route attempt non-evaluable且不重试，均沿用第27.1节。
 
-因为confirmatory hypothesis只有一条，family alpha与该primary raw alpha均为`1/20`，不再使用三route Holm首步的保守`1/60`。在同一冻结SESOI `P(favorable)=3/5`、`P(adverse)=1/10`、`P(tie)=3/10`和homogeneous independent-world planning model下，复核的exact operating characteristics为：q4/n16，`14454764201349/19531250000000 = 0.7400839271090688`；q6/n24，`3585708077179064276673/3906250000000000000000 = 0.9179412677578405`。首个达到`0.90`的任意world count为23，要求四strata平衡后为24。因此q6/n24预计通过新的单primary power gate，而q4/n16不通过；这些数值须由后续正式plan/result重新计算、hash绑定并审计，在此之前只是设计复核，不能称sealed result。
+因为confirmatory hypothesis只有一条，family alpha与该primary raw alpha均为`1/20`，不再使用三route Holm首步的保守`1/60`。在同一冻结SESOI `P(favorable)=3/5`、`P(adverse)=1/10`、`P(tie)=3/10`和homogeneous independent-world planning model下，formal result确认exact operating characteristics为：q4/n16，`14454764201349/19531250000000 = 0.7400839271090688`；q6/n24，`3585708077179064276673/3906250000000000000000 = 0.9179412677578405`。首个达到`0.90`的任意world count为23，要求四strata平衡后为24。因此q6/n24通过新的单primary power gate，q4/n16不通过；formal hashes与分类见第28.4节。
 
 这个变化不表示效应更可能存在，只表示在冻结效应真实存在时，单一事前主张避免了三个可替换主张带来的multiplicity penalty。它也不把旧q6的`0.7898078702451884`改错：旧数值对应三route family的`alpha=1/60`，新数值对应唯一primary的`alpha=1/20`，两者回答不同设计问题。
 
@@ -1153,4 +1153,12 @@ action tier保持`strict_unique_nonconstant_switch`：两臂各恰有一个nonco
 
 未来若唯一primary在预注册条件下显著，只能支持：`deepseek-pro`在所选strict q6 finite-DSL challenge上的paired net context-responsive unique-action utilization。它不等于每个world都完成双臂switch，不支持所有模型或自然world中的总体概率，也不直接证明内部“增熵 -> 降熵”因果；complete context-concordant switch、逐stratum结果、shortcut baselines和其他routes均是分别报告的secondary/descriptive evidence。primary不显著但出现正向或完整switch案例时，可报告方向一致或受控存在性证据，并完整保留favorable/adverse/tie/invalid与不确定性，不能用exploratory route补成confirmatory success。
 
-新power源码、config、tests与本节必须先共同commit/push，才可生成正式power plan；plan经独立复核并单独封存后才可生成result。power result通过也只授权下一步设计q6 benchmark，不直接mint task或调用provider。q6 exact pair identity尚未出现在safe manifest：后续应逐shard验证既有128个private scan artifacts，只保留compact strict pair eligibility并用冻结`deterministic_tier_matching(target_per_stratum=6)`选24 worlds，避免加载967MB单体result；随后另行封存public/private manifests、opaque choices、display/context schedule、primary route及joint-exchangeability canaries、failure policy与analysis contract。完成这些屏障前provider/model calls保持0。
+新power源码、config、tests与本节已先共同commit/push，随后formal plan经独立复核并单独封存，formal result再生成、复核和封存。power result通过只授权下一步设计q6 benchmark，不直接mint task或调用provider。q6 exact pair identity尚未出现在safe manifest：后续应逐shard验证既有128个private scan artifacts，只保留compact strict pair eligibility并用冻结`deterministic_tier_matching(target_per_stratum=6)`选24 worlds，避免加载967MB单体result；随后另行封存public/private manifests、opaque choices、display/context schedule、primary route及joint-exchangeability canaries、failure policy与analysis contract。完成这些屏障前provider/model calls保持0。
+
+### 28.4 正式power plan与result（2026-08-27）
+
+新协议的源码、config、tests与第28节设计先以commit `a46d35929ef75b79f11a9b0a3b29acc6aa6dbf43`冻结并推送；其source manifest为`5cd2fdf3808a85f9a24d0203b34d2e54700a9528550a687d81448f810da0e354`，config文件SHA-256为`7f6b07777f94a113ea8d5d06a3f32c15f2b4cde361446b98deb6dc64f1ce4fa1`。formal plan在两路独立只读复核通过后，以commit `896dce7192ef289006b5791c86a1a9380367ceb3`单独封存于`artifacts/spark-strong-k4-utilization-primary-route-power-v1-20260827/plan.json`；其canonical `plan_sha256`为`9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d`，文件SHA-256为`734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e`。
+
+formal result仅在上述reviewed plan semantic/file hashes与source/config/upstream bindings均匹配后生成，并以commit `b828ec8d3a65a0fad2c4aba876a965ebf832d47c`封存于`artifacts/spark-strong-k4-utilization-primary-route-power-v1-20260827/result.json`。其canonical `result_sha256`为`091b665907018a16d93816888d7ac4fe5ecd93bad065d21448c3683cda6437e6`，文件SHA-256为`db8b6c68390ee624558cd7cb6d317d105e9631dff9bf45decdcd863fe79710c5`，并绑定reviewed plan canonical/file SHA `9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d` / `734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e`。两件artifact同时绑定upstream safe manifest的file/canonical SHA `ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6` / `8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77`，以及upstream plan/scan SHA `10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84` / `f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf`。plan/result生成时均为mode `0600`；统计与provenance两路`luna_worker`对exact powers、minimum n、canonical/file hashes、source manifest、config与upstream safe-manifest chain的独立重算均为PASS。
+
+正式tier classification为`strict_unique_switch_power_adequate_at_q6`，overall classification为`q6_confirmatory_primary_power_pass_q4_fail`。formal result在追加本小节前已用`require_current_source=True`验证通过。这只是纯离线prospective power gate：本power阶段没有读取private scan shards或model outputs，没有调用provider，也没有mint final benchmark；因此它不是Opportunity utilization的模型证据。本小节在formal result之后追加，会按预期改变后续current source manifest；该result的历史解释仍严格绑定上述source-freeze commit与manifest。
