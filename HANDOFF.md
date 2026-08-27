@@ -1,10 +1,11 @@
-# Spark-to-Knowledge 研究交接（2026-08-26）
+# Spark-to-Knowledge 研究交接（更新至2026-08-27）
 
 ## 当前状态
 
 - 分支：`main`。
 - Opportunity creation / utilization construction feasibility 已完成：strict unique-action tier 在当前 cap 下最高为四 strata 各 `q=6`、共24 worlds，冻结 fallback 为 `q=4/n=16`；degraded disjoint-two-choice tier 可达 `q=8/n=32`。
 - Opportunity utilization prospective power 已完成并封存。这仍是纯离线 operating-characteristic calculation，不是模型实验，也没有观察 utilization。
+- 2026-08-27已选择新的优先策略：保留strict unique-action，拟采用q6/n24；把`deepseek-pro`事前固定为唯一confirmatory primary route，使同一冻结SESOI下的设计alpha从三route首步`1/60`变为单一primary的`1/20`。新power源码/config/tests已实现并通过目标检查，尚待source-freeze commit及正式plan/result封存；旧protocol的source/config/plan/result均保持immutable，不覆盖、不重生、不改写标签。
 - 本阶段没有读取967MB private feasibility result、没有读取model outputs、没有调用provider/model、没有mint新的public/private benchmark。
 
 ## 正式power结论
@@ -39,6 +40,15 @@
 - 受控行为结果可以支持“增熵 -> 降熵 -> 形成task-local新知”所预测的行为链，并与该机制解释一致；仅凭最终action不能直接识别模型内部是否真实经历了这些阶段，也不能升级为训练外发明、自然机会率或现实世界未知发现。
 - strict与degraded的正式结论没有因本次讨论改变。strict unique-action仍是更强、更干净但当前低功效的问题；degraded disjoint-two-choice是可达`n=32`且通过冻结power gate的更窄问题，尚未被正式选为live主实验。
 
+## 2026-08-27 strict单主路线策略
+
+- 新策略不放宽action：继续要求两个context各自只有一个nonconstant-K4正确action，且两者不同。使用当前geometry的最大四strata平衡容量q6/n24；其exact pair/world identity尚未冻结。
+- 三条模型route不是三个独立world。为回答“一个事前指定的强模型是否能在受控条件下利用context”这一存在性/机制问题，只把既有最高能力档`deepseek-pro`设为唯一confirmatory primary；选择依据是事前模型档位，不是新cohort或新模型输出。它未来若canary/response contract失败，primary实验停止，不得换`deepseek-flash`或`glm-5.2`补位。
+- `deepseek-flash`和`glm-5.2`只保留为可选exploratory replication。它们不进入primary family、不与主路线池化成`3n`，也不能在看到结果后用较小p值替换primary结论；是否运行必须在live前冻结。核心实验因此只需24 worlds x 2 context arms = 48次`deepseek-pro`正式task calls，target-free canary和可选复现另算。
+- 在冻结SESOI `P(favorable/adverse/tie)=0.60/0.10/0.30`和单侧exact sign test `alpha=1/20`下，离线复核得到：n16 power `0.7400839271090688`，n24 power `0.9179412677578405`；最小任意n为23，四strata平衡后为24。因此新策略有望同时保留strict、短小规模和`0.90`目标。它必须由新的power plan/result正式封存后才能成为gate结论，不能回写旧三route artifact。
+- 即使未来primary显著，结论也只限于该route在所选outcome-conditioned finite-DSL strict challenge上的paired net context-responsive unique-action utilization；complete two-arm switch仍是secondary，行为结果不直接证明内部entropy因果。若不显著但出现正向案例，则按前节只报告描述性/提示性存在证据。
+- 新模块只读取tracked safe artifact manifest并复用旧exact-Fraction算术；没有读取private result/shards、模型输出或provider credentials。目标测试覆盖q4 fail/q6 pass、route/claim/path drift、source/plan/result bindings与0600不覆盖输出；与旧power及config测试合计27项通过，compileall和diff check通过。一次独立代码审计发现的safe-manifest路径元数据问题已修复，非科学所需的hostile-input hardening与伪review capability已移除。
+
 ## Artifacts与provenance
 
 - 源码冻结commit：`cd2de1d11aa430f41d2d4446ee62911f6d24176f`
@@ -54,12 +64,12 @@
 
 两路`luna_worker`分别完成统计与provenance只读复核，均为PASS。power相关21项unittest、compileall与diff check通过。本步骤没有把当前502项repository-wide suite完整重跑到底；额外单独运行`test_layered_v1_sealed_artifacts_replay_exactly`时复现了历史closure replay mismatch，本次未修改对应源码或artifact。
 
-## 明日恢复点
+## 当前恢复点
 
-当前不要直接调用模型。先把下一阶段想回答的claim和证据等级写清，再冻结benchmark。可讨论的路线为：
+当前不要直接调用模型。claim已选择为strict q6/n24的单主路线机制challenge；先完成新的独立power协议、plan和result封存。之后才构建q6 provider-facing benchmark：
 
-1. 若目标仍是达到`0.90`功效的确认性检验：接受更窄的degraded disjoint-two-choice问题并冻结q8/n32 benchmark，或新建更大且独立的strict construction protocol；
-2. 若目标调整为短小、受控的存在性/机制challenge：可重新设计strict `n=16`或另行冻结strict `n=24`为探索性/描述性研究，完整报告正负tie、effect estimate与不确定性，但不能沿用“通过确认性power gate”的标签；
-3. 若两类问题都保留，必须事前分开各自的claim、cohort、primary/secondary身份和multiplicity处理，不能在看到模型输出后选择较好的一条升级为主结论。
+1. 将已复核的新power源码、config、tests和第28节设计commit/push；随后单独生成并复核plan，再生成result，均不得读取private geometry或模型输出。
+2. q6/n24目前只有capacity结论，没有pair identity。power通过后，需逐一验证128个既有private shards并只抽取compact strict eligibility，再按冻结matcher选择四strata各6个world；不能从q4 cohort直接追加，也不能按route或人工吸引力选pair。
+3. 另行封存新的public/private manifests、opaque option mapping、display/context schedule、`deepseek-pro` route canary、joint-exchangeability canary、failure policy和analysis labels；上述全部通过后才允许48次primary calls。
 
-无论选择哪条，都不能从本power result直接mint benchmark或开始provider calls。明天先完成上述研究目标选择，再决定是否调整样本和action tier；模型/API凭据只在新的masked benchmark、route identities和canaries全部事前封存之后才需要。
+旧power result和degraded候选继续作为历史敏感性结果保留，但不再是当前优先live路线。模型/API凭据只在新的masked benchmark、route identity和canaries全部事前封存之后才需要。

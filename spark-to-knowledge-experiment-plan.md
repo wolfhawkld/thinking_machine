@@ -1130,3 +1130,27 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 该行为链可作为“context增加可探索可能性，随后选择收束并形成task-local新结论”的操作化预测，与“增熵 -> 降熵 -> 新知形成”的解释一致。final action本身不能识别隐藏内部过程，故不得写成entropy因果已被直接证明，也不得外推到训练外发明、自然机会率、人类未知发现或现实世界普遍能力。排除公开action、display、结构政策及其他shortcut仍是任何正向解释的必要条件，而不是为了保证高成功率追加的条件。
 
 明日继续前须先选择claim而不是先调用模型：若坚持`0.90`确认性power目标，则在degraded q8/n32与更大独立strict construction之间选择；若优先短小机制challenge，则可为strict q4/n16或另行匹配的q6/n24冻结探索性/描述性协议，并明确不继承确认性power-pass标签；若并行保留两类研究问题，必须事前分开cohort、claim、primary/secondary身份和multiplicity，禁止观察模型结果后择优升级。strict与degraded截至本记录仍未发生正式主路线切换，`final_benchmark_minted=false`且provider/model calls仍为0。
+
+## 28. Strict single-primary-route utilization power（设计选择，2026-08-27）
+
+第27.4节的人类判断现具体化为一个不放宽action、同时保持较小规模的候选策略。旧`spark-strong-k4-utilization-power-v1`的source、config、plan与result全部保持immutable，不覆盖、不重生、不改标签；新计算使用独立协议`spark-strong-k4-utilization-primary-route-power-v1`。新源码、config与tests已经实现并完成目标测试和独立只读审计，但尚未形成source-freeze commit，正式plan/result也尚未生成；private geometry、既有model outputs和provider均未由本阶段读取，`final_benchmark_minted=false`。
+
+### 28.1 唯一confirmatory primary与route选择
+
+新的研究问题是：在事前选定的强模型route上，给定一个已知存在strict、配平K4机会的outcome-conditioned finite-DSL challenge，模型是否呈现正的paired context-responsive unique-action utilization。唯一confirmatory primary route固定为`deepseek-pro`，即既有`deepseek-official-openai-compatible`的`deepseek-v4-pro` request/response contract及route binding `d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936`。选择规则是使用三条既有校准route中事前标记的最高能力档来做机制检出，不使用新q6 pair identity、新cohort表现或新模型输出。未来新prompt的target-free canary若失败，则primary被阻断，不允许把另一route改成primary或替换已计划calls。
+
+`deepseek-flash`与`glm-5.2`不属于confirmatory family，只能作为可选exploratory replication完整、逐route报告；它们不得与primary共享alpha、池化为`3n`、提供primary replacement，或在看到结果后凭较小p值升级结论。是否运行任一exploratory route及其完整schedule必须在live前冻结，不能根据primary结果决定是否把它称为replication。若未来希望对其中任一路线作第二个确认性主张，必须在live前另行冻结multiplicity/alpha与相应power。核心primary执行规模因此固定为24 worlds、每world两个context arms、共48次stateless `deepseek-pro`正式task calls；这个数字不含事前target-free canary，可选exploratory调用也不影响primary attempt是否完整。
+
+### 28.2 Strict q6/n24与单主路线exact power
+
+action tier保持`strict_unique_nonconstant_switch`：两臂各恰有一个nonconstant-K4正确raw action，且两者不同；K2机会数相等，world仍是独立单位。q6/n24使用当前scan证明的maximum exact four-stratum-balanced capacity，但它不是q4 assignment的扩展，必须在新的benchmark config中对完整strict eligibility重新执行冻结matcher。primary signed own-minus-cross score、conditional-on-non-ties单侧exact sign test、joint observable-outcome arm-exchangeability条件、received-invalid记整world tie/complete-switch miss、transport/missing令整个route attempt non-evaluable且不重试，均沿用第27.1节。
+
+因为confirmatory hypothesis只有一条，family alpha与该primary raw alpha均为`1/20`，不再使用三route Holm首步的保守`1/60`。在同一冻结SESOI `P(favorable)=3/5`、`P(adverse)=1/10`、`P(tie)=3/10`和homogeneous independent-world planning model下，复核的exact operating characteristics为：q4/n16，`14454764201349/19531250000000 = 0.7400839271090688`；q6/n24，`3585708077179064276673/3906250000000000000000 = 0.9179412677578405`。首个达到`0.90`的任意world count为23，要求四strata平衡后为24。因此q6/n24预计通过新的单primary power gate，而q4/n16不通过；这些数值须由后续正式plan/result重新计算、hash绑定并审计，在此之前只是设计复核，不能称sealed result。
+
+这个变化不表示效应更可能存在，只表示在冻结效应真实存在时，单一事前主张避免了三个可替换主张带来的multiplicity penalty。它也不把旧q6的`0.7898078702451884`改错：旧数值对应三route family的`alpha=1/60`，新数值对应唯一primary的`alpha=1/20`，两者回答不同设计问题。
+
+### 28.3 证据标签与执行屏障
+
+未来若唯一primary在预注册条件下显著，只能支持：`deepseek-pro`在所选strict q6 finite-DSL challenge上的paired net context-responsive unique-action utilization。它不等于每个world都完成双臂switch，不支持所有模型或自然world中的总体概率，也不直接证明内部“增熵 -> 降熵”因果；complete context-concordant switch、逐stratum结果、shortcut baselines和其他routes均是分别报告的secondary/descriptive evidence。primary不显著但出现正向或完整switch案例时，可报告方向一致或受控存在性证据，并完整保留favorable/adverse/tie/invalid与不确定性，不能用exploratory route补成confirmatory success。
+
+新power源码、config、tests与本节必须先共同commit/push，才可生成正式power plan；plan经独立复核并单独封存后才可生成result。power result通过也只授权下一步设计q6 benchmark，不直接mint task或调用provider。q6 exact pair identity尚未出现在safe manifest：后续应逐shard验证既有128个private scan artifacts，只保留compact strict pair eligibility并用冻结`deterministic_tier_matching(target_per_stratum=6)`选24 worlds，避免加载967MB单体result；随后另行封存public/private manifests、opaque choices、display/context schedule、primary route及joint-exchangeability canaries、failure policy与analysis contract。完成这些屏障前provider/model calls保持0。
