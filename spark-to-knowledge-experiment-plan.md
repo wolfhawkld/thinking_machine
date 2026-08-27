@@ -1133,6 +1133,8 @@ merge必须同时报告maximum exact stratum-balanced `q`、`target_q_feasible`�
 
 ## 28. Strict single-primary-route utilization power（设计选择，2026-08-27）
 
+> 历史措辞提示：本节记录v2复用决议前的设计与power provenance；其中`confirmatory primary`仅是旧协议用语，已由第30节supersede，不适用于当前benchmark的world来源或response证据标签。
+
 第27.4节的人类判断现具体化为一个不放宽action、同时保持较小规模的策略。旧`spark-strong-k4-utilization-power-v1`的source、config、plan与result全部保持immutable，不覆盖、不重生、不改标签；新计算使用独立协议`spark-strong-k4-utilization-primary-route-power-v1`。新源码、config、tests、formal plan与result现已按顺序分别冻结并通过独立只读审计；具体provenance见第28.4节。private geometry、既有model outputs和provider均未由本power阶段读取，`final_benchmark_minted=false`。
 
 ### 28.1 唯一confirmatory primary与route选择
@@ -1164,6 +1166,8 @@ formal result仅在上述reviewed plan semantic/file hashes与source/config/upst
 正式tier classification为`strict_unique_switch_power_adequate_at_q6`，overall classification为`q6_confirmatory_primary_power_pass_q4_fail`。formal result在追加本小节前已用`require_current_source=True`验证通过。这只是纯离线prospective power gate：本power阶段没有读取private scan shards或model outputs，没有调用provider，也没有mint final benchmark；因此它不是Opportunity utilization的模型证据。本小节在formal result之后追加，会按预期改变后续current source manifest；该result的历史解释仍严格绑定上述source-freeze commit与manifest。
 
 ## 29. Strict single-primary-route benchmark config（设计冻结，2026-08-27）
+
+> 历史措辞提示：本节记录已被第30节显式supersede的benchmark config v1。下文保留原始冲突与审计链条，但其中`confirmatory primary`不是当前v2允许使用的标签。
 
 第28节的single-primary power gate通过后，当前阶段从“算清需要多大样本”进入“制作真正给模型的匿名试卷”。本节只冻结benchmark construction的config契约：规定24-world cohort从既有128个private feasibility-v2 shard中如何被选出、masking与schedule如何配平、`deepseek-pro` primary route与分析规则如何绑定、以及最终构造artifact必须满足的provenance/模式/不覆盖要求。它不生成plan/result、不选择具体world、不读取shard payload、不调用provider。
 
@@ -1201,3 +1205,43 @@ config同时把`provider_calls_made=0`、`model_outputs_read=false`、`final_ben
 3. exact 24-pair identity尚未冻结：需实现compact shard验证与`deterministic_tier_matching`，再另行封存plan/public/private manifests后才允许48次primary calls。
 
 本节的config冻结只授权后续离线构造，不授权provider calls。
+
+## 30. Development-world复用决议与benchmark config v2（2026-08-27）
+
+第29.3节指出的标签冲突已由人类在任何benchmark mint、live call或benchmark model output之前明确解决：继续复用feasibility-v2已经materialize的1024个development worlds，以冻结的deterministic strict-q6 matcher构造24-world匿名challenge。作出该决议时，尚未选择或mint具体24-world benchmark，尚未读取本benchmark模型输出，本benchmark provider/model calls仍为0；本次amendment也不读取private shards。这个决议节省重新生成独立world namespace的时间，但不改变这些world的来源属性。
+
+新增`configs/spark-strong-k4-utilization-primary-benchmark-v2.json`，文件SHA-256为`a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135`。v2在任何benchmark mint或live call之前显式supersede v1；v1 config及既有artifacts保持immutable historical records，不覆盖、不改写，也不得再被用于mint或执行本benchmark。v2完整绑定v1文件SHA `7564fd5881608091eb55f78e21913f47204dcce9af6888de31ca3e6550ac0470`，使这次标签修订可追踪。
+
+### 30.1 两层证据标签
+
+- world/sampling层永久标记为`outcome_conditioned_development_only`。feasibility-v2的`development_only_never_confirmatory`与`reserved_worlds_are_development_only_forever=true`继续生效；入选world不能被称为natural sample、independent held-out sample或独立确认性复现样本，也不能估计自然机会率。
+- 尚未发生的model-response层标记为`preregistered_prospective_primary`。这是因为route、strict endpoint、q6/n24、masking、schedule、failure policy和statistics在任何benchmark response之前冻结；它不把development-constructed worlds升级为held-out cohort。
+- upstream power result中的历史classification `q6_confirmatory_primary_power_pass_q4_fail`只绑定其exact numeric power gate及provenance。v2明确声明不继承该字符串中的`confirmatory`措辞；当前route role只能是`preregistered_prospective_primary`，不能再写为`confirmatory_primary`。
+
+若冻结primary显著，唯一允许的primary正向标签为`prospective_primary_positive_on_fixed_development_constructed_finite_DSL_challenge`，其含义仅是：`deepseek-pro`在这一固定development-constructed strict finite-DSL challenge上呈现paired net context-responsive unique-action utilization。若不显著，标签为`prospective_primary_not_detected_on_fixed_development_constructed_finite_DSL_challenge`；若按冻结failure policy不可评估，标签为`prospective_primary_non_evaluable_under_frozen_failure_policy`。完整双臂switch、方向一致个案和shortcut sensitivity只使用v2列出的descriptive secondary标签。
+
+以下结论标签被冻结为禁止使用：`confirmatory_primary`、`independent_heldout_confirmation`、`independent_confirmatory_replication`、`natural_world_opportunity_rate_estimate`、`model_general_capability_established`、`internal_entropy_causality_established`、`human_unknown_discovery_established`、`training_external_invention_established`与`real_world_scientific_discovery_generalization`。
+
+### 30.2 未改变的科学与执行契约
+
+这次amendment只修正复用决议和证据措辞，不放宽实验：仍为`strict_unique_nonconstant_switch`、四strata各6、24 independent worlds、48次`deepseek-pro` task calls；两臂各唯一一个nonconstant-K4正确action、两者不同且disjoint、K2机会数相等、constant-K4为0。v1冻结的opaque masking、pair-shared option mapping、display/context schedule、单侧exact sign test、alpha `1/20`、received-invalid/transport failure处理、target-blind baselines和全部live barriers原样保留。action-order namespace也沿用v1，以保持已冻结的具体schedule算法不漂移。
+
+prospective power算术原样绑定：冻结SESOI为`P(favorable/adverse/tie)=0.60/0.10/0.30`；q4/n16 exact power `0.7400839271090688`、gate fail；q6/n24 exact power `0.9179412677578405`、gate pass；首个任意n为23，四strata平衡后为24。power pass仍不是模型证据。
+
+因此标签blocker已经解除，但v2本身仍只授权下一步离线构造。后续必须先基于v2生成并复核construction plan，再逐个校验128个private shards、确定性选择24 worlds、封存public/private/result及其交叉绑定，并完成target-free route canary、joint exchangeability justification、response/failure contract、exploratory-route决议和analysis hash bindings；这些屏障全部通过前不得调用provider。
+
+## 31. Benchmark v2离线构造器实现（2026-08-28）
+
+新增`src/spark_strong_k4_utilization_primary_benchmark.py`及对应合成测试。实现继续绑定第30节的config v2；config raw file SHA保持`a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135`，代码另以canonical SHA `b57877f71aa716692e6e9623cc0e6e07877d6f93c1a7c68d7ab33690fa4182df`整体锁定其全部字段。这样旧power classification只能作为历史数值provenance，allowed/forbidden evidence labels、route、analysis、masking、schedule、baselines与live barriers都不能在同一protocol id下静默漂移。
+
+构造被分为两个阶段。`plan`阶段只读取tracked v2 config、feasibility target-free plan、safe artifact manifest与既有power config/plan/result；不打开private shard payload，不读取target或pair identity。它冻结24个pair slots、两phase context顺序、10-action display permutation，并精确绑定current source manifest与Git commit。正式CLI只允许在clean worktree上生成plan；后续验证要求current source hash与Git head同时匹配。`construct`阶段只有在reviewed plan的semantic SHA与raw file SHA同时匹配后才允许打开任何private shard。
+
+正式construct不会加载967MB monolithic result。它按safe manifest顺序逐一检查128个shard的path/range/size/raw SHA/inner SHA，再调用既有完整`_validate_shard`重算105个profiles及pair geometry；只保留compact strict eligibility，随后对全部1024 worlds重新调用`deterministic_tier_matching(target_per_stratum=6,fallback_per_stratum=6)`。因此q6是fresh deterministic matching，不是旧q4 cohort的追加或复用；任何shard缺失或不一致都会使构造停止。
+
+入选world先按plan seed重建target-free D0、parent与old subtrees，并与已校验shard的`parent_canonical_hash`核对。每pair的两臂共享raw action order和opaque option ids；public只允许固定顶层字段及48条`task_id/rendered_prompt/prompt_sha256`，不含candidate/world seed、target、motif id、stratum、arm label、正确action或private mapping。private key保存评分与provenance，且在最终validator/writer中再次按world seed重放完整public context；result的selected indices与stratum counts从private pairs重算。public/private/result均作semantic与file cross-binding、mode 0600、exclusive create、不覆盖。
+
+两路独立只读审计已复测：修改证据措辞、route/model、alpha/test、exchangeability、config任意字段、plan upstream/cohort/evidence、Git head/dirty状态、public额外private字段、private world seed/analysis或result selection摘要，均会被拒绝。所有构造产物仍明确写`evidence=false`、world层=`outcome_conditioned_development_only`、response层=`preregistered_prospective_primary`、`independent_heldout_confirmation=false`且`provider_calls_authorized=false`。
+
+本节写入时尚未生成正式construction plan/public/private/result，未读取本benchmark model outputs，未调用provider。当前设备也没有safe manifest所绑定的128个gitignored private shards；它们须从原生成设备精确转移后才能正式construct。下一顺序固定为：源码/config/tests/docs先commit并push形成clean source freeze；之后生成并独立复核target-free plan；再恢复并逐shard校验private payload。缺少shards不妨碍前两步，但阻止benchmark mint。
+
+冻结前验证结果：新config/builder focused tests 17项、相关旧benchmark/feasibility/power回归66项、repository-wide tests 516项全部PASS；`compileall`与tracked/untracked diff whitespace checks均PASS。第一次全仓运行曾因测试期间继续编辑source tree而由既有source-stability自检按设计报错；停止编辑后完整重跑为516/516 PASS，未把该中间运行计作代码失败。

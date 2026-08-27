@@ -280,6 +280,190 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertEqual(artifact["provider_calls_made"], 0)
         self.assertIs(artifact["model_outputs_read"], False)
 
+    def test_utilization_primary_benchmark_v2_freezes_reuse_and_evidence_labels(
+        self,
+    ) -> None:
+        v1_path = ROOT / "configs/spark-strong-k4-utilization-primary-benchmark-v1.json"
+        v2_path = ROOT / "configs/spark-strong-k4-utilization-primary-benchmark-v2.json"
+        v1 = self.load_json(
+            "configs/spark-strong-k4-utilization-primary-benchmark-v1.json"
+        )
+        v2 = self.load_json(
+            "configs/spark-strong-k4-utilization-primary-benchmark-v2.json"
+        )
+
+        self.assertEqual(
+            hashlib.sha256(v1_path.read_bytes()).hexdigest(),
+            "7564fd5881608091eb55f78e21913f47204dcce9af6888de31ca3e6550ac0470",
+        )
+        self.assertEqual(
+            hashlib.sha256(v2_path.read_bytes()).hexdigest(),
+            "a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135",
+        )
+        self.assertEqual(v2["schema_version"], 2)
+        self.assertEqual(
+            v2["protocol_id"],
+            "spark-strong-k4-utilization-primary-benchmark-v2",
+        )
+        supersession = v2["supersession"]
+        self.assertEqual(
+            supersession["supersedes_protocol_id"],
+            "spark-strong-k4-utilization-primary-benchmark-v1",
+        )
+        self.assertEqual(
+            supersession["superseded_config_file_sha256"],
+            hashlib.sha256(v1_path.read_bytes()).hexdigest(),
+        )
+        self.assertIs(
+            supersession["effective_before_any_benchmark_mint_or_live_call"],
+            True,
+        )
+        self.assertIs(supersession["v1_must_not_be_used_to_mint_or_run_the_benchmark"], True)
+        self.assertEqual(
+            supersession["benchmark_provider_calls_made_before_this_decision"], 0
+        )
+        self.assertIs(
+            supersession["benchmark_model_outputs_read_before_this_decision"], False
+        )
+
+        reuse = v2["pre_model_human_reuse_decision"]
+        self.assertEqual(reuse["world_sampling_status"], "outcome_conditioned_development_only")
+        self.assertIs(reuse["reserved_worlds_are_development_only_forever"], True)
+        self.assertIs(reuse["natural_sample_claim_allowed"], False)
+        self.assertIs(reuse["independent_heldout_sample_claim_allowed"], False)
+        self.assertEqual(
+            reuse["model_response_layer_role"],
+            "preregistered_prospective_primary",
+        )
+        self.assertIs(reuse["private_shards_read_during_this_amendment"], False)
+
+        for unchanged_section in (
+            "upstream_geometry",
+            "cohort_selection",
+            "strict_pair_contract",
+            "masking_and_prompt",
+            "schedule",
+            "analysis_binding",
+            "remaining_live_barriers",
+        ):
+            self.assertEqual(v2[unchanged_section], v1[unchanged_section])
+        self.assertEqual(v2["cohort_selection"]["target_per_stratum"], 6)
+        self.assertEqual(v2["cohort_selection"]["world_count"], 24)
+        self.assertEqual(v2["cohort_selection"]["task_count"], 48)
+        self.assertEqual(v2["primary_route"]["route_id"], "deepseek-pro")
+        self.assertEqual(
+            v2["primary_route"]["role"],
+            "preregistered_prospective_primary",
+        )
+        self.assertEqual(v2["primary_route"]["formal_task_calls"], 48)
+
+        power = v2["upstream_power_gate"]
+        power_result_path = ROOT / power["result_relative_path"]
+        power_result = json.loads(power_result_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            hashlib.sha256(power_result_path.read_bytes()).hexdigest(),
+            power["result_file_sha256"],
+        )
+        self.assertEqual(
+            power["required_historical_overall_classification"],
+            "q6_confirmatory_primary_power_pass_q4_fail",
+        )
+        self.assertEqual(
+            power_result["classification"]["overall"],
+            power["required_historical_overall_classification"],
+        )
+        self.assertEqual(
+            power["historical_overall_classification_role"],
+            "exact numeric power-gate provenance only",
+        )
+        self.assertIs(
+            power["confirmatory_wording_in_historical_classification_is_inherited"],
+            False,
+        )
+        frozen_power = power["frozen_power_model"]
+        self.assertEqual(frozen_power["alpha"], {"numerator": 1, "denominator": 20})
+        self.assertEqual(
+            frozen_power["q4_n16_exact_power_fraction"],
+            {"numerator": "14454764201349", "denominator": "19531250000000"},
+        )
+        self.assertEqual(frozen_power["q4_n16_exact_power"], "0.7400839271090688")
+        self.assertEqual(frozen_power["q4_gate"], "fail")
+        self.assertEqual(
+            frozen_power["q6_n24_exact_power_fraction"],
+            {
+                "numerator": "3585708077179064276673",
+                "denominator": "3906250000000000000000",
+            },
+        )
+        self.assertEqual(frozen_power["q6_n24_exact_power"], "0.9179412677578405")
+        self.assertEqual(frozen_power["q6_gate"], "pass")
+        designs = {
+            design["design_id"]: design for design in power_result["candidate_designs"]
+        }
+        self.assertEqual(
+            str(designs["strict-fallback-q4"]["frozen_sesoi_exact_power"]["numerator"]),
+            frozen_power["q4_n16_exact_power_fraction"]["numerator"],
+        )
+        self.assertEqual(
+            str(designs["strict-maximum-q6"]["frozen_sesoi_exact_power"]["numerator"]),
+            frozen_power["q6_n24_exact_power_fraction"]["numerator"],
+        )
+
+        labels = v2["evidence_labels"]
+        self.assertEqual(labels["world_layer_label"], "outcome_conditioned_development_only")
+        self.assertEqual(
+            labels["model_response_layer_label"],
+            "preregistered_prospective_primary",
+        )
+        self.assertIs(labels["independent_heldout_confirmation"], False)
+        self.assertEqual(
+            labels["allowed_primary_result_labels"],
+            {
+                "significant": (
+                    "prospective_primary_positive_on_fixed_development_constructed_"
+                    "finite_DSL_challenge"
+                ),
+                "not_significant": (
+                    "prospective_primary_not_detected_on_fixed_development_constructed_"
+                    "finite_DSL_challenge"
+                ),
+                "non_evaluable": "prospective_primary_non_evaluable_under_frozen_failure_policy",
+            },
+        )
+        self.assertEqual(
+            labels["allowed_secondary_result_labels"],
+            [
+                "descriptive_complete_switch_on_fixed_development_constructed_finite_DSL_challenge",
+                (
+                    "descriptive_directionally_consistent_case_on_fixed_development_"
+                    "constructed_finite_DSL_challenge"
+                ),
+                (
+                    "descriptive_shortcut_sensitivity_on_fixed_development_constructed_"
+                    "finite_DSL_challenge"
+                ),
+            ],
+        )
+        self.assertEqual(
+            labels["forbidden_conclusion_labels"],
+            [
+                "confirmatory_primary",
+                "independent_heldout_confirmation",
+                "independent_confirmatory_replication",
+                "natural_world_opportunity_rate_estimate",
+                "model_general_capability_established",
+                "internal_entropy_causality_established",
+                "human_unknown_discovery_established",
+                "training_external_invention_established",
+                "real_world_scientific_discovery_generalization",
+            ],
+        )
+
+        artifact = v2["artifact_contract"]
+        self.assertEqual(artifact["provider_calls_made"], 0)
+        self.assertIs(artifact["model_outputs_read"], False)
+        self.assertIs(artifact["final_benchmark_minted"], False)
+
     def test_strong_k4_fair_choice_protocol_is_symmetric_and_masked(self) -> None:
         config = self.load_json("configs/spark-strong-k4-fair-choice-v1.json")
 

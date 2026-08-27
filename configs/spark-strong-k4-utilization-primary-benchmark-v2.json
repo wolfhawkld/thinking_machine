@@ -1,0 +1,279 @@
+{
+  "schema_version": 2,
+  "kind": "spark-strong-k4-utilization-primary-benchmark-config",
+  "protocol_id": "spark-strong-k4-utilization-primary-benchmark-v2",
+  "evidence_scope": "offline_outcome_conditioned_development_strict_q6_masked_benchmark_construction_for_a_preregistered_prospective_primary_response_test",
+  "supersession": {
+    "supersedes_protocol_id": "spark-strong-k4-utilization-primary-benchmark-v1",
+    "superseded_config_relative_path": "configs/spark-strong-k4-utilization-primary-benchmark-v1.json",
+    "superseded_config_file_sha256": "7564fd5881608091eb55f78e21913f47204dcce9af6888de31ca3e6550ac0470",
+    "effective_before_any_benchmark_mint_or_live_call": true,
+    "v1_must_not_be_used_to_mint_or_run_the_benchmark": true,
+    "v1_config_and_existing_artifacts_remain_immutable_historical_records": true,
+    "benchmark_minted_before_this_decision": false,
+    "benchmark_provider_calls_made_before_this_decision": 0,
+    "benchmark_model_outputs_read_before_this_decision": false
+  },
+  "pre_model_human_reuse_decision": {
+    "decision_date": "2026-08-27",
+    "decision": "reuse the already materialized feasibility-v2 development worlds for deterministic strict-q6 benchmark construction",
+    "timing": "after offline feasibility geometry and prospective power were known, but before exact benchmark cohort minting, benchmark model outputs or benchmark provider calls",
+    "private_shards_read_during_this_amendment": false,
+    "selection_may_use_benchmark_model_output": false,
+    "world_sampling_status": "outcome_conditioned_development_only",
+    "reserved_worlds_are_development_only_forever": true,
+    "natural_sample_claim_allowed": false,
+    "independent_heldout_sample_claim_allowed": false,
+    "model_response_layer_role": "preregistered_prospective_primary",
+    "rationale": "the response hypothesis, route, endpoint, sample size, masking, schedule and statistics are frozen before any benchmark model response, while the world source remains transparently development-constructed"
+  },
+  "evidence_labels": {
+    "world_layer_label": "outcome_conditioned_development_only",
+    "model_response_layer_label": "preregistered_prospective_primary",
+    "independent_heldout_confirmation": false,
+    "allowed_primary_result_labels": {
+      "significant": "prospective_primary_positive_on_fixed_development_constructed_finite_DSL_challenge",
+      "not_significant": "prospective_primary_not_detected_on_fixed_development_constructed_finite_DSL_challenge",
+      "non_evaluable": "prospective_primary_non_evaluable_under_frozen_failure_policy"
+    },
+    "allowed_secondary_result_labels": [
+      "descriptive_complete_switch_on_fixed_development_constructed_finite_DSL_challenge",
+      "descriptive_directionally_consistent_case_on_fixed_development_constructed_finite_DSL_challenge",
+      "descriptive_shortcut_sensitivity_on_fixed_development_constructed_finite_DSL_challenge"
+    ],
+    "significant_primary_interpretation": "supports paired net context-responsive unique-action utilization by deepseek-pro on this one fixed development-constructed strict finite-DSL challenge",
+    "forbidden_conclusion_labels": [
+      "confirmatory_primary",
+      "independent_heldout_confirmation",
+      "independent_confirmatory_replication",
+      "natural_world_opportunity_rate_estimate",
+      "model_general_capability_established",
+      "internal_entropy_causality_established",
+      "human_unknown_discovery_established",
+      "training_external_invention_established",
+      "real_world_scientific_discovery_generalization"
+    ]
+  },
+  "upstream_geometry": {
+    "artifact_manifest_relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/artifact-manifest.json",
+    "artifact_manifest_file_sha256": "ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6",
+    "artifact_manifest_sha256": "8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77",
+    "feasibility_config_relative_path": "configs/spark-strong-k4-utilization-feasibility-v2.json",
+    "feasibility_config_file_sha256": "15a2021058900b83f6f2c306c1bd60c41dfc266f265849ecaeeb6ad465edab86",
+    "feasibility_plan_relative_path": "artifacts/spark-strong-k4-utilization-feasibility-v2-20260825/plan.json",
+    "feasibility_plan_file_sha256": "b7f3fce8152a5aa2e3f462dedc31bfb560f73fe56cdb1bd6512e5786e4103e68",
+    "feasibility_plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+    "feasibility_scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf",
+    "shard_count": 128,
+    "shard_world_count": 8,
+    "world_count": 1024,
+    "shard_files_manifest_sha256": "d12005ff193143d3d6e510ff4350dd06a56f83dca2c7440e8fb60c5c38676dac",
+    "shard_total_size_bytes": 967864320,
+    "monolithic_result_must_not_be_read": true,
+    "all_shards_must_be_hash_and_schema_validated": true
+  },
+  "upstream_power_gate": {
+    "protocol_id": "spark-strong-k4-utilization-primary-route-power-v1",
+    "config_relative_path": "configs/spark-strong-k4-utilization-primary-route-power-v1.json",
+    "config_file_sha256": "7f6b07777f94a113ea8d5d06a3f32c15f2b4cde361446b98deb6dc64f1ce4fa1",
+    "plan_relative_path": "artifacts/spark-strong-k4-utilization-primary-route-power-v1-20260827/plan.json",
+    "plan_file_sha256": "734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e",
+    "plan_sha256": "9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d",
+    "result_relative_path": "artifacts/spark-strong-k4-utilization-primary-route-power-v1-20260827/result.json",
+    "result_file_sha256": "db8b6c68390ee624558cd7cb6d317d105e9631dff9bf45decdcd863fe79710c5",
+    "result_sha256": "091b665907018a16d93816888d7ac4fe5ecd93bad065d21448c3683cda6437e6",
+    "required_tier_classification": "strict_unique_switch_power_adequate_at_q6",
+    "required_historical_overall_classification": "q6_confirmatory_primary_power_pass_q4_fail",
+    "historical_overall_classification_role": "exact numeric power-gate provenance only",
+    "confirmatory_wording_in_historical_classification_is_inherited": false,
+    "passing_design_id": "strict-maximum-q6",
+    "frozen_power_model": {
+      "primary_test": "one-sided exact sign test conditional on non-tie worlds",
+      "alpha": {
+        "numerator": 1,
+        "denominator": 20
+      },
+      "p_favorable": {
+        "numerator": 3,
+        "denominator": 5
+      },
+      "p_adverse": {
+        "numerator": 1,
+        "denominator": 10
+      },
+      "p_tie": {
+        "numerator": 3,
+        "denominator": 10
+      },
+      "target_power": {
+        "numerator": 9,
+        "denominator": 10
+      },
+      "q4_n16_exact_power_fraction": {
+        "numerator": "14454764201349",
+        "denominator": "19531250000000"
+      },
+      "q4_n16_exact_power": "0.7400839271090688",
+      "q4_gate": "fail",
+      "q6_n24_exact_power_fraction": {
+        "numerator": "3585708077179064276673",
+        "denominator": "3906250000000000000000"
+      },
+      "q6_n24_exact_power": "0.9179412677578405",
+      "q6_gate": "pass",
+      "minimum_unbalanced_world_count": 23,
+      "minimum_four_stratum_balanced_world_count": 24
+    },
+    "power_is_model_evidence": false
+  },
+  "cohort_selection": {
+    "tier_id": "strict_unique_nonconstant_switch",
+    "target_per_stratum": 6,
+    "fallback_per_stratum": 6,
+    "world_count": 24,
+    "task_count": 48,
+    "construction_strata_in_frozen_order": [
+      "affine_commutative",
+      "affine_directional",
+      "affine_multiplicative",
+      "pairwise_variable"
+    ],
+    "independent_unit": "one unique development world and its two-context pair",
+    "world_capacity": 1,
+    "matching_rule": "run deterministic_tier_matching over compact strict eligibility from all 1024 validated worlds with target_per_stratum=6 and fallback_per_stratum=6",
+    "world_assignment_tie_break": "for each frozen stratum choose the lexicographically first jointly feasible ascending candidate-index vector",
+    "within_world_pair_rule": "among strict pairs in the assigned stratum choose the ascending canonical tuple of tier, stratum, context A motif_id, context B motif_id, context A correct raw list and context B correct raw list",
+    "q4_assignment_may_be_extended": false,
+    "selection_may_read_provider_route_or_model_output": false,
+    "selection_may_optimize_display_position": false,
+    "selection_may_use_manual_scientific_attractiveness": false,
+    "selected_worlds_remain_development_only": true
+  },
+  "strict_pair_contract": {
+    "same_world_D0_parent_and_action_universe": true,
+    "same_motif_stratum_and_complexity": true,
+    "distinct_motif_id_and_complete_domain_behavior": true,
+    "K2_opportunity_counts_equal": true,
+    "constant_K4_count_each_arm": 0,
+    "nonconstant_K4_correct_raw_action_count_each_arm": 1,
+    "correct_raw_actions_must_differ": true,
+    "correct_raw_action_sets_disjoint": true,
+    "action_universe_size": 10
+  },
+  "masking_and_prompt": {
+    "arms": [
+      "context_a",
+      "context_b"
+    ],
+    "only_provider_visible_pair_difference": "rendered context fragment",
+    "same_D0_parent_action_descriptions_response_schema_and_wording": true,
+    "pair_shared_raw_action_order": true,
+    "pair_shared_opaque_option_ids": true,
+    "opaque_option_id_format": "Q followed by eight uppercase hexadecimal characters",
+    "opaque_task_id_format": "TASK- followed by fourteen uppercase base32 characters",
+    "answer_example_in_prompt": false,
+    "public_manifest_excludes": [
+      "candidate index or world seed",
+      "target seed, target index, world hash or target hash",
+      "motif id, stratum or context arm label",
+      "correct raw action or endpoint flags",
+      "pair identity, private option mapping or scoring key",
+      "compressor trajectory, N_T or control outcomes"
+    ],
+    "live_runner_may_read": "provider-facing public manifest and later sealed live plan only",
+    "private_key_load_time": "only after the complete primary generation artifact is sealed"
+  },
+  "schedule": {
+    "pair_slot_rule": "frozen construction-stratum order, then ascending selected candidate index within stratum; six ranks per stratum",
+    "base_action_permutation_rule": "sort raw action indices 0..9 by SHA-256 of action_order_namespace + ':' + raw index",
+    "action_order_namespace": "spark-strong-k4-utilization-primary-benchmark-v1:base-option-permutation",
+    "pair_action_order_rule": "cyclically rotate the base permutation by pair ordinal modulo 10",
+    "global_position_balance": "each raw semantic action appears in every display position either two or three times across 24 pairs",
+    "context_order_rule": "even within-stratum rank receives context A in phase 1 and context B in phase 2; odd rank receives B then A",
+    "public_task_sequence": "phase 1 in pair-slot order followed by phase 2 in pair-slot order",
+    "phase_context_balance": "within each construction stratum each phase contains three context A and three context B tasks",
+    "schedule_vector_frozen_before_private_shard_read": true,
+    "schedule_may_not_be_changed_after_model_output": true
+  },
+  "primary_route": {
+    "route_id": "deepseek-pro",
+    "role": "preregistered_prospective_primary",
+    "provider_profile": "deepseek-official-openai-compatible",
+    "request_model": "deepseek-v4-pro",
+    "response_model": "deepseek-v4-pro",
+    "route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+    "formal_task_calls": 48,
+    "fallback_route_forbidden": true,
+    "exploratory_route_execution_decision": "must_be_frozen_in_the_later_live_plan_before_any_primary_call"
+  },
+  "analysis_binding": {
+    "primary_hypothesis_id": "primary_route_strict_unique_action_utilization",
+    "primary_test": "one-sided exact sign test conditional on non-tie worlds",
+    "primary_alpha": {
+      "numerator": 1,
+      "denominator": 20
+    },
+    "world_signed_score": "sum of the two own-context correct-set indicators minus the sum of the two cross-context correct-set indicators",
+    "favorable_world": "world_signed_score > 0",
+    "adverse_world": "world_signed_score < 0",
+    "tie_world": "world_signed_score = 0",
+    "received_invalid_response": "entire world is a primary tie and complete-switch miss in the fixed denominator",
+    "transport_or_missing_response": "complete primary route attempt is non-evaluable with no retry, replacement world or partial denominator",
+    "complete_two_arm_context_concordant_switch": "secondary",
+    "joint_observable_outcome_arm_exchangeability_required": true,
+    "hard_balance_alone_establishes_exchangeability": false
+  },
+  "target_blind_structural_baselines": {
+    "computed_only_after_the_24_world_cohort_is_irrevocably_selected": true,
+    "may_change_cohort_or_pair_selection": false,
+    "inferential_role": "descriptive shortcut sensitivity; not a second primary gate and not used to select a best model result",
+    "fixed_semantic_policy_count": 10,
+    "fixed_display_position_policy_count": 10,
+    "public_K1_policy_ids": [
+      "first-public-K1-else-first-displayed",
+      "public-k1-min-node-hash",
+      "public-k1-min-positive-node-hash",
+      "public-k1-max-parent-novelty-node-hash"
+    ],
+    "public_feature_inputs": "target-free D0, parent, context fragment, complete input domain and action lineage only",
+    "target_K2_K3_K4_or_model_output_may_be_read_by_policy": false,
+    "report_each_policy_favorable_adverse_tie_complete_switch_and_signed_total": true,
+    "B_star_selection_or_posthoc_thresholding": false
+  },
+  "construction_plan_barrier": {
+    "must_bind_exact_config_file_sha256": true,
+    "must_bind_current_source_manifest_sha256": true,
+    "must_bind_upstream_safe_manifest_and_power_result": true,
+    "must_be_generated_after_source_freeze_commit": true,
+    "private_shards_read_before_reviewed_plan": false,
+    "reviewed_plan_semantic_and_file_sha256_required": true,
+    "model_outputs_read": false,
+    "provider_calls_made": 0,
+    "plan_artifact_generated_during_this_code_change": false
+  },
+  "artifact_contract": {
+    "plan_file_name": "plan.json",
+    "public_manifest_file_name": "public.json",
+    "private_scoring_key_file_name": "private.json",
+    "construction_result_file_name": "result.json",
+    "public_private_cross_binding_required": true,
+    "exact_48_task_bijection_required": true,
+    "exclusive_create_no_overwrite": true,
+    "output_mode": "0600",
+    "private_scoring_key_git_storage": "ignored_private_local_payload",
+    "public_manifest_contains_model_outputs": false,
+    "provider_calls_made": 0,
+    "model_outputs_read": false,
+    "final_benchmark_minted": false,
+    "final_benchmark_minted_only_after_all_128_shards_validate": true,
+    "interpretation_limit": "constructs one fixed development-constructed finite-DSL outcome-conditioned strict q6 challenge for a preregistered prospective deepseek-pro response test; it is not model evidence, a natural or independent-heldout opportunity sample, an entropy-causal result or a model-general benchmark"
+  },
+  "remaining_live_barriers": {
+    "new_prompt_target_free_route_canary_required": true,
+    "joint_exchangeability_canary_and_justification_required": true,
+    "response_contract_and_failure_policy_must_be_sealed": true,
+    "exploratory_route_decision_must_be_sealed": true,
+    "analysis_contract_must_bind_public_and_private_file_hashes": true,
+    "passing_construction_directly_authorizes_provider_calls": false
+  }
+}
