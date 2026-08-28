@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from src.provenance import ProvenanceError, source_manifest
+from src.provenance import ProvenanceError, protocol_git_pathspecs, source_manifest
 
 
 class ProvenanceTests(unittest.TestCase):
@@ -42,6 +42,13 @@ class ProvenanceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaisesRegex(ProvenanceError, "missing protocol"):
                 source_manifest(directory)
+
+    def test_git_pathspecs_cover_manifest_scope_even_when_files_are_absent(self) -> None:
+        pathspecs = protocol_git_pathspecs()
+        self.assertIn("spark-to-knowledge-experiment-plan.md", pathspecs)
+        self.assertIn(":(top,glob)src/**/*.py", pathspecs)
+        self.assertIn(":(top,glob)tests/**/*.py", pathspecs)
+        self.assertIn(":(top,glob)configs/**/*.json", pathspecs)
 
 
 if __name__ == "__main__":

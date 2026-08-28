@@ -25,6 +25,7 @@ _ROOT_FILES = (
     "v3-development-spec.md",
 )
 _TREE_SUFFIXES = {".py", ".json"}
+_PROTOCOL_DIRECTORIES = ("configs", "src", "tests")
 
 
 class ProvenanceError(RuntimeError):
@@ -51,7 +52,7 @@ def _protocol_files(root: Path) -> list[Path]:
         path = root / relative
         if path.is_file():
             files.add(path)
-    for directory_name in ("configs", "src", "tests"):
+    for directory_name in _PROTOCOL_DIRECTORIES:
         directory = root / directory_name
         if not directory.is_dir():
             raise ProvenanceError(f"missing protocol directory: {directory_name}")
@@ -63,6 +64,17 @@ def _protocol_files(root: Path) -> list[Path]:
             if path.is_file() and path.suffix in _TREE_SUFFIXES:
                 files.add(path)
     return sorted(files, key=lambda path: path.relative_to(root).as_posix())
+
+
+def protocol_git_pathspecs() -> tuple[str, ...]:
+    """Return Git pathspecs covering exactly the source-manifest file scope."""
+
+    tree_patterns = tuple(
+        f":(top,glob){directory}/**/*{suffix}"
+        for directory in _PROTOCOL_DIRECTORIES
+        for suffix in sorted(_TREE_SUFFIXES)
+    )
+    return (*_ROOT_FILES, *tree_patterns)
 
 
 def _git_head(root: Path) -> str | None:
@@ -118,4 +130,9 @@ def source_manifest(root: str | Path = PROJECT_ROOT) -> dict[str, Any]:
     }
 
 
-__all__ = ["PROJECT_ROOT", "ProvenanceError", "source_manifest"]
+__all__ = [
+    "PROJECT_ROOT",
+    "ProvenanceError",
+    "protocol_git_pathspecs",
+    "source_manifest",
+]

@@ -30,7 +30,7 @@ from . import dsl, spark_lineage
 from . import spark_strong_k4_benchmark as prompt_support
 from . import spark_strong_k4_scan as strong_scan
 from . import spark_strong_k4_utilization_feasibility as feasibility
-from .provenance import PROJECT_ROOT, source_manifest
+from .provenance import PROJECT_ROOT, protocol_git_pathspecs, source_manifest
 
 
 CONFIG_SCHEMA_VERSION = 2
@@ -260,31 +260,65 @@ def _read_json(path: Path, label: str) -> tuple[dict[str, Any], bytes]:
 def _assert_clean_source_freeze(
     project_root: Path,
     current_source_manifest: Mapping[str, Any],
-    *,
-    expected_git_head: str | None = None,
-) -> str:
+) -> tuple[str, list[str]]:
     environment = _require_mapping(
         current_source_manifest.get("environment"), "source-manifest environment"
     )
     observed_head = _require_git_commit(environment.get("git_head"), "current Git head")
-    if expected_git_head is not None and observed_head != expected_git_head:
-        raise PrimaryBenchmarkError("construction plan Git head differs from current source")
+    files = current_source_manifest.get("files")
+    if not isinstance(files, list) or not files:
+        raise PrimaryBenchmarkError("source manifest has no protocol files")
+    for row in files:
+        if not isinstance(row, Mapping) or not isinstance(row.get("path"), str):
+            raise PrimaryBenchmarkError("source manifest file row is malformed")
+    source_pathspecs = list(protocol_git_pathspecs())
     try:
         status = subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=all"],
+            [
+                "git",
+                "status",
+                "--porcelain=v1",
+                "--untracked-files=all",
+                "--",
+                *source_pathspecs,
+            ],
             cwd=project_root,
-            check=False,
+            check=True,
             capture_output=True,
             text=True,
-            timeout=10,
+            timeout=30,
         )
     except (OSError, subprocess.SubprocessError) as exc:
         raise PrimaryBenchmarkError("cannot verify the source-freeze worktree") from exc
-    if status.returncode != 0 or status.stdout.strip():
+    if status.stdout.strip():
         raise PrimaryBenchmarkError(
-            "construction plan requires a clean source-freeze Git worktree"
+            "construction plan requires clean protocol source files"
         )
-    return observed_head
+    return observed_head, source_pathspecs
+
+
+def _assert_frozen_commit_matches_source(
+    project_root: Path,
+    frozen_git_head: str,
+    source_pathspecs: Sequence[str],
+) -> None:
+    frozen_head = _require_git_commit(frozen_git_head, "source-freeze Git head")
+    for command in (
+        ["git", "merge-base", "--is-ancestor", frozen_head, "HEAD"],
+        ["git", "diff", "--quiet", frozen_head, "--", *source_pathspecs],
+    ):
+        try:
+            subprocess.run(
+                command,
+                cwd=project_root,
+                check=True,
+                capture_output=True,
+                timeout=30,
+            )
+        except (OSError, subprocess.SubprocessError) as exc:
+            raise PrimaryBenchmarkError(
+                "source-freeze commit does not match current protocol files"
+            ) from exc
 
 
 def _check_inner_digest(value: Mapping[str, Any], field: str, label: str) -> str:
@@ -785,10 +819,11 @@ def validate_construction_plan(
         current = source_manifest(project_root)
         if current.get("source_manifest_sha256") != plan.get("source_manifest_sha256"):
             raise PrimaryBenchmarkError("construction source manifest drifted")
-        _assert_clean_source_freeze(
+        _, source_pathspecs = _assert_clean_source_freeze(Path(project_root), current)
+        _assert_frozen_commit_matches_source(
             Path(project_root),
-            current,
-            expected_git_head=str(plan["source_freeze_git_head"]),
+            str(plan["source_freeze_git_head"]),
+            source_pathspecs,
         )
 
 
@@ -1769,7 +1804,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     config, config_sha = _read_config(args.config)
     if args.command == "plan":
         observed_source = source_manifest(PROJECT_ROOT)
-        source_head = _assert_clean_source_freeze(PROJECT_ROOT, observed_source)
+        source_head, _ = _assert_clean_source_freeze(PROJECT_ROOT, observed_source)
         plan = build_construction_plan(
             config,
             config_file_sha256=config_sha,

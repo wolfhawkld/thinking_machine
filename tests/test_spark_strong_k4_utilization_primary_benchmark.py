@@ -5,6 +5,7 @@ from collections import defaultdict
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -12,7 +13,7 @@ from unittest import mock
 from src import dsl, spark_lineage
 from src import spark_strong_k4_utilization_feasibility as feasibility
 from src import spark_strong_k4_utilization_primary_benchmark as benchmark
-from src.provenance import PROJECT_ROOT
+from src.provenance import PROJECT_ROOT, protocol_git_pathspecs, source_manifest
 
 
 CONFIG_PATH = (
@@ -372,7 +373,9 @@ class ConfigAndPlanTests(unittest.TestCase):
                     )
             stream.assert_not_called()
 
-    def test_current_source_requires_matching_head_and_clean_tree(self) -> None:
+    def test_current_source_allows_artifact_commit_but_requires_frozen_lineage(
+        self,
+    ) -> None:
         plan = benchmark.build_construction_plan(
             self.config,
             config_file_sha256=self.config_sha,
@@ -382,9 +385,76 @@ class ConfigAndPlanTests(unittest.TestCase):
         current = {
             "source_manifest_sha256": "a" * 64,
             "environment": {"git_head": "c" * 40},
+            "files": [{"path": "src/example.py"}],
         }
-        with mock.patch.object(benchmark, "source_manifest", return_value=current):
-            with self.assertRaisesRegex(benchmark.PrimaryBenchmarkError, "Git head"):
+        with (
+            mock.patch.object(benchmark, "source_manifest", return_value=current),
+            mock.patch.object(
+                benchmark,
+                "_assert_clean_source_freeze",
+                return_value=("c" * 40, ["src/example.py"]),
+            ),
+            mock.patch.object(
+                benchmark, "_assert_frozen_commit_matches_source"
+            ) as frozen,
+        ):
+            benchmark.validate_construction_plan(
+                self.config,
+                plan,
+                config_file_sha256=self.config_sha,
+                require_current_source=True,
+            )
+        frozen.assert_called_once_with(
+            PROJECT_ROOT, "b" * 40, ["src/example.py"]
+        )
+
+        dirty_status = mock.Mock(returncode=0, stdout=" M src/example.py\n")
+        with mock.patch.object(benchmark.subprocess, "run", return_value=dirty_status):
+            with self.assertRaisesRegex(benchmark.PrimaryBenchmarkError, "clean"):
+                benchmark._assert_clean_source_freeze(PROJECT_ROOT, current)
+
+        with mock.patch.object(
+            benchmark.subprocess,
+            "run",
+            side_effect=subprocess.CalledProcessError(1, ["git", "merge-base"]),
+        ):
+            with self.assertRaisesRegex(
+                benchmark.PrimaryBenchmarkError, "does not match"
+            ):
+                benchmark._assert_frozen_commit_matches_source(
+                    PROJECT_ROOT, "b" * 40, ["src/example.py"]
+                )
+
+        clean = mock.Mock(returncode=0, stdout="")
+        with mock.patch.object(benchmark.subprocess, "run", return_value=clean) as run:
+            benchmark._assert_frozen_commit_matches_source(
+                PROJECT_ROOT, "b" * 40, ["src/example.py"]
+            )
+        self.assertEqual(run.call_count, 2)
+        self.assertEqual(run.call_args_list[0].args[0][:3], ["git", "merge-base", "--is-ancestor"])
+        self.assertEqual(run.call_args_list[1].args[0][:3], ["git", "diff", "--quiet"])
+
+        with mock.patch.object(
+            benchmark.subprocess,
+            "run",
+            side_effect=[
+                clean,
+                subprocess.CalledProcessError(1, ["git", "diff"]),
+            ],
+        ):
+            with self.assertRaisesRegex(
+                benchmark.PrimaryBenchmarkError, "does not match"
+            ):
+                benchmark._assert_frozen_commit_matches_source(
+                    PROJECT_ROOT, "b" * 40, ["src/example.py"]
+                )
+
+        drifted = copy.deepcopy(current)
+        drifted["source_manifest_sha256"] = "d" * 64
+        with mock.patch.object(benchmark, "source_manifest", return_value=drifted):
+            with self.assertRaisesRegex(
+                benchmark.PrimaryBenchmarkError, "source manifest drifted"
+            ):
                 benchmark.validate_construction_plan(
                     self.config,
                     plan,
@@ -392,11 +462,81 @@ class ConfigAndPlanTests(unittest.TestCase):
                     require_current_source=True,
                 )
 
-        current["environment"]["git_head"] = "b" * 40  # type: ignore[index]
-        dirty_status = mock.Mock(returncode=0, stdout=" M src/example.py\n")
-        with mock.patch.object(benchmark.subprocess, "run", return_value=dirty_status):
+    def test_source_lineage_allows_nonprotocol_commit_and_rejects_deleted_file(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for directory in ("configs", "src", "tests"):
+                (root / directory).mkdir()
+            kept = root / "src" / "kept.py"
+            deleted = root / "src" / "deleted.py"
+            kept.write_text("KEPT = True\n", encoding="utf-8")
+            deleted.write_text("DELETED = False\n", encoding="utf-8")
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            subprocess.run(["git", "add", "src/kept.py", "src/deleted.py"], cwd=root, check=True)
+            subprocess.run(
+                [
+                    "git",
+                    "-c",
+                    "user.name=Protocol Test",
+                    "-c",
+                    "user.email=protocol-test@example.invalid",
+                    "commit",
+                    "-qm",
+                    "freeze protocol files",
+                ],
+                cwd=root,
+                check=True,
+            )
+            frozen = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=root,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            frozen_manifest = source_manifest(root)
+            (root / "artifact-note.txt").write_text(
+                "non-protocol artifact\n", encoding="utf-8"
+            )
+            subprocess.run(["git", "add", "artifact-note.txt"], cwd=root, check=True)
+            subprocess.run(
+                [
+                    "git",
+                    "-c",
+                    "user.name=Protocol Test",
+                    "-c",
+                    "user.email=protocol-test@example.invalid",
+                    "commit",
+                    "-qm",
+                    "seal non-protocol artifact",
+                ],
+                cwd=root,
+                check=True,
+            )
+            current = source_manifest(root)
+            self.assertEqual(
+                current["source_manifest_sha256"],
+                frozen_manifest["source_manifest_sha256"],
+            )
+            self.assertNotEqual(current["environment"]["git_head"], frozen)
+            observed_head, source_pathspecs = benchmark._assert_clean_source_freeze(
+                root, current
+            )
+            self.assertEqual(observed_head, current["environment"]["git_head"])
+            benchmark._assert_frozen_commit_matches_source(
+                root, frozen, source_pathspecs
+            )
+
+            deleted.unlink()
+            current = source_manifest(root)
+            self.assertNotIn(
+                "src/deleted.py", {str(row["path"]) for row in current["files"]}
+            )
+            self.assertIn(":(top,glob)src/**/*.py", protocol_git_pathspecs())
             with self.assertRaisesRegex(benchmark.PrimaryBenchmarkError, "clean"):
-                benchmark._assert_clean_source_freeze(PROJECT_ROOT, current)
+                benchmark._assert_clean_source_freeze(root, current)
 
     def test_target_free_parent_replay_is_hash_bound(self) -> None:
         world, _ = benchmark._target_free_prompt_context(12345)

@@ -8,7 +8,8 @@
 - 2026-08-27的当前优先策略保留strict unique-action q6/n24，并把`deepseek-pro`事前固定为唯一`preregistered_prospective_primary` response route。新formal result已确认：在同一冻结SESOI下，单primary `alpha=1/20`时q6/n24 exact power为`0.9179412677578405`，通过`0.90` gate；q4/n16为`0.7400839271090688`，不通过。旧protocol的source/config/plan/result均保持immutable，不覆盖、不重生、不改写历史标签。
 - 本benchmark construction阶段没有读取967MB private feasibility result或本benchmark model outputs，没有发起本benchmark provider/model call，也没有mint新的public/private benchmark；这不是对更早历史实验调用的全局陈述。
 - 人类已在任何benchmark mint/live call/model output之前决定复用feasibility-v2 development worlds，并冻结benchmark config v2：`configs/spark-strong-k4-utilization-primary-benchmark-v2.json`（file SHA `a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135`）。v2在live前显式supersede v1；v1及既有artifacts保持immutable historical records。world层永久为`outcome_conditioned_development_only`，response层为`preregistered_prospective_primary`，不称independent held-out confirmation。v2 config与离线构造器已实现，但尚未生成正式construction plan/public/private/result，未读取本benchmark model outputs，本benchmark `provider_calls_made=0`。
-- 2026-08-28构造器候选源码已完成：target-free plan、reviewed semantic/file双hash屏障、128-shard逐文件hash+schema验证、fresh strict q6 matching、target-free parent/context replay、24-world/48-task masking、public/private/result交叉绑定和关键tamper tests均已实现。证据措辞与代码两路只读复核均无剩余source-freeze blocker；17项新config/builder focused tests、66项相关回归和516项全仓tests均PASS，compileall与diff check也PASS。
+- 2026-08-28构造器候选源码已完成：target-free plan、reviewed semantic/file双hash屏障、128-shard逐文件hash+schema验证、fresh strict q6 matching、target-free parent/context replay、24-world/48-task masking、public/private/result交叉绑定和关键tamper tests均已实现。source commit `418ed197aead375323c2b5766a21ed207037fefe`曾通过17项新config/builder focused tests、66项相关回归、516项全仓tests、compileall与diff check；这些是下述lineage修正前结果，不能替代新source freeze的复核。
+- 第一份基于`418ed197aead375323c2b5766a21ed207037fefe`生成的候选construction plan虽通过内容/provenance只读审计，但在提交前发现旧validator会把plan artifact自身的后续commit误判为Git head漂移。该候选状态为`retired_nonformal_precommit_candidate`：`formal_artifact=false`、`construct_authorized=false`、`hash_reuse_forbidden=true`；它从未提交或push（canonical SHA `a03176153590ce3853254665e831f52ef03f15c0463703fccd28ef9cf8e82dab`，file SHA `0f7de95c02319b9fb93d1baf732dabf45a8d78ec88525c76201b6bb1927c9e3f`），不得恢复到正式默认`plan.json`路径。lineage现已改为“source manifest不变 + frozen commit为HEAD祖先 + 固定protocol pathspec无diff/dirty”；两路只读复审均PASS，真实Git测试覆盖非协议descendant commit通过与tracked协议文件删除被拒绝，focused 21/21、相关回归72/72、全仓518/518、compileall与diff check均PASS。提交新的source freeze后，须生成hash全新的正式plan。
 - feasibility-v2的128个private shards曾在生成设备上完成元数据/存在性/大小/0600审计；当前设备只保有tracked plan与safe manifest，实际shard文件为0/128。因此现在可冻结并复核construction plan，但在从原设备安全转移exact shards并按manifest逐个验证前，不能构造或mint q6 benchmark。
 
 ## 当前正式power结论（strict 单primary route）
@@ -88,10 +89,10 @@ public只允许固定顶层字段和48条`task_id/rendered_prompt/prompt_sha256`
 
 ## 当前恢复点
 
-当前不要直接调用模型。复用/标签blocker和构造器实现blocker均已解决；恢复顺序为：
+当前不要直接调用模型。复用/标签blocker已解决；source-lineage修正正在形成新的clean source freeze。恢复顺序为：
 
 1. 先确认本批构造器源码/config/tests/docs已在`main`提交并push，且工作树clean；若已同步，不要重写或重跑构造设计。
-2. 从该clean source freeze生成target-free construction plan，独立复核semantic/file hashes后单独封存。该步骤不需要private shards。
+2. source-lineage规则已验证；提交并push新的clean source freeze后，生成hash全新的target-free construction plan，独立复核semantic/file hashes并单独封存。不得复用已退役候选plan；该步骤不需要private shards。
 3. 从原设备恢复safe manifest指定的128个exact private shards；reviewed plan通过后逐shard验证，只抽取compact strict eligibility，并按v2冻结的`deterministic_tier_matching(target=6,fallback=6)`选择四strata各6个world。不能从q4 cohort直接追加，也不能按route/输出/人工吸引力选pair。
 4. 在config契约下另行封存public.json、private.json与result.json（exact 48-task bijection、public/private交叉绑定、0600、exclusive create、全部128 shards校验后才允许mint），并落实target-free route canary、joint-exchangeability canary与justification、response/failure contract、exploratory route决议及analysis hash bindings。
 5. 上述全部通过后才允许48次`deepseek-pro` primary calls。
