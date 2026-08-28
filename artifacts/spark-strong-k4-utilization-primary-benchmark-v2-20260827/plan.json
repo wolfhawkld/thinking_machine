@@ -1,0 +1,514 @@
+{
+  "cohort_contract": {
+    "fallback_per_stratum": 6,
+    "strata": [
+      "affine_commutative",
+      "affine_directional",
+      "affine_multiplicative",
+      "pairwise_variable"
+    ],
+    "target_per_stratum": 6,
+    "task_count": 48,
+    "tier_id": "strict_unique_nonconstant_switch",
+    "world_capacity": 1,
+    "world_count": 24
+  },
+  "config_file_sha256": "a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135",
+  "evidence_scope": "offline_outcome_conditioned_development_strict_q6_masked_benchmark_construction_for_a_preregistered_prospective_primary_response_test",
+  "final_benchmark_minted": false,
+  "kind": "spark-strong-k4-utilization-primary-benchmark-plan",
+  "model_outputs_read": false,
+  "model_response_layer_label": "preregistered_prospective_primary",
+  "pair_slots": [
+    {
+      "action_order": [
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 0,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 0
+    },
+    {
+      "action_order": [
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 1,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 1
+    },
+    {
+      "action_order": [
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 2,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 2
+    },
+    {
+      "action_order": [
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 3,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 3
+    },
+    {
+      "action_order": [
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 4,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 4
+    },
+    {
+      "action_order": [
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0
+      ],
+      "construction_stratum": "affine_commutative",
+      "pair_ordinal": 5,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 5
+    },
+    {
+      "action_order": [
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 6,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 0
+    },
+    {
+      "action_order": [
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 7,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 1
+    },
+    {
+      "action_order": [
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 8,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 2
+    },
+    {
+      "action_order": [
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 9,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 3
+    },
+    {
+      "action_order": [
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 10,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 4
+    },
+    {
+      "action_order": [
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9
+      ],
+      "construction_stratum": "affine_directional",
+      "pair_ordinal": 11,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 5
+    },
+    {
+      "action_order": [
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 12,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 0
+    },
+    {
+      "action_order": [
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 13,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 1
+    },
+    {
+      "action_order": [
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 14,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 2
+    },
+    {
+      "action_order": [
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 15,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 3
+    },
+    {
+      "action_order": [
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 16,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 4
+    },
+    {
+      "action_order": [
+        6,
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3
+      ],
+      "construction_stratum": "affine_multiplicative",
+      "pair_ordinal": 17,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 5
+    },
+    {
+      "action_order": [
+        5,
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 18,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 0
+    },
+    {
+      "action_order": [
+        2,
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 19,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 1
+    },
+    {
+      "action_order": [
+        9,
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 20,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 2
+    },
+    {
+      "action_order": [
+        1,
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 21,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 3
+    },
+    {
+      "action_order": [
+        7,
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 22,
+      "phase_1_arm": "context_a",
+      "phase_2_arm": "context_b",
+      "within_stratum_rank": 4
+    },
+    {
+      "action_order": [
+        8,
+        0,
+        4,
+        3,
+        6,
+        5,
+        2,
+        9,
+        1,
+        7
+      ],
+      "construction_stratum": "pairwise_variable",
+      "pair_ordinal": 23,
+      "phase_1_arm": "context_b",
+      "phase_2_arm": "context_a",
+      "within_stratum_rank": 5
+    }
+  ],
+  "plan_sha256": "2e0750569083c5dc00615c29678521a58d4975220b2f86535138291112307f31",
+  "primary_route": {
+    "exploratory_route_execution_decision": "must_be_frozen_in_the_later_live_plan_before_any_primary_call",
+    "fallback_route_forbidden": true,
+    "formal_task_calls": 48,
+    "provider_profile": "deepseek-official-openai-compatible",
+    "request_model": "deepseek-v4-pro",
+    "response_model": "deepseek-v4-pro",
+    "role": "preregistered_prospective_primary",
+    "route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+    "route_id": "deepseek-pro"
+  },
+  "private_shards_read": false,
+  "protocol_id": "spark-strong-k4-utilization-primary-benchmark-v2",
+  "provider_calls_made": 0,
+  "schema_version": 1,
+  "source_freeze_git_head": "06db9dae69e961570181e1de43d26b0ee8305a28",
+  "source_manifest_sha256": "f101b9e646899c413976b38ac69a84c736642fc68935eaefb4bd390f67bfebfe",
+  "target_or_pair_identity_read": false,
+  "upstream_bindings": {
+    "artifact_manifest_file_sha256": "ca0c377c5e2dbf77baa1589912b36dabbd8751d406b099d99f877571af5179d6",
+    "artifact_manifest_sha256": "8258bdbb0512b4642cbf39f7bbe531b078bd6e4e490dff70479bc35fe5cfbd77",
+    "feasibility_config_file_sha256": "15a2021058900b83f6f2c306c1bd60c41dfc266f265849ecaeeb6ad465edab86",
+    "feasibility_plan_file_sha256": "b7f3fce8152a5aa2e3f462dedc31bfb560f73fe56cdb1bd6512e5786e4103e68",
+    "feasibility_plan_sha256": "10825e6efe14428c9b28b16a12410239d9a2f05c8cff5573339129009fd46a84",
+    "feasibility_scan_sha256": "f345e9c5c14d919fd57ef66bb4dc248a293e8b7f62f4f2bccb46d7aeb114efbf",
+    "power_config_file_sha256": "7f6b07777f94a113ea8d5d06a3f32c15f2b4cde361446b98deb6dc64f1ce4fa1",
+    "power_plan_file_sha256": "734345d7fe7816c3be2b8d72eecd7db161edcecb234b05f8adc9f862fc497b8e",
+    "power_plan_sha256": "9f95ebd14f4efe9380a30f49c5aa6872970a65e21a9fdd6165dea9a0cc2eec9d",
+    "power_result_file_sha256": "db8b6c68390ee624558cd7cb6d317d105e9631dff9bf45decdcd863fe79710c5",
+    "power_result_sha256": "091b665907018a16d93816888d7ac4fe5ecd93bad065d21448c3683cda6437e6",
+    "shard_files_manifest_sha256": "d12005ff193143d3d6e510ff4350dd06a56f83dca2c7440e8fb60c5c38676dac"
+  },
+  "world_layer_label": "outcome_conditioned_development_only"
+}
