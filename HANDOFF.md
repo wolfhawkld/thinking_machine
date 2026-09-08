@@ -104,14 +104,22 @@ public只允许固定顶层字段和48条`task_id/rendered_prompt/prompt_sha256`
 
 本步骤只完成匿名试卷构造，不是模型实验。`result.json`明确记录`evidence=false`、`independent_heldout_confirmation=false`、`model_outputs_read=false`、`provider_calls_made=0`、`provider_calls_authorized=false`。它支持“冻结benchmark已按协议可复现地构造完成”，不支持Opportunity utilization、模型能力、entropy因果或现实世界发现结论。
 
+## 2026-09-08 strict-q6 live协议与plan冻结
+
+新增独立live层`configs/spark-strong-k4-utilization-primary-live-v1.json`、`src/spark_strong_k4_utilization_primary_live.py`及对应测试。它没有修改或重生既有benchmark config/plan/public/private/result。live config raw SHA为`b21b2d7a193c674920feaf20e15815f668096f6ccfb9c67c8a16bb5cf1e736f2`，canonical SHA为`dc6b5f686fc9bd6840b38ee45442af890bd8168991610e37d69a675594e9bd85`；live source freeze commit为`72c509992053972f08405f8d9392a5130dae1ac4`，source manifest为`23a23195ef1a6bdd00a12a2880959edc2ef1db3f968f7d6c434486faf670ec69`。
+
+协议将执行严格分成`plan -> canary -> authorize -> run -> analyze`五步。只有`canary`和`run`接受显式执行授权；公开执行函数还要求`execute=True`并强制current-source验证。正式调用前会重新验证construction safe inputs及private key的存在/0600元数据，但不读取private bytes；只有完整48-call generation bundle通过public-only验证后，analysis才以绑定路径、`O_NOFOLLOW`、regular-file/inode/mode/raw-SHA检查打开private key。received-invalid消耗slot且不重试；transport/HTTP/payload/route-contract失败使整个primary non-evaluable，不允许retry、resume、fallback或replacement。
+
+正式live plan位于`artifacts/spark-strong-k4-utilization-primary-live-v1-20260908/plan.json`，plan commit为`545eb8bcafe0f895509669180916119747118046`，file SHA为`f8d99fba3c50510beb6180c2f14fc34d91fed30ee0ef61caff1c923ee07641de`，canonical SHA为`4ca4f2371f897ca06190ac9fa820b8e8a2bfac5146aa810f8ade94696fd61193`。它冻结4个retired target-free pairs、8个canary calls；schedule SHA为`8bd723a25caf8ed61d22399f81c9976d09fda037670da74e60dd0aa86c6bed8f`，prompt-set SHA为`9a2efe1326309a0c49ac44f813161601c29a5b62bfc02b9169ab3976462267f7`。phase×arm均为2，与48个formal tasks的ID及prompt hash交集均为空。它同时冻结joint-exchangeability justification、response/failure policy、单侧exact sign test `alpha=1/20`、public/private file hash binding，并在看到任何primary输出前将exploratory routes冻结为空；未来若要运行`deepseek-flash`或`glm-5.2`必须建立新协议。
+
+内置validator与独立`luna_worker`对source lineage、construction bindings、schedule、prompt隔离、information barriers和hash均复核PASS。新live focused tests为12/12，相关旧协议回归为46/46，`py_compile`与diff check通过；全部测试均使用fake responses，没有网络或真实provider调用。一次repository-wide run在耗时较长的历史`layered-v1` sealed replay测试报告既有路径的analysis hash不一致后停止；该测试不经过新live模块，本轮没有改写该历史artifact或把全仓测试误报为PASS。
+
+本步骤仍不是模型实验：plan记录`private_key_bytes_read=false`、`provider_calls_made=0`、`primary_calls_authorized=false`，只说明live协议和匿名canary试卷已冻结，不支持或反驳Opportunity utilization假设。
+
 ## 当前恢复点
 
-当前仍不要直接调用模型。benchmark construction已经完成，不再缺shards；下一阶段是逐项实现、验证并封存live前屏障：
+下一步是唯一尚未执行的live动作：按已封存plan对`deepseek-pro`运行8次target-free paired canary。它只检查route、请求/响应contract、opaque option格式及joint observable状态是否出现明显不对称；它不是模型证据，也不能证明exchangeability。canary通过后必须停下，由人类审阅exchangeability假设并显式生成authorization artifact；在authorization生成前严禁48次primary calls。
 
-1. 为新的target-free prompt和冻结`deepseek-pro` route建立canary，确认请求路由与输出格式可用，但不得读取private key作适配或调题。
-2. 封存joint arm-exchangeability justification与canary；若交换性不可辩护，当前exact sign-test primary gate不能使用。
-3. 封存response contract与failure policy，包括received-invalid、transport failure、解析和重试规则。
-4. 在看到primary输出前封存是否运行`deepseek-flash`/`glm-5.2` exploratory replication；它们不得替代或与primary池化。
-5. 封存analysis contract，并精确绑定上述public/private file hashes；只有五项全部验证通过后，才允许48次`deepseek-pro` primary task calls。
+执行canary时必须使用plan file SHA `f8d99fba3c50510beb6180c2f14fc34d91fed30ee0ef61caff1c923ee07641de`，且必须显式提供`--execute`。若canary收到transport failure，不得重跑同一协议；若内容格式失败，可封存failed canary，但不能授权primary。当前协议不运行任何exploratory route。
 
-不要修改或重生现有config、source、formal plan、public/private/result；修改`source_manifest`范围内文件会使当前plan失效。旧power result和degraded候选继续只作为历史敏感性结果保留。换设备继续时，Git只能恢复public/result；必须另行安全转移exact `private.json`（以及需要重验时的128 shards），恢复后重新设为mode 0600并核对上述file SHA。
+不要修改`source_manifest`范围内文件，否则当前live plan立即失效。换设备继续时，Git可恢复live plan及public/result；analysis仍需要另行安全转移exact `private.json`，恢复后设为mode 0600并核对file SHA `bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a`。
