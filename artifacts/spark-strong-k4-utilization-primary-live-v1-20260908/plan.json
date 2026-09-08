@@ -1,0 +1,613 @@
+{
+  "analysis_contract": {
+    "B_star_or_posthoc_threshold_selection": false,
+    "adverse_world": "world_signed_score < 0",
+    "complete_two_arm_context_concordant_switch": "secondary",
+    "favorable_world": "world_signed_score > 0",
+    "independent_unit": "one development world and its two-context response pair",
+    "must_bind_public_and_private_file_hashes": true,
+    "primary_alpha": {
+      "denominator": 20,
+      "numerator": 1
+    },
+    "primary_hypothesis_id": "primary_route_strict_unique_action_utilization",
+    "primary_test": "one-sided exact sign test conditional on non-tie worlds",
+    "private_key_load_time": "only after a complete 48-call generation bundle passes public-only validation",
+    "report_all_favorable_adverse_tie_invalid_complete_switch_and_signed_scores": true,
+    "report_all_frozen_target_blind_baselines": true,
+    "report_each_construction_stratum": true,
+    "shortcut_baselines_are_descriptive_only": true,
+    "tie_world": "world_signed_score = 0",
+    "world_signed_score": "sum of two own-context correct-option indicators minus sum of two cross-context correct-option indicators"
+  },
+  "artifact_contract": {
+    "analysis_file_name": "analysis.json",
+    "authorization_file_name": "authorization.json",
+    "canary_artifact_file_name": "deepseek-pro-canary.json",
+    "exclusive_create_no_overwrite": true,
+    "generation_bundle_file_name": "generation.json",
+    "generation_bundle_git_storage": "ignored_until_human_review",
+    "live_plan_file_name": "plan.json",
+    "output_directory": "artifacts/spark-strong-k4-utilization-primary-live-v1-20260908",
+    "output_mode": "0600",
+    "primary_attempt_ledger_file_name": "primary-attempt.jsonl",
+    "primary_attempt_ledger_git_storage": "ignored_local_payload",
+    "private_key_git_storage": "ignored_private_local_payload"
+  },
+  "authorization_barrier": {
+    "analysis_contract_must_bind_public_and_private_file_hashes": true,
+    "authorization_artifact_required_before_primary_calls": true,
+    "exploratory_route_decision_must_be_sealed": true,
+    "failure_policy_must_be_sealed": true,
+    "fresh_target_free_route_canary_must_pass": true,
+    "joint_exchangeability_protocol_and_canary_must_pass_human_review": true,
+    "live_plan_must_be_sealed": true,
+    "provider_calls_authorized_by_config_alone": false,
+    "response_contract_must_be_derived_and_sealed_from_canary": true
+  },
+  "construction_binding": {
+    "config_file_sha256": "a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135",
+    "config_relative_path": "configs/spark-strong-k4-utilization-primary-benchmark-v2.json",
+    "construction_artifact_commit": "86a89af4602eb824827962d0aef27f2567b0d0f3",
+    "construction_plan_file_sha256": "53403b4685d6d3b4046b39b4af5f2e5d8c13075e7628f2489b182fb439d772f6",
+    "construction_plan_relative_path": "artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/plan.json",
+    "construction_plan_sha256": "2e0750569083c5dc00615c29678521a58d4975220b2f86535138291112307f31",
+    "construction_result_file_sha256": "e424369b5db2a2051315440a2d66fed504a37b32d4ef80bdc8166df4689d7845",
+    "construction_result_relative_path": "artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/result.json",
+    "construction_result_sha256": "7003e1b954f70519f724d8022fc428ae3e106d61bd41fd0a14303715132cdbd3",
+    "construction_source_freeze_git_head": "06db9dae69e961570181e1de43d26b0ee8305a28",
+    "construction_source_manifest_sha256": "f101b9e646899c413976b38ac69a84c736642fc68935eaefb4bd390f67bfebfe",
+    "pair_count": 24,
+    "private_design_commitment_sha256": "b6ee5ff26eb36ecaf19e1d8a17e53ab24b29b423b12ee7943ed888ea92c49adc",
+    "private_key_file_sha256": "bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a",
+    "private_key_relative_path": "artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/private.json",
+    "private_key_sha256": "dde7328e7183de273dfb1e68d066c846da9038cf89efcbba9e062c491995c495",
+    "protocol_id": "spark-strong-k4-utilization-primary-benchmark-v2",
+    "public_manifest_file_sha256": "15685ceb9502caec31589fa241ebb6c94daf59f3e1814f7054c1ebdbdb19c07f",
+    "public_manifest_relative_path": "artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/public.json",
+    "public_manifest_sha256": "b154f959e2cf5df19070705dd0645d3bbab163784926a6f364e38428b02170cb",
+    "task_count": 48
+  },
+  "evidence": false,
+  "evidence_scope": {
+    "canary_is_model_evidence": false,
+    "construction_is_model_evidence": false,
+    "forbidden_claims": [
+      "confirmatory_primary",
+      "independent_heldout_confirmation",
+      "natural_world_opportunity_rate_estimate",
+      "model_general_capability_established",
+      "internal_entropy_causality_established",
+      "human_unknown_discovery_established",
+      "training_external_invention_established",
+      "real_world_scientific_discovery_generalization"
+    ],
+    "independent_heldout_confirmation": false,
+    "model_response_layer": "preregistered_prospective_primary",
+    "primary_non_evaluable_label": "prospective_primary_non_evaluable_under_frozen_failure_policy",
+    "primary_not_detected_label": "prospective_primary_not_detected_on_fixed_development_constructed_finite_DSL_challenge",
+    "primary_positive_label": "prospective_primary_positive_on_fixed_development_constructed_finite_DSL_challenge",
+    "world_layer": "outcome_conditioned_development_only"
+  },
+  "exploratory_routes": {
+    "decision": "none_in_this_protocol",
+    "decision_frozen_before_primary_output": true,
+    "future_replication_requires_new_separate_protocol": true,
+    "may_be_added_after_primary_output_under_this_protocol": false,
+    "may_replace_pool_with_or_rescue_primary": false,
+    "selected_routes": []
+  },
+  "formal_benchmark_model_outputs_read": false,
+  "joint_exchangeability": {
+    "hard_balance_alone_is_proof": false,
+    "human_approval_required_before_authorization": true,
+    "iid_arms_required": false,
+    "joint_observable_tuple": "received_or_transport_status, received-content validity, and parsed opaque choice when valid",
+    "known_limit": "the protocol and small target-free canary can rule out obvious implementation drift but cannot empirically prove the scientific exchangeability assumption",
+    "null_hypothesis": "without context utilization, the joint observable outcomes are invariant to exchanging the two context-arm labels within a world",
+    "protocol_justification": [
+      "each arm is a fresh stateless one-shot request to the same route",
+      "both arms use identical model, sampling, token, thinking, schema, timeout and no-retry settings",
+      "within each formal pair the action order, opaque options, D0, parent and wording are shared",
+      "the provider receives only rendered prompt bytes and never receives pair or arm labels",
+      "the phase order is fixed before model output and balanced within every construction stratum",
+      "the target-free paired canary checks the same two-arm dispatch and observable-status recording path for obvious implementation or route asymmetry"
+    ],
+    "required_for_primary_test": true
+  },
+  "kind": "spark-strong-k4-utilization-primary-live-plan",
+  "live_config": {
+    "canonical_sha256": "dc6b5f686fc9bd6840b38ee45442af890bd8168991610e37d69a675594e9bd85",
+    "file_sha256": "b21b2d7a193c674920feaf20e15815f668096f6ccfb9c67c8a16bb5cf1e736f2",
+    "relative_path": "configs/spark-strong-k4-utilization-primary-live-v1.json"
+  },
+  "live_plan_sha256": "4ca4f2371f897ca06190ac9fa820b8e8a2bfac5146aa810f8ade94696fd61193",
+  "live_source_freeze_git_head": "72c509992053972f08405f8d9392a5130dae1ac4",
+  "live_source_manifest_sha256": "23a23195ef1a6bdd00a12a2880959edc2ef1db3f968f7d6c434486faf670ec69",
+  "primary_calls_authorized": false,
+  "primary_route": {
+    "credential_prefix": "DEEPSEEK",
+    "fallback_route_forbidden": true,
+    "formal_task_calls": 48,
+    "fresh_target_free_canary_required": true,
+    "prior_route_binding_sha256": "d44699c6e1463c8f428c72e04585feac9cdaf20cd64a680109b1e4d1d9255936",
+    "prior_target_free_canary_file_sha256": "70521f17aa3ea5651f28887d0f2541cf2388f66abdaaef3d98149ee41cfadb44",
+    "prior_target_free_canary_sha256": "68249335074754d2cc813ac30774afefeb319878a47552762c5b25dcc4be1054",
+    "provider_profile": "deepseek-official-openai-compatible",
+    "request_model": "deepseek-v4-pro",
+    "required_response_model": "deepseek-v4-pro",
+    "role": "preregistered_prospective_primary",
+    "route_id": "deepseek-pro"
+  },
+  "private_key_bytes_read": false,
+  "private_key_metadata_checked": true,
+  "protocol_id": "spark-strong-k4-utilization-primary-live-v1",
+  "provider_calls_made": 0,
+  "request_contract": {
+    "adapter": "openai-compatible-chat-completions-v1",
+    "conversation_state": false,
+    "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+    "max_output_tokens": 256,
+    "physical_attempts_per_task": 1,
+    "provider_message": "rendered_prompt_bytes_only",
+    "replacement_task_or_world": false,
+    "response_format": "json_object",
+    "resume": false,
+    "retry": false,
+    "seed_supported": false,
+    "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+    "task_id_pair_id_arm_label_and_private_metadata_sent": false,
+    "temperature": 0.2,
+    "thinking": "disabled",
+    "timeout_seconds": 120.0,
+    "transport_profile": "stdlib-urllib-one-shot-v1"
+  },
+  "response_and_failure_policy": {
+    "bare_string_extra_field_non_string_unlisted_or_malformed_content": "received_invalid",
+    "partial_attempt_ledger_role": "audit_only_never_scored_never_resumed",
+    "private_key_loaded_during_generation": false,
+    "raw_malformed_provider_content_persisted": false,
+    "received_invalid_retry": false,
+    "received_invalid_world_treatment": "if either arm is received-invalid, the entire world is a primary tie and a complete-switch miss in the fixed denominator",
+    "route_response_contract_drift_treatment": "the complete primary route attempt is non-evaluable",
+    "transport_missing_HTTP_or_payload_failure_retry": false,
+    "transport_missing_HTTP_or_payload_failure_treatment": "the complete primary route attempt is non-evaluable; no partial denominator, replacement, fallback or resume",
+    "valid_received_content": "one JSON object with exactly one expression field whose string value is one opaque option listed in that task prompt"
+  },
+  "sanitized_request_contract": {
+    "adapter": "openai-compatible-chat-completions-v1",
+    "endpoint_sha256": "948f1ecb6b48f91adc4e110d0351cd172b16450e9936d358992e0dfad7b863f3",
+    "request_model": "deepseek-v4-pro",
+    "response_format": "json_object",
+    "seed_supported": false,
+    "static_request_extensions_sha256": "b5870a3a4005fe6ccfc6195efbbebf92d7a2fb4d7534ed672272370e67dc1ad5",
+    "timeout_seconds": 120.0,
+    "transport_profile": "stdlib-urllib-one-shot-v1"
+  },
+  "schema_version": 1,
+  "target_free_paired_canary": {
+    "K1_K2_K3_K4_evaluated": false,
+    "canary_id": "spark-strong-k4-utilization-primary-target-free-paired-canary-v1",
+    "compressor_run": false,
+    "evidence": false,
+    "evidence_scope": "route_format_and_joint_observable_exchangeability_diagnostic_only",
+    "formal_benchmark_task_content_used": false,
+    "pair_count": 4,
+    "pairs": [
+      {
+        "action_order": [
+          4,
+          7,
+          8,
+          9,
+          6,
+          3,
+          0,
+          2,
+          5,
+          1
+        ],
+        "arms": {
+          "context_a": {
+            "arm": "context_a",
+            "motif_id": "affine_commutative:2cea74505059a9b9",
+            "motif_selection_sha256": "3fa98c61e7910661e2422e15e28da0e37238222ff6ba2ea6596cd15608bd5680",
+            "motif_sexpr": "(add (const 1) (var x2))",
+            "motif_stratum": "affine_commutative",
+            "opaque_option_ids": [
+              "Q98F2E9A5",
+              "QC0217014",
+              "Q36CB23EA",
+              "QF5925816",
+              "Q86A07F16",
+              "Q2FBB8E47",
+              "Q624E41E4",
+              "Q278BE51C",
+              "QA1575540",
+              "QA8D832E0"
+            ],
+            "pair_ordinal": 0,
+            "prompt_sha256": "37c1f445d3972675e45b95db9a3f811c7e7d20a77949b833617af58946da199d",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-1, -1, 0) -> 0\n  (-2, -1, -1) -> 0\n  (1, -1, 0) -> 0\n  (1, -1, 2) -> 0\n  (-2, -1, 0) -> 0\n  (1, -1, -2) -> 0\n  (0, -1, 0) -> 0\n  (-1, -1, 1) -> 0\n  (0, -1, 2) -> 0\n  (2, -1, 2) -> 0\n  (0, -1, -2) -> 0\n  (-1, -1, -1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (var x2) (const -2)) (const 1) (const 0))\n\nContext fragment:\n(add (const 1) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q98F2E9A5: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QC0217014: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q36CB23EA: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QF5925816: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q86A07F16: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q2FBB8E47: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  Q624E41E4: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q278BE51C: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QA1575540: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QA8D832E0: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-CD9D98F6897B20BD"
+          },
+          "context_b": {
+            "arm": "context_b",
+            "motif_id": "affine_commutative:890fe65a5713a4ef",
+            "motif_selection_sha256": "c915c96af12fb9a4fae6202a12f65b0daa12157f5c6748a06d3f5854fbf9c037",
+            "motif_sexpr": "(add (const 3) (var x3))",
+            "motif_stratum": "affine_commutative",
+            "opaque_option_ids": [
+              "Q98F2E9A5",
+              "QC0217014",
+              "Q36CB23EA",
+              "QF5925816",
+              "Q86A07F16",
+              "Q2FBB8E47",
+              "Q624E41E4",
+              "Q278BE51C",
+              "QA1575540",
+              "QA8D832E0"
+            ],
+            "pair_ordinal": 0,
+            "prompt_sha256": "794d83e44b0cd0726fe241134ca8be87e79477f09cbade19919115b8b675d1f1",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-1, -1, 0) -> 0\n  (-2, -1, -1) -> 0\n  (1, -1, 0) -> 0\n  (1, -1, 2) -> 0\n  (-2, -1, 0) -> 0\n  (1, -1, -2) -> 0\n  (0, -1, 0) -> 0\n  (-1, -1, 1) -> 0\n  (0, -1, 2) -> 0\n  (2, -1, 2) -> 0\n  (0, -1, -2) -> 0\n  (-1, -1, -1) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (var x2) (const -2)) (const 1) (const 0))\n\nContext fragment:\n(add (const 3) (var x3))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q98F2E9A5: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QC0217014: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q36CB23EA: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QF5925816: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q86A07F16: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q2FBB8E47: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  Q624E41E4: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q278BE51C: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QA1575540: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QA8D832E0: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-ABCE70A56DF30249"
+          }
+        },
+        "condition_order": [
+          "context_a",
+          "context_b"
+        ],
+        "motif_stratum": "affine_commutative",
+        "opaque_option_ids": [
+          "Q98F2E9A5",
+          "QC0217014",
+          "Q36CB23EA",
+          "QF5925816",
+          "Q86A07F16",
+          "Q2FBB8E47",
+          "Q624E41E4",
+          "Q278BE51C",
+          "QA1575540",
+          "QA8D832E0"
+        ],
+        "pair_anchor_sha256": "a1af936ecc074387a7f92b767f8d86ca4b4daf1bdddb0a70c3df3d1a450fd2d5",
+        "pair_ordinal": 0,
+        "target_free_context_sha256": "377ee2d6f5074269de4c20ac4471c8d855d876b8369ac8ef6d219f89ac950edc",
+        "target_free_world_seed": 9100
+      },
+      {
+        "action_order": [
+          7,
+          8,
+          9,
+          6,
+          3,
+          0,
+          2,
+          5,
+          1,
+          4
+        ],
+        "arms": {
+          "context_a": {
+            "arm": "context_a",
+            "motif_id": "affine_directional:e46d6e5d564b5bd1",
+            "motif_selection_sha256": "1bf6ef23f9847b804294c4c9efe10d5f3483c688713db2da490faf3013d576c6",
+            "motif_sexpr": "(sub (var x3) (const 0))",
+            "motif_stratum": "affine_directional",
+            "opaque_option_ids": [
+              "Q02C175BC",
+              "QAFC9C00E",
+              "QBF5854AD",
+              "QC46DAA6F",
+              "QF696245B",
+              "QC28D49B1",
+              "QDE42C957",
+              "QDF14265D",
+              "Q454AFABD",
+              "Q1F23648C"
+            ],
+            "pair_ordinal": 1,
+            "prompt_sha256": "218361e981bed3976f0e1761c68d1b41b2244e9faf263db684196f6dc12e07b2",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, 0) -> 0\n  (-1, 2, 0) -> 0\n  (0, 2, 0) -> 0\n  (0, 0, 0) -> 0\n  (1, 1, 0) -> 0\n  (2, -2, 0) -> 0\n  (-2, -2, 0) -> 0\n  (0, -1, 0) -> 0\n  (0, 1, 0) -> 0\n  (2, -1, 0) -> 0\n  (-2, 2, 0) -> 0\n  (2, 2, 0) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (gt (const -1) (var x3)) (const 1) (const 0))\n\nContext fragment:\n(sub (var x3) (const 0))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q02C175BC: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  QAFC9C00E: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QBF5854AD: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  QC46DAA6F: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  QF696245B: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QC28D49B1: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QDE42C957: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QDF14265D: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  Q454AFABD: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q1F23648C: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-5F0546933079DE5F"
+          },
+          "context_b": {
+            "arm": "context_b",
+            "motif_id": "affine_directional:344bb612d56276a2",
+            "motif_selection_sha256": "12745a8e10d32874d6457b9840941dea281105831b089cc30dc487fa724780ea",
+            "motif_sexpr": "(sub (var x1) (const 0))",
+            "motif_stratum": "affine_directional",
+            "opaque_option_ids": [
+              "Q02C175BC",
+              "QAFC9C00E",
+              "QBF5854AD",
+              "QC46DAA6F",
+              "QF696245B",
+              "QC28D49B1",
+              "QDE42C957",
+              "QDF14265D",
+              "Q454AFABD",
+              "Q1F23648C"
+            ],
+            "pair_ordinal": 1,
+            "prompt_sha256": "2bfd135bf7a0f862ab23a6ed5c29e97b62a545c1fd33fda8e7b0762397be4dde",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (-2, 0, 0) -> 0\n  (-1, 2, 0) -> 0\n  (0, 2, 0) -> 0\n  (0, 0, 0) -> 0\n  (1, 1, 0) -> 0\n  (2, -2, 0) -> 0\n  (-2, -2, 0) -> 0\n  (0, -1, 0) -> 0\n  (0, 1, 0) -> 0\n  (2, -1, 0) -> 0\n  (-2, 2, 0) -> 0\n  (2, 2, 0) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (gt (const -1) (var x3)) (const 1) (const 0))\n\nContext fragment:\n(sub (var x1) (const 0))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q02C175BC: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  QAFC9C00E: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  QBF5854AD: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  QC46DAA6F: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  QF696245B: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QC28D49B1: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QDE42C957: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QDF14265D: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  Q454AFABD: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q1F23648C: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-8A222BE2F60425F0"
+          }
+        },
+        "condition_order": [
+          "context_b",
+          "context_a"
+        ],
+        "motif_stratum": "affine_directional",
+        "opaque_option_ids": [
+          "Q02C175BC",
+          "QAFC9C00E",
+          "QBF5854AD",
+          "QC46DAA6F",
+          "QF696245B",
+          "QC28D49B1",
+          "QDE42C957",
+          "QDF14265D",
+          "Q454AFABD",
+          "Q1F23648C"
+        ],
+        "pair_anchor_sha256": "487048e909e3b24eb85078a7629209b3f455a33a1acd27219dbb9666cdd605a4",
+        "pair_ordinal": 1,
+        "target_free_context_sha256": "8825fd91277e422de123d676e6dddce62874ec33f3390a8b34a9de4510ef8bca",
+        "target_free_world_seed": 9101
+      },
+      {
+        "action_order": [
+          8,
+          9,
+          6,
+          3,
+          0,
+          2,
+          5,
+          1,
+          4,
+          7
+        ],
+        "arms": {
+          "context_a": {
+            "arm": "context_a",
+            "motif_id": "affine_multiplicative:12b31cb97e4c015c",
+            "motif_selection_sha256": "5d15a1463f4bd0aaf31b197c74cefbcc2ce3148f6f5fc43e5758b003d810426c",
+            "motif_sexpr": "(mul (const 0) (var x1))",
+            "motif_stratum": "affine_multiplicative",
+            "opaque_option_ids": [
+              "Q2843EB4C",
+              "Q46CB05AE",
+              "Q14C8B800",
+              "Q8E9F7BCB",
+              "QC2133C08",
+              "Q43120C2B",
+              "QCB3F71D6",
+              "QE8BD1F97",
+              "Q23BEE976",
+              "QB73EF0CF"
+            ],
+            "pair_ordinal": 2,
+            "prompt_sha256": "a5a3036dfa0e1f213631a581b0dfb088a03afa03dd9d8be65e6090b4ef0fed75",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (1, 0, -2) -> 0\n  (-2, -2, -2) -> 0\n  (0, -2, -2) -> 0\n  (-1, 0, -2) -> 0\n  (0, 2, -2) -> 0\n  (1, -2, -2) -> 0\n  (-2, -1, -2) -> 0\n  (2, 1, -2) -> 0\n  (1, -1, -2) -> 0\n  (2, -1, -2) -> 0\n  (-1, 2, -2) -> 0\n  (2, 0, -2) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (gt (var x3) (const 1)) (const 1) (const 0))\n\nContext fragment:\n(mul (const 0) (var x1))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q2843EB4C: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  Q46CB05AE: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q14C8B800: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q8E9F7BCB: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QC2133C08: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q43120C2B: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QCB3F71D6: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QE8BD1F97: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q23BEE976: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QB73EF0CF: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-760C3FE76C61F692"
+          },
+          "context_b": {
+            "arm": "context_b",
+            "motif_id": "affine_multiplicative:3e7cdd19b7c7e378",
+            "motif_selection_sha256": "8cb126bc58f062613b63e00045d524aa6f872a9e144b74a594c2429d49d4ad4b",
+            "motif_sexpr": "(mul (const -3) (var x2))",
+            "motif_stratum": "affine_multiplicative",
+            "opaque_option_ids": [
+              "Q2843EB4C",
+              "Q46CB05AE",
+              "Q14C8B800",
+              "Q8E9F7BCB",
+              "QC2133C08",
+              "Q43120C2B",
+              "QCB3F71D6",
+              "QE8BD1F97",
+              "Q23BEE976",
+              "QB73EF0CF"
+            ],
+            "pair_ordinal": 2,
+            "prompt_sha256": "a17dccf49f32ca3324bfec850a4ee349c8d917ac68884780300485ce1e6c23c3",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (1, 0, -2) -> 0\n  (-2, -2, -2) -> 0\n  (0, -2, -2) -> 0\n  (-1, 0, -2) -> 0\n  (0, 2, -2) -> 0\n  (1, -2, -2) -> 0\n  (-2, -1, -2) -> 0\n  (2, 1, -2) -> 0\n  (1, -1, -2) -> 0\n  (2, -1, -2) -> 0\n  (-1, 2, -2) -> 0\n  (2, 0, -2) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (gt (var x3) (const 1)) (const 1) (const 0))\n\nContext fragment:\n(mul (const -3) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q2843EB4C: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n  Q46CB05AE: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q14C8B800: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q8E9F7BCB: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  QC2133C08: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  Q43120C2B: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  QCB3F71D6: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QE8BD1F97: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  Q23BEE976: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QB73EF0CF: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-4FE2D43D53FA6E6B"
+          }
+        },
+        "condition_order": [
+          "context_a",
+          "context_b"
+        ],
+        "motif_stratum": "affine_multiplicative",
+        "opaque_option_ids": [
+          "Q2843EB4C",
+          "Q46CB05AE",
+          "Q14C8B800",
+          "Q8E9F7BCB",
+          "QC2133C08",
+          "Q43120C2B",
+          "QCB3F71D6",
+          "QE8BD1F97",
+          "Q23BEE976",
+          "QB73EF0CF"
+        ],
+        "pair_anchor_sha256": "cf3711c9022a32179028c9c51fa02b81a12ec2370b08fb73846a039186d5ac5b",
+        "pair_ordinal": 2,
+        "target_free_context_sha256": "019af27cf9ea895a005fd6483d959a5d2afa672457286d6453056c43a13ac120",
+        "target_free_world_seed": 9102
+      },
+      {
+        "action_order": [
+          9,
+          6,
+          3,
+          0,
+          2,
+          5,
+          1,
+          4,
+          7,
+          8
+        ],
+        "arms": {
+          "context_a": {
+            "arm": "context_a",
+            "motif_id": "pairwise_variable:ef18894f07ad907a",
+            "motif_selection_sha256": "a8dbc856a4383b9419794a2939f322310a2a5cc5921998144d8cd591d2e94061",
+            "motif_sexpr": "(sub (var x3) (var x2))",
+            "motif_stratum": "pairwise_variable",
+            "opaque_option_ids": [
+              "Q072764A5",
+              "Q2B1A7878",
+              "Q17A7D041",
+              "Q92CAA6BB",
+              "QB9E9BA3D",
+              "Q8788E18B",
+              "QB4319485",
+              "QD83FAF04",
+              "QFF31F835",
+              "Q8F4AA452"
+            ],
+            "pair_ordinal": 3,
+            "prompt_sha256": "4f1160ba2719497ce1e7802749c8148eea4d6babaf1d56f3c27f2b683c43c6f8",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (0, 0, -2) -> 0\n  (0, 0, -1) -> 0\n  (0, 1, 0) -> 0\n  (0, 2, 1) -> 0\n  (0, 0, 1) -> 0\n  (0, 2, -1) -> 0\n  (0, -1, -1) -> 0\n  (0, -2, -1) -> 0\n  (0, -2, 1) -> 0\n  (0, -2, 2) -> 0\n  (0, 2, -2) -> 0\n  (0, -1, 2) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (var x1) (const 1)) (const 1) (const 0))\n\nContext fragment:\n(sub (var x3) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q072764A5: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q2B1A7878: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q17A7D041: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  Q92CAA6BB: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QB9E9BA3D: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  Q8788E18B: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QB4319485: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  QD83FAF04: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QFF31F835: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q8F4AA452: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-20FF81965B7CD3EF"
+          },
+          "context_b": {
+            "arm": "context_b",
+            "motif_id": "pairwise_variable:4d878b0bb8d8f44f",
+            "motif_selection_sha256": "1d08640b4ffc83feab43e02b96e122e1befdd625ff75b731c58d2fbf59914e65",
+            "motif_sexpr": "(sub (var x2) (var x2))",
+            "motif_stratum": "pairwise_variable",
+            "opaque_option_ids": [
+              "Q072764A5",
+              "Q2B1A7878",
+              "Q17A7D041",
+              "Q92CAA6BB",
+              "QB9E9BA3D",
+              "Q8788E18B",
+              "QB4319485",
+              "QD83FAF04",
+              "QFF31F835",
+              "Q8F4AA452"
+            ],
+            "pair_ordinal": 3,
+            "prompt_sha256": "0d9ce1df64e96c8760155515c926dd2bbef54663d5e8449d01d92885fe773601",
+            "rendered_prompt": "Choose one replayable edit for a finite symbolic binary classifier.\nReturn exactly one JSON object with the single key expression. Its value must be one listed opaque option ID. Do not return prose, markdown, a program, or any additional key.\n\nPublic observations:\n  (0, 0, -2) -> 0\n  (0, 0, -1) -> 0\n  (0, 1, 0) -> 0\n  (0, 2, 1) -> 0\n  (0, 0, 1) -> 0\n  (0, 2, -1) -> 0\n  (0, -1, -1) -> 0\n  (0, -2, -1) -> 0\n  (0, -2, 1) -> 0\n  (0, -2, 2) -> 0\n  (0, 2, -2) -> 0\n  (0, -1, 2) -> 0\n\nThe complete input domain has x1, x2, and x3 each in {-2,-1,0,1,2}; a legal result must output only 0 or 1 everywhere.\n\nFrozen parent:\n(ite (eq (var x1) (const 1)) (const 1) (const 0))\n\nContext fragment:\n(sub (var x2) (var x2))\n\nIn each choice, OLD means the current subtree at the named predicate operand. CONTEXT means the context fragment above.\n\nOptions:\n  Q072764A5: location=PREDICATE_RIGHT; new_subtree=(mul OLD CONTEXT)\n  Q2B1A7878: location=PREDICATE_RIGHT; new_subtree=(add OLD CONTEXT)\n  Q17A7D041: location=PREDICATE_LEFT; new_subtree=(sub CONTEXT OLD)\n  Q92CAA6BB: location=PREDICATE_LEFT; new_subtree=CONTEXT\n  QB9E9BA3D: location=PREDICATE_LEFT; new_subtree=(sub OLD CONTEXT)\n  Q8788E18B: location=PREDICATE_RIGHT; new_subtree=CONTEXT\n  QB4319485: location=PREDICATE_LEFT; new_subtree=(add OLD CONTEXT)\n  QD83FAF04: location=PREDICATE_LEFT; new_subtree=(mul OLD CONTEXT)\n  QFF31F835: location=PREDICATE_RIGHT; new_subtree=(sub OLD CONTEXT)\n  Q8F4AA452: location=PREDICATE_RIGHT; new_subtree=(sub CONTEXT OLD)\n\nChoose the edit whose resulting classifier is binary, remains consistent with every public observation, and is most likely to distinguish the unknown rule during the fixed four-round verification process. Use CONTEXT exactly once.\n\nRequired output schema: {\"expression\":\"<OPTION_ID>\"}\n",
+            "task_id": "CANARY-41C0ED7AD891D4CC"
+          }
+        },
+        "condition_order": [
+          "context_b",
+          "context_a"
+        ],
+        "motif_stratum": "pairwise_variable",
+        "opaque_option_ids": [
+          "Q072764A5",
+          "Q2B1A7878",
+          "Q17A7D041",
+          "Q92CAA6BB",
+          "QB9E9BA3D",
+          "Q8788E18B",
+          "QB4319485",
+          "QD83FAF04",
+          "QFF31F835",
+          "Q8F4AA452"
+        ],
+        "pair_anchor_sha256": "dc478a5991a62a3fdacab52a35a0720a7e0e0db2dc73463820d5572ae2cc3128",
+        "pair_ordinal": 3,
+        "target_free_context_sha256": "def93c85fc2f2908a83eaa6bed8a2f7ff617e2759b6e3e08853015d8c94ee137",
+        "target_free_world_seed": 9103
+      }
+    ],
+    "phase_arm_counts": {
+      "1": {
+        "context_a": 2,
+        "context_b": 2
+      },
+      "2": {
+        "context_a": 2,
+        "context_b": 2
+      }
+    },
+    "private_key_read": false,
+    "prompt_set_sha256": "9a2efe1326309a0c49ac44f813161601c29a5b62bfc02b9169ab3976462267f7",
+    "provider_calls_made": 0,
+    "schedule": [
+      {
+        "arm": "context_a",
+        "call_index": 0,
+        "pair_ordinal": 0,
+        "phase": 1,
+        "prompt_sha256": "37c1f445d3972675e45b95db9a3f811c7e7d20a77949b833617af58946da199d",
+        "task_id": "CANARY-CD9D98F6897B20BD"
+      },
+      {
+        "arm": "context_b",
+        "call_index": 1,
+        "pair_ordinal": 0,
+        "phase": 2,
+        "prompt_sha256": "794d83e44b0cd0726fe241134ca8be87e79477f09cbade19919115b8b675d1f1",
+        "task_id": "CANARY-ABCE70A56DF30249"
+      },
+      {
+        "arm": "context_b",
+        "call_index": 2,
+        "pair_ordinal": 1,
+        "phase": 1,
+        "prompt_sha256": "2bfd135bf7a0f862ab23a6ed5c29e97b62a545c1fd33fda8e7b0762397be4dde",
+        "task_id": "CANARY-8A222BE2F60425F0"
+      },
+      {
+        "arm": "context_a",
+        "call_index": 3,
+        "pair_ordinal": 1,
+        "phase": 2,
+        "prompt_sha256": "218361e981bed3976f0e1761c68d1b41b2244e9faf263db684196f6dc12e07b2",
+        "task_id": "CANARY-5F0546933079DE5F"
+      },
+      {
+        "arm": "context_a",
+        "call_index": 4,
+        "pair_ordinal": 2,
+        "phase": 1,
+        "prompt_sha256": "a5a3036dfa0e1f213631a581b0dfb088a03afa03dd9d8be65e6090b4ef0fed75",
+        "task_id": "CANARY-760C3FE76C61F692"
+      },
+      {
+        "arm": "context_b",
+        "call_index": 5,
+        "pair_ordinal": 2,
+        "phase": 2,
+        "prompt_sha256": "a17dccf49f32ca3324bfec850a4ee349c8d917ac68884780300485ce1e6c23c3",
+        "task_id": "CANARY-4FE2D43D53FA6E6B"
+      },
+      {
+        "arm": "context_b",
+        "call_index": 6,
+        "pair_ordinal": 3,
+        "phase": 1,
+        "prompt_sha256": "0d9ce1df64e96c8760155515c926dd2bbef54663d5e8449d01d92885fe773601",
+        "task_id": "CANARY-41C0ED7AD891D4CC"
+      },
+      {
+        "arm": "context_a",
+        "call_index": 7,
+        "pair_ordinal": 3,
+        "phase": 2,
+        "prompt_sha256": "4f1160ba2719497ce1e7802749c8148eea4d6babaf1d56f3c27f2b683c43c6f8",
+        "task_id": "CANARY-20FF81965B7CD3EF"
+      }
+    ],
+    "schedule_sha256": "8bd723a25caf8ed61d22399f81c9976d09fda037670da74e60dd0aa86c6bed8f",
+    "target_drawn_or_derived": false,
+    "task_count": 8
+  }
+}
