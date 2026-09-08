@@ -1,4 +1,4 @@
-# Spark-to-Knowledge 研究交接（更新至2026-08-28）
+# Spark-to-Knowledge 研究交接（更新至2026-09-08）
 
 ## 当前状态
 
@@ -6,12 +6,12 @@
 - Opportunity creation / utilization construction feasibility 已完成：strict unique-action tier 在当前 cap 下最高为四 strata 各 `q=6`、共24 worlds，冻结 fallback 为 `q=4/n=16`；degraded disjoint-two-choice tier 可达 `q=8/n=32`。
 - 历史三route与新的单primary-route Opportunity utilization prospective power均已完成并分别封存。它们仍是纯离线 operating-characteristic calculations，不是模型实验，也没有观察 utilization。
 - 2026-08-27的当前优先策略保留strict unique-action q6/n24，并把`deepseek-pro`事前固定为唯一`preregistered_prospective_primary` response route。新formal result已确认：在同一冻结SESOI下，单primary `alpha=1/20`时q6/n24 exact power为`0.9179412677578405`，通过`0.90` gate；q4/n16为`0.7400839271090688`，不通过。旧protocol的source/config/plan/result均保持immutable，不覆盖、不重生、不改写历史标签。
-- 本benchmark construction阶段没有读取967MB private feasibility result或本benchmark model outputs，没有发起本benchmark provider/model call，也没有mint新的public/private benchmark；这不是对更早历史实验调用的全局陈述。
-- 人类已在任何benchmark mint/live call/model output之前决定复用feasibility-v2 development worlds，并冻结benchmark config v2：`configs/spark-strong-k4-utilization-primary-benchmark-v2.json`（file SHA `a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135`）。v2在live前显式supersede v1；v1及既有artifacts保持immutable historical records。world层永久为`outcome_conditioned_development_only`，response层为`preregistered_prospective_primary`，不称independent held-out confirmation。v2 config、离线构造器与正式target-free construction plan已封存；尚未生成public/private/result，未读取本benchmark model outputs，本benchmark `provider_calls_made=0`。
+- 正式construction plan阶段没有读取967MB private feasibility result、private shards或本benchmark model outputs，也没有发起provider/model call。2026-09-08正式construct只按safe manifest逐一读取并验证128个private shards，没有读取967MB monolithic result、模型输出或provider credentials；本benchmark `provider_calls_made=0`。这不是对更早历史实验调用的全局陈述。
+- 人类已在任何benchmark mint/live call/model output之前决定复用feasibility-v2 development worlds，并冻结benchmark config v2：`configs/spark-strong-k4-utilization-primary-benchmark-v2.json`（file SHA `a49cc90f8a73ce85a0ad17e7a7a8ca28b4b4172270a5267347de84696a3f3135`）。v2在live前显式supersede v1；v1及既有artifacts保持immutable historical records。world层永久为`outcome_conditioned_development_only`，response层为`preregistered_prospective_primary`，不称independent held-out confirmation。v2 config、离线构造器、正式target-free construction plan及formal public/private/result现均已生成并通过双路只读验证；构造完成仍不授权provider calls。
 - 2026-08-28构造器候选源码已完成：target-free plan、reviewed semantic/file双hash屏障、128-shard逐文件hash+schema验证、fresh strict q6 matching、target-free parent/context replay、24-world/48-task masking、public/private/result交叉绑定和关键tamper tests均已实现。source commit `418ed197aead375323c2b5766a21ed207037fefe`曾通过17项新config/builder focused tests、66项相关回归、516项全仓tests、compileall与diff check；这些是下述lineage修正前结果，不能替代新source freeze的复核。
 - 第一份基于`418ed197aead375323c2b5766a21ed207037fefe`生成的候选construction plan虽通过内容/provenance只读审计，但在提交前发现旧validator会把plan artifact自身的后续commit误判为Git head漂移。该候选状态为`retired_nonformal_precommit_candidate`：`formal_artifact=false`、`construct_authorized=false`、`hash_reuse_forbidden=true`；它从未提交或push（canonical SHA `a03176153590ce3853254665e831f52ef03f15c0463703fccd28ef9cf8e82dab`，file SHA `0f7de95c02319b9fb93d1baf732dabf45a8d78ec88525c76201b6bb1927c9e3f`），不得恢复到正式默认`plan.json`路径。lineage现已改为“source manifest不变 + frozen commit为HEAD祖先 + 固定protocol pathspec无diff/dirty”；两路只读复审均PASS，真实Git测试覆盖非协议descendant commit通过与tracked协议文件删除被拒绝，focused 21/21、相关回归72/72、全仓518/518、compileall与diff check均PASS。提交新的source freeze后，须生成hash全新的正式plan。
 - 新source freeze commit为`06db9dae69e961570181e1de43d26b0ee8305a28`，source manifest为`f101b9e646899c413976b38ac69a84c736642fc68935eaefb4bd390f67bfebfe`。由此生成的新正式plan位于`artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/plan.json`，canonical SHA为`2e0750569083c5dc00615c29678521a58d4975220b2f86535138291112307f31`，file SHA为`53403b4685d6d3b4046b39b4af5f2e5d8c13075e7628f2489b182fb439d772f6`，plan commit为`34f048ad7b5c1f9a1680719f60f28d8a7b35c906`。两路新的provenance/schedule审计均PASS；plan只含24个target-free schedule slots，`private_shards_read=false`、`target_or_pair_identity_read=false`、`model_outputs_read=false`、`provider_calls_made=0`、`final_benchmark_minted=false`。plan提交使HEAD前移后，正式validator仍在相同source manifest与祖先lineage下PASS，证明lifecycle修正按设计工作。
-- feasibility-v2的128个private shards曾在生成设备上完成元数据/存在性/大小/0600审计；当前设备只保有tracked plan与safe manifest，实际shard文件为0/128。因此现在可冻结并复核construction plan，但在从原设备安全转移exact shards并按manifest逐个验证前，不能构造或mint q6 benchmark。
+- 先前“当前设备0/128 shards”的记录在2026-09-08复核时已过时；本设备实际存在safe manifest绑定的128/128 exact private shards，总大小967,864,320B且mode均为0600。正式construct已逐一完成path/range/size/raw SHA/inner SHA/schema验证并mint q6 benchmark；shards和private scoring key继续只留本机且被Git忽略。
 
 ## 当前正式power结论（strict 单primary route）
 
@@ -88,13 +88,30 @@ primary rejection将来最多表示`deepseek-pro`在所选finite-DSL strict chal
 
 public只允许固定顶层字段和48条`task_id/rendered_prompt/prompt_sha256`记录；private按world seed重新构造target-free D0/parent/old subtrees并与shard parent hash和prompt逐项核对；result的selected indices/stratum counts从private pairs重算。所有构造产物仍为`evidence=false`，world/response标签分别为`outcome_conditioned_development_only`与`preregistered_prospective_primary`，passing construction不授权provider calls。
 
+## 2026-09-08 benchmark v2正式离线构造
+
+在当前`main`与clean protocol source下，正式construct使用已审核plan canonical SHA `2e0750569083c5dc00615c29678521a58d4975220b2f86535138291112307f31`和plan file SHA `53403b4685d6d3b4046b39b4af5f2e5d8c13075e7628f2489b182fb439d772f6`通过双hash屏障，随后顺序验证safe manifest绑定的128个shard。验证覆盖1024 worlds和967,864,320B；全部path/range/size/raw SHA/inner SHA/schema检查通过。fresh strict matcher报告57个strict pair candidates，并按冻结schedule选择24个互异development worlds：`affine_commutative`、`affine_directional`、`affine_multiplicative`、`pairwise_variable`各6个，形成24 pairs / 48 tasks。
+
+正式产物位于`artifacts/spark-strong-k4-utilization-primary-benchmark-v2-20260827/`：
+
+- `public.json`：file SHA `15685ceb9502caec31589fa241ebb6c94daf59f3e1814f7054c1ebdbdb19c07f`；canonical manifest SHA `b154f959e2cf5df19070705dd0645d3bbab163784926a6f364e38428b02170cb`。
+- `private.json`：file SHA `bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a`；canonical key SHA `dde7328e7183de273dfb1e68d066c846da9038cf89efcbba9e062c491995c495`。它含评分与world绑定，只在本机以mode 0600保存，被Git忽略，绝不能force-add。
+- `result.json`：file SHA `e424369b5db2a2051315440a2d66fed504a37b32d4ef80bdc8166df4689d7845`；canonical result SHA `7003e1b954f70519f724d8022fc428ae3e106d61bd41fd0a14303715132cdbd3`。
+- public/private共同绑定的private design commitment为`b6ee5ff26eb36ecaf19e1d8a17e53ab24b29b423b12ee7943ed888ea92c49adc`。
+- safe `public.json`与`result.json`已由commit `86a89af4602eb824827962d0aef27f2567b0d0f3`单独封存；`private.json`不在该commit或Git index中。
+
+内置validator与独立`luna_worker`均复核PASS：public恰有48个唯一task，private恰有24个pair且与public形成exact 48-task bijection，四strata各6，每pair两臂correct action互异且K2 opportunity count均为1，三文件hash/provenance/cross-binding一致。public/result未包含target、world seed、correct action、motif、arm label、private option mapping或scoring key；result按冻结contract公开24个selected candidate indices作为development provenance摘要，但不公开答案。focused unittest 8/8与`git diff --check`通过。
+
+本步骤只完成匿名试卷构造，不是模型实验。`result.json`明确记录`evidence=false`、`independent_heldout_confirmation=false`、`model_outputs_read=false`、`provider_calls_made=0`、`provider_calls_authorized=false`。它支持“冻结benchmark已按协议可复现地构造完成”，不支持Opportunity utilization、模型能力、entropy因果或现实世界发现结论。
+
 ## 当前恢复点
 
-当前不要直接调用模型。复用/标签、source-lineage、source freeze与formal target-free plan均已完成；当前唯一直接构造阻塞是本设备缺少safe manifest指定的128个exact private shards。恢复顺序为：
+当前仍不要直接调用模型。benchmark construction已经完成，不再缺shards；下一阶段是逐项实现、验证并封存live前屏障：
 
-1. 确认`main`至少包含source freeze `06db9dae69e961570181e1de43d26b0ee8305a28`和plan commit `34f048ad7b5c1f9a1680719f60f28d8a7b35c906`；不要重生plan，也不得复用已退役候选hash。
-2. 从原设备恢复safe manifest指定的128个exact private shards；reviewed plan通过后逐shard验证，只抽取compact strict eligibility，并按v2冻结的`deterministic_tier_matching(target=6,fallback=6)`选择四strata各6个world。不能从q4 cohort直接追加，也不能按route/输出/人工吸引力选pair。
-3. 在config契约下另行封存public.json、private.json与result.json（exact 48-task bijection、public/private交叉绑定、0600、exclusive create、全部128 shards校验后才允许mint），并落实target-free route canary、joint-exchangeability canary与justification、response/failure contract、exploratory route决议及analysis hash bindings。
-4. 上述全部通过后才允许48次`deepseek-pro` primary calls。
+1. 为新的target-free prompt和冻结`deepseek-pro` route建立canary，确认请求路由与输出格式可用，但不得读取private key作适配或调题。
+2. 封存joint arm-exchangeability justification与canary；若交换性不可辩护，当前exact sign-test primary gate不能使用。
+3. 封存response contract与failure policy，包括received-invalid、transport failure、解析和重试规则。
+4. 在看到primary输出前封存是否运行`deepseek-flash`/`glm-5.2` exploratory replication；它们不得替代或与primary池化。
+5. 封存analysis contract，并精确绑定上述public/private file hashes；只有五项全部验证通过后，才允许48次`deepseek-pro` primary task calls。
 
-旧power result和degraded候选继续作为历史敏感性结果保留，但不再是当前优先live路线。模型/API凭据只在新的masked benchmark、route identity和canaries全部事前封存之后才需要。
+不要修改或重生现有config、source、formal plan、public/private/result；修改`source_manifest`范围内文件会使当前plan失效。旧power result和degraded候选继续只作为历史敏感性结果保留。换设备继续时，Git只能恢复public/result；必须另行安全转移exact `private.json`（以及需要重验时的128 shards），恢复后重新设为mode 0600并核对上述file SHA。
