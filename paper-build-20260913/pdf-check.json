@@ -1,0 +1,98 @@
+[
+  {
+    "file": "paper-manuscript-en-20260913.pdf",
+    "pages": 8,
+    "page_checks": [
+      {
+        "page": 1,
+        "word_count": 602,
+        "first_text": "Context-Guided Exploration in Finite Rule Tasks: Entry\nSelection, Rule Revision, and Predictive Limi",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 2,
+        "word_count": 651,
+        "first_text": "of synthesized hidden laws, and separates predictive fit from scientific validity. Our enumerable\nlo",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 3,
+        "word_count": 589,
+        "first_text": "Source\nSelection and use\nDependence\nOriginal 1024-world pool\n24 worlds, six per context stratum;\n48 ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 4,
+        "word_count": 658,
+        "first_text": "2.5 New evidence and single-response rule generation\nEach of the same nine targets receives three se",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 5,
+        "word_count": 477,
+        "first_text": "saved and two remained missing after the two-retry allowance. Fixed root-predicate expansion\nwas the",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 6,
+        "word_count": 608,
+        "first_text": "Experiment and condition Main observation\nAdditional observation\nReference: aligned\nOwn 8/18\nCross 3",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 7,
+        "word_count": 562,
+        "first_text": "constants; random-query counterparts score 71.22% and 77.08%. The model does not establish\nan advant",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 8,
+        "word_count": 240,
+        "first_text": "References\n\u2022 Wang, R., Zelikman, E., Poesia, G., Pu, Y., Haber, N., & Goodman, N. D. (2024). Hypothe",
+        "out_of_page_words": 0
+      }
+    ]
+  },
+  {
+    "file": "paper-supplement-en-20260913.pdf",
+    "pages": 6,
+    "page_checks": [
+      {
+        "page": 1,
+        "word_count": 691,
+        "first_text": "Supplementary Material: Context-Guided Exploration and\nRule Revision (2026-09-13)\nNeutral preprint l",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 2,
+        "word_count": 337,
+        "first_text": "baselines.\nStrategy ID or diagnostic\nown /48\ncross /48\ncomplete /24\nfixed-semantic-00\n14\n14\n0\nfixed-",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 3,
+        "word_count": 587,
+        "first_text": "After the new observation, the remaining candidate counts were 189, 187, 161, 184, 86, 171, 89,\n85, ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 4,
+        "word_count": 549,
+        "first_text": "ing pair statistics follow these frozen files and are not manually reconstructed in this supplement.",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 5,
+        "word_count": 599,
+        "first_text": "67.58/65.36/49.87% for repeat.\nActive minus random final accuracy is \u22127.94 percentage\npoints (2 wins",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 6,
+        "word_count": 367,
+        "first_text": "and request records.\nRun\nSaved stages /\nphysical\nattempts\nKnown input\ntokens\nKnown output\ntokens\nFir",
+        "out_of_page_words": 0
+      }
+    ]
+  }
+]

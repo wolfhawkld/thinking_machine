@@ -1,0 +1,568 @@
+{
+  "kind": "glm53_descriptive_cross_model_analysis",
+  "evidence_scope": "exploratory_cross_model_with_disclosed_single_missing_response_retry",
+  "new_inferential_tests": false,
+  "independent_world_count": 24,
+  "world_sampling": "fixed_outcome_conditioned_development_cohort_not_natural_or_heldout_sample",
+  "source_file_sha256": "6c73bff727fe45a1eb9ca22a24b069a3193a9e8f9f9f73a74b6c2ef29b9dcbc4",
+  "generation_file_sha256": "d575cc0f411d16f45a9a41100bf5c423e09853347d9df4a1aee5753ac84d1a4b",
+  "plan_file_sha256": "40c892a7e3ce69fe5b8a70d5418167caf2c318a377aca5dce79ef5e2b14f4fa7",
+  "private_key_file_sha256": "bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a",
+  "metrics": {
+    "own": 38,
+    "cross": 1,
+    "complete_switch": 15,
+    "favorable": 22,
+    "adverse": 0,
+    "tie": 2
+  },
+  "totals": {
+    "favorable": 22,
+    "adverse": 0,
+    "tie": 2,
+    "received_invalid_world": 0,
+    "complete_switch": 15,
+    "signed_total": 37
+  },
+  "strata": {
+    "affine_commutative": {
+      "world_count": 6,
+      "favorable": 6,
+      "adverse": 0,
+      "tie": 0,
+      "received_invalid_world": 0,
+      "complete_switch": 5,
+      "signed_total": 11
+    },
+    "affine_directional": {
+      "world_count": 6,
+      "favorable": 5,
+      "adverse": 0,
+      "tie": 1,
+      "received_invalid_world": 0,
+      "complete_switch": 4,
+      "signed_total": 9
+    },
+    "affine_multiplicative": {
+      "world_count": 6,
+      "favorable": 5,
+      "adverse": 0,
+      "tie": 1,
+      "received_invalid_world": 0,
+      "complete_switch": 2,
+      "signed_total": 7
+    },
+    "pairwise_variable": {
+      "world_count": 6,
+      "favorable": 6,
+      "adverse": 0,
+      "tie": 0,
+      "received_invalid_world": 0,
+      "complete_switch": 4,
+      "signed_total": 10
+    }
+  },
+  "valid_calls": 48,
+  "truncated_calls": 0,
+  "reasoning_present_calls": 48,
+  "known_response_usage": {
+    "input_tokens": 32138,
+    "output_tokens": 1039407
+  },
+  "usage_complete": false,
+  "known_task_physical_attempts": 49,
+  "retained_prior_response_count": 47,
+  "deepseek_comparisons": {
+    "disabled": {
+      "own": 5,
+      "cross": 6,
+      "complete_switch": 0,
+      "favorable": 0,
+      "adverse": 1,
+      "tie": 23,
+      "glm_complete_switch_comparison": {
+        "glm_only": 15,
+        "comparator_only": 0,
+        "both": 0,
+        "neither": 9
+      },
+      "source_file_sha256": "e74e486b43fd25cc9464608c0a5b02d68b937ca18a529edb8a161c5be600f7dd"
+    },
+    "thinking": {
+      "own": 34,
+      "cross": 1,
+      "complete_switch": 11,
+      "favorable": 22,
+      "adverse": 0,
+      "tie": 2,
+      "glm_complete_switch_comparison": {
+        "glm_only": 6,
+        "comparator_only": 2,
+        "both": 9,
+        "neither": 7
+      },
+      "source_file_sha256": "9cdadefbd7df1df2c9ba5871937b4a222cac2817af4bddcdf0a5e05925a7eab2"
+    }
+  },
+  "all_24_frozen_policies": {
+    "kind": "utilization-descriptive-supplement",
+    "new_inferential_tests": false,
+    "world_layer": "outcome_conditioned_development_only",
+    "world_denominator": 24,
+    "call_denominator": 48,
+    "model_results_available": true,
+    "provider_calls_made_by_supplement": 0,
+    "policies": [
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-00",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 14,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-01",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 0,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-02",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 0,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-03",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 2,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-04",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 12,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-05",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 12,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-06",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 0,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-07",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 0,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-08",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 1,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-semantic-09",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 7,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-00",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 4,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-01",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 4,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-02",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 7,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-03",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 9,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-04",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 3,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-05",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 7,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-06",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 2,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-07",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 6,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-08",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 5,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 0,
+        "policy_id": "fixed-display-position-09",
+        "signed_total": 0,
+        "tie_world_count": 24,
+        "own_context_hit_count": 1,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 1,
+        "complete_switch_world_count": 2,
+        "favorable_world_count": 6,
+        "policy_id": "first-public-K1-else-first-displayed",
+        "signed_total": 7,
+        "tie_world_count": 17,
+        "own_context_hit_count": 9,
+        "paired_complete_switch_comparison": {
+          "model_only": 13,
+          "policy_only": 0,
+          "both": 2,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 13
+      },
+      {
+        "adverse_world_count": 2,
+        "complete_switch_world_count": 2,
+        "favorable_world_count": 16,
+        "policy_id": "public-k1-min-node-hash",
+        "signed_total": 16,
+        "tie_world_count": 6,
+        "own_context_hit_count": 22,
+        "paired_complete_switch_comparison": {
+          "model_only": 13,
+          "policy_only": 0,
+          "both": 2,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 13
+      },
+      {
+        "adverse_world_count": 9,
+        "complete_switch_world_count": 0,
+        "favorable_world_count": 4,
+        "policy_id": "public-k1-min-positive-node-hash",
+        "signed_total": -6,
+        "tie_world_count": 11,
+        "own_context_hit_count": 4,
+        "paired_complete_switch_comparison": {
+          "model_only": 15,
+          "policy_only": 0,
+          "both": 0,
+          "neither": 9
+        },
+        "model_minus_policy_complete_switch_count": 15
+      },
+      {
+        "adverse_world_count": 0,
+        "complete_switch_world_count": 8,
+        "favorable_world_count": 19,
+        "policy_id": "public-k1-max-parent-novelty-node-hash",
+        "signed_total": 27,
+        "tie_world_count": 5,
+        "own_context_hit_count": 29,
+        "paired_complete_switch_comparison": {
+          "model_only": 8,
+          "policy_only": 1,
+          "both": 7,
+          "neither": 8
+        },
+        "model_minus_policy_complete_switch_count": 7
+      }
+    ],
+    "model": {
+      "complete_switch_count": 15,
+      "paired_valid_own_hit_count": 38,
+      "invalid_world_count": 0,
+      "strata": {
+        "affine_commutative": {
+          "world_count": 6,
+          "complete_switch": 5,
+          "paired_valid_own_hits": 11,
+          "invalid_worlds": 0
+        },
+        "affine_directional": {
+          "world_count": 6,
+          "complete_switch": 4,
+          "paired_valid_own_hits": 10,
+          "invalid_worlds": 0
+        },
+        "affine_multiplicative": {
+          "world_count": 6,
+          "complete_switch": 2,
+          "paired_valid_own_hits": 7,
+          "invalid_worlds": 0
+        },
+        "pairwise_variable": {
+          "world_count": 6,
+          "complete_switch": 4,
+          "paired_valid_own_hits": 10,
+          "invalid_worlds": 0
+        }
+      }
+    },
+    "own_hit_definition": "same as frozen scorer: either arm invalid makes both own-hit indicators zero; not per-call validity accuracy"
+  },
+  "separately_labelled_nonconstant_diagnostics": {
+    "novelty": {
+      "own": 33,
+      "cross": 1,
+      "complete_switch": 11,
+      "favorable": 21,
+      "adverse": 0,
+      "tie": 3,
+      "glm_complete_switch_comparison": {
+        "glm_only": 5,
+        "comparator_only": 1,
+        "both": 10,
+        "neither": 8
+      },
+      "same_action_calls": 37,
+      "origin": "posthoc_DeepSeek_diagnostic_specified_before_GLM_outputs"
+    },
+    "minnode": {
+      "own": 31,
+      "cross": 2,
+      "complete_switch": 8,
+      "favorable": 22,
+      "adverse": 1,
+      "tie": 1,
+      "glm_complete_switch_comparison": {
+        "glm_only": 8,
+        "comparator_only": 1,
+        "both": 7,
+        "neither": 8
+      },
+      "same_action_calls": 34,
+      "origin": "posthoc_DeepSeek_diagnostic_specified_before_GLM_outputs"
+    }
+  }
+}

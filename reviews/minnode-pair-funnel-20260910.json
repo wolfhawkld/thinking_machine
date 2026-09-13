@@ -1,0 +1,28 @@
+{
+  "conditions_removed_only_for_diagnostic_not_new_benchmark": true,
+  "context_and_pair_counts": {
+    "all_except_different_correct_action": 29,
+    "all_except_equal_K2": 12,
+    "all_except_same_stratum_complexity_distinct_behavior": 19,
+    "different_correct_action_alone_pairs": 46,
+    "equal_K2_alone_pairs": 78,
+    "same_stratum_complexity_distinct_behavior_alone_pairs": 59,
+    "single_eligible_context_combinations": 162,
+    "strict_pairs": 5,
+    "unique_nonconstant_no_constant_contexts": 56
+  },
+  "kind": "pair_condition_census_existing_labels",
+  "new_targets_drawn": 0,
+  "oracle_runs": 0,
+  "original_strict_pair_counts_reproduced_for_all_128_worlds": true,
+  "provider_calls": 0,
+  "source_sha256": "e6ed37ae8c1ba287b8b5eb53ea705cb7cbc881ceddda5b993ea738a0790311a5",
+  "state_sha256": "e8249f059fab85862d7f55e3fc536a7b1dd59fcbf47590988d791f3c8d4c8728",
+  "world_counts": {
+    "all_except_different_correct_action": 9,
+    "all_except_equal_K2": 4,
+    "all_except_same_stratum_complexity_distinct_behavior": 3,
+    "has_eligible_single_context": 15,
+    "strict_pairs": 2
+  }
+}

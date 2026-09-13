@@ -1,0 +1,67 @@
+{
+  "context_counts_are_not_independent_world_counts": true,
+  "interpretation": "Conditional descriptive comparison, not causal identification of node-count bias.",
+  "kind": "minnode_structural_diagnostic_existing_data_only",
+  "model_outputs_read": false,
+  "new128_pre_pair_nonconstant_K4_contexts": {
+    "contexts": 113,
+    "correct_actions": 182,
+    "minnode_hits": 50,
+    "nc_minnode_hits": 65,
+    "nc_novelty_hits": 59,
+    "only_one_nonconstant_candidate": 17,
+    "unique_correct_above_nc_minimum": 19,
+    "unique_correct_contexts": 57,
+    "unique_correct_sole_nc_minimum": 28,
+    "unique_correct_tied_nc_minimum": 10
+  },
+  "new128_unique_contexts_participating_in_strict_pairs": {
+    "contexts": 7,
+    "correct_actions": 7,
+    "minnode_hits": 7,
+    "nc_minnode_hits": 7,
+    "nc_novelty_hits": 5,
+    "only_one_nonconstant_candidate": 4,
+    "unique_correct_above_nc_minimum": 0,
+    "unique_correct_contexts": 7,
+    "unique_correct_sole_nc_minimum": 7,
+    "unique_correct_tied_nc_minimum": 0
+  },
+  "new128_world_counts": {
+    "minnode_fails_on_some_K4_context_worlds": 18,
+    "nc_minnode_fails_on_some_K4_context_worlds": 16,
+    "nc_novelty_fails_on_some_K4_context_worlds": 15,
+    "worlds_with_any_nonconstant_K4": 22
+  },
+  "new_scan_summary_sha256": "ef1dc3447bcddce3b5eeb9bdf43c66dcfb8a35057e84244256ffc664a39f2692",
+  "new_targets_drawn": 0,
+  "new_worlds_scanned": 0,
+  "old_selected24": {
+    "contexts": {
+      "contexts": 48,
+      "correct_actions": 48,
+      "minnode_hits": 22,
+      "nc_minnode_hits": 31,
+      "nc_novelty_hits": 33,
+      "only_one_nonconstant_candidate": 13,
+      "unique_correct_above_nc_minimum": 5,
+      "unique_correct_contexts": 48,
+      "unique_correct_sole_nc_minimum": 28,
+      "unique_correct_tied_nc_minimum": 15
+    },
+    "paired_worlds": {
+      "both_nc_policies_fail_on_same_arm_worlds": 13,
+      "minnode_complete": 2,
+      "nc_minnode_complete": 8,
+      "nc_novelty_complete": 11,
+      "worlds": 24
+    },
+    "private_source_sha256": "bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a"
+  },
+  "oracle_runs": 0,
+  "provider_calls": 0,
+  "public_replay": {
+    "contexts_public_features_replayed": 113
+  },
+  "source_sha256": "3f34efe0cc86ffe37012411045dd1a0d50d4d264534bc88d1b740ff3de036790"
+}

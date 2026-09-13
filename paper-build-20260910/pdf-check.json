@@ -1,0 +1,80 @@
+[
+  {
+    "file": "paper-manuscript-en-20260910.pdf",
+    "pages": 7,
+    "page_checks": [
+      {
+        "page": 1,
+        "word_count": 601,
+        "first_text": "Context-Dependent Entry-Action Selection by LLMs in Finite\nRule Tasks: A Small Controlled Study\nNeut",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 2,
+        "word_count": 633,
+        "first_text": "ification do not by themselves make it a complete scientific-discovery evaluation. Majumder et\nal., ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 3,
+        "word_count": 633,
+        "first_text": "Source\nSelection and use\nDependence\nOriginal 1024-world pool\n24 worlds, six per context stratum;\n48 ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 4,
+        "word_count": 590,
+        "first_text": "tie-breaking, before reading that query\u2019s target label. The repeated point is chosen from D0 by a\nfi",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 5,
+        "word_count": 584,
+        "first_text": "hort. Parent identification rises from 0/24 to 19/24, while the correct children succeed in 48/48\nar",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 6,
+        "word_count": 344,
+        "first_text": "fective sampling, actual output, and time are not all controlled. The cap comparison narrows a\ndirec",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 7,
+        "word_count": 240,
+        "first_text": "References\n\u2022 Wang, R., Zelikman, E., Poesia, G., Pu, Y., Haber, N., & Goodman, N. D. (2024). Hypothe",
+        "out_of_page_words": 0
+      }
+    ]
+  },
+  {
+    "file": "paper-supplement-en-20260910.pdf",
+    "pages": 4,
+    "page_checks": [
+      {
+        "page": 1,
+        "word_count": 692,
+        "first_text": "Supplementary Material: Context-Dependent Entry Selection\nin Finite-Rule Tasks (2026-09-10)\nNeutral ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 2,
+        "word_count": 337,
+        "first_text": "baselines.\nStrategy ID or diagnostic\nown /48\ncross /48\ncomplete /24\nfixed-semantic-00\n14\n14\n0\nfixed-",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 3,
+        "word_count": 583,
+        "first_text": "After the new observation, the remaining candidate counts were 189, 187, 161, 184, 86, 171, 89,\n85, ",
+        "out_of_page_words": 0
+      },
+      {
+        "page": 4,
+        "word_count": 103,
+        "first_text": "Historical reports\u2019 \u201cnot executed later\u201d statements reflect their earlier status only; the current\nt",
+        "out_of_page_words": 0
+      }
+    ]
+  }
+]

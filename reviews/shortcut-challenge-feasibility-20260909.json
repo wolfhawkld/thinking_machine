@@ -1,0 +1,41 @@
+{
+  "kind": "unused_development_shortcut_challenge_feasibility",
+  "provider_calls": 0,
+  "model_outputs_read": false,
+  "new_worlds_generated": false,
+  "benchmark_minted": false,
+  "source_sha256": "14709981856ae6e8b25868f70fc53593c980ee5ecb0a021d38484d6068a2040f",
+  "old_worlds_excluded": 24,
+  "public_feature_contexts_replayed": 0,
+  "shard_validation": {
+    "validated_shard_count": 128,
+    "validated_world_count": 1024,
+    "validated_total_size_bytes": 967864320,
+    "shard_files_manifest_sha256": "d12005ff193143d3d6e510ff4350dd06a56f83dca2c7440e8fb60c5c38676dac",
+    "strict_eligible_world_count": 24,
+    "strict_pair_candidate_count": 57,
+    "all_shards_hash_and_schema_validated": true
+  },
+  "all_strict": {
+    "unique_worlds": 24,
+    "pair_candidates": 57,
+    "worlds_eligible_per_stratum_nonadditive": {
+      "affine_commutative": 12,
+      "affine_directional": 11,
+      "affine_multiplicative": 6,
+      "pairwise_variable": 6
+    },
+    "maximum_balanced_worlds": 24
+  },
+  "challenge_pools": {
+    "unused_strict": {"unique_worlds": 0, "pair_candidates": 0, "worlds_eligible_per_stratum_nonadditive": {}, "maximum_balanced_worlds": 0},
+    "wrong_either": {"unique_worlds": 0, "pair_candidates": 0, "worlds_eligible_per_stratum_nonadditive": {}, "maximum_balanced_worlds": 0},
+    "wrong_both": {"unique_worlds": 0, "pair_candidates": 0, "worlds_eligible_per_stratum_nonadditive": {}, "maximum_balanced_worlds": 0},
+    "strict_novelty_decoy_both": {"unique_worlds": 0, "pair_candidates": 0, "worlds_eligible_per_stratum_nonadditive": {}, "maximum_balanced_worlds": 0},
+    "novelty_node_tie_both": {"unique_worlds": 0, "pair_candidates": 0, "worlds_eligible_per_stratum_nonadditive": {}, "maximum_balanced_worlds": 0}
+  },
+  "scope": "Existing 1024 development candidates only; target-conditioned challenge selection, not heldout generalization.",
+  "tie_definition": "Correct action shares novelty and node count with a wrong supported nonconstant action; hash and other features need not match.",
+  "categories_overlap": true,
+  "new_inferential_tests": false
+}

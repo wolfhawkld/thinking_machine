@@ -9,6 +9,11 @@ htmlcov/
 venv/
 .env
 .env.*
+# Local credentials must never enter a paper/reproduction commit.
+*.key
+*.pem
+*.p12
+*.pfx
 artifacts/*
 !artifacts/.gitkeep
 logs/

@@ -1,0 +1,44 @@
+{
+  "kind": "historical-replay-diagnosis-only",
+  "provider_calls_made": 0,
+  "original_validator_error": "historical closure replay differs from its sealed analysis",
+  "sealed_files_sha256": {
+    "plan": "da752186bbed8208f1be7e441730ae9082059d65c8967aa7c7bab458743412c1",
+    "generation": "31dcdf9b9ffce8ae6fe75fef2ff15ccbad4bf97d7f64cd964e94d9bde7619ae4",
+    "analysis": "14dc6b9406a7265703f787b008fa62268aa3fbc6d76a0e077b5e8b733489c749"
+  },
+  "sealed_analysis_sha256": "b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691",
+  "replayed_analysis_sha256": "ce7d3c1a52f275c26a291ffedf48c708f91691f394d9820ded2ec59ad1e8d539",
+  "differences": [
+    {
+      "path": "/analysis_sha256",
+      "sealed": "b9f672c0d7bc117fdee71c701bc5e8fbc37741ec49ddd0139378bb5c76b6d691",
+      "replayed": "ce7d3c1a52f275c26a291ffedf48c708f91691f394d9820ded2ec59ad1e8d539"
+    },
+    {
+      "path": "/layered_endpoints/terminal_N_T_differences_descriptive_only/log2_replacement_1_over_child/mean",
+      "sealed": 0.5006017384118495,
+      "replayed": 0.5006017384118496
+    },
+    {
+      "path": "/layered_endpoints/terminal_N_T_differences_descriptive_only/log2_replacement_1_over_child/sum",
+      "sealed": 16.019255629179185,
+      "replayed": 16.019255629179188
+    },
+    {
+      "path": "/layered_endpoints/world_rates/D/clopper_pearson_95/lower",
+      "sealed": 0.1374569032955017,
+      "replayed": 0.1374569032955016
+    },
+    {
+      "path": "/layered_endpoints/world_rates/L/clopper_pearson_95/lower",
+      "sealed": 0.49992241836783025,
+      "replayed": 0.49992241836783047
+    },
+    {
+      "path": "/layered_endpoints/world_rates/M/clopper_pearson_95/lower",
+      "sealed": 0.31887496423416406,
+      "replayed": 0.31887496423416384
+    }
+  ]
+}

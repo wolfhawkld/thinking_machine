@@ -1,0 +1,26 @@
+{
+  "manifest_files_verified": 5,
+  "exact_prompts_verified": 287,
+  "stage_scores_and_consistency_verified": 108,
+  "mean_accuracy_percent": {
+    "active": [
+      71.35416666666667,
+      63.541666666666664,
+      65.10416666666667
+    ],
+    "random": [
+      71.35416666666667,
+      70.57291666666667,
+      73.046875
+    ],
+    "repeat": [
+      67.578125,
+      65.36458333333333,
+      49.869791666666664
+    ]
+  },
+  "scope": "revised microloop scoring; not all-paper construction or raw-provider replay",
+  "model_calls": 0,
+  "isolation": "copied allowlist, clean environment, Python -I, same machine/interpreter",
+  "independent_machine_validation": false
+}

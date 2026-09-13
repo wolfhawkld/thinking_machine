@@ -1,0 +1,1419 @@
+{
+  "kind": "selected-development-budget-sensitivity-only",
+  "model_outputs_read": false,
+  "provider_calls_made": 0,
+  "new_K4_labels_computed": false,
+  "cohort_reselected": false,
+  "max_rounds_compared": [
+    4,
+    5
+  ],
+  "private_key_file_sha256": "bbe76032ba8d120c9eb7866cabb3643e81f619fbf91bfbed4c40237e3588f06a",
+  "source_manifest_sha256": "23a23195ef1a6bdd00a12a2880959edc2ef1db3f968f7d6c434486faf670ec69",
+  "script_sha256": "2cf60e16629f5ba014afd0dbcd85f23686ed90d66c0f77fd57acb4c9b8525990",
+  "config_file_sha256": "15a2021058900b83f6f2c306c1bd60c41dfc266f265849ecaeeb6ad465edab86",
+  "totals": {
+    "worlds": 24,
+    "parent_identified_at_4": 0,
+    "parent_identified_at_5": 19,
+    "correct_children": 48,
+    "correct_child_identified_at_4": 48,
+    "correct_child_identified_at_5": 48,
+    "supported_actions": 299,
+    "additional_K2_actions_at_5": 0
+  },
+  "pairs": [
+    {
+      "pair_ordinal": 0,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 4,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": false,
+        "N_T": 3,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 1,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 2,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 3,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 4,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 5,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 5,
+      "stratum": "affine_commutative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 9,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 6,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 7,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 8,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 7,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 9,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 3,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 10,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 11,
+      "stratum": "affine_directional",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 13,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": false,
+        "N_T": 3,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 12,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 10,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 13,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 3,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 14,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 14,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": false,
+        "N_T": 10,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 15,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 16,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 17,
+      "stratum": "affine_multiplicative",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 8,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 18,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 19,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 6,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 1,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 20,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 3,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 21,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 4,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 22,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 3,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "pair_ordinal": 23,
+      "stratum": "pairwise_variable",
+      "parent_at_4": {
+        "exact_identification": false,
+        "N_T": 2,
+        "rounds_completed": 4,
+        "truth_retained": true
+      },
+      "parent_at_5": {
+        "exact_identification": true,
+        "N_T": 1,
+        "rounds_completed": 5,
+        "truth_retained": true
+      },
+      "contexts": [
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 2,
+              "truth_retained": true
+            }
+          }
+        },
+        {
+          "K2_counts": {
+            "at_4": 1,
+            "at_5": 1
+          },
+          "original_correct_child": {
+            "at_4": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            },
+            "at_5": {
+              "exact_identification": true,
+              "N_T": 1,
+              "rounds_completed": 4,
+              "truth_retained": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
